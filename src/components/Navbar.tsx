@@ -192,7 +192,7 @@ export default function Navbar() {
               <span className="text-sm font-medium">02-2816-6666</span>
             </a>
             <a
-              href="https://line.me/ti/p/your-line-id"
+              href="https://line.me/R/ti/p/@fixmaster"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-accent-500 text-white px-4 py-2 flat-button font-medium text-sm hover:bg-accent-600 transition-colors duration-200 flex items-center space-x-2"
@@ -270,7 +270,7 @@ export default function Navbar() {
                     <span className="font-medium">02-2816-6666</span>
                   </a>
                   <a
-                    href="https://line.me/ti/p/your-line-id"
+                    href="https://line.me/R/ti/p/@fixmaster"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-3 bg-accent-500 text-white p-4 flat-button font-medium hover:bg-accent-600 active:bg-accent-700 transition-colors duration-200"

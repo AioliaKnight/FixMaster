@@ -195,7 +195,7 @@ export default function FAQSection() {
                 直接撥打電話
               </a>
               <a 
-                href="https://line.me/ti/p/your-line-id" 
+                href="https://line.me/R/ti/p/@fixmaster" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-accent-500 text-white px-8 py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"

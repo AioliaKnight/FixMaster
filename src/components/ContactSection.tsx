@@ -127,9 +127,20 @@ export default function ContactSection() {
                 <h3 className="text-neutral-900 font-semibold mb-2">{info.title}</h3>
                 <p className="text-neutral-700 font-medium mb-1">{info.content}</p>
                 <p className="text-neutral-600 text-sm mb-4">{info.subContent}</p>
-                <button className="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 flat-button text-sm font-medium transition-colors duration-200">
-                  {info.action}
-                </button>
+                {info.actionType === 'line' ? (
+                  <a
+                    href="https://line.me/R/ti/p/@fixmaster"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 flat-button text-sm font-medium transition-colors duration-200"
+                  >
+                    {info.action}
+                  </a>
+                ) : (
+                  <button className="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 flat-button text-sm font-medium transition-colors duration-200">
+                    {info.action}
+                  </button>
+                )}
               </motion.div>
             ))}
           </div>
@@ -338,7 +349,7 @@ export default function ContactSection() {
                 立即撥打預約
               </a>
               <a 
-                href="https://line.me/ti/p/your-line-id" 
+                href="https://line.me/R/ti/p/@fixmaster" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-neutral-900 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-neutral-800 transition-colors duration-200 inline-flex items-center justify-center"
