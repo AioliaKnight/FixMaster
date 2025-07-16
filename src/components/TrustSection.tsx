@@ -1,0 +1,265 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { 
+  Award, 
+  Video, 
+  DollarSign, 
+  FileText, 
+  Shield, 
+  Clock, 
+  CheckCircle,
+  Users,
+  Trophy,
+  Star
+} from 'lucide-react'
+
+export default function TrustSection() {
+  const promises = [
+    {
+      icon: Award,
+      title: '原廠 IRP 認證技師',
+      description: '通過 Apple 官方認證的獨立維修商資格',
+      details: [
+        '官方認證技師執照',
+        '定期技術培訓更新',
+        '嚴格品質控制標準',
+        '專業維修設備工具'
+      ],
+      badge: 'Apple 認證',
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      icon: Video,
+      title: '所有維修全程錄影',
+      description: '透明化維修過程，保護您的權益',
+      details: [
+        '高清攝影完整記錄',
+        '拆裝過程清楚可見',
+        '零件更換全程錄影',
+        '可提供影片副本'
+      ],
+      badge: '透明維修',
+      color: 'from-green-500 to-green-600'
+    },
+    {
+      icon: DollarSign,
+      title: '透明價目＋現場拆裝示意',
+      description: '公開透明的收費標準，絕無隱藏費用',
+      details: [
+        '事前詳細報價說明',
+        '現場拆裝流程展示',
+        '零件來源公開透明',
+        '收費項目明細列表'
+      ],
+      badge: '價格透明',
+      color: 'from-gold-500 to-gold-600'
+    },
+    {
+      icon: FileText,
+      title: '二手機皆有檢測報告＋配件保固',
+      description: '完整的檢測報告，讓您買得安心',
+      details: [
+        '30項功能檢測',
+        '電池健康度報告',
+        '外觀狀況評級',
+        '配件齊全保固'
+      ],
+      badge: '品質保證',
+      color: 'from-purple-500 to-purple-600'
+    }
+  ]
+
+  const certifications = [
+    {
+      title: 'Apple IRP 認證',
+      description: '獨立維修商資格',
+      icon: '🍎'
+    },
+    {
+      title: '原廠零件供應',
+      description: '正品零件保證',
+      icon: '🔧'
+    },
+    {
+      title: '專業技師執照',
+      description: '經驗豐富團隊',
+      icon: '👨‍🔧'
+    },
+    {
+      title: '品質管理認證',
+      description: 'ISO 品質標準',
+      icon: '🏆'
+    }
+  ]
+
+  const statistics = [
+    {
+      number: '5000+',
+      label: '成功維修案例',
+      icon: CheckCircle
+    },
+    {
+      number: '99.8%',
+      label: '客戶滿意度',
+      icon: Star
+    },
+    {
+      number: '3年+',
+      label: '專業經驗',
+      icon: Trophy
+    },
+    {
+      number: '24/7',
+      label: '客服支援',
+      icon: Users
+    }
+  ]
+
+  return (
+    <section id="trust" className="section-padding bg-neutral-900">
+      <div className="container mx-auto container-padding">
+        <div className="max-w-6xl mx-auto">
+          {/* 區塊標題 */}
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
+              我們的安心承諾
+            </h2>
+            <p className="text-neutral-300 text-lg sm:text-xl max-w-2xl mx-auto">
+              以最高標準的專業與誠信，為您提供值得信賴的維修服務
+            </p>
+            <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
+          </motion.div>
+
+          {/* 主要承諾 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {promises.map((promise, index) => (
+              <motion.div
+                key={index}
+                className="bg-white flat-card p-6 md:p-8 hover:border-neutral-400 transition-all duration-200"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                {/* 標章 */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-16 h-16 bg-accent-500 flex items-center justify-center">
+                    <promise.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="bg-accent-500 text-white px-3 py-1 text-sm font-medium">
+                    {promise.badge}
+                  </div>
+                </div>
+
+                {/* 標題與描述 */}
+                <h3 className="text-xl font-bold text-neutral-900 mb-3">
+                  {promise.title}
+                </h3>
+                <p className="text-neutral-600 mb-6 leading-relaxed">
+                  {promise.description}
+                </p>
+
+                {/* 詳細項目 */}
+                <div className="space-y-3">
+                  {promise.details.map((detail, detailIndex) => (
+                    <div key={detailIndex} className="flex items-center">
+                      <CheckCircle className="w-4 h-4 text-neutral-900 mr-3 flex-shrink-0" />
+                      <span className="text-neutral-700 text-sm">{detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* 認證資格 */}
+          <motion.div
+            className="bg-white flat-card p-8 mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
+              專業認證與資格
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {certifications.map((cert, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="text-4xl mb-4">
+                    {cert.icon}
+                  </div>
+                  <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>
+                  <p className="text-neutral-600 text-sm">{cert.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 統計數據 */}
+          <motion.div
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            {statistics.map((stat, index) => (
+              <div key={index} className="text-center bg-white flat-card p-6">
+                <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-neutral-900 mb-2">{stat.number}</div>
+                <div className="text-neutral-600 text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* 服務承諾 */}
+          <motion.div
+            className="bg-white flat-card p-12 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6">
+              我們的服務承諾
+            </h3>
+            <p className="text-neutral-600 text-lg sm:text-xl mb-8 max-w-3xl mx-auto">
+              選擇 FixMaster 維修大師，您將享受到最專業、最透明、最安心的維修服務體驗
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+                30分鐘快速完修
+              </div>
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+                90天品質保固
+              </div>
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+                原廠零件保證
+              </div>
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+                全程透明錄影
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+} 
