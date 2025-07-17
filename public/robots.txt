@@ -1,0 +1,51 @@
+# FixMaster 維修大師 - Robots.txt
+# 台北士林 iPhone 維修專家
+
+User-agent: *
+Allow: /
+
+# 允許所有搜尋引擎爬取
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.ico
+
+# 禁止爬取的目錄
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap 位置
+Sitemap: https://fixmaster.com.tw/sitemap.xml
+
+# 爬取延遲設定
+Crawl-delay: 1
+
+# 特定搜尋引擎設定
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# 社交媒體爬蟲
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: / 
