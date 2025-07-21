@@ -22,7 +22,7 @@ Disallow: /admin/
 Disallow: /private/
 
 # Sitemap 位置
-Sitemap: https://fixmaster.com.tw/sitemap.xml
+Sitemap: https://fixmastertw.com/sitemap.xml
 
 # 爬取延遲設定
 Crawl-delay: 1
