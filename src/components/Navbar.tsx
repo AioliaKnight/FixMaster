@@ -137,15 +137,13 @@ export default function Navbar() {
           >
             <button 
               onClick={() => handleNavClick('#home')}
-              className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200"
+              className="flex items-center hover:opacity-80 transition-opacity duration-200"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-accent-500 flex items-center justify-center">
-                <span className="text-white font-bold text-lg md:text-xl">F</span>
-              </div>
-              <div>
-                <div className="text-neutral-900 font-bold text-lg md:text-xl">FixMaster</div>
-                <div className="text-neutral-600 text-xs md:text-sm">維修大師</div>
-              </div>
+              <img 
+                src="/logo.svg" 
+                alt="FixMaster 維修大師" 
+                className="h-8 md:h-10 w-auto"
+              />
             </button>
           </motion.div>
 
