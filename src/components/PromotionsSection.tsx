@@ -10,7 +10,6 @@ import {
   Zap, 
   Heart,
   ShoppingCart,
-  Calendar,
   Trophy
 } from 'lucide-react'
 
@@ -54,25 +53,25 @@ export default function PromotionsSection() {
   const flashDeals = [
     {
       title: 'iPhone 14 Pro 螢幕更換',
-      originalPrice: '$4,800',
-      salePrice: '$3,999',
-      discount: '16% OFF',
+      originalPrice: 'Apple官方 $5,490',
+      salePrice: '$4,941',
+      discount: '9折優惠',
       timeLeft: '48小時',
       icon: '📱'
     },
     {
       title: 'iPhone 13 電池更換',
-      originalPrice: '$1,800',
-      salePrice: '$1,499',
-      discount: '17% OFF',
+      originalPrice: 'Apple官方 $2,190',
+      salePrice: '$1,971',
+      discount: '9折優惠',
       timeLeft: '72小時',
       icon: '🔋'
     },
     {
       title: 'iPhone 12 全機檢測',
-      originalPrice: '$500',
-      salePrice: '$299',
-      discount: '40% OFF',
+      originalPrice: 'Apple官方 $590',
+      salePrice: '$531',
+      discount: '9折優惠',
       timeLeft: '24小時',
       icon: '🔍'
     }
@@ -99,26 +98,7 @@ export default function PromotionsSection() {
     }
   ]
 
-  const upcomingEvents = [
-    {
-      title: '學生開學季優惠',
-      date: '2024.09.01 - 2024.09.30',
-      discount: '學生證享8折',
-      icon: '🎓'
-    },
-    {
-      title: '雙十一狂歡購',
-      date: '2024.11.11',
-      discount: '全品項77折',
-      icon: '🛍️'
-    },
-    {
-      title: '年終感恩回饋',
-      date: '2024.12.01 - 2024.12.31',
-      discount: '消費滿萬送千',
-      icon: '🎊'
-    }
-  ]
+
 
   return (
     <section id="promotions" className="section-padding bg-white">
@@ -217,7 +197,7 @@ export default function PromotionsSection() {
           >
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-bold text-neutral-900">
-                限時搶購
+                限時優惠
               </h3>
               <div className="bg-accent-500 text-white px-4 py-2 text-sm font-medium animate-pulse">
                 限時優惠中
@@ -279,30 +259,7 @@ export default function PromotionsSection() {
             </div>
           </motion.div>
 
-          {/* 即將到來的活動 */}
-          <motion.div
-            className="bg-white flat-card p-8"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
-              即將到來的活動
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {upcomingEvents.map((event, index) => (
-                <div key={index} className="border border-neutral-200 p-6 text-center">
-                  <div className="text-4xl mb-4">{event.icon}</div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{event.title}</h4>
-                  <p className="text-neutral-600 text-sm mb-3">{event.date}</p>
-                  <div className="bg-accent-100 text-accent-800 px-3 py-1 text-sm font-medium">
-                    {event.discount}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+
         </div>
       </div>
     </section>
