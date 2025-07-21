@@ -210,6 +210,61 @@ export default function TrustSection() {
             </div>
           </motion.div>
 
+          {/* Apple 官方認證驗證 */}
+          <motion.div
+            className="bg-white flat-card p-8 mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mr-4">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-neutral-900 mb-2">
+                    驗證我們的 Apple 認證資格
+                  </h3>
+                  <p className="text-neutral-600">
+                    透過 Apple 官方系統驗證我們的獨立維修商資格
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-neutral-50 p-6 mb-6 border border-neutral-200">
+                <div className="flex items-center justify-center mb-4">
+                  <span className="text-4xl mr-3">🍎</span>
+                  <div>
+                    <p className="text-lg font-semibold text-neutral-900">聯豐通信有限公司（台北市）</p>
+                    <p className="text-neutral-600">Apple 官方認證獨立維修中心</p>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-500 mb-4">
+                  您可以透過 Apple 官方維修中心驗證頁面，查詢我們的認證資格
+                </p>
+              </div>
+
+              <a 
+                href="https://support.apple.com/zh-tw/repair/verify-repair-provider"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center bg-accent-500 text-white px-8 py-4 font-semibold hover:bg-accent-600 transition-colors duration-200 group"
+              >
+                <Shield className="w-5 h-5 mr-3" />
+                前往 Apple 官方驗證頁面
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+              
+              <p className="text-xs text-neutral-500 mt-4">
+                在搜尋欄位輸入「聯豐通信」或「台北市」即可找到我們的認證資訊
+              </p>
+            </div>
+          </motion.div>
+
           {/* 統計數據 */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
