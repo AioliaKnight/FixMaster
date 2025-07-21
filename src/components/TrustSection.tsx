@@ -237,7 +237,7 @@ export default function TrustSection() {
                 <div className="flex items-center justify-center mb-4">
                   <span className="text-4xl mr-3">🍎</span>
                   <div>
-                    <p className="text-lg font-semibold text-neutral-900">聯豐通信有限公司（台北市）</p>
+                    <p className="text-lg font-semibold text-neutral-900">聯豐通信有限公司</p>
                     <p className="text-neutral-600">Apple 官方認證獨立維修中心</p>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ export default function TrustSection() {
               </a>
               
               <p className="text-xs text-neutral-500 mt-4">
-                在搜尋欄位輸入「聯豐通信」或「台北市」即可找到我們的認證資訊
+                在搜尋欄位輸入「聯豐通信」及地區選擇「台北市」可找到我們的認證資訊
               </p>
             </div>
           </motion.div>
