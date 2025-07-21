@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://fixmaster.com.tw'),
+  metadataBase: new URL('https://fixmastertw.com'),
   alternates: {
     canonical: '/',
     languages: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'FixMaster 維修大師 士林店 | Apple 原廠授權維修中心',
     description: 'FixMaster 維修大師 士林店，Apple IRP 認證授權維修中心，提供iPhone原廠螢幕、電池更換，90天保固，現場錄影透明維修',
-    url: 'https://fixmaster.com.tw',
+    url: 'https://fixmastertw.com',
     siteName: 'FixMaster 維修大師 士林店',
     locale: 'zh_TW',
     type: 'website',
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     'DC.date': '2024-03-15',
     'DC.type': 'Text',
     'DC.format': 'text/html',
-    'DC.identifier': 'https://fixmaster.com.tw',
+    'DC.identifier': 'https://fixmastertw.com',
     'DC.language': 'zh-TW',
     'DC.coverage': '台北市士林區',
     'DC.rights': '© 2024 FixMaster 維修大師',
@@ -96,13 +96,13 @@ const structuredData = {
   "@graph": [
     {
       "@type": "LocalBusiness",
-      "@id": "https://fixmaster.com.tw/#business",
+      "@id": "https://fixmastertw.com/#business",
       "name": "FixMaster 維修大師 士林店",
       "alternateName": "FixMaster",
       "description": "Apple IRP 認證授權維修中心，提供iPhone原廠螢幕、電池更換，90天保固，現場錄影透明維修",
-      "url": "https://fixmaster.com.tw",
+      "url": "https://fixmastertw.com",
       "telephone": "+886-2-2816-6666",
-      "email": "service@fixmaster.com.tw",
+      "email": "service@fixmastertw.com",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "文林路60號",
@@ -125,18 +125,18 @@ const structuredData = {
       "paymentAccepted": "Cash, Credit Card, LINE Pay",
       "currenciesAccepted": "TWD",
       "hasMap": "https://maps.google.com/maps?q=台北市士林區文林路60號",
-      "image": "https://fixmaster.com.tw/logo.png",
-      "logo": "https://fixmaster.com.tw/logo.png",
+      "image": "https://fixmastertw.com/logo.png",
+      "logo": "https://fixmastertw.com/logo.png",
       "sameAs": [
         "https://line.me/R/ti/p/@fixmaster"
       ]
     },
     {
       "@type": "Service",
-      "@id": "https://fixmaster.com.tw/#services",
+      "@id": "https://fixmastertw.com/#services",
       "name": "iPhone 維修服務",
       "provider": {
-        "@id": "https://fixmaster.com.tw/#business"
+        "@id": "https://fixmastertw.com/#business"
       },
       "serviceType": "手機維修",
       "description": "提供iPhone原廠螢幕更換、電池更換、主機板維修等專業服務",
@@ -177,29 +177,29 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://fixmaster.com.tw/#website",
-      "url": "https://fixmaster.com.tw",
+      "@id": "https://fixmastertw.com/#website",
+      "url": "https://fixmastertw.com",
       "name": "FixMaster 維修大師 士林店",
       "description": "Apple IRP 認證授權維修中心",
       "publisher": {
-        "@id": "https://fixmaster.com.tw/#business"
+        "@id": "https://fixmastertw.com/#business"
       },
       "inLanguage": "zh-TW",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://fixmaster.com.tw/?s={search_term_string}",
+        "target": "https://fixmastertw.com/?s={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     },
     {
       "@type": "Organization",
-      "@id": "https://fixmaster.com.tw/#organization",
+      "@id": "https://fixmastertw.com/#organization",
       "name": "FixMaster 維修大師",
       "alternateName": "FixMaster",
-      "url": "https://fixmaster.com.tw",
+      "url": "https://fixmastertw.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://fixmaster.com.tw/logo.png",
+        "url": "https://fixmastertw.com/logo.png",
         "width": 200,
         "height": 200
       },

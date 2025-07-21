@@ -68,7 +68,7 @@ export default function ContactSection() {
     {
       icon: Mail,
       title: 'Email',
-      content: 'service@fixmaster.com.tw',
+              content: 'service@fixmastertw.com',
       subContent: '24小時內回覆',
       action: '發送郵件',
       actionType: 'email'

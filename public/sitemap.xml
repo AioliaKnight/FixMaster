@@ -6,50 +6,50 @@
   
   <!-- 主頁面 -->
   <url>
-    <loc>https://fixmaster.com.tw/</loc>
-    <lastmod>2024-03-15</lastmod>
+    <loc>https://fixmastertw.com/</loc>
+    <lastmod>2025-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
   <!-- 主要區塊頁面 -->
   <url>
-    <loc>https://fixmaster.com.tw/#services</loc>
+    <loc>https://fixmastertw.com/#services</loc>
     <lastmod>2024-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://fixmaster.com.tw/#testimonials</loc>
+    <loc>https://fixmastertw.com/#testimonials</loc>
     <lastmod>2024-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://fixmaster.com.tw/#faq</loc>
+    <loc>https://fixmastertw.com/#faq</loc>
     <lastmod>2024-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://fixmaster.com.tw/#trust</loc>
+    <loc>https://fixmastertw.com/#trust</loc>
     <lastmod>2024-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://fixmaster.com.tw/#promotions</loc>
+    <loc>https://fixmastertw.com/#promotions</loc>
     <lastmod>2024-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://fixmaster.com.tw/#contact</loc>
+    <loc>https://fixmastertw.com/#contact</loc>
     <lastmod>2024-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
