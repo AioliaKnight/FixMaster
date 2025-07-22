@@ -25,19 +25,88 @@ export default function ContactSection() {
     message: ''
   })
 
+  const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
       [name]: value
     }))
+    
+    // 清除該欄位的錯誤訊息
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const errors: {[key: string]: string} = {}
+    
+    if (!formData.name.trim()) {
+      errors.name = '請輸入您的姓名'
+    } else if (formData.name.trim().length < 2) {
+      errors.name = '姓名至少需要2個字元'
+    }
+    
+    if (!formData.phone.trim()) {
+      errors.phone = '請輸入您的聯絡電話'
+    } else if (!/^09\d{8}$/.test(formData.phone.replace(/\D/g, ''))) {
+      errors.phone = '請輸入正確的手機號碼格式 (09xxxxxxxx)'
+    }
+    
+    if (!formData.device.trim()) {
+      errors.device = '請選擇您的設備型號'
+    }
+    
+    if (!formData.issue.trim()) {
+      errors.issue = '請選擇問題類型'
+    }
+    
+    return errors
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // 這裡可以添加表單提交邏輯
-    console.log('Form submitted:', formData)
-    alert('預約已送出！我們將儘快與您聯繫確認。')
+    
+    const errors = validateForm()
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors)
+      return
+    }
+    
+    setIsSubmitting(true)
+    
+    try {
+      // 模擬 API 呼叫
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      console.log('Form submitted:', formData)
+      setSubmitSuccess(true)
+      
+      // 重置表單
+      setFormData({
+        name: '',
+        phone: '',
+        device: '',
+        issue: '',
+        preferredTime: '',
+        message: ''
+      })
+      
+      // 3秒後隱藏成功訊息
+      setTimeout(() => setSubmitSuccess(false), 3000)
+      
+    } catch (error) {
+      alert('送出失敗，請稍後再試或直接來電聯繫。')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -161,41 +230,61 @@ export default function ContactSection() {
               </h3>
               
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* 成功訊息 */}
+                {submitSuccess && (
+                  <div className="bg-green-50 border border-green-200 p-4 mb-4 flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                    <span className="text-green-800">預約已送出！我們將在30分鐘內與您聯繫確認。</span>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-neutral-700 text-sm mb-2">姓名</label>
+                    <label className="block text-neutral-700 text-sm mb-2">姓名 *</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full bg-neutral-50 border border-neutral-300 px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-accent-500"
+                      className={`w-full bg-neutral-50 border px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
+                        formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                      }`}
                       placeholder="請輸入您的姓名"
                       required
                     />
+                    {formErrors.name && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
+                    )}
                   </div>
                   <div>
-                    <label className="block text-neutral-700 text-sm mb-2">手機</label>
+                    <label className="block text-neutral-700 text-sm mb-2">手機 *</label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full bg-neutral-50 border border-neutral-300 px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-accent-500"
-                      placeholder="請輸入手機號碼"
+                      className={`w-full bg-neutral-50 border px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
+                        formErrors.phone ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                      }`}
+                      placeholder="09xxxxxxxx"
                       required
                     />
+                    {formErrors.phone && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
+                    )}
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-neutral-700 text-sm mb-2">裝置型號</label>
+                    <label className="block text-neutral-700 text-sm mb-2">裝置型號 *</label>
                     <select
                       name="device"
                       value={formData.device}
                       onChange={handleInputChange}
-                      className="w-full bg-neutral-50 border border-neutral-300 px-4 py-2 text-neutral-900 focus:outline-none focus:border-accent-500"
+                      className={`w-full bg-neutral-50 border px-4 py-2 text-neutral-900 focus:outline-none transition-colors duration-200 ${
+                        formErrors.device ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                      }`}
                       required
                     >
                       <option value="">請選擇裝置</option>
@@ -213,14 +302,19 @@ export default function ContactSection() {
                       <option value="iPhone 12">iPhone 12</option>
                       <option value="其他機型">其他機型</option>
                     </select>
+                    {formErrors.device && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.device}</p>
+                    )}
                   </div>
                   <div>
-                    <label className="block text-neutral-700 text-sm mb-2">問題類型</label>
+                    <label className="block text-neutral-700 text-sm mb-2">問題類型 *</label>
                     <select
                       name="issue"
                       value={formData.issue}
                       onChange={handleInputChange}
-                      className="w-full bg-neutral-50 border border-neutral-300 px-4 py-2 text-neutral-900 focus:outline-none focus:border-accent-500"
+                      className={`w-full bg-neutral-50 border px-4 py-2 text-neutral-900 focus:outline-none transition-colors duration-200 ${
+                        formErrors.issue ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                      }`}
                       required
                     >
                       <option value="">請選擇問題</option>
@@ -233,6 +327,9 @@ export default function ContactSection() {
                       <option value="充電異常">充電異常</option>
                       <option value="其他問題">其他問題</option>
                     </select>
+                    {formErrors.issue && (
+                      <p className="text-red-500 text-xs mt-1">{formErrors.issue}</p>
+                    )}
                   </div>
                 </div>
                 
@@ -261,10 +358,24 @@ export default function ContactSection() {
                 
                 <button
                   type="submit"
-                  className="w-full bg-accent-500 hover:bg-accent-600 text-white py-3 flat-button font-semibold transition-colors duration-200 flex items-center justify-center"
+                  disabled={isSubmitting}
+                  className={`w-full py-3 flat-button font-semibold transition-colors duration-200 flex items-center justify-center ${
+                    isSubmitting 
+                      ? 'bg-neutral-400 cursor-not-allowed' 
+                      : 'bg-accent-500 hover:bg-accent-600 text-white'
+                  }`}
                 >
-                  <Send className="w-5 h-5 mr-2" />
-                  送出預約
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      送出中...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5 mr-2" />
+                      送出預約
+                    </>
+                  )}
                 </button>
               </form>
             </motion.div>

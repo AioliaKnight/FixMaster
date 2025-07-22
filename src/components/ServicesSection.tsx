@@ -30,8 +30,11 @@ export default function ServicesSection() {
       icon: Monitor,
       title: 'iPhone 原廠螢幕更換',
       description: 'Apple IRP 認證原廠螢幕，現場更換，品質保證',
-      features: ['原廠 OLED 螢幕', '觸控完美運作', '色彩準確度 100%', '90天保固'],
-      price: '依機型而定',
+      features: ['原廠 OLED 螢幕', '觸控完美運作', '色彩準確度 100%', '90天功能保固'],
+      price: '$8,900 起',
+      duration: '20-30分鐘',
+      models: ['iPhone 12-15 系列'],
+      warranty: '90天螢幕功能保固',
       highlight: '最受歡迎',
       color: 'from-blue-500 to-blue-600'
     },
@@ -39,8 +42,11 @@ export default function ServicesSection() {
       icon: Battery,
       title: '電池健康度修復',
       description: '原廠電池更換，恢復最佳續航力',
-      features: ['原廠電池芯片', '電池健康度 100%', '快速充電支援', '90天保固'],
-      price: '依機型而定',
+      features: ['原廠電池芯片', '電池健康度 100%', '快速充電支援', '90天電池保固'],
+      price: '$2,990 起',
+      duration: '15-20分鐘',
+      models: ['iPhone 11-15 系列'],
+      warranty: '90天電池效能保固',
       highlight: '',
       color: 'from-green-500 to-green-600'
     },
@@ -48,8 +54,11 @@ export default function ServicesSection() {
       icon: Smartphone,
       title: '二手 iPhone 嚴選',
       description: '精選二手 iPhone，完整檢測報告與保固',
-      features: ['全機功能檢測', '外觀評級分類', '配件齊全', '30天保固'],
-      price: '價格透明',
+      features: ['全機功能檢測', '外觀評級分類', '配件齊全', '30天硬體保固'],
+      price: '$8,000 起',
+      duration: '現場挑選',
+      models: ['iPhone 11-14 系列'],
+      warranty: '30天硬體功能保固',
       highlight: '熱門推薦',
       color: 'from-purple-500 to-purple-600'
     },
@@ -57,8 +66,11 @@ export default function ServicesSection() {
       icon: Truck,
       title: '到府收送服務',
       description: '忙碌上班族專屬服務，免出門輕鬆維修',
-      features: ['台北市區免費', '當日收件修復', '完修後送回', '全程保險'],
-      price: '滿額免費',
+      features: ['台北市區服務', '當日收件修復', '完修後送回', '全程保險保障'],
+      price: '滿 $1,500 免費',
+      duration: '24小時內',
+      models: ['所有iPhone機型'],
+      warranty: '與維修項目相同',
       highlight: '',
       color: 'from-orange-500 to-orange-600'
     }
@@ -221,8 +233,20 @@ export default function ServicesSection() {
                           <p className="text-neutral-500 text-sm md:text-base text-center mb-2">{service.description}</p>
                         </div>
 
+                        {/* 服務詳細資訊 */}
+                        <div className="bg-neutral-50 p-4 mb-6 grid grid-cols-2 gap-4 text-center">
+                          <div>
+                            <div className="text-accent-500 font-semibold text-sm mb-1">維修時間</div>
+                            <div className="text-neutral-900 font-medium text-sm">{service.duration}</div>
+                          </div>
+                          <div>
+                            <div className="text-accent-500 font-semibold text-sm mb-1">適用機型</div>
+                            <div className="text-neutral-900 font-medium text-xs">{service.models[0]}</div>
+                          </div>
+                        </div>
+
                         {/* 特色功能 */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                        <div className="grid grid-cols-1 gap-3 mb-6">
                           {service.features.map((feature, featureIndex) => (
                             <div key={featureIndex} className="flex items-center">
                               <CheckCircle className="w-5 h-5 text-accent-500 mr-3 flex-shrink-0" />
@@ -231,11 +255,19 @@ export default function ServicesSection() {
                           ))}
                         </div>
 
+                        {/* 保固資訊 */}
+                        <div className="bg-blue-50 p-3 mb-6">
+                          <div className="flex items-center justify-center">
+                            <Shield className="w-4 h-4 text-blue-600 mr-2" />
+                            <span className="text-blue-800 font-medium text-sm text-center">{service.warranty}</span>
+                          </div>
+                        </div>
+
                         {/* 價格和按鈕 */}
                         <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                           <div className="text-center md:text-left">
-                            <span className="text-neutral-400 text-xs">價格</span>
-                            <div className="text-lg font-bold text-neutral-900">{service.price}</div>
+                            <div className="text-2xl font-bold text-neutral-900">{service.price}</div>
+                            <div className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</div>
                           </div>
                           <button className="w-full md:w-auto bg-accent-500 hover:bg-accent-600 text-white px-6 md:px-8 py-3 flat-button font-semibold rounded-none transition-colors duration-200">
                             立即預約

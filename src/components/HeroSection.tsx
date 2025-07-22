@@ -51,7 +51,7 @@ export default function HeroSection() {
               >
                 <span className="block">現場維修透明錄影 • 原廠零件保證 • 90天安心保固</span>
                 <br className="hidden sm:block" />
-                <span className="block mt-2 sm:mt-0">快速專業 • 價格透明 • 品質保證</span>
+                <span className="block mt-2 sm:mt-0">士林區最快20分鐘完修 • 價格透明無隱藏費用 • Apple IRP認證品質保證</span>
               </motion.p>
 
               {/* 特色亮點 */}
@@ -104,7 +104,7 @@ export default function HeroSection() {
                     }
                   }}
                 >
-                  立即預約維修
+                  🔧 20分鐘快速維修
                 </button>
                 
                 <button 
@@ -124,7 +124,7 @@ export default function HeroSection() {
                     }
                   }}
                 >
-                  查看二手機
+                  📱 精選二手iPhone
                 </button>
               </motion.div>
 

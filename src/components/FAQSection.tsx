@@ -19,37 +19,37 @@ export default function FAQSection() {
     {
       icon: Clock,
       question: '維修時間需要多長？',
-      answer: '大部分維修項目我們都能在 30 分鐘內完成，包括螢幕更換、電池更換等。複雜的主板維修可能需要 1-2 小時。我們提供現場等候服務，讓您不用跑兩趟。',
+      answer: '螢幕更換：20-30分鐘\n電池更換：15-20分鐘\n主機板維修：1-2小時\n複雜問題：當日內完成\n\n我們提供現場等候服務，也可預約時間避免等待。急件可優先處理，讓您的iPhone快速回到最佳狀態。',
       category: '維修時間'
     },
     {
       icon: Shield,
       question: '如何判斷是否為原廠零件？',
-      answer: '我們是 Apple IRP 認證的獨立維修商，所有零件都是原廠正品。每個零件都有序號可查證，我們也會提供購買憑證。此外，原廠零件在系統設定中會正確顯示型號資訊。',
+      answer: '我們是 Apple IRP 認證的獨立維修商，所有零件都是原廠正品或Apple認證零件。辨別方式包括：\n\n• 每個零件都有原廠序號可查證\n• 提供零件購買憑證和保固卡\n• 原廠零件在「設定」中會正確顯示型號\n• 功能完全正常，無相容性問題\n• 我們現場會展示零件包裝和認證標籤',
       category: '零件品質'
     },
     {
       icon: CheckCircle,
       question: '有沒有維修後保固？',
-      answer: '我們提供 90 天的維修保固，涵蓋零件本身和施工品質。保固期內如果出現相同問題，我們免費重新處理。保固不包括人為損壞或其他新的故障。',
+      answer: '我們提供業界最長的 90 天維修保固：\n\n• 涵蓋零件本身和施工品質\n• 保固期內相同問題免費重修\n• 提供保固卡和維修記錄\n• 全台服務據點都可保固維修\n\n保固不包括：人為損壞、進水、摔落造成的新故障。我們會詳細說明保固範圍。',
       category: '保固服務'
     },
     {
       icon: Smartphone,
       question: '買二手 iPhone 有什麼保障？',
-      answer: '我們的二手 iPhone 都經過 30 項專業檢測，提供完整的檢測報告。包含 30 天保固、原廠配件、電池健康度檢測報告。所有手機都已清除資料並重新設定。',
+      answer: '我們的二手 iPhone 經過嚴格把關：\n\n• 30項專業功能檢測\n• 電池健康度80%以上保證\n• 外觀9成新以上\n• 30天硬體功能保固\n• 原廠配件齊全\n• 完整檢測報告\n• 已清除前用戶資料\n• 可現場試用確認功能',
       category: '二手機保障'
     },
     {
       icon: DollarSign,
       question: '維修費用如何計算？',
-      answer: '我們採用透明定價，所有價格都會事先告知。不同機型的維修費用不同，現場檢測後會提供詳細報價單。沒有隱藏費用，收費合理公開。',
+      answer: '我們採用完全透明的定價制度：\n\n• 現場免費檢測和報價\n• 價格表公開透明，無隱藏費用\n• 不同機型有固定價格標準\n• 維修前會提供詳細報價單\n• 可比較市場行情，絕不哄抬價格\n• 支援多種付款方式\n\n如不維修，檢測費用全免。',
       category: '價格透明'
     },
     {
       icon: AlertCircle,
       question: '什麼情況無法維修？',
-      answer: '主板嚴重燒毀、進水腐蝕過於嚴重、或維修成本超過購買新機的 70% 時，我們會建議您考慮其他選擇。我們會誠實告知維修的可行性和成本效益。',
+      answer: '以下情況我們會誠實建議您考慮其他選擇：\n\n• 主機板嚴重燒毀或腐蝕\n• 進水時間過長造成多重損壞\n• 維修成本超過購買新機的70%\n• 機型過於老舊，零件停產\n• 多次維修仍無法根治的問題\n\n我們會提供專業建議和替代方案，絕不勉強維修。',
       category: '維修限制'
     }
   ]
@@ -164,9 +164,9 @@ export default function FAQSection() {
                   className="overflow-hidden"
                 >
                   <div className="px-6 md:px-8 pb-6 md:pb-8 ml-14 md:ml-18">
-                    <p className="text-neutral-700 leading-relaxed text-sm md:text-base">
+                    <div className="text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line">
                       {faq.answer}
-                    </p>
+                    </div>
                   </div>
                 </motion.div>
               </motion.div>
