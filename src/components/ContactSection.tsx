@@ -308,7 +308,36 @@ FixMaster 維修預約通知
                     {info.action}
                   </a>
                 ) : (
-                  <button className="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 flat-button text-sm font-medium transition-colors duration-200">
+                  <button 
+                    className="bg-accent-500 hover:bg-accent-600 text-white px-4 py-2 flat-button text-sm font-medium transition-colors duration-200"
+                    onClick={() => {
+                      if (info.actionType === 'phone') {
+                        window.location.href = 'tel:+886-2-2816-6666'
+                      } else if (info.actionType === 'email') {
+                        const subject = encodeURIComponent('FixMaster 維修諮詢')
+                        const body = encodeURIComponent(`您好，我想諮詢iPhone維修服務。
+
+請提供以下資訊：
+- 維修項目：
+- 裝置型號：
+- 聯絡電話：
+
+謝謝！`)
+                        window.open(`mailto:fixmastertw@gmail.com?subject=${subject}&body=${body}`, '_blank')
+                      } else if (info.actionType === 'navigation') {
+                        const address = '台北市士林區文林路60號'
+                        const encodedAddress = encodeURIComponent(address)
+                        
+                        // 手機優先使用 Google Maps App
+                        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                          window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
+                        } else {
+                          // 桌面版使用 Google Maps 網頁版
+                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                        }
+                      }
+                    }}
+                  >
                     {info.action}
                   </button>
                 )}
@@ -516,8 +545,22 @@ FixMaster 維修預約通知
                     <p className="text-neutral-600 text-sm">捷運劍潭站1號出口步行3分鐘</p>
                   </div>
                 </div>
-                <button className="w-full bg-accent-500 hover:bg-accent-600 text-white py-2 flat-button font-medium transition-colors duration-200">
-                  Google Maps 導航
+                <button 
+                  className="w-full bg-accent-500 hover:bg-accent-600 text-white py-2 flat-button font-medium transition-colors duration-200"
+                  onClick={() => {
+                    const address = '台北市士林區文林路60號'
+                    const encodedAddress = encodeURIComponent(address)
+                    
+                    // 手機優先使用 Google Maps App
+                    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                      window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
+                    } else {
+                      // 桌面版使用 Google Maps 網頁版
+                      window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                    }
+                  }}
+                >
+                  🗺️ Google Maps 導航
                 </button>
               </div>
             </motion.div>
