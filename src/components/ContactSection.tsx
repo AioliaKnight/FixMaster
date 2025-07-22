@@ -83,10 +83,90 @@ export default function ContactSection() {
     setIsSubmitting(true)
     
     try {
-      // 模擬 API 呼叫
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      // 準備要寄送的資料
+      const emailData = {
+        to: 'fixmastertw@gmail.com',
+        subject: `FixMaster 維修預約 - ${formData.name} (${formData.device})`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background-color: #dc2626; color: white; padding: 20px; text-align: center;">
+              <h1 style="margin: 0; font-size: 24px;">🔧 FixMaster 維修預約</h1>
+            </div>
+            
+            <div style="padding: 30px; background-color: #f9f9f9;">
+              <h2 style="color: #333; margin-bottom: 20px;">客戶預約資訊</h2>
+              
+              <table style="width: 100%; border-collapse: collapse; background-color: white;">
+                <tr style="border-bottom: 1px solid #ddd;">
+                  <td style="padding: 12px; font-weight: bold; background-color: #f5f5f5; width: 120px;">客戶姓名</td>
+                  <td style="padding: 12px;">${formData.name}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                  <td style="padding: 12px; font-weight: bold; background-color: #f5f5f5;">聯絡電話</td>
+                  <td style="padding: 12px;">${formData.phone}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                  <td style="padding: 12px; font-weight: bold; background-color: #f5f5f5;">裝置型號</td>
+                  <td style="padding: 12px;">${formData.device}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                  <td style="padding: 12px; font-weight: bold; background-color: #f5f5f5;">問題類型</td>
+                  <td style="padding: 12px;">${formData.issue}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                  <td style="padding: 12px; font-weight: bold; background-color: #f5f5f5;">希望時間</td>
+                  <td style="padding: 12px;">${formData.preferredTime || '未指定'}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; font-weight: bold; background-color: #f5f5f5; vertical-align: top;">補充說明</td>
+                  <td style="padding: 12px;">${formData.message || '無'}</td>
+                </tr>
+              </table>
+              
+              <div style="margin-top: 30px; padding: 20px; background-color: #dc2626; color: white; text-align: center;">
+                <h3 style="margin: 0 0 10px 0;">📞 請儘快聯絡客戶確認預約</h3>
+                <p style="margin: 0; font-size: 14px;">建議在30分鐘內回電確認維修時間</p>
+              </div>
+              
+              <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #666;">
+                <p>此郵件由 FixMaster 維修大師官網自動發送</p>
+                <p>預約時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}</p>
+              </div>
+            </div>
+          </div>
+        `,
+        text: `
+FixMaster 維修預約通知
+
+客戶資訊:
+- 姓名: ${formData.name}
+- 電話: ${formData.phone}
+- 裝置: ${formData.device}
+- 問題: ${formData.issue}
+- 希望時間: ${formData.preferredTime || '未指定'}
+- 補充說明: ${formData.message || '無'}
+
+預約時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}
+
+請儘快聯絡客戶確認預約時間。
+        `
+      }
+
+      // 使用 EmailJS 或類似服務發送郵件
+      // 這裡示範使用 fetch 發送到後端 API
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailData)
+      })
+
+      if (!response.ok) {
+        throw new Error('郵件發送失敗')
+      }
       
-      console.log('Form submitted:', formData)
+      console.log('Form submitted successfully:', formData)
       setSubmitSuccess(true)
       
       // 重置表單
@@ -100,10 +180,32 @@ export default function ContactSection() {
       })
       
       // 3秒後隱藏成功訊息
-      setTimeout(() => setSubmitSuccess(false), 3000)
+      setTimeout(() => setSubmitSuccess(false), 5000)
       
     } catch (error) {
-      alert('送出失敗，請稍後再試或直接來電聯繫。')
+      console.error('Form submission error:', error)
+      
+      // 備用方案：使用 mailto 連結
+      const subject = encodeURIComponent(`FixMaster 維修預約 - ${formData.name} (${formData.device})`)
+      const body = encodeURIComponent(`
+客戶預約資訊:
+
+姓名: ${formData.name}
+電話: ${formData.phone}
+裝置型號: ${formData.device}
+問題類型: ${formData.issue}
+希望時間: ${formData.preferredTime || '未指定'}
+補充說明: ${formData.message || '無'}
+
+預約時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}
+
+請儘快聯絡客戶確認預約時間。
+      `)
+      
+      const mailtoUrl = `mailto:fixmastertw@gmail.com?subject=${subject}&body=${body}`
+      window.open(mailtoUrl, '_blank')
+      
+      alert('表單將透過您的預設郵件程式發送，請確認寄出。或您可直接來電 02-2816-6666 預約。')
     } finally {
       setIsSubmitting(false)
     }
