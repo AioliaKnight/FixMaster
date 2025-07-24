@@ -104,7 +104,7 @@ export default function HeroSection() {
                     }
                   }}
                 >
-                  🔧 20分鐘快速維修
+                  🔧 專業快速維修
                 </button>
                 
                 <button 

@@ -32,7 +32,7 @@ export default function ServicesSection() {
       description: 'Apple IRP 認證原廠螢幕，現場更換，品質保證',
       features: ['原廠 OLED 螢幕', '觸控完美運作', '色彩準確度 100%', '90天功能保固'],
       price: '$8,900 起',
-      duration: '20-30分鐘',
+      duration: '30-60分鐘',
       models: ['iPhone 12-15 系列'],
       warranty: '90天螢幕功能保固',
       highlight: '最受歡迎',
@@ -44,7 +44,7 @@ export default function ServicesSection() {
       description: '原廠電池更換，恢復最佳續航力',
       features: ['原廠電池芯片', '電池健康度 100%', '快速充電支援', '90天電池保固'],
       price: '$2,990 起',
-      duration: '15-20分鐘',
+      duration: '30-45分鐘',
       models: ['iPhone 11-15 系列'],
       warranty: '90天電池效能保固',
       highlight: '',
@@ -68,7 +68,7 @@ export default function ServicesSection() {
       description: '忙碌上班族專屬服務，免出門輕鬆維修',
       features: ['台北市區服務', '當日收件修復', '完修後送回', '全程保險保障'],
       price: '滿 $1,500 免費',
-      duration: '24小時內',
+      duration: '1-2個工作天',
       models: ['所有iPhone機型'],
       warranty: '與維修項目相同',
       highlight: '',
@@ -89,7 +89,7 @@ export default function ServicesSection() {
     },
     {
       icon: Clock,
-      title: '30分鐘快速完修',
+              title: '1小時內完修',
       description: '現場等候，快速完成維修'
     },
     {
@@ -388,7 +388,7 @@ export default function ServicesSection() {
                   3
                 </div>
                 <h4 className="font-semibold text-neutral-900 mb-2">快速完修</h4>
-                <p className="text-neutral-600 text-sm">30分鐘完修取件</p>
+                <p className="text-neutral-600 text-sm">1小時內完修取件</p>
               </div>
             </div>
           </motion.div>
