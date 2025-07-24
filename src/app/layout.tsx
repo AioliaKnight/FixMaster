@@ -120,6 +120,26 @@ const structuredData = {
         "latitude": 25.0955,
         "longitude": 121.5252
       },
+      "containedInPlace": {
+        "@type": "Place",
+        "name": "士林夜市商圈",
+        "containedInPlace": {
+          "@type": "AdministrativeArea",
+          "name": "台北市士林區"
+        }
+      },
+      "nearbyTransportation": [
+        {
+          "@type": "Place",
+          "name": "捷運劍潭站",
+          "additionalType": "SubwayStation",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 25.0947,
+            "longitude": 121.5242
+          }
+        }
+      ],
       "openingHours": [
         "Mo-Fr 14:00-23:00",
         "Sa-Su 15:00-23:00"
@@ -139,8 +159,33 @@ const structuredData = {
         }
       ],
       "priceRange": "$$",
-      "paymentAccepted": ["Cash", "Credit Card", "LINE Pay", "Apple Pay", "Google Pay"],
+      "paymentAccepted": ["現金", "信用卡", "LINE Pay", "Apple Pay", "Google Pay", "街口支付", "悠遊卡"],
       "currenciesAccepted": "TWD",
+      "smokingAllowed": false,
+      "isAccessibleForFree": true,
+      "publicAccess": true,
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "免費WiFi",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification", 
+          "name": "冷氣空調",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "無障礙通道", 
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "現場等候區",
+          "value": true
+        }
+      ],
       "hasMap": "https://maps.google.com/maps?q=台北市士林區文林路60號",
       "image": ["https://fixmastertw.com/logo.png", "https://fixmastertw.com/Hero_1.png"],
       "logo": {
@@ -245,11 +290,26 @@ const structuredData = {
         "原廠零件",
         "透明維修"
       ],
-      "hasCredential": {
-        "@type": "EducationalOccupationalCredential",
-        "name": "Apple IRP (Independent Repair Provider) 認證",
-        "credentialCategory": "Apple授權維修認證"
-      }
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Apple IRP (Independent Repair Provider) 認證",
+          "credentialCategory": "Professional Certification",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "Apple Inc.",
+            "url": "https://support.apple.com/repair"
+          },
+          "validFrom": "2020-01-01",
+          "validThrough": "2025-12-31"
+        },
+        {
+          "@type": "EducationalOccupationalCredential", 
+          "name": "電子設備維修技術士",
+          "credentialCategory": "Government License",
+          "description": "政府認證電子設備維修專業技術"
+        }
+      ]
     },
     {
       "@type": "Service",
@@ -333,11 +393,58 @@ const structuredData = {
       }
     },
     {
+      "@type": "Service",
+      "@id": "https://fixmastertw.com/#pickup-delivery",
+      "name": "到府收送服務",
+      "provider": {
+        "@id": "https://fixmastertw.com/#business"
+      },
+      "serviceType": "Pickup and Delivery",
+      "description": "台北市內免費收送，滿$1500免運費，24小時內處理",
+      "category": "Delivery Service",
+      "areaServed": {
+        "@type": "Place",
+        "name": "台北市"
+      },
+      "offers": {
+        "@type": "Offer",
+        "name": "免費收送服務",
+        "description": "滿$1500免收送費",
+        "priceRange": "免費 (滿$1500)",
+        "priceCurrency": "TWD",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "Service", 
+      "@id": "https://fixmastertw.com/#diagnostic",
+      "name": "免費檢測服務",
+      "provider": {
+        "@id": "https://fixmastertw.com/#business"
+      },
+      "serviceType": "Device Diagnostic",
+      "description": "專業設備檢測，透明報價，不修不收費",
+      "category": "Diagnostic Service",
+      "offers": {
+        "@type": "Offer",
+        "name": "免費檢測",
+        "price": "0",
+        "priceCurrency": "TWD",
+        "description": "不修不收費"
+      }
+    },
+    {
       "@type": "Product",
       "@id": "https://fixmastertw.com/#used-iphone",
       "name": "二手iPhone販售",
       "description": "精選二手iPhone，完整檢測報告與保固，品質保證",
       "category": "手機",
+      "model": ["iPhone 11", "iPhone 12", "iPhone 13", "iPhone 14"],
+      "operatingSystem": "iOS",
+      "storageCapacity": ["64GB", "128GB", "256GB", "512GB"],
+      "color": ["黑色", "白色", "紅色", "藍色", "紫色"],
+      "condition": "二手良品",
+      "itemCondition": "https://schema.org/UsedCondition",
       "brand": {
         "@type": "Brand",
         "name": "Apple"
