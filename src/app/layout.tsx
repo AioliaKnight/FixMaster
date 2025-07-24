@@ -121,28 +121,21 @@ const structuredData = {
         "longitude": 121.5252
       },
       "openingHours": [
-        "Mo-Fr 10:00-21:00",
-        "Sa 10:00-18:00",
-        "Su 12:00-18:00"
+        "Mo-Fr 14:00-23:00",
+        "Sa-Su 15:00-23:00"
       ],
       "specialOpeningHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "10:00",
-          "closes": "21:00"
+          "opens": "14:00",
+          "closes": "23:00"
         },
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": "Saturday",
-          "opens": "10:00",
-          "closes": "18:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": "Sunday",
-          "opens": "12:00",
-          "closes": "18:00"
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "15:00",
+          "closes": "23:00"
         }
       ],
       "priceRange": "$$",
@@ -283,8 +276,14 @@ const structuredData = {
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "10:00",
-          "closes": "21:00"
+          "opens": "14:00",
+          "closes": "23:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "15:00",
+          "closes": "23:00"
         }
       ],
       "offers": {
@@ -450,8 +449,14 @@ const structuredData = {
             {
               "@type": "OpeningHoursSpecification",
               "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-              "opens": "10:00",
-              "closes": "21:00"
+              "opens": "14:00",
+              "closes": "23:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Saturday", "Sunday"],
+              "opens": "15:00",
+              "closes": "23:00"
             }
           ]
         },

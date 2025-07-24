@@ -247,9 +247,8 @@ FixMaster 維修預約通知
   ]
 
   const businessHours = [
-    { day: '週一至週五', hours: '10:00 - 21:00' },
-    { day: '週六', hours: '10:00 - 18:00' },
-    { day: '週日', hours: '12:00 - 18:00' },
+    { day: '週一至週五', hours: '14:00 - 23:00' },
+    { day: '週六與週日', hours: '15:00 - 23:00' },
     { day: '國定假日', hours: '依公告調整' }
   ]
 
