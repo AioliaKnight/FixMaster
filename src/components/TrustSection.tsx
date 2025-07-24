@@ -74,7 +74,7 @@ export default function TrustSection() {
     {
       title: 'Apple IRP 認證',
       description: '獨立維修商資格',
-      icon: '🍎'
+      icon: 'apple_logo'
     },
     {
       title: '原廠零件供應',
@@ -200,8 +200,16 @@ export default function TrustSection() {
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="text-4xl mb-4">
-                    {cert.icon}
+                  <div className="text-4xl mb-4 flex justify-center">
+                    {cert.icon === 'apple_logo' ? (
+                      <img 
+                        src="/apple_logo.webp" 
+                        alt="Apple Logo" 
+                        className="w-12 h-12 object-contain"
+                      />
+                    ) : (
+                      cert.icon
+                    )}
                   </div>
                   <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>
                   <p className="text-neutral-600 text-sm">{cert.description}</p>
@@ -235,7 +243,11 @@ export default function TrustSection() {
               
               <div className="bg-neutral-50 p-6 mb-6 border border-neutral-200">
                 <div className="flex items-center justify-center mb-4">
-                  <span className="text-4xl mr-3">🍎</span>
+                  <img 
+                    src="/apple_logo.webp" 
+                    alt="Apple Logo" 
+                    className="w-10 h-10 mr-3 object-contain"
+                  />
                   <div>
                     <p className="text-lg font-semibold text-neutral-900">聯豐通信有限公司</p>
                     <p className="text-neutral-600">Apple 官方認證獨立維修中心</p>
