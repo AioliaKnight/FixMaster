@@ -62,7 +62,7 @@ export default function FAQSection() {
     },
     {
       question: '支援哪些付款方式？',
-      answer: '現金、信用卡、LINE Pay、街口支付',
+      answer: '現金、銀行轉帳、街口支付',
       icon: '💳'
     },
     {

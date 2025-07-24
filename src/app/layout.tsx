@@ -159,7 +159,7 @@ const structuredData = {
         }
       ],
       "priceRange": "$$",
-      "paymentAccepted": ["現金", "信用卡", "LINE Pay", "Apple Pay", "Google Pay", "街口支付", "悠遊卡"],
+      "paymentAccepted": ["現金", "銀行轉帳", "街口支付"],
       "currenciesAccepted": "TWD",
       "smokingAllowed": false,
       "isAccessibleForFree": true,
