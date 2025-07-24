@@ -233,10 +233,10 @@ export default function TrustSection() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-2">
-                    驗證我們的 Apple 認證資格
+                    驗證 Apple 維修認證資格
                   </h3>
                   <p className="text-neutral-600">
-                    透過 Apple 官方系統驗證我們的獨立維修商資格
+                    透過 Apple 官方系統驗證獨立維修商資格
                   </p>
                 </div>
               </div>
@@ -265,7 +265,7 @@ export default function TrustSection() {
                 className="inline-flex items-center bg-accent-500 text-white px-8 py-4 font-semibold hover:bg-accent-600 transition-colors duration-200 group"
               >
                 <Shield className="w-5 h-5 mr-3" />
-                前往 Apple 官方驗證頁面
+                Apple 官方驗證頁面
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
