@@ -19,7 +19,7 @@ export default function TrustSection() {
     {
       icon: Award,
       title: '原廠 IRP 認證技師',
-      description: '通過 Apple 官方認證的獨立維修商資格',
+      description: '把你的手機交給真正了解它的人。',
       details: [
         '官方認證技師執照',
         '定期技術培訓更新',
@@ -32,7 +32,7 @@ export default function TrustSection() {
     {
       icon: Video,
       title: '所有維修全程錄影',
-      description: '透明化維修過程，保護您的權益',
+      description: '每一步都看得見，安心是我們的承諾。',
       details: [
         '高清攝影完整記錄',
         '拆裝過程清楚可見',
@@ -45,7 +45,7 @@ export default function TrustSection() {
     {
       icon: DollarSign,
       title: '透明價目＋現場拆裝示意',
-      description: '公開透明的收費標準，絕無隱藏費用',
+      description: '報價先講清楚，不修就不收。',
       details: [
         '事前詳細報價說明',
         '現場拆裝流程展示',
@@ -58,9 +58,9 @@ export default function TrustSection() {
     {
       icon: FileText,
       title: '二手機皆有檢測報告＋配件保固',
-      description: '完整的檢測報告，讓您買得安心',
+      description: '每支都有身分證，買前更踏實。',
       details: [
-        '30項功能檢測',
+        '30 項功能檢測',
         '電池健康度報告',
         '外觀狀況評級',
         '配件齊全保固'

@@ -199,6 +199,23 @@ body {
   .text-responsive-4xl {
     @apply text-4xl md:text-5xl lg:text-6xl;
   }
+
+  /* 兩行截斷（避免外掛） */
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 隱藏水平捲軸（保留可滾動） */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
 
 /* 防止行動版選單展開時背景滾動 */

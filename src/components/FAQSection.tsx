@@ -1,19 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ChevronDown, ChevronUp, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle } from 'lucide-react'
 import { useState } from 'react'
 
 export default function FAQSection() {
-  const [openItems, setOpenItems] = useState<number[]>([])
-
-  const toggleItem = (index: number) => {
-    setOpenItems(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    )
-  }
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0)
+  const [selectedFaqIndex, setSelectedFaqIndex] = useState<number | null>(null)
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
 
   const faqCategories = [
     {
@@ -139,8 +133,8 @@ export default function FAQSection() {
     }
   ]
 
-  // 將所有FAQ合併為單一陣列以保持原有功能
-  const faqs = faqCategories.flatMap(category => category.faqs)
+  // 依據當前選取的分類取得 FAQ 清單
+  const currentFaqs = faqCategories[selectedCategoryIndex]?.faqs ?? []
 
   const quickAnswers = [
     {
@@ -191,133 +185,163 @@ export default function FAQSection() {
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 md:mb-6">
               常見問答
             </h2>
-            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
-              為您解答維修相關的常見疑問，讓您更安心地選擇我們的服務
+            <p className="text-neutral-600 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
+              更快找到答案：分類、掃描、點擊展開詳情
             </p>
-            <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
+            <div className="w-16 h-1 bg-accent-500 mx-auto mt-6 md:mt-8"></div>
           </motion.div>
 
-          {/* 快速問答 */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            {quickAnswers.map((item, index) => (
-              <div key={index} className="bg-white flat-card p-6 md:p-8 text-center">
-                <div className="text-2xl md:text-3xl mb-4">{item.icon}</div>
-                <h3 className="font-semibold text-neutral-900 mb-3 text-sm">
-                  {item.question}
-                </h3>
-                <p className="text-neutral-600 text-xs">{item.answer}</p>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* 詳細問答 */}
-          <div className="space-y-6">
-            {faqCategories.map((category, categoryIndex) => (
-              <div key={categoryIndex}>
-                <motion.h3 
-                  className="text-2xl font-bold text-neutral-900 mb-4 flex items-center"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: categoryIndex * 0.1 }}
-                  viewport={{ once: true }}
+          {/* 分類 chips（可橫向滑動） */}
+          <div className="mb-6 md:mb-8 -mx-4 px-4 overflow-x-auto no-scrollbar">
+            <div className="flex items-center gap-2 md:gap-3 w-max">
+              {faqCategories.map((category, index) => (
+                <button
+                  key={category.title}
+                  onClick={() => {
+                    setSelectedCategoryIndex(index)
+                    setSelectedFaqIndex(null)
+                  }}
+                  className={`whitespace-nowrap px-4 py-2 text-sm border flat-button ${
+                    selectedCategoryIndex === index
+                      ? 'bg-accent-500 text-white border-accent-500'
+                      : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400'
+                  }`}
+                  aria-pressed={selectedCategoryIndex === index}
                 >
-                  <div className="w-1 h-8 bg-accent-500 mr-4"></div>
                   {category.title}
-                </motion.h3>
-                <div className="space-y-2 mb-8">
-                  {category.faqs.map((faq, faqIndex) => {
-                    const globalIndex = faqCategories.slice(0, categoryIndex).reduce((sum, cat) => sum + cat.faqs.length, 0) + faqIndex
-                    return (
-                      <motion.div
-                        key={globalIndex}
-                        className="bg-white flat-card overflow-hidden hover:border-neutral-400 transition-all duration-200"
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: faqIndex * 0.1 }}
-                        viewport={{ once: true }}
-                      >
-                        <button
-                          onClick={() => toggleItem(globalIndex)}
-                          className="w-full px-6 md:px-8 py-6 md:py-8 flex items-center justify-between text-left hover:bg-neutral-50 transition-colors duration-200"
-                        >
-                          <div className="flex items-center space-x-4 md:space-x-6">
-                            <div className="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 flex items-center justify-center">
-                              <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
-                            </div>
-                            <div>
-                              <h3 className="font-semibold text-neutral-900 text-base md:text-lg">
-                                {faq.question}
-                              </h3>
-                              <span className="text-neutral-600 text-sm font-medium">
-                                {faq.category}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex-shrink-0">
-                            {openItems.includes(globalIndex) ? (
-                              <ChevronUp className="w-6 h-6 text-neutral-600" />
-                            ) : (
-                              <ChevronDown className="w-6 h-6 text-neutral-600" />
-                            )}
-                          </div>
-                        </button>
-                        
-                        <motion.div
-                          initial={false}
-                          animate={{
-                            height: openItems.includes(globalIndex) ? 'auto' : 0,
-                            opacity: openItems.includes(globalIndex) ? 1 : 0
-                          }}
-                          transition={{ duration: 0.2 }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 md:px-8 pb-6 md:pb-8 ml-14 md:ml-18">
-                            <div className="text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line">
-                              {faq.answer}
-                            </div>
-                          </div>
-                        </motion.div>
-                      </motion.div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* 聯絡資訊 */}
+          {/* 問題卡片網格（行動 1 欄、平板 2 欄、桌面 3 欄） */}
           <motion.div
-            className="mt-16 bg-neutral-900 p-12 text-center text-white"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            {currentFaqs.map((faq, index) => (
+              <button
+                key={`${faq.question}-${index}`}
+                onClick={() => {
+                  setSelectedFaqIndex(index)
+                  setIsSheetOpen(true)
+                }}
+                className="text-left bg-white flat-card p-4 md:p-6 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-white"
+                aria-haspopup="dialog"
+                aria-controls="faq-bottom-sheet"
+              >
+                <div className="flex items-start gap-3 md:gap-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 flex items-center justify-center flex-shrink-0">
+                    <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-neutral-900 text-sm md:text-base mb-1 line-clamp-2">
+                      {faq.question}
+                    </h3>
+                    <div className="text-neutral-600 text-xs md:text-sm font-medium mb-2">
+                      {faq.category}
+                    </div>
+                    <p className="text-neutral-600 text-xs md:text-sm line-clamp-2 whitespace-pre-line">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </motion.div>
+
+          {/* 底部彈出層 Bottom Sheet */}
+          <AnimatePresence>
+            {isSheetOpen && selectedFaqIndex !== null && (
+              <motion.div
+                className="fixed inset-0 z-[10000] flex flex-col"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="faq-sheet-title"
+              >
+                {/* 背景遮罩 */}
+                <div
+                  className="absolute inset-0 bg-black/40"
+                  onClick={() => setIsSheetOpen(false)}
+                />
+
+                {/* Sheet 內容容器 */}
+                <motion.div
+                  className="mt-auto bg-white border-t border-neutral-200 shadow-xl"
+                  initial={{ y: '100%' }}
+                  animate={{ y: 0 }}
+                  exit={{ y: '100%' }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+                  id="faq-bottom-sheet"
+                >
+                  {/* 把手 */}
+                  <div className="pt-3 flex justify-center">
+                    <div className="w-12 h-1.5 bg-neutral-200" />
+                  </div>
+
+                  {/* 標題列 */}
+                  <div className="flex items-start justify-between px-4 md:px-6 py-3 md:py-4">
+                    <div className="pr-6">
+                      <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
+                        {currentFaqs[selectedFaqIndex].question}
+                      </h3>
+                      <div className="text-xs md:text-sm text-neutral-500 mt-1">
+                        {currentFaqs[selectedFaqIndex].category}
+                      </div>
+                    </div>
+                    <button
+                      aria-label="關閉"
+                      className="p-2 text-neutral-600 hover:text-neutral-900"
+                      onClick={() => setIsSheetOpen(false)}
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* 內文 */}
+                  <div className="px-4 md:px-6 pb-6 md:pb-8 max-h-[60vh] overflow-y-auto">
+                    <div className="text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line">
+                      {currentFaqs[selectedFaqIndex].answer}
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* 結尾 CTA */}
+          <motion.div
+            className="mt-12 md:mt-16 bg-neutral-900 p-8 md:p-12 text-center text-white"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl font-bold mb-6">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
               還有其他問題嗎？
             </h3>
-            <p className="text-neutral-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-neutral-300 mb-6 md:mb-8 max-w-2xl mx-auto">
               我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
               <a 
                 href="tel:+886-2-2816-6666" 
-                className="bg-white text-neutral-900 px-8 py-4 flat-button font-semibold hover:bg-neutral-100 transition-colors duration-200 inline-flex items-center justify-center"
+                className="bg-white text-neutral-900 px-6 md:px-8 py-3 md:py-4 flat-button font-semibold hover:bg-neutral-100 transition-colors duration-200 inline-flex items-center justify-center"
               >
                 直接撥打電話
               </a>
@@ -325,7 +349,7 @@ export default function FAQSection() {
                 href="https://line.me/R/ti/p/@fixmaster" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-accent-500 text-white px-8 py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"
+                className="bg-accent-500 text-white px-6 md:px-8 py-3 md:py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"
               >
                 LINE 線上諮詢
               </a>

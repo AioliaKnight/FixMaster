@@ -208,6 +208,8 @@ export default function Navbar() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
             aria-label={isMenuOpen ? "關閉選單" : "開啟選單"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </motion.button>
@@ -223,6 +225,9 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
           >
             <div className="container mx-auto container-padding py-4">
               <div className="space-y-4">

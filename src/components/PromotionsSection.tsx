@@ -17,10 +17,10 @@ export default function PromotionsSection() {
   const mainPromotions = [
     {
       icon: Gift,
-      title: '首次預約好禮',
-      description: '初次預約維修即贈送9H鋼化玻璃貼',
-      originalPrice: '市價 $299',
-      discountPrice: '免費贈送',
+      title: '首次預約暖心禮',
+      description: '第一次見面，送你 9H 玻璃貼，保護更到位',
+      originalPrice: '原價 $299',
+      discountPrice: '到店免費',
       badge: '限時優惠',
       color: 'from-pink-500 to-pink-600',
       terms: ['限首次預約客戶', '需完成維修服務', '價值$299玻璃貼', '當場施作'],
@@ -28,10 +28,10 @@ export default function PromotionsSection() {
     },
     {
       icon: Truck,
-      title: '免費收送服務',
-      description: '維修滿指定金額，台北市區免費收送',
-      originalPrice: '一般 $200',
-      discountPrice: '滿額免費',
+      title: '到府收送更貼心',
+      description: '維修滿額，台北市區來回都交給我們',
+      originalPrice: '原價 $200',
+      discountPrice: '滿 $1,500 免收送',
       badge: '超值服務',
       color: 'from-blue-500 to-blue-600',
       terms: ['台北市區限定', '維修金額滿$1500', '當日收件處理', '完修後免費送回'],
@@ -39,8 +39,8 @@ export default function PromotionsSection() {
     },
     {
       icon: Tag,
-      title: '當月特惠機種',
-      description: '精選二手iPhone特價優惠，數量有限',
+      title: '本月二手機精選',
+      description: '嚴選好機，價格漂亮，數量有限，錯過可惜',
       originalPrice: '市價優惠',
       discountPrice: '最低8折',
       badge: '數量限定',
@@ -53,7 +53,7 @@ export default function PromotionsSection() {
   const flashDeals = [
     {
       title: 'iPhone 14 Pro 螢幕更換',
-      originalPrice: 'Apple官方 $5,490',
+      originalPrice: 'Apple 官方 $5,490',
       salePrice: '$4,941',
       discount: '9折優惠',
       timeLeft: '48小時',

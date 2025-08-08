@@ -196,6 +196,20 @@ export default function TestimonialsSection() {
     return () => clearInterval(interval)
   }, [isAutoPlaying, indicatorCount])
 
+  // 遵循使用者「減少動態」偏好：預設關閉自動播放
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mediaQuery.matches) {
+      setIsAutoPlaying(false)
+    }
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setIsAutoPlaying(false)
+    }
+    mediaQuery.addEventListener?.('change', handleChange)
+    return () => mediaQuery.removeEventListener?.('change', handleChange)
+  }, [])
+
   // 觸控手勢處理
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX)
@@ -266,7 +280,7 @@ export default function TestimonialsSection() {
               顧客真實好評
             </h2>
             <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
-              超過1000位顧客的信任與推薦，品質與服務獲得一致好評
+              我們珍惜每一次託付。你的放心，來自我們的用心。
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
           </motion.div>
@@ -291,7 +305,24 @@ export default function TestimonialsSection() {
           </motion.div>
 
           {/* 評價輪播 */}
-          <div className="relative mb-16">
+          <div className="relative mb-16" role="region" aria-label="顧客評價輪播">
+            {/* 播放/暫停控制 */}
+            {indicatorCount > 1 && (
+              <div className="absolute -top-12 right-0 flex items-center gap-2">
+                <button
+                  onClick={toggleAutoPlay}
+                  className="bg-white border border-neutral-300 text-neutral-700 px-3 py-2 flat-button text-sm hover:bg-neutral-50"
+                  aria-pressed={isAutoPlaying}
+                  aria-label={isAutoPlaying ? '暫停自動播放' : '啟用自動播放'}
+                >
+                  {isAutoPlaying ? (
+                    <span className="inline-flex items-center gap-2"><Pause className="w-4 h-4" /> 暫停</span>
+                  ) : (
+                    <span className="inline-flex items-center gap-2"><Play className="w-4 h-4" /> 播放</span>
+                  )}
+                </button>
+              </div>
+            )}
             {/* 輪播控制按鈕 - 桌面版 */}
             {indicatorCount > 1 && (
               <div className="hidden md:flex items-center justify-between absolute top-1/2 left-0 right-0 z-10 pointer-events-none">
@@ -313,7 +344,11 @@ export default function TestimonialsSection() {
             )}
 
             {/* 輪播內容 */}
-            <div className="overflow-hidden relative">
+            <div
+              className="overflow-hidden relative"
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+            >
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ 
@@ -353,9 +388,9 @@ export default function TestimonialsSection() {
                               <Quote className="w-6 h-6 text-neutral-300" />
                             </div>
                             {/* 評價內容 */}
-                            <p className="text-neutral-700 mb-3 leading-relaxed text-base text-center flex-1">
-                              "{testimonial.comment}"
-                            </p>
+                             <p className="text-neutral-700 mb-3 leading-relaxed text-base text-center flex-1">
+                               “{testimonial.comment}”
+                             </p>
                             {/* 服務項目 */}
                             <div className="text-xs text-neutral-400 mb-2 text-center">{testimonial.service}</div>
                             {/* 評分 */}

@@ -29,10 +29,10 @@ export default function ServicesSection() {
     {
       icon: Monitor,
       title: 'iPhone 原廠螢幕更換',
-      description: 'Apple IRP 認證原廠螢幕，現場更換，品質保證',
-      features: ['原廠 OLED 螢幕', '觸控完美運作', '色彩準確度 100%', '90天功能保固'],
+      description: '還你清晰與手感，如新機般流暢。',
+      features: ['原廠 OLED 顯示', '觸控零延遲', '色彩準確穩定', '90 天功能保固'],
       price: '$8,900 起',
-      duration: '30-60分鐘',
+      duration: '約 30–60 分鐘',
       models: ['iPhone 12-15 系列'],
       warranty: '90天螢幕功能保固',
       highlight: '最受歡迎',
@@ -40,11 +40,11 @@ export default function ServicesSection() {
     },
     {
       icon: Battery,
-      title: '電池健康度修復',
-      description: '原廠電池更換，恢復最佳續航力',
-      features: ['原廠電池芯片', '電池健康度 100%', '快速充電支援', '90天電池保固'],
+      title: '原廠電池更換',
+      description: '充電次數少一點，安心多一點。',
+      features: ['原廠電池芯片', '健康度回復穩定', '支援快充', '90 天電池保固'],
       price: '$2,990 起',
-      duration: '30-45分鐘',
+      duration: '約 30–45 分鐘',
       models: ['iPhone 11-15 系列'],
       warranty: '90天電池效能保固',
       highlight: '',
@@ -53,8 +53,8 @@ export default function ServicesSection() {
     {
       icon: Smartphone,
       title: '二手 iPhone 嚴選',
-      description: '精選二手 iPhone，完整檢測報告與保固',
-      features: ['全機功能檢測', '外觀評級分類', '配件齊全', '30天硬體保固'],
+      description: '幫你挑到放心的一支好手機。',
+      features: ['30 項功能檢測', '外觀等級清楚標示', '配件齊全', '30 天硬體保固'],
       price: '$8,000 起',
       duration: '現場挑選',
       models: ['iPhone 11-14 系列'],
@@ -65,8 +65,8 @@ export default function ServicesSection() {
     {
       icon: Truck,
       title: '到府收送服務',
-      description: '忙碌上班族專屬服務，免出門輕鬆維修',
-      features: ['台北市區服務', '當日收件修復', '完修後送回', '全程保險保障'],
+      description: '你忙你的，來回交給我們。',
+      features: ['台北市區專送', '當日收件處理', '完修後送回', '全程保險保障'],
       price: '滿 $1,500 免費',
       duration: '1-2個工作天',
       models: ['所有iPhone機型'],
@@ -109,6 +109,20 @@ export default function ServicesSection() {
     }
     return () => clearInterval(interval)
   }, [isAutoPlaying, services.length])
+
+  // 遵循使用者「減少動態」偏好：預設關閉自動播放
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (mediaQuery.matches) {
+      setIsAutoPlaying(false)
+    }
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setIsAutoPlaying(false)
+    }
+    mediaQuery.addEventListener?.('change', handleChange)
+    return () => mediaQuery.removeEventListener?.('change', handleChange)
+  }, [])
 
   // 觸控手勢處理
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -174,7 +188,24 @@ export default function ServicesSection() {
           </motion.div>
 
           {/* 服務輪播 */}
-          <div className="relative mb-16">
+          <div className="relative mb-16" role="region" aria-label="服務項目輪播">
+            {/* 播放/暫停控制 */}
+            {shouldShowControls && (
+              <div className="absolute -top-12 right-0 flex items-center gap-2">
+                <button
+                  onClick={toggleAutoPlay}
+                  className="bg-white border border-neutral-300 text-neutral-700 px-3 py-2 flat-button text-sm hover:bg-neutral-50"
+                  aria-pressed={isAutoPlaying}
+                  aria-label={isAutoPlaying ? '暫停自動播放' : '啟用自動播放'}
+                >
+                  {isAutoPlaying ? (
+                    <span className="inline-flex items-center gap-2"><Pause className="w-4 h-4" /> 暫停</span>
+                  ) : (
+                    <span className="inline-flex items-center gap-2"><Play className="w-4 h-4" /> 播放</span>
+                  )}
+                </button>
+              </div>
+            )}
             {/* 輪播控制按鈕 - 桌面版 - 只在有多個服務時顯示 */}
             {shouldShowControls && (
               <div className="hidden md:flex items-center justify-between absolute top-1/2 left-0 right-0 z-10 pointer-events-none">
@@ -196,7 +227,11 @@ export default function ServicesSection() {
             )}
 
             {/* 輪播內容 */}
-            <div className="overflow-hidden">
+            <div
+              className="overflow-hidden"
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+            >
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}

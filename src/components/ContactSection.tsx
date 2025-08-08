@@ -274,9 +274,9 @@ FixMaster 維修預約通知
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
               聯絡我們
             </h2>
-            <p className="text-neutral-300 text-lg sm:text-xl max-w-2xl mx-auto">
-              多種聯絡方式，讓您輕鬆預約維修服務
-            </p>
+             <p className="text-neutral-300 text-lg sm:text-xl max-w-2xl mx-auto">
+               想快點修好，也想修得安心。告訴我們，你的需要是什麼。
+             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
           </motion.div>
 
@@ -354,9 +354,9 @@ FixMaster 維修預約通知
               transition={{ duration: 0.3 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
+                <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
                 <Calendar className="w-6 h-6 mr-2" />
-                線上預約
+                  線上預約
               </h3>
               
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -374,6 +374,7 @@ FixMaster 維修預約通知
                     <input
                       type="text"
                       name="name"
+                      autoComplete="name"
                       value={formData.name}
                       onChange={handleInputChange}
                       className={`w-full bg-neutral-50 border px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
@@ -391,6 +392,8 @@ FixMaster 維修預約通知
                     <input
                       type="tel"
                       name="phone"
+                      inputMode="numeric"
+                      autoComplete="tel"
                       value={formData.phone}
                       onChange={handleInputChange}
                       className={`w-full bg-neutral-50 border px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
@@ -468,6 +471,7 @@ FixMaster 維修預約通知
                   <input
                     type="datetime-local"
                     name="preferredTime"
+                    autoComplete="off"
                     value={formData.preferredTime}
                     onChange={handleInputChange}
                     className="w-full bg-neutral-50 border border-neutral-300 px-4 py-2 text-neutral-900 focus:outline-none focus:border-accent-500"
@@ -481,6 +485,7 @@ FixMaster 維修預約通知
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={3}
+                    autoComplete="off"
                     className="w-full bg-neutral-50 border border-neutral-300 px-4 py-2 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-accent-500"
                     placeholder="請描述問題詳細狀況"
                   />
@@ -533,9 +538,9 @@ FixMaster 維修預約通知
               </div>
               
               <div className="bg-neutral-50 flat-card p-6">
-                <h3 className="text-xl font-bold text-neutral-900 mb-4 flex items-center">
+                 <h3 className="text-xl font-bold text-neutral-900 mb-4 flex items-center">
                   <Navigation className="w-6 h-6 mr-2" />
-                  店面位置
+                   店面位置
                 </h3>
                 <div className="bg-neutral-100 p-4 mb-4">
                   <div className="text-neutral-900 text-center">
@@ -591,10 +596,10 @@ FixMaster 維修預約通知
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-bold text-neutral-900 mb-6">
-              立即預約，享受專業維修服務！
+              今天的煩惱，今天就解決。
             </h3>
             <p className="text-neutral-600 text-xl mb-8 max-w-2xl mx-auto">
-              FixMaster 維修大師，您身邊最值得信賴的 iPhone 維修專家
+              一通電話或一則訊息，讓我們幫你的手機恢復到最好狀態
             </p>
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
               <a 

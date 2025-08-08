@@ -49,9 +49,9 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
               >
-                <span className="block">現場維修透明錄影 • 原廠零件保證 • 90天安心保固</span>
+                <span className="block">我們知道手機對你很重要，交給我們，安心也要看得見。</span>
                 <br className="hidden sm:block" />
-                <span className="block mt-2 sm:mt-0">士林區最快20分鐘完修 • 價格透明無隱藏費用 • Apple IRP認證品質保證</span>
+                <span className="block mt-2 sm:mt-0">現場透明錄影｜原廠零件｜90 天安心保固｜士林在地最快 30 分鐘完修</span>
               </motion.p>
 
               {/* 特色亮點 */}
@@ -63,20 +63,20 @@ export default function HeroSection() {
               >
                 <div className="bg-white/10 backdrop-blur-sm p-4 lg:p-6 flat-card text-center lg:text-left">
                   <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-accent-500 mx-auto lg:mx-0 mb-2 lg:mb-3" />
-                  <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">30分鐘快速完修</h3>
-                  <p className="text-neutral-300 text-xs lg:text-sm">現場等候即可完成</p>
+                  <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">最快 30 分鐘快速完修</h3>
+                  <p className="text-neutral-300 text-xs lg:text-sm">現場等候即可，少等一分鐘，多一分安心</p>
                 </div>
                 
                 <div className="bg-white/10 backdrop-blur-sm p-4 lg:p-6 flat-card text-center lg:text-left">
                   <Eye className="w-6 h-6 lg:w-8 lg:h-8 text-accent-500 mx-auto lg:mx-0 mb-2 lg:mb-3" />
                   <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">全程透明錄影</h3>
-                  <p className="text-neutral-300 text-xs lg:text-sm">維修過程完整記錄</p>
+                  <p className="text-neutral-300 text-xs lg:text-sm">每一步都清楚可見，放心跟著看</p>
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-sm p-4 lg:p-6 flat-card text-center lg:text-left">
                   <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-accent-500 mx-auto lg:mx-0 mb-2 lg:mb-3" />
                   <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">原廠零件保證</h3>
-                  <p className="text-neutral-300 text-xs lg:text-sm">Apple IRP 認證品質</p>
+                  <p className="text-neutral-300 text-xs lg:text-sm">Apple IRP 認證技師親自服務</p>
                 </div>
               </motion.div>
 
@@ -104,7 +104,7 @@ export default function HeroSection() {
                     }
                   }}
                 >
-                  🔧 專業快速維修
+                  🔧 立即預約維修
                 </button>
                 
                 <button 
@@ -124,7 +124,7 @@ export default function HeroSection() {
                     }
                   }}
                 >
-                  📱 精選二手iPhone
+                  📱 精選二手 iPhone
                 </button>
               </motion.div>
 
