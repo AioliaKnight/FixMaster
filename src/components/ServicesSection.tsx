@@ -1,6 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
+import { scrollToSectionId } from '@/lib/scroll'
 import { useState, useEffect, useCallback } from 'react'
 import { 
   Smartphone, 
@@ -307,31 +308,18 @@ export default function ServicesSection() {
                           <button 
                             className="w-full md:w-auto bg-accent-500 hover:bg-accent-600 text-white px-6 md:px-8 py-3 flat-button font-semibold rounded-none transition-colors duration-200"
                             onClick={() => {
-                              const contactSection = document.getElementById('contact')
-                              if (contactSection) {
-                                const rect = contactSection.getBoundingClientRect()
-                                const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-                                const navbarHeight = window.innerWidth >= 768 ? 80 : 64
-                                const targetPosition = rect.top + scrollTop - navbarHeight - 20
-                                
-                                window.scrollTo({
-                                  top: Math.max(0, targetPosition),
-                                  behavior: 'smooth'
-                                })
-                                
-                                // 預填表單 - 根據服務類型設定問題類型
-                                setTimeout(() => {
-                                  const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
-                                  if (issueSelect) {
-                                    if (service.title.includes('螢幕')) {
-                                      issueSelect.value = '螢幕破裂'
-                                    } else if (service.title.includes('電池')) {
-                                      issueSelect.value = '電池老化'
-                                    }
-                                    issueSelect.dispatchEvent(new Event('change', { bubbles: true }))
+                              scrollToSectionId('contact')
+                              setTimeout(() => {
+                                const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
+                                if (issueSelect) {
+                                  if (service.title.includes('螢幕')) {
+                                    issueSelect.value = '螢幕破裂'
+                                  } else if (service.title.includes('電池')) {
+                                    issueSelect.value = '電池老化'
                                   }
-                                }, 1000)
-                              }
+                                  issueSelect.dispatchEvent(new Event('change', { bubbles: true }))
+                                }
+                              }, 1000)
                             }}
                           >
                             立即預約

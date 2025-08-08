@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, MessageCircle } from 'lucide-react'
+import { scrollToSectionId } from '@/lib/scroll'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -82,21 +83,7 @@ export default function Navbar() {
       
       // 使用 setTimeout 確保選單關閉動畫完成後再滾動
       setTimeout(() => {
-        // 使用 getBoundingClientRect 獲取更準確的位置
-        const rect = element.getBoundingClientRect()
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-        const navbarHeight = window.innerWidth >= 768 ? 80 : 64
-        
-        // 計算目標位置
-        const targetPosition = rect.top + scrollTop - navbarHeight - 20
-        
-                 // 使用原生滾動
-         window.scrollTo({
-           top: Math.max(0, targetPosition),
-           behavior: 'smooth'
-         })
-         
-         console.log(`導航至 ${targetId}, 目標位置: ${targetPosition}`)
+        scrollToSectionId(targetId)
       }, 100)
     } else {
       // 如果找不到元素，也要關閉選單

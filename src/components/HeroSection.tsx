@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Shield, Clock, Eye, Phone } from 'lucide-react'
+import { scrollToSectionId } from '@/lib/scroll'
 
 export default function HeroSection() {
   return (
@@ -89,40 +90,14 @@ export default function HeroSection() {
               >
                 <button 
                   className="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white px-8 lg:px-12 py-3 lg:py-4 flat-button font-semibold text-base lg:text-lg tracking-wide transition-colors duration-200"
-                  onClick={() => {
-                    const contactSection = document.getElementById('contact')
-                    if (contactSection) {
-                      const rect = contactSection.getBoundingClientRect()
-                      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-                      const navbarHeight = window.innerWidth >= 768 ? 80 : 64
-                      const targetPosition = rect.top + scrollTop - navbarHeight - 20
-                      
-                      window.scrollTo({
-                        top: Math.max(0, targetPosition),
-                        behavior: 'smooth'
-                      })
-                    }
-                  }}
+                  onClick={() => scrollToSectionId('contact')}
                 >
                   🔧 立即預約維修
                 </button>
                 
                 <button 
                   className="w-full sm:w-auto bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 px-8 lg:px-12 py-3 lg:py-4 flat-button font-semibold text-base lg:text-lg tracking-wide transition-all duration-200"
-                  onClick={() => {
-                    const servicesSection = document.getElementById('services')
-                    if (servicesSection) {
-                      const rect = servicesSection.getBoundingClientRect()
-                      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-                      const navbarHeight = window.innerWidth >= 768 ? 80 : 64
-                      const targetPosition = rect.top + scrollTop - navbarHeight - 20
-                      
-                      window.scrollTo({
-                        top: Math.max(0, targetPosition),
-                        behavior: 'smooth'
-                      })
-                    }
-                  }}
+                  onClick={() => scrollToSectionId('services')}
                 >
                   📱 精選二手 iPhone
                 </button>

@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { scrollToSectionId } from '@/lib/scroll'
 import { 
   Gift, 
   Truck, 
@@ -183,27 +184,14 @@ export default function PromotionsSection() {
                 <button 
                   className="w-full bg-accent-500 text-white py-3 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200"
                   onClick={() => {
-                    const contactSection = document.getElementById('contact')
-                    if (contactSection) {
-                      const rect = contactSection.getBoundingClientRect()
-                      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-                      const navbarHeight = window.innerWidth >= 768 ? 80 : 64
-                      const targetPosition = rect.top + scrollTop - navbarHeight - 20
-                      
-                      window.scrollTo({
-                        top: Math.max(0, targetPosition),
-                        behavior: 'smooth'
-                      })
-                      
-                      // 預填表單優惠資訊
-                      setTimeout(() => {
-                        const messageTextarea = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement
-                        if (messageTextarea) {
-                          messageTextarea.value = `我想使用「${promo.title}」優惠，請協助預約維修服務。`
-                          messageTextarea.dispatchEvent(new Event('input', { bubbles: true }))
-                        }
-                      }, 1000)
-                    }
+                    scrollToSectionId('contact')
+                    setTimeout(() => {
+                      const messageTextarea = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement
+                      if (messageTextarea) {
+                        messageTextarea.value = `我想使用「${promo.title}」優惠，請協助預約維修服務。`
+                        messageTextarea.dispatchEvent(new Event('input', { bubbles: true }))
+                      }
+                    }, 1000)
                   }}
                 >
                   🎁 立即享受優惠

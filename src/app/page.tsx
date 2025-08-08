@@ -6,6 +6,7 @@ import FAQSection from '@/components/FAQSection'
 import TrustSection from '@/components/TrustSection'
 import PromotionsSection from '@/components/PromotionsSection'
 import ContactSection from '@/components/ContactSection'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <PromotionsSection />
         <ContactSection />
       </main>
+      <Footer />
     </>
   )
 } 
