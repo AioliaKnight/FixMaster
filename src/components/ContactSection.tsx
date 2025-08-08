@@ -88,6 +88,7 @@ export default function ContactSection() {
       const emailData = {
         to: 'fixmastertw@gmail.com',
         subject: `FixMaster 維修預約 - ${formData.name} (${formData.device})`,
+        token: formData.token,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background-color: #dc2626; color: white; padding: 20px; text-align: center;">
@@ -177,7 +178,8 @@ FixMaster 維修預約通知
         device: '',
         issue: '',
         preferredTime: '',
-        message: ''
+        message: '',
+        token: ''
       })
       
       // 3秒後隱藏成功訊息
