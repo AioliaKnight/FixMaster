@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Shield, Clock, Eye, Phone } from 'lucide-react'
+import Image from 'next/image'
 import { scrollToSectionId } from '@/lib/scroll'
 
 export default function HeroSection() {
@@ -129,9 +130,13 @@ export default function HeroSection() {
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               >
-                <img
+                <Image
                   src="/Hero_1.png"
                   alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
+                  width={800}
+                  height={800}
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                  priority
                   className="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0 drop-shadow-2xl"
                 />
               </motion.div>

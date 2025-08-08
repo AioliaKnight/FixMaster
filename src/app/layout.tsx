@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
+const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'] })
 
 export const metadata: Metadata = {
   title: 'FixMaster 維修大師 士林店 | Apple 原廠授權維修中心',
@@ -661,14 +662,14 @@ export default function RootLayout({
     <html lang="zh-TW" className="scroll-smooth">
       <head>
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'GA_MEASUREMENT_ID', {
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
                 page_title: document.title,
                 page_location: window.location.href,
                 send_page_view: true
@@ -685,7 +686,7 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-XXXXXXX');
+              })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
             `,
           }}
         />
@@ -702,7 +703,7 @@ export default function RootLayout({
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', 'YOUR_PIXEL_ID');
+              fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
               fbq('track', 'PageView');
             `,
           }}
@@ -713,7 +714,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               _ltag = window._ltag || {};
-              _ltag.id = 'YOUR_LINE_TAG_ID';
+              _ltag.id = '${process.env.NEXT_PUBLIC_LINE_TAG_ID}';
               _ltag.send = function(){
                 _ltag.q = _ltag.q || [];
                 _ltag.q.push(arguments);
@@ -771,11 +772,11 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//connect.facebook.net" />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${noto.className} antialiased`}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+            src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
             height="0" 
             width="0" 
             style={{ display: 'none', visibility: 'hidden' }}
@@ -788,7 +789,7 @@ export default function RootLayout({
             height="1" 
             width="1" 
             style={{ display: 'none' }}
-            src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+            src={`https://www.facebook.com/tr?id=${process.env.NEXT_PUBLIC_FB_PIXEL_ID}&ev=PageView&noscript=1`}
           />
         </noscript>
         

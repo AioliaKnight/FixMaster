@@ -5,7 +5,20 @@ import nodemailer from 'nodemailer'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { to, subject, html, text } = body
+    const { to, subject, html, text, token } = body
+
+    // 簡易 rate limit：限制同一 IP 在 60 秒內最多 5 次（記憶體級，適用 serverless 單實例）
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    ;(global as any).__rate = (global as any).__rate || new Map<string, number[]>()
+    const now = Date.now()
+    const windowMs = 60 * 1000
+    const maxInWindow = 5
+    const arr = ((global as any).__rate.get(ip) || []).filter((t: number) => now - t < windowMs)
+    arr.push(now)
+    ;(global as any).__rate.set(ip, arr)
+    if (arr.length > maxInWindow) {
+      return NextResponse.json({ error: '請稍後再試' }, { status: 429 })
+    }
 
     // 驗證必要欄位
     if (!to || !subject || !html) {
@@ -13,6 +26,11 @@ export async function POST(request: NextRequest) {
         { error: '缺少必要欄位' },
         { status: 400 }
       )
+    }
+
+    // honeypot（若填入則直接忽略）
+    if (typeof token === 'string' && token.trim() !== '') {
+      return NextResponse.json({ success: true, message: 'ok' })
     }
 
     // 記錄郵件資訊到 console

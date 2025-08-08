@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, MessageCircle } from 'lucide-react'
 import { scrollToSectionId } from '@/lib/scroll'
+import Image from 'next/image'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -126,10 +127,12 @@ export default function Navbar() {
               onClick={() => handleNavClick('#home')}
               className="flex items-center hover:opacity-80 transition-opacity duration-200"
             >
-              <img 
+              <Image 
                 src="/logo.svg" 
                 alt="FixMaster 維修大師" 
-                className="h-8 md:h-10 w-auto"
+                width={120}
+                height={40}
+                priority
               />
             </button>
           </motion.div>

@@ -22,7 +22,8 @@ export default function ContactSection() {
     device: '',
     issue: '',
     preferredTime: '',
-    message: ''
+    message: '',
+    token: '' // honeypot
   })
 
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
@@ -491,6 +492,8 @@ FixMaster 維修預約通知
                   />
                 </div>
                 
+                <input type="text" name="token" value={formData.token} onChange={handleInputChange} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+
                 <button
                   type="submit"
                   disabled={isSubmitting}

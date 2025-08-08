@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { 
   Award, 
   Video, 
@@ -202,9 +203,11 @@ export default function TrustSection() {
                 >
                   <div className="text-4xl mb-4 flex justify-center">
                     {cert.icon === 'apple_logo' ? (
-                      <img 
+                      <Image 
                         src="/apple_logo.webp" 
                         alt="Apple Logo" 
+                        width={48}
+                        height={48}
                         className="w-12 h-12 object-contain"
                       />
                     ) : (
