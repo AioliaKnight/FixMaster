@@ -63,27 +63,27 @@ export default function HeroSection() {
 
               {/* 特色亮點 */}
               <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-10"
+                className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible mb-8 lg:mb-10 -mx-1 px-1"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.3 }}
               >
-                <div className="p-0 text-center lg:text-left">
+                <div className="flex-none w-56 snap-start border border-neutral-200 p-4 text-center lg:text-left sm:border-0 sm:p-0 sm:w-auto">
                   <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
                   <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">最快 30 分鐘快速完修</h3>
-                  <p className="text-neutral-600 text-xs lg:text-sm">現場等候即可</p>
+                  <p className="text-neutral-600 text-xs lg:text-sm hidden sm:block">現場等候即可</p>
                 </div>
                 
-                <div className="p-0 text-center lg:text-left">
+                <div className="flex-none w-56 snap-start border border-neutral-200 p-4 text-center lg:text-left sm:border-0 sm:p-0 sm:w-auto">
                   <Eye className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
                   <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">全程透明錄影</h3>
-                  <p className="text-neutral-600 text-xs lg:text-sm">每一步都清楚可見</p>
+                  <p className="text-neutral-600 text-xs lg:text-sm hidden sm:block">每一步都清楚可見</p>
                 </div>
 
-                <div className="p-0 text-center lg:text-left">
+                <div className="flex-none w-56 snap-start border border-neutral-200 p-4 text-center lg:text-left sm:border-0 sm:p-0 sm:w-auto">
                   <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
                   <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">Apple 認證零件</h3>
-                  <p className="text-neutral-600 text-xs lg:text-sm">IRP 認證技師</p>
+                  <p className="text-neutral-600 text-xs lg:text-sm hidden sm:block">IRP 認證技師</p>
                 </div>
               </motion.div>
 
