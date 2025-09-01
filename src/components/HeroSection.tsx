@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Shield, Clock, Eye, Phone } from 'lucide-react'
 import Image from 'next/image'
 import { scrollToSectionId } from '@/lib/scroll'
+import { useEffect, useRef, useState } from 'react'
 
 export default function HeroSection() {
   return (
@@ -64,6 +65,41 @@ export default function HeroSection() {
               {/* 特色亮點 */}
               <motion.div 
                 className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible mb-8 lg:mb-10 -mx-1 px-1"
+                ref={(() => {
+                  const ref = useRef<HTMLDivElement>(null)
+                  const [, setInit] = useState(0)
+                  const [active, setActive] = useState(0)
+                  useEffect(() => {
+                    const el = ref.current
+                    if (!el) return
+                    const onScroll = () => {
+                      const children = el.children
+                      if (children.length < 2) {
+                        setActive(0)
+                        return
+                      }
+                      const step = (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft
+                      if (step <= 0) return
+                      const idx = Math.round(el.scrollLeft / step)
+                      setActive(Math.min(children.length - 1, Math.max(0, idx)))
+                    }
+                    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+                    onScroll()
+                    return () => el.removeEventListener('scroll', onScroll as any)
+                  }, [])
+                  ;(globalThis as any).__heroHighlightsRef = ref
+                  ;(globalThis as any).__setHeroHighlightsActive = (i: number) => {
+                    const el = ref.current
+                    if (!el) return
+                    const children = el.children
+                    if (children.length < 2) return
+                    const step = (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft
+                    el.scrollTo({ left: i * step, behavior: 'smooth' })
+                    setInit(i)
+                  }
+                  ;(globalThis as any).__getHeroHighlightsActive = () => active
+                  return ref
+                })()}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.3 }}
@@ -86,6 +122,17 @@ export default function HeroSection() {
                   <p className="text-neutral-600 text-xs lg:text-sm hidden sm:block">IRP 認證技師</p>
                 </div>
               </motion.div>
+              {/* 手機點點指示器 */}
+              <div className="flex md:hidden items-center justify-center mt-2 mb-6 space-x-2">
+                {Array.from({ length: 3 }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => (globalThis as any).__setHeroHighlightsActive?.(i)}
+                    aria-label={`前往第 ${i + 1} 個特色`}
+                    className={(globalThis as any).__getHeroHighlightsActive?.() === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
+                  />
+                ))}
+              </div>
 
               {/* CTA 按鈕 */}
               <motion.div 

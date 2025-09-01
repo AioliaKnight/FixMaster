@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { scrollToSectionId } from '@/lib/scroll'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { 
   Smartphone, 
   Battery, 
@@ -25,6 +25,44 @@ export default function ServicesSection() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+
+  // Mobile dots for additional services
+  const additionalRef = useRef<HTMLDivElement>(null)
+  const [additionalActive, setAdditionalActive] = useState(0)
+  useEffect(() => {
+    const el = additionalRef.current
+    if (!el) return
+    const onScroll = () => {
+      if (!el) return
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      if (!a || !b) { setAdditionalActive(0); return }
+      const step = b.offsetLeft - a.offsetLeft
+      if (step > 0) setAdditionalActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
+
+  // Mobile dots for steps
+  const stepsRef = useRef<HTMLDivElement>(null)
+  const [stepsActive, setStepsActive] = useState(0)
+  useEffect(() => {
+    const el = stepsRef.current
+    if (!el) return
+    const onScroll = () => {
+      if (!el) return
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      if (!a || !b) { setStepsActive(0); return }
+      const step = b.offsetLeft - a.offsetLeft
+      if (step > 0) setStepsActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
 
   const services = [
     {
@@ -358,7 +396,7 @@ export default function ServicesSection() {
             <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-8 md:mb-12">
               為什麼選擇 FixMaster？
             </h3>
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1">
+            <div ref={additionalRef} className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1">
               {additionalServices.map((service, index) => (
                 <motion.div
                   key={index}
@@ -376,6 +414,24 @@ export default function ServicesSection() {
                 </motion.div>
               ))}
             </div>
+            {/* dots: additional services */}
+            <div className="flex md:hidden items-center justify-center mt-3 space-x-2">
+              {additionalServices.map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`前往第 ${i + 1} 個重點`}
+                  onClick={() => {
+                    const el = additionalRef.current
+                    if (!el) return
+                    const a = el.children[0] as HTMLElement | undefined
+                    const b = el.children[1] as HTMLElement | undefined
+                    const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                    el.scrollTo({ left: i * step, behavior: 'smooth' })
+                  }}
+                  className={additionalActive === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
+                />
+              ))}
+            </div>
           </motion.div>
 
           {/* 服務流程 */}
@@ -389,7 +445,7 @@ export default function ServicesSection() {
             <h3 className="text-2xl font-bold text-neutral-900 mb-8">
               簡單三步驟，輕鬆完成維修
             </h3>
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1">
+            <div ref={stepsRef} className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1">
               <div className="text-center flex-none w-56 snap-start md:w-auto">
                 <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
@@ -411,6 +467,24 @@ export default function ServicesSection() {
                 <h4 className="font-semibold text-neutral-900 mb-2">快速完修</h4>
                 <p className="text-neutral-600 text-sm">1小時內完修取件</p>
               </div>
+            </div>
+            {/* dots: steps */}
+            <div className="flex md:hidden items-center justify-center mt-3 space-x-2">
+              {Array.from({ length: 3 }, (_, i) => (
+                <button
+                  key={i}
+                  aria-label={`前往第 ${i + 1} 步驟`}
+                  onClick={() => {
+                    const el = stepsRef.current
+                    if (!el) return
+                    const a = el.children[0] as HTMLElement | undefined
+                    const b = el.children[1] as HTMLElement | undefined
+                    const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                    el.scrollTo({ left: i * step, behavior: 'smooth' })
+                  }}
+                  className={stepsActive === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
+                />
+              ))}
             </div>
           </motion.div>
         </div>

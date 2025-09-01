@@ -198,6 +198,11 @@ export default function PromotionsSection() {
               </motion.div>
             ))}
           </div>
+          <div className="flex md:hidden items-center justify-center -mt-10 mb-14 space-x-2">
+            {mainPromotions.map((_, i) => (
+              <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+            ))}
+          </div>
 
           {/* 限時搶購 */}
           <motion.div
@@ -237,6 +242,11 @@ export default function PromotionsSection() {
                 </div>
               ))}
             </div>
+            <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
+              {flashDeals.map((_, i) => (
+                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              ))}
+            </div>
           </motion.div>
 
           {/* 會員制度 */}
@@ -267,6 +277,11 @@ export default function PromotionsSection() {
                     ))}
                   </div>
                 </div>
+              ))}
+            </div>
+            <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
+              {loyaltyProgram.map((_, i) => (
+                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
               ))}
             </div>
           </motion.div>

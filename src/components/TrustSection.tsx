@@ -179,6 +179,11 @@ export default function TrustSection() {
               </motion.div>
             ))}
           </div>
+          <div className="flex md:hidden items-center justify-center -mt-10 mb-14 space-x-2">
+            {promises.map((_, i) => (
+              <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+            ))}
+          </div>
 
           {/* 認證資格 */}
           <motion.div
@@ -217,6 +222,11 @@ export default function TrustSection() {
                   <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>
                   <p className="text-neutral-600 text-sm">{cert.description}</p>
                 </motion.div>
+              ))}
+            </div>
+            <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
+              {certifications.map((_, i) => (
+                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
               ))}
             </div>
           </motion.div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Star, Quote, User, CheckCircle, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
 
 export default function TestimonialsSection() {
@@ -256,7 +256,7 @@ export default function TestimonialsSection() {
 
           {/* 統計數據 */}
           <motion.div 
-            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:gap-8 mb-16 -mx-1 px-1"
+            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:gap-8 mb-4 md:mb-16 -mx-1 px-1"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
@@ -272,6 +272,12 @@ export default function TestimonialsSection() {
               </div>
             ))}
           </motion.div>
+          {/* mobile dots for stats */}
+          <div className="flex md:hidden items-center justify-center mb-12 space-x-2">
+            {stats.map((_, i) => (
+              <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+            ))}
+          </div>
 
           {/* 評價輪播 */}
           <div className="relative mb-16" role="region" aria-label="顧客評價輪播">
@@ -426,6 +432,12 @@ export default function TestimonialsSection() {
               <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium flex-none snap-start">
                 30分鐘快修
               </div>
+            </div>
+            {/* mobile dots for conclusion tags */}
+            <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
+              {Array.from({ length: 4 }, (_, i) => (
+                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              ))}
             </div>
           </motion.div>
         </div>
