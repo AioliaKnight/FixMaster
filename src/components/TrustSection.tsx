@@ -139,7 +139,7 @@ export default function TrustSection() {
           </motion.div>
 
           {/* 主要承諾 */}
-          <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 mb-16 -mx-1 px-1">
+          <div id="trust-promises" className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 mb-16 -mx-1 px-1">
             {promises.map((promise, index) => (
               <motion.div
                 key={index}
@@ -181,7 +181,15 @@ export default function TrustSection() {
           </div>
           <div className="flex md:hidden items-center justify-center -mt-10 mb-14 space-x-2">
             {promises.map((_, i) => (
-              <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              <a key={i} href={`#trust-promises`} onClick={(e) => {
+                e.preventDefault()
+                const el = document.getElementById('trust-promises')
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }} className="w-2.5 h-2.5 rounded-full bg-neutral-300 inline-block" />
             ))}
           </div>
 
@@ -196,7 +204,7 @@ export default function TrustSection() {
             <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
               專業認證與資格
             </h3>
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-1 px-1">
+            <div id="trust-certs" className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-1 px-1">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
@@ -226,7 +234,15 @@ export default function TrustSection() {
             </div>
             <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
               {certifications.map((_, i) => (
-                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                <a key={i} href="#trust-certs" onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('trust-certs')
+                  if (!el) return
+                  const a = el.children[0] as HTMLElement | undefined
+                  const b = el.children[1] as HTMLElement | undefined
+                  const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                  el.scrollTo({ left: i * step, behavior: 'smooth' })
+                }} className="w-2.5 h-2.5 rounded-full bg-neutral-300 inline-block" />
               ))}
             </div>
           </motion.div>

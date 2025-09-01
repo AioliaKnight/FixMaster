@@ -11,6 +11,40 @@ export default function TestimonialsSection() {
   const [touchEnd, setTouchEnd] = useState(0)
   const [slidesPerView, setSlidesPerView] = useState(1)
 
+  // Mobile dots for stats scroller
+  const statsRef = useRef<HTMLDivElement>(null)
+  const [statsActive, setStatsActive] = useState(0)
+  useEffect(() => {
+    const el = statsRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setStatsActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
+
+  // Mobile dots for conclusion tags
+  const tagsRef = useRef<HTMLDivElement>(null)
+  const [tagsActive, setTagsActive] = useState(0)
+  useEffect(() => {
+    const el = tagsRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setTagsActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
+
   const testimonials = [
     {
       name: '張小姐',
@@ -257,6 +291,7 @@ export default function TestimonialsSection() {
           {/* 統計數據 */}
           <motion.div 
             className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:gap-8 mb-4 md:mb-16 -mx-1 px-1"
+            ref={statsRef}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
@@ -275,7 +310,19 @@ export default function TestimonialsSection() {
           {/* mobile dots for stats */}
           <div className="flex md:hidden items-center justify-center mb-12 space-x-2">
             {stats.map((_, i) => (
-              <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              <button
+                key={i}
+                aria-label={`前往第 ${i + 1} 個統計`}
+                onClick={() => {
+                  const el = statsRef.current
+                  if (!el) return
+                  const a = el.children[0] as HTMLElement | undefined
+                  const b = el.children[1] as HTMLElement | undefined
+                  const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                  el.scrollTo({ left: i * step, behavior: 'smooth' })
+                }}
+                className={statsActive === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
+              />
             ))}
           </div>
 
@@ -419,7 +466,7 @@ export default function TestimonialsSection() {
             <p className="text-neutral-600 mb-8 max-w-2xl mx-auto">
               我們致力於提供最優質的維修服務，每一位客戶的滿意都是我們前進的動力
             </p>
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 justify-start md:justify-center -mx-1 px-1">
+            <div ref={tagsRef} className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 justify-start md:justify-center -mx-1 px-1">
               <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium flex-none snap-start">
                 Apple IRP 認證
               </div>
@@ -436,7 +483,19 @@ export default function TestimonialsSection() {
             {/* mobile dots for conclusion tags */}
             <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
               {Array.from({ length: 4 }, (_, i) => (
-                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                <button
+                  key={i}
+                  aria-label={`前往第 ${i + 1} 個標籤`}
+                  onClick={() => {
+                    const el = tagsRef.current
+                    if (!el) return
+                    const a = el.children[0] as HTMLElement | undefined
+                    const b = el.children[1] as HTMLElement | undefined
+                    const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                    el.scrollTo({ left: i * step, behavior: 'smooth' })
+                  }}
+                  className={tagsActive === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
+                />
               ))}
             </div>
           </motion.div>
