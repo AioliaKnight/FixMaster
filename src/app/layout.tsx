@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
+import FloatingCTA from '@/components/FloatingCTA'
 
 const inter = Inter({ subsets: ['latin'] })
 const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'] })
@@ -469,6 +470,7 @@ export default function RootLayout({
         )}
         
         {children}
+        <FloatingCTA />
       </body>
     </html>
   )
