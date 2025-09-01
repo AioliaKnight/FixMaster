@@ -18,13 +18,13 @@ export default function PromotionsSection() {
   const mainPromotions = [
     {
       icon: Gift,
-      title: '首次預約暖心禮',
-      description: '第一次見面，送你 9H 玻璃貼，保護更到位',
+      title: '首次預約送 9H 玻璃貼',
+      description: '完成維修即贈，保護更到位',
       originalPrice: '原價 $299',
       discountPrice: '到店免費',
       badge: '限時優惠',
       color: 'from-pink-500 to-pink-600',
-      terms: ['限首次預約客戶', '需完成維修服務', '價值$299玻璃貼', '當場施作'],
+      terms: ['限首次預約', '完成維修', '當場施作'],
       validUntil: '2024.12.31'
     },
     {
@@ -35,7 +35,7 @@ export default function PromotionsSection() {
       discountPrice: '滿 $1,500 免收送',
       badge: '超值服務',
       color: 'from-blue-500 to-blue-600',
-      terms: ['台北市區限定', '維修金額滿$1500', '當日收件處理', '完修後免費送回'],
+      terms: ['台北市區限定', '滿 $1,500 免收送', '當日收件處理'],
       validUntil: '長期優惠'
     },
     {
@@ -46,7 +46,7 @@ export default function PromotionsSection() {
       discountPrice: '最低8折',
       badge: '數量限定',
       color: 'from-purple-500 to-purple-600',
-      terms: ['限當月特選機種', '電池健康度80%以上', '外觀9成新', '保固30天'],
+      terms: ['限當月特選機種', '電池健康度 80% 以上', '保固 30 天'],
       validUntil: '每月更新'
     }
   ]
@@ -127,22 +127,21 @@ export default function PromotionsSection() {
             {mainPromotions.map((promo, index) => (
               <motion.div
                 key={index}
-                className="bg-white flat-card p-6 md:p-8 group relative overflow-hidden hover:border-neutral-400 transition-all duration-200"
+                className="bg-white p-6 md:p-8 group relative overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-all duration-200"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02 }}
               >
-                {/* 背景裝飾 */}
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${promo.color} rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
+                {/* 移除背景漸層，改為純白卡片 */}
                 
                 {/* 標章 */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${promo.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <promo.icon className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-white border border-neutral-200 flex items-center justify-center">
+                    <promo.icon className="w-8 h-8 text-neutral-900" />
                   </div>
-                  <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="text-accent-600 text-sm font-medium">
                     {promo.badge}
                   </div>
                 </div>
@@ -161,7 +160,7 @@ export default function PromotionsSection() {
                     <span className="text-neutral-400 text-sm line-through">
                       {promo.originalPrice}
                     </span>
-                    <span className="text-accent-500 text-lg font-bold">
+                    <span className="text-neutral-900 text-lg font-semibold">
                       {promo.discountPrice}
                     </span>
                   </div>
@@ -182,7 +181,7 @@ export default function PromotionsSection() {
 
                 {/* 立即使用按鈕 */}
                 <button 
-                  className="w-full bg-accent-500 text-white py-3 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200"
+                  className="w-full bg-neutral-900 text-white py-3 flat-button font-medium hover:bg-black transition-colors duration-200"
                   onClick={() => {
                     scrollToSectionId('contact')
                     setTimeout(() => {

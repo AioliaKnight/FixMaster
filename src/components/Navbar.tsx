@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, MessageCircle } from 'lucide-react'
 import { scrollToSectionId } from '@/lib/scroll'
-import Image from 'next/image'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -111,9 +110,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white shadow-sm' : 'bg-white/95 backdrop-blur-sm'
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-neutral-200`}>
       <div className="container mx-auto container-padding">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -125,15 +122,15 @@ export default function Navbar() {
           >
             <button 
               onClick={() => handleNavClick('#home')}
-              className="flex items-center hover:opacity-80 transition-opacity duration-200"
+              className="group flex items-center hover:opacity-90 transition-opacity duration-200"
+              aria-label="前往首頁"
             >
-              <Image 
-                src="/logo.svg" 
-                alt="FixMaster 維修大師" 
-                width={120}
-                height={40}
-                priority
-              />
+              <span className="sr-only">FixMaster 維修大師</span>
+              <span className="flex items-center">
+                <span className="text-[18px] md:text-[20px] tracking-tight font-semibold text-neutral-900">Fix</span>
+                <span aria-hidden className="mx-2 h-2 w-2 bg-accent-500 group-hover:bg-accent-600 transition-colors duration-200" />
+                <span className="text-[18px] md:text-[20px] tracking-tight font-normal text-neutral-900">Master</span>
+              </span>
             </button>
           </motion.div>
 
@@ -148,16 +145,16 @@ export default function Navbar() {
               <button
                 key={item.name}
                 onClick={() => handleNavClick(item.href)}
-                className={`relative text-sm font-medium transition-colors duration-200 hover:text-accent-500 ${
+                className={`relative text-sm font-medium transition-colors duration-200 hover:text-neutral-900 ${
                   activeSection === item.href.replace('#', '') 
-                    ? 'text-accent-500' 
-                    : 'text-neutral-700'
+                    ? 'text-neutral-900' 
+                    : 'text-neutral-600'
                 }`}
               >
                 {item.name}
                 {activeSection === item.href.replace('#', '') && (
                   <motion.div
-                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent-500"
+                    className="absolute -bottom-1 left-0 w-full h-px bg-neutral-900"
                     layoutId="activeIndicator"
                   />
                 )}
@@ -167,14 +164,14 @@ export default function Navbar() {
 
           {/* 桌面版聯絡按鈕 */}
           <motion.div 
-            className="hidden lg:flex items-center space-x-4"
+            className="hidden lg:flex items-center space-x-6"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: 0.2 }}
           >
             <a
               href="tel:+886-2-2816-6666"
-              className="flex items-center space-x-2 text-neutral-700 hover:text-accent-500 transition-colors duration-200"
+              className="flex items-center space-x-2 text-neutral-700 hover:text-neutral-900 transition-colors duration-200"
             >
               <Phone className="w-4 h-4" />
               <span className="text-sm font-medium">02-2816-6666</span>
@@ -183,10 +180,9 @@ export default function Navbar() {
               href="https://line.me/R/ti/p/@fixmaster"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent-500 text-white px-4 py-2 flat-button font-medium text-sm hover:bg-accent-600 transition-colors duration-200 flex items-center space-x-2"
+              className="text-accent-600 hover:text-accent-700 transition-colors duration-200 text-sm font-medium"
             >
-              <MessageCircle className="w-4 h-4" />
-              <span>LINE 諮詢</span>
+              LINE 諮詢
             </a>
           </motion.div>
 
@@ -210,7 +206,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="lg:hidden bg-white border-t border-neutral-200 shadow-lg"
+            className="lg:hidden bg-white border-t border-neutral-200"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -227,8 +223,8 @@ export default function Navbar() {
                     onClick={() => handleNavClick(item.href)}
                     className={`block w-full text-left py-4 px-6 transition-all duration-200 hover:bg-neutral-50 active:bg-neutral-100 ${
                       activeSection === item.href.replace('#', '')
-                        ? 'text-accent-500 bg-neutral-50 border-l-4 border-accent-500 font-medium'
-                        : 'text-neutral-700 hover:text-accent-500'
+                        ? 'text-neutral-900 bg-neutral-50 border-l border-neutral-900 font-medium'
+                        : 'text-neutral-700 hover:text-neutral-900'
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -238,7 +234,7 @@ export default function Navbar() {
                       {item.name}
                       {activeSection === item.href.replace('#', '') && (
                         <motion.div
-                          className="ml-auto w-2 h-2 bg-accent-500 rounded-full"
+                          className="ml-auto w-2 h-2 bg-neutral-900"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ duration: 0.2 }}
@@ -266,7 +262,7 @@ export default function Navbar() {
                     href="https://line.me/R/ti/p/@fixmaster"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 bg-accent-500 text-white p-4 flat-button font-medium hover:bg-accent-600 active:bg-accent-700 transition-colors duration-200"
+                    className="flex items-center space-x-3 text-accent-600 p-4 font-medium hover:bg-neutral-50 active:bg-neutral-100 transition-colors duration-200"
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>LINE 諮詢</span>

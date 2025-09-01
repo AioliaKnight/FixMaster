@@ -7,78 +7,83 @@ import { scrollToSectionId } from '@/lib/scroll'
 
 export default function HeroSection() {
   return (
-    <section id="home" className="min-h-screen bg-neutral-900 flex items-center relative overflow-hidden">
-      <div className="container mx-auto container-padding py-32 pt-32 md:pt-40">
+    <section id="home" className="min-h-screen bg-white flex items-center">
+      <div className="container mx-auto container-padding pt-28 pb-16 md:pt-36 md:pb-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* 左側內容區 */}
             <div className="text-center lg:text-left">
               {/* 認證標章 */}
               <motion.div 
-                className="mb-8 lg:mb-12"
+                className="mb-6 lg:mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="inline-flex items-center bg-accent-500 px-6 md:px-8 py-3 flat-button">
-                  <Shield className="w-4 h-4 md:w-5 md:h-5 text-white mr-2 md:mr-3" />
-                  <span className="text-white text-xs md:text-sm font-medium tracking-wide">Apple IRP 獨立維修提供商認證</span>
+                <div className="inline-flex items-center px-0 py-0">
+                  <Image
+                    src="/apple_logo.webp"
+                    alt="Apple 認證標章"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 mr-2 object-contain"
+                    priority
+                  />
+                  <span className="text-neutral-900 text-sm font-medium tracking-wide">Apple IRP 認證</span>
                 </div>
               </motion.div>
 
               {/* 主標題 */}
               <motion.h1 
-                className="text-white mb-8 lg:mb-12"
+                className="text-neutral-900 mb-6 lg:mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
               >
-                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4">
+                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-tight mb-2">
                   FixMaster
                 </span>
-                <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-accent-500 mb-4 lg:mb-6">
-                  維修大師 士林店
+                <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-neutral-900 mb-2 lg:mb-3">
+                  維修大師｜士林店
                 </span>
-                <span className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal text-neutral-300">
-                  Apple 原廠授權維修中心
+                <span className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal text-neutral-600">
+                  現場透明錄影、Apple 認證零件、90 天保固，最快三十分鐘完修。
                 </span>
               </motion.h1>
 
               {/* 副標題 */}
               <motion.p 
-                className="text-neutral-300 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto lg:mx-0 mb-8 lg:mb-12 leading-relaxed"
+                className="text-neutral-600 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto lg:mx-0 mb-8 lg:mb-10 leading-relaxed"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
               >
-                <span className="block">我們知道手機對你很重要，交給我們，安心也要看得見。</span>
-                <br className="hidden sm:block" />
-                <span className="block mt-2 sm:mt-0">現場透明錄影｜原廠零件｜90 天安心保固｜士林在地最快 30 分鐘完修</span>
+                專業 iPhone 維修，透明、安心、有效率。
               </motion.p>
 
               {/* 特色亮點 */}
               <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-12"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 mb-8 lg:mb-10"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.3 }}
               >
-                <div className="bg-white/10 backdrop-blur-sm p-4 lg:p-6 flat-card text-center lg:text-left">
-                  <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-accent-500 mx-auto lg:mx-0 mb-2 lg:mb-3" />
-                  <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">最快 30 分鐘快速完修</h3>
-                  <p className="text-neutral-300 text-xs lg:text-sm">現場等候即可，少等一分鐘，多一分安心</p>
+                <div className="p-0 text-center lg:text-left">
+                  <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
+                  <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">最快 30 分鐘快速完修</h3>
+                  <p className="text-neutral-600 text-xs lg:text-sm">現場等候即可</p>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm p-4 lg:p-6 flat-card text-center lg:text-left">
-                  <Eye className="w-6 h-6 lg:w-8 lg:h-8 text-accent-500 mx-auto lg:mx-0 mb-2 lg:mb-3" />
-                  <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">全程透明錄影</h3>
-                  <p className="text-neutral-300 text-xs lg:text-sm">每一步都清楚可見，放心跟著看</p>
+                <div className="p-0 text-center lg:text-left">
+                  <Eye className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
+                  <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">全程透明錄影</h3>
+                  <p className="text-neutral-600 text-xs lg:text-sm">每一步都清楚可見</p>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-sm p-4 lg:p-6 flat-card text-center lg:text-left">
-                  <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-accent-500 mx-auto lg:mx-0 mb-2 lg:mb-3" />
-                  <h3 className="text-white font-semibold mb-1 lg:mb-2 text-sm lg:text-base">原廠零件保證</h3>
-                  <p className="text-neutral-300 text-xs lg:text-sm">Apple IRP 認證技師親自服務</p>
+                <div className="p-0 text-center lg:text-left">
+                  <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
+                  <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">Apple 認證零件</h3>
+                  <p className="text-neutral-600 text-xs lg:text-sm">IRP 認證技師</p>
                 </div>
               </motion.div>
 
@@ -90,17 +95,17 @@ export default function HeroSection() {
                 transition={{ duration: 0.3, delay: 0.4 }}
               >
                 <button 
-                  className="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white px-8 lg:px-12 py-3 lg:py-4 flat-button font-semibold text-base lg:text-lg tracking-wide transition-colors duration-200"
+                  className="w-full sm:w-auto bg-neutral-900 hover:bg-black text-white px-8 lg:px-12 py-3 lg:py-4 flat-button font-medium text-base lg:text-lg tracking-wide transition-colors duration-200"
                   onClick={() => scrollToSectionId('contact')}
                 >
-                  🔧 立即預約維修
+                  立即預約維修
                 </button>
                 
                 <button 
-                  className="w-full sm:w-auto bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 px-8 lg:px-12 py-3 lg:py-4 flat-button font-semibold text-base lg:text-lg tracking-wide transition-all duration-200"
+                  className="w-full sm:w-auto text-accent-600 hover:text-accent-700 border border-neutral-300 px-8 lg:px-12 py-3 lg:py-4 flat-button font-medium text-base lg:text-lg tracking-wide transition-all duration-200"
                   onClick={() => scrollToSectionId('services')}
                 >
-                  📱 精選二手 iPhone
+                  精選二手 iPhone
                 </button>
               </motion.div>
 
@@ -113,12 +118,12 @@ export default function HeroSection() {
               >
                 <a 
                   href="tel:+886-2-2816-6666" 
-                  className="inline-flex items-center text-neutral-300 hover:text-white transition-colors duration-200"
+                  className="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition-colors duration-200"
                 >
                   <Phone className="w-4 h-4 lg:w-5 lg:h-5 mr-2 lg:mr-3" />
                   <span className="text-base lg:text-lg font-medium">02-2816-6666</span>
                 </a>
-                <p className="text-neutral-400 text-sm lg:text-base mt-2 lg:mt-3">台北市士林區文林路60號</p>
+                <p className="text-neutral-500 text-sm lg:text-base mt-2 lg:mt-3">台北市士林區文林路60號</p>
               </motion.div>
             </div>
 
@@ -137,23 +142,10 @@ export default function HeroSection() {
                   height={800}
                   sizes="(max-width: 1024px) 100vw, 800px"
                   priority
-                  className="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0 drop-shadow-2xl"
+                  className="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0"
                 />
               </motion.div>
               
-              {/* 裝飾性背景元素 */}
-              <motion.div
-                className="absolute -top-10 -right-10 w-32 h-32 lg:w-48 lg:h-48 bg-accent-500/20 rounded-full blur-3xl"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, delay: 0.8 }}
-              />
-              <motion.div
-                className="absolute -bottom-10 -left-10 w-24 h-24 lg:w-36 lg:h-36 bg-white/10 rounded-full blur-3xl"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, delay: 1.0 }}
-              />
             </div>
           </div>
         </div>

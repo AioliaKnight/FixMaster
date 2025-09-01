@@ -14,9 +14,7 @@
   margin: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* 移除重複的平滑滾動設定（保留下方最後一處宣告） */
 
 body {
   font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;

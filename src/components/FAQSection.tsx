@@ -15,26 +15,44 @@ export default function FAQSection() {
       faqs: [
         {
           icon: Clock,
-          question: 'iPhone 維修時間需要多長？',
-          answer: 'iPhone 各項維修的標準時間：\n\n螢幕更換：30-60分鐘\n電池更換：30-45分鐘\n主機板維修：2-4小時\n相機維修：60-90分鐘\n充電孔維修：60-90分鐘\n複雜問題：1-2個工作天\n\n我們提供現場等候服務，也可預約時間避免等待。實際時間視機型和問題複雜度而定。',
+          question: 'iPhone 維修需要多長時間？',
+          answer: '一般參考：\n\n螢幕更換：30–60 分鐘\n電池更換：30–45 分鐘\n相機/喇叭/充電模組：60–90 分鐘\n主機板級維修：2–4 小時（視狀況）\n\n可現場等候或預約時段，實際以檢測為準。',
           category: 'iPhone維修'
         },
         {
           icon: Shield,
-          question: 'iPhone 如何判斷是否為原廠零件？',
-          answer: '我們是 Apple IRP 認證的獨立維修商，所有iPhone零件都是原廠正品或Apple認證零件：\n\n• 每個零件都有原廠序號可查證\n• 提供零件購買憑證和保固卡\n• 原廠零件在「設定」中會正確顯示型號\n• 功能完全正常，無相容性問題\n• 現場展示零件包裝和認證標籤\n• Touch ID、Face ID 完全正常\n• 原廠品質，非副廠仿製品',
+          question: '是否使用 Apple 認證零件？',
+          answer: '我們為 Apple IRP 認證維修商，使用 Apple 認證零件，並提供 90 天保固。維修完成後，功能與相容性均依標準流程逐項檢測。',
           category: 'iPhone維修'
         },
         {
           icon: Zap,
-          question: 'iPhone 螢幕破裂一定要換嗎？',
-          answer: 'iPhone 螢幕破裂的處理建議：\n\n輕微裂痕：\n• 可先貼保護膜防止擴大\n• 不影響觸控可暫時使用\n• 建議儘早更換避免惡化\n\n嚴重破裂：\n• 影響觸控必須立即更換\n• 玻璃碎片可能傷手\n• 內層LCD可能受損\n• 延遲維修成本更高\n\n我們提供免費檢測，評估最佳處理方案。',
+          question: '螢幕破裂該怎麼評估與處理？',
+          answer: '輕微裂痕：可先貼保護膜觀察，避免裂痕擴大。\n觸控異常或出現彩線：建議立即更換，以免二度損傷。\n玻璃碎屑：請避免摩擦臉部與耳朵，儘速處理較安全。',
           category: 'iPhone維修'
         },
         {
           icon: Smartphone,
-          question: 'iPhone 電池健康度多少需要更換？',
-          answer: 'iPhone 電池更換的判斷標準：\n\n建議更換時機：\n• 電池健康度低於80%\n• 一天需要充電2次以上\n• 突然關機或重開機\n• 充電速度明顯變慢\n• 手機明顯發熱\n\n我們的電池服務：\n• 使用原廠電池\n• 30-45分鐘專業更換\n• 90天功能保固\n• 現場檢測電池健康度\n• 更換後恢復最佳續航力',
+          question: '更換螢幕會影響 Face ID／Touch ID 嗎？',
+          answer: '不會。Face ID／Touch ID 模組獨立於螢幕，維修時會完整轉移並檢測。若原件損壞，我們會於檢測報告中明確說明處理方案與風險。',
+          category: 'iPhone維修'
+        },
+        {
+          icon: HelpCircle,
+          question: '維修是否影響原廠保固？',
+          answer: '在原廠保固期內，建議先洽 Apple 官方。保固外維修不會影響您對裝置的使用，但第三方維修可能不在 Apple 原廠保固範圍。我们提供 90 天維修保固作為保障。',
+          category: 'iPhone維修'
+        },
+        {
+          icon: Shield,
+          question: '更換電池／主機板會影響 Face ID／Touch ID 嗎？',
+          answer: '更換電池：不會影響 Face ID／Touch ID。更換主機板：與生物辨識綁定，有風險需評估並簽署同意；我們會於施工前說明可行方案與影響並於完工後逐項測試。',
+          category: 'iPhone維修'
+        },
+        {
+          icon: Settings,
+          question: 'Face ID 無法設定的常見原因？',
+          answer: '常見為原深感相機模組（點陣投影、泛光感測）或前鏡頭排線受損，亦可能因撞擊或進水。建議檢測相機模組與排線，確認可修復性與風險後再行施工。',
           category: 'iPhone維修'
         }
       ]
@@ -45,19 +63,31 @@ export default function FAQSection() {
         {
           icon: Wrench,
           question: '手機進水了該怎麼辦？',
-          answer: '手機進水的緊急處理步驟：\n\n立即處理：\n• 馬上關機，不要嘗試開機\n• 取出SIM卡和記憶卡\n• 用乾布擦拭外部水分\n• 不要用吹風機加熱\n• 不要搖晃手機\n\n送修處理：\n• 24小時內送修成功率最高\n• 我們有專業烘乾設備\n• 主機板清洗除鏽服務\n• 數據救援成功率85%\n• 提供詳細檢測報告\n\n越快送修，救回機率越高！',
+          answer: '盡快關機，切勿充電與吹風機加熱，勿搖晃。保留原狀送修，24 小時內處理成功率最高。我們提供主機板清洗與除鏽、資料救援評估。',
           category: '手機維修'
         },
         {
           icon: Settings,
-          question: '手機維修會不會洩漏個人資料？',
-          answer: '我們非常重視客戶隱私保護：\n\n資料保護措施：\n• 維修前建議客戶自行備份\n• 技師簽署保密協議\n• 維修過程不查看個人檔案\n• 現場錄影確保透明度\n• 維修完成當面確認功能\n\n建議客戶：\n• 送修前先備份重要資料\n• 登出所有帳號\n• 關閉自動同步功能\n• 設定臨時密碼\n\n我們承諾絕不侵犯客戶隱私。',
+          question: '維修前需要先備份嗎？',
+          answer: '建議先自行備份重要資料（iCloud／iTunes）。維修過程不會查看個人檔案，技師均簽署保密，同時提供現場透明錄影。',
           category: '手機維修'
         },
         {
           icon: DollarSign,
-          question: '手機維修費用如何計算？',
-          answer: '我們採用完全透明的定價制度：\n\n定價原則：\n• 現場免費檢測和報價\n• 價格表公開透明，無隱藏費用\n• 不同機型有固定價格標準\n• 維修前提供詳細報價單\n• 可比較市場行情，絕不哄抬\n\n付款方式：\n• 現金付款\n• 銀行轉帳\n• 街口支付\n\n如不維修，檢測費用全免。價格公道，品質保證。',
+          question: '維修價格如何計算？',
+          answer: '免費檢測與報價、透明價目、無隱藏費用。不同機型有固定標準，施工前會提供書面或口頭報價並徵得同意。若不維修不收費。',
+          category: '手機維修'
+        },
+        {
+          icon: AlertCircle,
+          question: '手機進水可以用米／吹風機自救嗎？',
+          answer: '不建議。米與乾燥劑無法深入機板，殘留水分與礦物質可能加速腐蝕；熱風易使水汽擴散並造成排線變形。建議關機、勿充電，儘速送修專業乾燥與清洗。',
+          category: '手機維修'
+        },
+        {
+          icon: Wrench,
+          question: '進水檢測與處理流程、時程與費用？',
+          answer: '流程：初檢（免費）→ 拆機乾燥／酒精或超音波清洗 → 檢測腐蝕區 → 報價確認施工。一般 2–4 小時完成初步處理與評估；資料救援屬選配專案，將先行告知風險與費用。',
           category: '手機維修'
         }
       ]
@@ -68,19 +98,19 @@ export default function FAQSection() {
         {
           icon: Tablet,
           question: 'iPad 螢幕維修需要多久時間？',
-          answer: 'iPad 螢幕維修的詳細時間：\n\n維修時間：\n• iPad Air/Pro：2-4小時\n• iPad mini：2-3小時\n• iPad 一般版：1.5-2.5小時\n• 複雜案例：1-2個工作天\n\n維修難度較iPhone高的原因：\n• 螢幕尺寸較大，拆裝複雜\n• 需要專業加熱設備\n• 膠條黏性強，需仔細處理\n• 內部排線較多，需專業技術\n\n我們有專業iPad維修設備，確保品質。',
+          answer: '一般 2–4 小時，依機型與損傷程度調整。由於膠體黏著面積較大、排線較多，需以專業設備與流程處理以避免二次損傷。',
           category: 'iPad維修'
         },
         {
           icon: Zap,
-          question: 'iPad 充電孔壞了可以修嗎？',
-          answer: 'iPad 充電問題的維修方案：\n\n常見充電問題：\n• 充電孔接觸不良\n• 充電線插不緊\n• 充電速度變慢\n• 完全無法充電\n\n維修方式：\n• 清潔充電孔內部\n• 更換充電排線\n• 檢測充電IC\n• 主機板維修\n\n維修時間：2-3小時\n保固期間：90天\n\n建議定期清潔充電孔，延長使用壽命。',
+          question: 'iPad 充電異常怎麼處理？',
+          answer: '常見原因包含充電孔接觸不良、排線老化、充電 IC 異常。可先嘗試更換充電線與變壓器，若仍異常建議檢測充電模組與主機板。',
           category: 'iPad維修'
         },
         {
           icon: Settings,
           question: 'iPad 觸控不靈敏怎麼辦？',
-          answer: 'iPad 觸控問題的解決方案：\n\n常見觸控問題：\n• 部分區域無法觸控\n• 觸控延遲或不準確\n• 誤觸或跳點\n• 完全無法觸控\n\n可能原因：\n• 螢幕破裂影響觸控\n• 觸控IC故障\n• 排線接觸不良\n• 主機板問題\n\n維修方案：\n• 更換觸控螢幕總成\n• 維修觸控IC\n• 重新連接排線\n• 主機板級維修\n\n我們提供專業檢測，找出根本原因。',
+          answer: '若特定區域遲滯或跳點，可能為觸控層或觸控 IC 問題。可先重啟與更新系統，若持續發生，建議更換螢幕總成或進一步檢測。',
           category: 'iPad維修'
         }
       ]
@@ -91,19 +121,19 @@ export default function FAQSection() {
         {
           icon: Monitor,
           question: 'MacBook 螢幕維修費用如何？',
-          answer: 'MacBook 螢幕維修的費用說明：\n\n影響價格因素：\n• MacBook 機型（Air/Pro）\n• 螢幕尺寸（13"/14"/16"）\n• 是否為 Retina 顯示器\n• 是否需要更換整個上蓋\n\n大致價格範圍：\n• MacBook Air 13"：$8,000-12,000\n• MacBook Pro 13"：$10,000-15,000\n• MacBook Pro 16"：$15,000-25,000\n\n我們提供：\n• 免費檢測評估\n• 透明報價\n• 原廠品質螢幕\n• 90天保固\n\n實際價格以現場檢測為準。',
+          answer: '費用與機型、尺寸、是否 Retina、是否更換上蓋總成相關。提供免費檢測與透明報價，施工前先說明備選方案與交期。',
           category: 'Mac維修'
         },
         {
           icon: Zap,
           question: 'MacBook 無法開機怎麼辦？',
-          answer: 'MacBook 無法開機的診斷流程：\n\n初步檢測：\n• 確認電源適配器正常\n• 檢查電池狀態\n• 重置 SMC 和 PRAM\n• 嘗試安全模式開機\n\n可能原因：\n• 電池完全沒電\n• 主機板故障\n• 記憶體問題\n• 硬碟故障\n• 系統檔案損壞\n\n維修方案：\n• 更換電池或充電器\n• 主機板級維修\n• 記憶體更換\n• SSD 更換或修復\n• 系統重新安裝\n\n我們有專業Mac維修設備和經驗。',
+          answer: '可先嘗試：檢查電源與充電器、SMC/PRAM 重置、安全模式。若仍無法開機，可能為電池、SSD 或主機板異常，需專業檢測。',
           category: 'Mac維修'
         },
         {
           icon: HelpCircle,
-          question: 'Mac 維修會影響保固嗎？',
-          answer: 'Mac 維修與保固的關係說明：\n\n原廠保固期內：\n• 建議先聯絡Apple客服\n• 可至Apple Store檢測\n• 非人為損壞可免費維修\n• 人為損壞需付費維修\n\n保固期外：\n• 可選擇我們的維修服務\n• 價格較原廠優惠\n• 使用相容性零件\n• 提供90天維修保固\n\n我們的優勢：\n• 維修經驗豐富\n• 價格透明合理\n• 快速維修服務\n• 專業技術團隊\n\n協助您在成本和品質間找到平衡。',
+          question: 'Mac 維修會影響原廠保固嗎？',
+          answer: '保固內建議先與 Apple 官方確認。保固外之第三方維修，不在原廠保固範圍。我們提供 90 天維修保固與檢測報告留存。',
           category: 'Mac維修'
         }
       ]
@@ -113,21 +143,39 @@ export default function FAQSection() {
       faqs: [
         {
           icon: CheckCircle,
-          question: '維修後的保固範圍有哪些？',
-          answer: '我們提供業界最完整的維修保固：\n\n保固期間：90天\n\n保固範圍：\n• 更換零件本身品質\n• 維修施工品質\n• 相同故障免費重修\n• 功能正常運作\n\n保固服務：\n• 提供保固卡和維修記錄\n• 全台服務據點都可保固\n• 保固期內免費檢測\n• 詳細保固條款說明\n\n不包含項目：\n• 人為損壞（摔落、進水）\n• 其他新發生的故障\n• 超出正常使用範圍\n\n我們會詳細說明保固範圍，讓您安心。',
+          question: '維修保固的範圍與申請方式？',
+          answer: '保固 90 天，含更換零件本身與施工品質、相同故障免費重修（不含人為損壞與新故障）。出示維修紀錄或保固卡，即可申請檢測與處理。',
           category: '保固服務'
         },
         {
           icon: Smartphone,
-          question: '二手 Apple 產品有什麼保障？',
-          answer: '我們的二手 Apple 產品經過嚴格把關：\n\n品質保證：\n• 30項專業功能檢測\n• 電池健康度80%以上\n• 外觀9成新以上\n• 原廠配件齊全\n• 已清除前用戶資料\n\n保固服務：\n• iPhone：30天硬體功能保固\n• iPad：30天硬體功能保固\n• Mac：30天硬體功能保固\n• 完整檢測報告\n• 可現場試用確認功能\n\n購買保障：\n• 7天鑑賞期\n• 功能不符可退換\n• 提供購買憑證\n• 專業售後服務',
+          question: '二手 iPhone 有哪些保障？',
+          answer: '附 30 天硬體保固與完整檢測報告；電池健康度 80% 以上；可現場試用確認功能，並提供購買憑證與售後諮詢。',
           category: '二手機保障'
         },
         {
           icon: AlertCircle,
-          question: '什麼情況下建議不要維修？',
-          answer: '以下情況我們會誠實建議您考慮其他選擇：\n\n不建議維修的情況：\n• 主機板嚴重燒毀或腐蝕\n• 進水時間過長造成多重損壞\n• 維修成本超過購買新機的70%\n• 機型過於老舊，零件停產\n• 多次維修仍無法根治的問題\n• 外觀損壞過於嚴重\n\n替代方案：\n• 推薦購買二手機\n• 協助數據救援\n• 零件回收估價\n• 提供換機優惠\n\n我們絕不勉強維修，提供最誠實的專業建議。',
-          category: '維修限制'
+          question: '到府收送服務的範圍與時段？',
+          answer: '台北市區提供到府收送，滿 $1,500 免收送。一般於營業時段內收件與配送（14:00–23:00），可於預約時確認可行時段。',
+          category: '服務與物流'
+        },
+        {
+          icon: Shield,
+          question: '維修過程如何保障個資與隱私？',
+          answer: '技師簽署保密協議；維修不查看個人檔案；如需開機測試將於您在場或錄影下進行；設備交接與流程全程留存紀錄，並建議您事前完成備份與登出敏感服務。',
+          category: '隱私與安全'
+        },
+        {
+          icon: Settings,
+          question: '維修前建議設定與準備？',
+          answer: '建議先備份資料、關閉 Apple Pay 與移除 eSIM、停用尋找我的 iPhone（如需主機板級維修）、登出社群帳號與雲端同步，並記下螢幕鎖以便現場功能測試。',
+          category: '維修前準備'
+        },
+        {
+          icon: CheckCircle,
+          question: '維修後的測試流程包含哪些項目？',
+          answer: '依項目執行：觸控/多點觸控、顯示色偏/亮度、相機前後/對焦/錄影、喇叭/麥克風/聽筒、充電/電流、感測器（距離/環境光/陀螺儀）、網路與通話、Face ID/Touch ID；完成後提供檢測紀錄與保固憑證。',
+          category: '測試流程'
         }
       ]
     }
@@ -238,7 +286,7 @@ export default function FAQSection() {
                   setSelectedFaqIndex(index)
                   setIsSheetOpen(true)
                 }}
-                className="text-left bg-white flat-card p-4 md:p-6 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-white"
+                className="text-left bg-white p-6 border border-neutral-200 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-white rounded-none"
                 aria-haspopup="dialog"
                 aria-controls="faq-bottom-sheet"
               >
@@ -282,7 +330,7 @@ export default function FAQSection() {
 
                 {/* Sheet 內容容器 */}
                 <motion.div
-                  className="mt-auto bg-white border-t border-neutral-200 shadow-xl"
+                  className="mt-auto bg-white border-t border-neutral-200"
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
@@ -291,7 +339,7 @@ export default function FAQSection() {
                 >
                   {/* 把手 */}
                   <div className="pt-3 flex justify-center">
-                    <div className="w-12 h-1.5 bg-neutral-200" />
+                    <div className="w-12 h-1 bg-neutral-200" />
                   </div>
 
                   {/* 標題列 */}

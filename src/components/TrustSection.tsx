@@ -151,10 +151,10 @@ export default function TrustSection() {
               >
                 {/* 標章 */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-accent-500 flex items-center justify-center">
-                    <promise.icon className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-white border border-neutral-200 flex items-center justify-center">
+                    <promise.icon className="w-8 h-8 text-neutral-900" />
                   </div>
-                  <div className="bg-accent-500 text-white px-3 py-1 text-sm font-medium">
+                  <div className="text-neutral-900 text-sm font-medium">
                     {promise.badge}
                   </div>
                 </div>
@@ -244,11 +244,13 @@ export default function TrustSection() {
                 </div>
               </div>
               
-              <div className="bg-neutral-50 p-6 mb-6 border border-neutral-200">
+              <div className="bg-neutral-50 flat-card p-6 mb-6 border border-neutral-200">
                 <div className="flex items-center justify-center mb-4">
-                  <img 
+                  <Image 
                     src="/apple_logo.webp" 
                     alt="Apple Logo" 
+                    width={40}
+                    height={40}
                     className="w-10 h-10 mr-3 object-contain"
                   />
                   <div>

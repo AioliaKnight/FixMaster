@@ -36,8 +36,8 @@ export default function ServicesSection() {
       duration: '約 30–60 分鐘',
       models: ['iPhone 12-15 系列'],
       warranty: '90天螢幕功能保固',
-      highlight: '最受歡迎',
-      color: 'from-blue-500 to-blue-600'
+      highlight: '',
+      color: ''
     },
     {
       icon: Battery,
@@ -49,7 +49,7 @@ export default function ServicesSection() {
       models: ['iPhone 11-15 系列'],
       warranty: '90天電池效能保固',
       highlight: '',
-      color: 'from-green-500 to-green-600'
+      color: ''
     },
     {
       icon: Smartphone,
@@ -60,20 +60,21 @@ export default function ServicesSection() {
       duration: '現場挑選',
       models: ['iPhone 11-14 系列'],
       warranty: '30天硬體功能保固',
-      highlight: '熱門推薦',
-      color: 'from-purple-500 to-purple-600'
+      highlight: '',
+      color: ''
     },
     {
       icon: Truck,
       title: '到府收送服務',
       description: '你忙你的，來回交給我們。',
-      features: ['台北市區專送', '當日收件處理', '完修後送回', '全程保險保障'],
+      features: ['台北市區專送', '當日收件處理', '完修後送回',
+ '全程保險保障'],
       price: '滿 $1,500 免費',
       duration: '1-2個工作天',
       models: ['所有iPhone機型'],
       warranty: '與維修項目相同',
       highlight: '',
-      color: 'from-orange-500 to-orange-600'
+      color: ''
     }
   ]
 
@@ -183,7 +184,7 @@ export default function ServicesSection() {
               專業服務項目
             </h2>
             <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
-              提供完整的 iPhone 維修與二手機服務，讓您的設備重獲新生
+              專業 iPhone 維修與二手選購，透明報價、品質有保障。
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
           </motion.div>
@@ -250,27 +251,24 @@ export default function ServicesSection() {
                         transition={{ duration: 0.3 }}
                         viewport={{ once: true }}
                       >
-                        {/* 背景裝飾 */}
-                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.color} rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-                        
-                        {/* 推薦標籤 */}
-                        {service.highlight && (
-                          <div className="absolute top-0 left-0 bg-accent-500 text-white px-4 py-2 text-xs font-bold tracking-widest uppercase rounded-br-lg">
-                            {service.highlight}
-                          </div>
-                        )}
+                        {/* 極簡風：移除背景漸層與推薦標籤 */}
 
                         {/* 服務圖示與標題 */}
                         <div className="flex flex-col items-center mb-6 mt-4">
-                          <div className="w-20 h-20 bg-neutral-100 flex items-center justify-center mb-4 rounded-full border border-neutral-200">
+                          <div className="w-20 h-20 bg-white flex items-center justify-center mb-4 border border-neutral-200">
                             <service.icon className="w-10 h-10 text-accent-500" />
                           </div>
                           <h3 className="text-xl md:text-2xl font-bold text-neutral-900 mb-2 text-center">{service.title}</h3>
-                          <p className="text-neutral-500 text-sm md:text-base text-center mb-2">{service.description}</p>
+                          <p className="text-neutral-500 text-sm md:text-base text-center mb-2">
+                            {index === 0 && '觸控靈敏、色準穩定，體驗如新。'}
+                            {index === 1 && '健康度回復穩定，續航重現。'}
+                            {index === 2 && '附完整檢測與保固，嚴選可信賴。'}
+                            {index === 3 && '台北市區到府收送，方便省時。'}
+                          </p>
                         </div>
 
                         {/* 服務詳細資訊 */}
-                        <div className="bg-neutral-50 p-4 mb-6 grid grid-cols-2 gap-4 text-center">
+                        <div className="bg-white p-4 mb-6 grid grid-cols-2 gap-4 text-center border border-neutral-200">
                           <div>
                             <div className="text-accent-500 font-semibold text-sm mb-1">維修時間</div>
                             <div className="text-neutral-900 font-medium text-sm">{service.duration}</div>
@@ -292,10 +290,10 @@ export default function ServicesSection() {
                         </div>
 
                         {/* 保固資訊 */}
-                        <div className="bg-blue-50 p-3 mb-6">
+                        <div className="p-3 mb-6 border border-neutral-200">
                           <div className="flex items-center justify-center">
-                            <Shield className="w-4 h-4 text-blue-600 mr-2" />
-                            <span className="text-blue-800 font-medium text-sm text-center">{service.warranty}</span>
+                            <Shield className="w-4 h-4 text-neutral-900 mr-2" />
+                            <span className="text-neutral-900 font-medium text-sm text-center">{service.warranty}</span>
                           </div>
                         </div>
 
@@ -306,7 +304,7 @@ export default function ServicesSection() {
                             <div className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</div>
                           </div>
                           <button 
-                            className="w-full md:w-auto bg-accent-500 hover:bg-accent-600 text-white px-6 md:px-8 py-3 flat-button font-semibold rounded-none transition-colors duration-200"
+                            className="w-full md:w-auto bg-neutral-900 hover:bg-black text-white px-6 md:px-8 py-3 flat-button font-medium rounded-none transition-colors duration-200"
                             onClick={() => {
                               scrollToSectionId('contact')
                               setTimeout(() => {
