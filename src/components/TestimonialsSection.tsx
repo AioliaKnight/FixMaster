@@ -256,14 +256,14 @@ export default function TestimonialsSection() {
 
           {/* 統計數據 */}
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-16"
+            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:gap-8 mb-16 -mx-1 px-1"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
             viewport={{ once: true }}
           >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center bg-white flat-card p-4 md:p-6">
+              <div key={index} className="text-center bg-white flat-card p-4 md:p-6 flex-none w-56 snap-start md:w-auto">
                 <div className="w-12 h-12 bg-accent-500 flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
@@ -413,17 +413,17 @@ export default function TestimonialsSection() {
             <p className="text-neutral-600 mb-8 max-w-2xl mx-auto">
               我們致力於提供最優質的維修服務，每一位客戶的滿意都是我們前進的動力
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 justify-start md:justify-center -mx-1 px-1">
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium flex-none snap-start">
                 Apple IRP 認證
               </div>
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium flex-none snap-start">
                 全程透明錄影
               </div>
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium flex-none snap-start">
                 90天保固
               </div>
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
+              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium flex-none snap-start">
                 30分鐘快修
               </div>
             </div>

@@ -139,11 +139,11 @@ export default function TrustSection() {
           </motion.div>
 
           {/* 主要承諾 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 mb-16 -mx-1 px-1">
             {promises.map((promise, index) => (
               <motion.div
                 key={index}
-                className="bg-white flat-card p-6 md:p-8 hover:border-neutral-400 transition-all duration-200"
+                className="bg-white flat-card p-6 md:p-8 hover:border-neutral-400 transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -191,11 +191,11 @@ export default function TrustSection() {
             <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
               專業認證與資格
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-1 px-1">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
-                  className="text-center group"
+                  className="text-center group flex-none w-56 snap-start md:w-auto"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}

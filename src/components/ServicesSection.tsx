@@ -358,11 +358,11 @@ export default function ServicesSection() {
             <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-8 md:mb-12">
               為什麼選擇 FixMaster？
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1">
               {additionalServices.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="text-center"
+                  className="text-center flex-none w-56 snap-start md:w-auto"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -389,22 +389,22 @@ export default function ServicesSection() {
             <h3 className="text-2xl font-bold text-neutral-900 mb-8">
               簡單三步驟，輕鬆完成維修
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <div className="text-center">
+            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1">
+              <div className="text-center flex-none w-56 snap-start md:w-auto">
                 <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
                 </div>
                 <h4 className="font-semibold text-neutral-900 mb-2">聯絡預約</h4>
                 <p className="text-neutral-600 text-sm">LINE 或電話快速預約</p>
               </div>
-              <div className="text-center">
+              <div className="text-center flex-none w-56 snap-start md:w-auto">
                 <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   2
                 </div>
                 <h4 className="font-semibold text-neutral-900 mb-2">現場檢測</h4>
                 <p className="text-neutral-600 text-sm">免費檢測，透明報價</p>
               </div>
-              <div className="text-center">
+              <div className="text-center flex-none w-56 snap-start md:w-auto">
                 <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   3
                 </div>

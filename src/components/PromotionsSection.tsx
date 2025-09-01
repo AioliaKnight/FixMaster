@@ -123,11 +123,11 @@ export default function PromotionsSection() {
           </motion.div>
 
           {/* 主要優惠 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-3 md:gap-8 mb-16 -mx-1 px-1">
             {mainPromotions.map((promo, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 md:p-8 group relative overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-all duration-200"
+                className="bg-white p-6 md:p-8 group relative overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -216,9 +216,9 @@ export default function PromotionsSection() {
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-6 -mx-1 px-1">
               {flashDeals.map((deal, index) => (
-                <div key={index} className="border border-neutral-200 p-6 hover:border-neutral-400 transition-colors duration-200">
+                <div key={index} className="border border-neutral-200 p-6 hover:border-neutral-400 transition-colors duration-200 flex-none w-64 snap-start md:w-auto">
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-2xl">{deal.icon}</div>
                     <div className="bg-accent-100 text-accent-600 px-2 py-1 text-sm font-medium">
@@ -250,9 +250,9 @@ export default function PromotionsSection() {
             <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
               會員專屬優惠
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-6 -mx-1 px-1">
               {loyaltyProgram.map((level, index) => (
-                <div key={index} className="bg-white flat-card p-6 text-center">
+                <div key={index} className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto">
                   <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mx-auto mb-4">
                     <Trophy className="w-8 h-8 text-white" />
                   </div>
