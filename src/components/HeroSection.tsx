@@ -7,12 +7,12 @@ import { scrollToSectionId } from '@/lib/scroll'
 
 export default function HeroSection() {
   return (
-    <section id="home" className="min-h-screen bg白 flex items-center mt-16 md:mt-20">
+    <section id="home" className="min-h-screen bg-white flex items-center mt-16 md:mt-20">
       <div className="container mx-auto container-padding pt-28 pb-16 md:pt-36 md:pb-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* 左側內容區 */}
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left order-2 lg:order-1">
               {/* 認證標章 */}
               <motion.div 
                 className="mb-6 lg:mb-8"
@@ -128,7 +128,7 @@ export default function HeroSection() {
             </div>
 
             {/* 右側圖片區 */}
-            <div className="relative">
+            <div className="relative order-1 lg:order-2">
               <motion.div
                 className="relative z-10"
                 initial={{ opacity: 0, x: 50, scale: 0.9 }}
