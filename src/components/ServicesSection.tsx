@@ -229,23 +229,6 @@ export default function ServicesSection() {
 
           {/* 服務輪播 */}
           <div className="relative mb-16" role="region" aria-label="服務項目輪播">
-            {/* 播放/暫停控制 */}
-            {shouldShowControls && (
-              <div className="absolute -top-12 right-0 flex items-center gap-2">
-                <button
-                  onClick={toggleAutoPlay}
-                  className="bg-white border border-neutral-300 text-neutral-700 px-3 py-2 flat-button text-sm hover:bg-neutral-50"
-                  aria-pressed={isAutoPlaying}
-                  aria-label={isAutoPlaying ? '暫停自動播放' : '啟用自動播放'}
-                >
-                  {isAutoPlaying ? (
-                    <span className="inline-flex items-center gap-2"><Pause className="w-4 h-4" /> 暫停</span>
-                  ) : (
-                    <span className="inline-flex items-center gap-2"><Play className="w-4 h-4" /> 播放</span>
-                  )}
-                </button>
-              </div>
-            )}
             {/* 輪播控制按鈕 - 桌面版 - 只在有多個服務時顯示 */}
             {shouldShowControls && (
               <div className="hidden md:flex items-center justify-between absolute top-1/2 left-0 right-0 z-10 pointer-events-none">
