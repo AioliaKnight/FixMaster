@@ -183,7 +183,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               >
                 <Image
-                  src="/Hero_1.png"
+                  src="/Hero_1.avif"
                   alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
                   width={800}
                   height={800}
