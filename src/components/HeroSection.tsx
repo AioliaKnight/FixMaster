@@ -7,7 +7,7 @@ import { scrollToSectionId } from '@/lib/scroll'
 
 export default function HeroSection() {
   return (
-    <section id="home" className="min-h-screen bg-white flex items-center">
+    <section id="home" className="min-h-screen bg白 flex items-center mt-16 md:mt-20">
       <div className="container mx-auto container-padding pt-28 pb-16 md:pt-36 md:pb-24">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
