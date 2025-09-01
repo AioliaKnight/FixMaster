@@ -8,7 +8,7 @@ type FloatingCTAProps = {
 }
 
 export default function FloatingCTA({ lineUrl }: FloatingCTAProps) {
-  const href = lineUrl || process.env.NEXT_PUBLIC_LINE_URL || 'https://line.me/R/ti/p/@yourlineid'
+  const href = lineUrl || process.env.NEXT_PUBLIC_LINE_URL || 'https://line.me/R/ti/p/@fixmaster'
 
   return (
     <div className="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-[9998]">
