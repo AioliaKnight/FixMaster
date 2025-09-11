@@ -188,13 +188,13 @@ export default function HeroSection() {
                 transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
               >
                 <Image
-                  src="/Hero_1.avif"
+                  src="/Hero_1.png"
                   alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
-                  width={800}
-                  height={800}
-                  sizes="(max-width: 1024px) 100vw, 800px"
+                  width={900}
+                  height={900}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 900px"
                   priority
-                  className="w-full h-auto max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0"
+                  className="w-full h-auto max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto lg:mx-0"
                 />
               </motion.div>
               
