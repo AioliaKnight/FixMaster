@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Shield, Clock, Eye, Phone } from 'lucide-react'
+import { SliderArrows, SliderDots } from './CarouselControls'
 import Image from 'next/image'
 import { scrollToSectionId } from '@/lib/scroll'
 import { useEffect, useRef, useState } from 'react'
@@ -63,47 +64,54 @@ export default function HeroSection() {
               </motion.p>
 
               {/* 特色亮點 */}
-              <motion.div 
-                className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible mb-8 lg:mb-10 -mx-1 px-1"
-                ref={(() => {
-                  const ref = useRef<HTMLDivElement>(null)
-                  const [, setInit] = useState(0)
-                  const [active, setActive] = useState(0)
-                  useEffect(() => {
-                    const el = ref.current
-                    if (!el) return
-                    const onScroll = () => {
-                      const children = el.children
-                      if (children.length < 2) {
-                        setActive(0)
-                        return
+              <div className="relative mb-8 lg:mb-10">
+                <SliderArrows
+                  onPrev={() => (globalThis as any).__setHeroHighlightsActive?.(Math.max(0, ((globalThis as any).__getHeroHighlightsActive?.() || 0) - 1))}
+                  onNext={() => (globalThis as any).__setHeroHighlightsActive?.(((globalThis as any).__getHeroHighlightsActive?.() || 0) + 1)}
+                  ariaLabelPrev="上一個特色"
+                  ariaLabelNext="下一個特色"
+                />
+                <motion.div 
+                  className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible -mx-1 px-1"
+                  ref={(() => {
+                    const ref = useRef<HTMLDivElement>(null)
+                    const [active, setActive] = useState(0)
+                    useEffect(() => {
+                      const el = ref.current
+                      if (!el) return
+                      const onScroll = () => {
+                        const children = el.children
+                        if (children.length < 2) {
+                          setActive(0)
+                          return
+                        }
+                        const step = (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft
+                        if (step <= 0) return
+                        const idx = Math.round(el.scrollLeft / step)
+                        setActive(Math.min(children.length - 1, Math.max(0, idx)))
                       }
+                      el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+                      onScroll()
+                      return () => el.removeEventListener('scroll', onScroll as any)
+                    }, [])
+                    ;(globalThis as any).__heroHighlightsRef = ref
+                    ;(globalThis as any).__setHeroHighlightsActive = (i: number) => {
+                      const el = ref.current
+                      if (!el) return
+                      const children = el.children
+                      if (children.length < 2) return
                       const step = (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft
-                      if (step <= 0) return
-                      const idx = Math.round(el.scrollLeft / step)
-                      setActive(Math.min(children.length - 1, Math.max(0, idx)))
+                      const maxIndex = Math.max(0, children.length - 1)
+                      const clamped = Math.max(0, Math.min(i, maxIndex))
+                      el.scrollTo({ left: clamped * step, behavior: 'smooth' })
                     }
-                    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
-                    onScroll()
-                    return () => el.removeEventListener('scroll', onScroll as any)
-                  }, [])
-                  ;(globalThis as any).__heroHighlightsRef = ref
-                  ;(globalThis as any).__setHeroHighlightsActive = (i: number) => {
-                    const el = ref.current
-                    if (!el) return
-                    const children = el.children
-                    if (children.length < 2) return
-                    const step = (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft
-                    el.scrollTo({ left: i * step, behavior: 'smooth' })
-                    setInit(i)
-                  }
-                  ;(globalThis as any).__getHeroHighlightsActive = () => active
-                  return ref
-                })()}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-              >
+                    ;(globalThis as any).__getHeroHighlightsActive = () => active
+                    return ref
+                  })()}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                >
                 <div className="flex-none w-56 snap-start border border-neutral-200 p-4 text-center lg:text-left sm:border-0 sm:p-0 sm:w-auto">
                   <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-neutral-900 mx-auto lg:mx-0 mb-2 lg:mb-3" />
                   <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">最快 30 分鐘快速完修</h3>
@@ -121,17 +129,14 @@ export default function HeroSection() {
                   <h3 className="text-neutral-900 font-medium mb-1 lg:mb-2 text-sm lg:text-base">Apple 認證零件</h3>
                   <p className="text-neutral-600 text-xs lg:text-sm hidden sm:block">IRP 認證技師</p>
                 </div>
-              </motion.div>
-              {/* 手機點點指示器 */}
-              <div className="flex md:hidden items-center justify-center mt-2 mb-6 space-x-2">
-                {Array.from({ length: 3 }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => (globalThis as any).__setHeroHighlightsActive?.(i)}
-                    aria-label={`前往第 ${i + 1} 個特色`}
-                    className={(globalThis as any).__getHeroHighlightsActive?.() === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
-                  />
-                ))}
+                </motion.div>
+                {/* 手機點點指示器 */}
+                <SliderDots
+                  count={3}
+                  activeIndex={(globalThis as any).__getHeroHighlightsActive?.() || 0}
+                  onDotClick={(i) => (globalThis as any).__setHeroHighlightsActive?.(i)}
+                  className="mt-2 mb-6"
+                />
               </div>
 
               {/* CTA 按鈕 */}

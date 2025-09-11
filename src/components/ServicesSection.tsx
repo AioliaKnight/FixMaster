@@ -13,12 +13,9 @@ import {
   CheckCircle, 
   Star,
   Clock,
-  Award,
-  ChevronLeft,
-  ChevronRight,
-  Play,
-  Pause
+  Award
 } from 'lucide-react'
+import { SliderArrows, SliderDots } from './CarouselControls'
 
 export default function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -229,24 +226,13 @@ export default function ServicesSection() {
 
           {/* 服務輪播 */}
           <div className="relative mb-16" role="region" aria-label="服務項目輪播">
-            {/* 輪播控制按鈕 - 桌面版 - 只在有多個服務時顯示 */}
             {shouldShowControls && (
-              <div className="hidden md:flex items-center justify-between absolute top-1/2 left-0 right-0 z-10 pointer-events-none">
-                <button
-                  onClick={prevSlide}
-                  className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 w-12 h-12 flex items-center justify-center transition-colors duration-200 ml-4 rounded-full shadow-md"
-                  aria-label="上一個服務"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 w-12 h-12 flex items-center justify-center transition-colors duration-200 mr-4 rounded-full shadow-md"
-                  aria-label="下一個服務"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
+              <SliderArrows
+                onPrev={prevSlide}
+                onNext={nextSlide}
+                ariaLabelPrev="上一個服務"
+                ariaLabelNext="下一個服務"
+              />
             )}
 
             {/* 輪播內容 */}
@@ -353,18 +339,12 @@ export default function ServicesSection() {
 
             {/* 輪播指示器 - 只在有多個服務時顯示 */}
             {shouldShowControls && (
-              <div className="flex items-center justify-center mt-8 space-x-3">
-                {services.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-4 h-4 rounded-full border-2 transition-colors duration-200 ${
-                      index === currentSlide ? 'bg-accent-500 border-accent-500' : 'bg-neutral-200 border-neutral-300'
-                    }`}
-                    aria-label={`前往第 ${index + 1} 個服務`}
-                  />
-                ))}
-              </div>
+              <SliderDots
+                count={services.length}
+                activeIndex={currentSlide}
+                onDotClick={goToSlide}
+                className="mt-8"
+              />
             )}
           </div>
 

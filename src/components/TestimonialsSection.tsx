@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
-import { Star, Quote, User, CheckCircle, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react'
+import { Star, Quote, User, CheckCircle } from 'lucide-react'
+import { SliderArrows, SliderDots } from './CarouselControls'
 
 export default function TestimonialsSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -328,24 +329,13 @@ export default function TestimonialsSection() {
 
           {/* 評價輪播 */}
           <div className="relative mb-16" role="region" aria-label="顧客評價輪播">
-            {/* 輪播控制按鈕 - 桌面版 */}
             {indicatorCount > 1 && (
-              <div className="hidden md:flex items-center justify-between absolute top-1/2 left-0 right-0 z-10 pointer-events-none">
-                <button
-                  onClick={prevSlide}
-                  className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 w-12 h-12 flex items-center justify-center transition-colors duration-200 ml-4 rounded-full"
-                  aria-label="上一則評價"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 w-12 h-12 flex items-center justify-center transition-colors duration-200 mr-4 rounded-full"
-                  aria-label="下一則評價"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
+              <SliderArrows
+                onPrev={prevSlide}
+                onNext={nextSlide}
+                ariaLabelPrev="上一則評價"
+                ariaLabelNext="下一則評價"
+              />
             )}
 
             {/* 輪播內容 */}
@@ -420,18 +410,12 @@ export default function TestimonialsSection() {
 
             {/* 輪播指示器 - 只在有多個頁面時顯示 */}
             {indicatorCount > 1 && (
-              <div className="flex items-center justify-center mt-8 space-x-3">
-                {Array.from({ length: indicatorCount }, (_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`w-4 h-4 rounded-full border-2 transition-colors duration-200 ${
-                      index === currentSlide ? 'bg-accent-500 border-accent-500' : 'bg-neutral-200 border-neutral-300'
-                    }`}
-                    aria-label={`前往第 ${index + 1} 組評價`}
-                  />
-                ))}
-              </div>
+              <SliderDots
+                count={indicatorCount}
+                activeIndex={currentSlide}
+                onDotClick={goToSlide}
+                className="mt-8"
+              />
             )}
           </div>
 
