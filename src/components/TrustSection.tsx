@@ -118,7 +118,7 @@ export default function TrustSection() {
   ]
 
   return (
-    <section id="trust" className="section-padding bg-neutral-900">
+    <section id="trust" className="section-padding bg-white">
       <div className="container mx-auto container-padding">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
@@ -129,11 +129,11 @@ export default function TrustSection() {
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
               我們的安心承諾
             </h2>
-            <p className="text-neutral-300 text-lg sm:text-xl max-w-2xl mx-auto">
-              以最高標準的專業與誠信，為您提供值得信賴的維修服務
+            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
+              Apple IRP 認證、原廠零件、全程錄影與明確保固，讓每一步都可驗證、可追溯。
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
           </motion.div>

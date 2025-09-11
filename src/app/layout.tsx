@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ['latin'] })
 const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'] })
 
 export const metadata: Metadata = {
-  title: 'FixMaster 維修大師｜士林 iPhone 維修・IRP 認證｜30 分鐘完修',
-  description: '士林 iPhone 維修，Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
+  title: 'FixMaster 維修大師｜支援 iPhone 17 全系列・IRP 認證｜30 分鐘完修',
+  description: '士林 iPhone 維修（iPhone 17・Air・17 Pro・17 Pro Max），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
   keywords: 'iPhone維修台北, 士林iPhone維修, Apple IRP, iPhone螢幕更換, iPhone電池更換, 透明維修, 快速維修, 二手 iPhone',
   authors: [{ name: 'FixMaster 維修大師' }],
   creator: 'FixMaster 維修大師',
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'FixMaster 維修大師｜士林 iPhone 維修・IRP 認證｜30 分鐘完修',
-    description: '士林 iPhone 維修，Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
+    title: 'FixMaster 維修大師｜支援 iPhone 17 全系列・IRP 認證｜30 分鐘完修',
+    description: '士林 iPhone 維修（iPhone 17・Air・17 Pro・17 Pro Max），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
     url: 'https://fixmastertw.com',
     siteName: 'FixMaster 維修大師 士林店',
     locale: 'zh_TW',
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FixMaster 維修大師｜士林 iPhone 維修・IRP 認證｜30 分鐘完修',
-    description: '士林 iPhone 維修，Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
+    title: 'FixMaster 維修大師｜支援 iPhone 17 全系列・IRP 認證｜30 分鐘完修',
+    description: '士林 iPhone 維修（iPhone 17・Air・17 Pro・17 Pro Max），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
     images: ['/og-image.svg'],
   },
   robots: {

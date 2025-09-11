@@ -63,6 +63,27 @@ export default function HeroSection() {
                 專業 iPhone 維修，透明、安心、有效率。
               </motion.p>
 
+              {/* iPhone 17 系列型號快速選擇 */}
+              <motion.div
+                className="mb-6 -mx-1 px-1 overflow-x-auto no-scrollbar"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.25 }}
+              >
+                <div className="flex items-center gap-2 w-max">
+                  {['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max'].map((label) => (
+                    <button
+                      key={label}
+                      onClick={() => scrollToSectionId('services')}
+                      className="whitespace-nowrap px-4 py-2 text-sm border flat-button bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400"
+                      aria-label={`查看 ${label} 維修項目`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+
               {/* 特色亮點 */}
               <div className="relative mb-8 lg:mb-10">
                 <SliderArrows

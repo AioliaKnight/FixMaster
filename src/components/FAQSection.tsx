@@ -14,6 +14,24 @@ export default function FAQSection() {
       title: 'iPhone 維修專區',
       faqs: [
         {
+          icon: Smartphone,
+          question: 'iPhone 17 系列目前支援哪些維修？',
+          answer: '上市月提供免費檢測與備料預約。常見項目包含：螢幕總成、電池、相機模組、背蓋玻璃與充電模組。實際交期依原廠料件到貨為準。',
+          category: 'iPhone17'
+        },
+        {
+          icon: Settings,
+          question: 'iPhone 17 Face ID／Touch ID 維修與校準需要注意什麼？',
+          answer: '生物辨識模組與主板綁定，維修流程需經過原廠規格檢測。可維修項目含排線與鏡頭模組異常；若涉及主板更動將於施工前完整告知風險與時程。',
+          category: 'iPhone17'
+        },
+        {
+          icon: Zap,
+          question: 'iPhone 17 螢幕維修會影響顯示或觸控體驗嗎？',
+          answer: '不會。使用 Apple 認證零件並完成色域/亮度/True Tone 檢測校正，觸控靈敏、顯示準確。完修後提供檢測紀錄與 90 天保固。',
+          category: 'iPhone17'
+        },
+        {
           icon: Clock,
           question: 'iPhone 維修需要多長時間？',
           answer: '一般參考：\n\n螢幕更換：30–60 分鐘\n電池更換：30–45 分鐘\n相機/喇叭/充電模組：60–90 分鐘\n主機板級維修：2–4 小時（視狀況）\n\n可現場等候或預約時段，實際以檢測為準。',
@@ -60,6 +78,24 @@ export default function FAQSection() {
     {
       title: '手機維修通用',
       faqs: [
+        {
+          icon: AlertCircle,
+          question: 'iPhone 17 進水怎麼辦？',
+          answer: '立刻關機、勿充電與加熱，保持裝置原狀送修。24 小時內處理成功率最高。我們提供主機板清洗與資料救援評估，並完整告知風險。',
+          category: '進水救援'
+        },
+        {
+          icon: Shield,
+          question: '維修過程我的資料隱私如何保障？',
+          answer: '技師簽署保密協議、維修不查看個人資料、必要時於您在場或錄影下進行開機測試；全程留存交接與檢測紀錄，建議事前備份並登出敏感服務。',
+          category: '資料隱私'
+        },
+        {
+          icon: CheckCircle,
+          question: '維修後我們如何測試確保功能正常？',
+          answer: '依項目逐項檢測：觸控/顯示、相機前後/錄影、喇叭/麥克風/聽筒、充電/電流、感測器、Face ID/Touch ID、通話/網路。完修提供檢測紀錄與保固。',
+          category: '完修測試'
+        },
         {
           icon: Wrench,
           question: '手機進水了該怎麼辦？',

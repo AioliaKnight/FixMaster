@@ -18,14 +18,14 @@ export default function PromotionsSection() {
   const mainPromotions = [
     {
       icon: Gift,
-      title: '首次預約送 9H 玻璃貼',
-      description: '完成維修即贈，保護更到位',
+      title: 'iPhone 17 上市月｜免費健檢 + 玻璃貼',
+      description: '完成維修即贈 9H 玻璃貼，上市月享免費檢測',
       originalPrice: '原價 $299',
       discountPrice: '到店免費',
       badge: '限時優惠',
       color: 'from-pink-500 to-pink-600',
-      terms: ['限首次預約', '完成維修', '當場施作'],
-      validUntil: '2024.12.31'
+      terms: ['限上市月', '完成維修', '當場施作'],
+      validUntil: '上市月'
     },
     {
       icon: Truck,
@@ -53,25 +53,25 @@ export default function PromotionsSection() {
 
   const flashDeals = [
     {
-      title: 'iPhone 14 Pro 螢幕更換',
-      originalPrice: 'Apple 官方 $5,490',
-      salePrice: '$4,941',
+      title: 'iPhone 17 螢幕更換（暫估）',
+      originalPrice: 'Apple 官方 TBA',
+      salePrice: '預約後告知',
       discount: '9折優惠',
       timeLeft: '48小時',
       icon: '📱'
     },
     {
-      title: 'iPhone 13 電池更換',
-      originalPrice: 'Apple官方 $2,190',
-      salePrice: '$1,971',
+      title: 'iPhone 17 電池更換（預約備料）',
+      originalPrice: 'Apple官方 TBA',
+      salePrice: '備料後通知',
       discount: '9折優惠',
       timeLeft: '72小時',
       icon: '🔋'
     },
     {
-      title: 'iPhone 12 全機檢測',
-      originalPrice: 'Apple官方 $590',
-      salePrice: '$531',
+      title: 'iPhone 17 全機檢測',
+      originalPrice: '官方 TBA',
+      salePrice: '上市月免費',
       discount: '9折優惠',
       timeLeft: '24小時',
       icon: '🔍'

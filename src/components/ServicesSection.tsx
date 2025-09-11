@@ -207,6 +207,26 @@ export default function ServicesSection() {
     <section id="services" className="section-padding bg-neutral-50">
       <div className="container mx-auto container-padding">
         <div className="max-w-6xl mx-auto">
+          {/* iPhone 17 系列上市提示 */}
+          <motion.div 
+            className="bg-white flat-card p-4 md:p-6 mb-8 border border-neutral-200"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <p className="text-neutral-900 text-sm md:text-base">
+                iPhone 17／Air／17 Pro／17 Pro Max 現已支援免費檢測與備料預約。部分原廠料件供應量有限，建議先預約以安排最快時程。
+              </p>
+              <button 
+                className="w-full sm:w-auto bg-neutral-900 hover:bg-black text-white px-5 py-2 flat-button text-sm"
+                onClick={() => scrollToSectionId('contact')}
+              >
+                立即預約檢測
+              </button>
+            </div>
+          </motion.div>
           {/* 區塊標題 */}
           <motion.div 
             className="text-center mb-16"
