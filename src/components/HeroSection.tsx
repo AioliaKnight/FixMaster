@@ -6,6 +6,7 @@ import { SliderArrows, SliderDots } from './CarouselControls'
 import Image from 'next/image'
 import { scrollToSectionId } from '@/lib/scroll'
 import { useEffect, useRef, useState } from 'react'
+import { trackClick } from '@/lib/tracking'
 
 export default function HeroSection() {
   return (
@@ -74,7 +75,7 @@ export default function HeroSection() {
                   {['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max'].map((label) => (
                     <button
                       key={label}
-                      onClick={() => scrollToSectionId('services')}
+                      onClick={() => { trackClick('hero_model_chip_click', { label }); scrollToSectionId('services') }}
                       className="whitespace-nowrap px-4 py-2 text-sm border flat-button bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400"
                       aria-label={`查看 ${label} 維修項目`}
                     >
@@ -169,14 +170,14 @@ export default function HeroSection() {
               >
                 <button 
                   className="w-full sm:w-auto bg-neutral-900 hover:bg-black text-white px-8 lg:px-12 py-3 lg:py-4 flat-button font-medium text-base lg:text-lg tracking-wide transition-colors duration-200"
-                  onClick={() => scrollToSectionId('contact')}
+                  onClick={() => { trackClick('hero_primary_cta_click'); scrollToSectionId('contact') }}
                 >
                   立即預約維修
                 </button>
                 
                 <button 
                   className="w-full sm:w-auto text-accent-600 hover:text-accent-700 border border-neutral-300 px-8 lg:px-12 py-3 lg:py-4 flat-button font-medium text-base lg:text-lg tracking-wide transition-all duration-200"
-                  onClick={() => scrollToSectionId('services')}
+                  onClick={() => { trackClick('hero_secondary_cta_click'); scrollToSectionId('services') }}
                 >
                   精選二手 iPhone
                 </button>

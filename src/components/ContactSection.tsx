@@ -14,6 +14,7 @@ import {
   Send
 } from 'lucide-react'
 import { useState } from 'react'
+import { trackClick, trackEvent } from '@/lib/tracking'
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -306,6 +307,7 @@ FixMaster 維修預約通知
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-accent-600 hover:text-accent-700 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 border border-neutral-300"
+                    onClick={() => trackClick('contact_card_line_click')}
                   >
                     {info.action}
                   </a>
@@ -313,6 +315,7 @@ FixMaster 維修預約通知
                   <button 
                     className="text-accent-600 hover:text-accent-700 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 border border-neutral-300"
                     onClick={() => {
+                      trackClick('contact_card_action_click', { type: info.actionType })
                       if (info.actionType === 'phone') {
                         window.location.href = 'tel:+886-2-2816-6666'
                       } else if (info.actionType === 'email') {
@@ -362,7 +365,7 @@ FixMaster 維修預約通知
                   線上預約
               </h3>
               
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={(e) => { trackEvent('contact_form_submit_attempt'); handleSubmit(e) }} className="space-y-4">
                 {/* 成功訊息 */}
                 {submitSuccess && (
                   <div className="bg-green-50 border border-green-200 p-4 mb-4 flex items-center">
@@ -557,6 +560,7 @@ FixMaster 維修預約通知
                 <button 
                   className="w-full bg-accent-500 hover:bg-accent-600 text-white py-2 flat-button font-medium transition-colors duration-200"
                   onClick={() => {
+                    trackClick('contact_map_navigate_click')
                     const address = '台北市士林區文林路60號'
                     const encodedAddress = encodeURIComponent(address)
                     
@@ -610,6 +614,7 @@ FixMaster 維修預約通知
               <a 
                 href="tel:+886-2-2816-6666" 
                 className="w-full sm:w-auto bg-accent-500 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"
+                onClick={() => trackClick('contact_final_tel_click')}
               >
                 立即撥打預約
               </a>
@@ -618,6 +623,7 @@ FixMaster 維修預約通知
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto bg-neutral-900 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-neutral-800 transition-colors duration-200 inline-flex items-center justify-center"
+                onClick={() => trackClick('contact_final_line_click')}
               >
                 LINE 快速諮詢
               </a>

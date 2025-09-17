@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, MessageCircle } from 'lucide-react'
 import { scrollToSectionId } from '@/lib/scroll'
+import { trackClick } from '@/lib/tracking'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -121,7 +122,7 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <button 
-              onClick={() => handleNavClick('#home')}
+              onClick={() => { trackClick('navbar_logo_click'); handleNavClick('#home') }}
               className="group flex items-center hover:opacity-90 transition-opacity duration-200"
               aria-label="前往首頁"
             >
@@ -144,7 +145,7 @@ export default function Navbar() {
             {navigationItems.map((item) => (
               <button
                 key={item.name}
-                onClick={() => handleNavClick(item.href)}
+                onClick={() => { trackClick('navbar_nav_click', { target: item.href }); handleNavClick(item.href) }}
                 className={`relative text-sm font-medium transition-colors duration-200 hover:text-neutral-900 ${
                   activeSection === item.href.replace('#', '') 
                     ? 'text-neutral-900' 
@@ -172,6 +173,7 @@ export default function Navbar() {
             <a
               href="tel:+886-2-2816-6666"
               className="flex items-center space-x-2 text-neutral-700 hover:text-neutral-900 transition-colors duration-200"
+              onClick={() => trackClick('navbar_tel_click')}
             >
               <Phone className="w-4 h-4" />
               <span className="text-sm font-medium">02-2816-6666</span>
@@ -181,6 +183,7 @@ export default function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent-600 hover:text-accent-700 transition-colors duration-200 text-sm font-medium"
+              onClick={() => trackClick('navbar_line_click')}
             >
               LINE 諮詢
             </a>
@@ -254,6 +257,7 @@ export default function Navbar() {
                   <a
                     href="tel:+886-2-2816-6666"
                     className="flex items-center space-x-3 p-4 text-neutral-700 hover:bg-neutral-50 active:bg-neutral-100 transition-colors duration-200"
+                    onClick={() => trackClick('navbar_tel_click', { context: 'mobile_menu' })}
                   >
                     <Phone className="w-5 h-5" />
                     <span className="font-medium">02-2816-6666</span>
@@ -263,6 +267,7 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-3 text-accent-600 p-4 font-medium hover:bg-neutral-50 active:bg-neutral-100 transition-colors duration-200"
+                    onClick={() => trackClick('navbar_line_click', { context: 'mobile_menu' })}
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>LINE 諮詢</span>

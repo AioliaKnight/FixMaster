@@ -7,10 +7,12 @@ import TrustSection from '@/components/TrustSection'
 import PromotionsSection from '@/components/PromotionsSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
+import ClientAnalytics from './tracking'
 
 export default function Home() {
   return (
     <>
+      <ClientAnalytics />
       <Navbar />
       <main className="min-h-screen bg-white">
         <HeroSection />

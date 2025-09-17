@@ -35,14 +35,12 @@ export function trackPageView(url?: string, title?: string): void {
     page_title: pageTitle,
   })
 
-  // GA4
-  const gaId = safeGet(() => (process.env.NEXT_PUBLIC_GA_ID as string | undefined))
+  // GA4: send page_view as event to avoid duplicate page_view
   const gtag = safeGet(() => (window as unknown as { gtag: (...args: unknown[]) => void }).gtag)
-  if (gaId && typeof gtag === 'function') {
-    gtag('config', gaId, {
+  if (typeof gtag === 'function') {
+    gtag('event', 'page_view', {
       page_title: pageTitle,
       page_location: pageLocation,
-      send_page_view: false,
     })
   }
 
