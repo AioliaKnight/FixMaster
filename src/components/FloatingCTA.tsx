@@ -2,6 +2,7 @@
 
 import { MessageCircle } from 'lucide-react'
 import React from 'react'
+import { trackClick } from '@/lib/tracking'
 
 type FloatingCTAProps = {
   lineUrl?: string
@@ -18,6 +19,7 @@ export default function FloatingCTA({ lineUrl }: FloatingCTAProps) {
         rel="noopener noreferrer"
         aria-label="透過 LINE 聯絡我們"
         className="group inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#06C755] hover:bg-[#07b94f] text-white shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#06C755]"
+        onClick={() => trackClick('floating_line_cta', { location: 'global_fixed_button' })}
       >
         <MessageCircle className="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" />
         <span className="sr-only">LINE</span>
