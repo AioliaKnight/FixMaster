@@ -336,7 +336,7 @@ export default function RootLayout({
                   gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
                     page_title: document.title,
                     page_location: window.location.href,
-                    send_page_view: true
+                    send_page_view: false
                   });
                 `,
               }}
