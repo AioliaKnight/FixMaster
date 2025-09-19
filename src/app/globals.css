@@ -6,6 +6,12 @@
 :root {
   --foreground-rgb: 23, 23, 23;
   --background-rgb: 255, 255, 255;
+  /* Liquid Glass tokens */
+  --glass-alpha: 0.45;
+  --glass-blur: 18px;
+  --glass-elevated-alpha: 0.5;
+  --nav-glass-alpha: 0.55;
+  --nav-glass-blur: 20px;
 }
 
 * {
@@ -55,9 +61,9 @@ body {
 /* 去除所有陰影和邊框半徑 */
 .flat-card {
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.45);
-  -webkit-backdrop-filter: saturate(180%) blur(18px);
-  backdrop-filter: saturate(180%) blur(18px);
+  background: rgba(255, 255, 255, var(--glass-alpha));
+  -webkit-backdrop-filter: saturate(180%) blur(var(--glass-blur));
+  backdrop-filter: saturate(180%) blur(var(--glass-blur));
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(0, 0, 0, 0.06);
 }
@@ -75,26 +81,26 @@ body {
 /* 玻璃效果工具類 */
 .glass {
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.45);
-  -webkit-backdrop-filter: saturate(180%) blur(18px);
-  backdrop-filter: saturate(180%) blur(18px);
+  background: rgba(255, 255, 255, var(--glass-alpha));
+  -webkit-backdrop-filter: saturate(180%) blur(var(--glass-blur));
+  backdrop-filter: saturate(180%) blur(var(--glass-blur));
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 28px rgba(0, 0, 0, 0.06);
 }
 
 .nav-glass {
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, var(--nav-glass-alpha));
+  -webkit-backdrop-filter: saturate(180%) blur(var(--nav-glass-blur));
+  backdrop-filter: saturate(180%) blur(var(--nav-glass-blur));
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* 強化液態玻璃變體（箭頭／浮動控制建議使用） */
 .glass-elevated {
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.5);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, var(--glass-elevated-alpha));
+  -webkit-backdrop-filter: saturate(180%) blur(calc(var(--glass-blur) + 2px));
+  backdrop-filter: saturate(180%) blur(calc(var(--glass-blur) + 2px));
   border: 1px solid rgba(255, 255, 255, 0.32);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 14px 32px rgba(0, 0, 0, 0.08);
 }
@@ -110,6 +116,29 @@ body {
   border-radius: inherit;
   background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0) 100%);
   pointer-events: none;
+}
+
+/* Mobile tuning: enhance translucency rhythm and spacing */
+@media (max-width: 768px) {
+  :root {
+    --glass-blur: 22px;
+    --glass-alpha: 0.5; /* slightly less transparent to keep readability on phones */
+    --glass-elevated-alpha: 0.6;
+    --nav-glass-alpha: 0.6;
+    --nav-glass-blur: 22px;
+  }
+  .section-padding {
+    padding: 3.5rem 0;
+  }
+}
+
+/* High-contrast users: strengthen readability over translucency */
+@media (prefers-contrast: more) {
+  :root {
+    --glass-alpha: 0.68;
+    --glass-elevated-alpha: 0.72;
+    --nav-glass-alpha: 0.72;
+  }
 }
 
 /* 簡化間距 */
