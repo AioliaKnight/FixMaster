@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
 import Button from './ui/Button'
@@ -288,26 +288,56 @@ export default function FAQSection() {
           </motion.div>
 
           {/* 分類 chips（可橫向滑動） */}
-          <div className="mb-6 md:mb-8 -mx-4 px-4 overflow-x-auto no-scrollbar">
-            <div className="flex items-center gap-2 md:gap-3 w-max">
-              {faqCategories.map((category, index) => (
-                <Chip
-                  key={category.title}
-                  active={selectedCategoryIndex === index}
-                  onClick={() => {
-                    setSelectedCategoryIndex(index)
-                    setSelectedFaqIndex(null)
-                  }}
-                  aria-pressed={selectedCategoryIndex === index}
-                >
-                  {category.title}
-                </Chip>
-              ))}
+          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4 py-2">
+            <div 
+              className="relative overflow-x-auto no-scrollbar"
+              role="tablist"
+              aria-label="FAQ 分類"
+              onKeyDown={(e) => {
+                const max = faqCategories.length - 1
+                let next = selectedCategoryIndex
+                if (e.key === 'ArrowRight') next = Math.min(max, selectedCategoryIndex + 1)
+                if (e.key === 'ArrowLeft') next = Math.max(0, selectedCategoryIndex - 1)
+                if (e.key === 'Home') next = 0
+                if (e.key === 'End') next = max
+                if (next !== selectedCategoryIndex) {
+                  e.preventDefault()
+                  setSelectedCategoryIndex(next)
+                  setSelectedFaqIndex(null)
+                  const btn = document.getElementById(`faq-tab-${next}`) as HTMLButtonElement | null
+                  btn?.focus()
+                }
+              }}
+            >
+              <div className="flex items-center gap-2 md:gap-3 w-max">
+                {faqCategories.map((category, index) => (
+                  <Chip
+                    key={category.title}
+                    id={`faq-tab-${index}`}
+                    role="tab"
+                    aria-selected={selectedCategoryIndex === index}
+                    aria-controls="faq-panel"
+                    active={selectedCategoryIndex === index}
+                    onClick={() => {
+                      setSelectedCategoryIndex(index)
+                      setSelectedFaqIndex(null)
+                    }}
+                  >
+                    {category.title}
+                  </Chip>
+                ))}
+              </div>
+              {/* Scroll fade edges */}
+              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white/90 to-transparent" />
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white/90 to-transparent" />
             </div>
           </div>
 
           {/* 問題卡片網格（行動 1 欄、平板 2 欄、桌面 3 欄） */}
           <motion.div
+            id="faq-panel"
+            role="tabpanel"
+            aria-labelledby={`faq-tab-${selectedCategoryIndex}`}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
