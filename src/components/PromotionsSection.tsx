@@ -9,12 +9,14 @@ import {
   Clock,
   Star,
   Zap,
-  Heart,
   ShoppingCart,
-  Trophy,
   Smartphone,
   Battery,
-  Search
+  Search,
+  Award,
+  Medal,
+  Crown,
+  CheckCircle
 } from 'lucide-react'
 import { useRef, useEffect, useState } from 'react'
 import { SliderDots } from './CarouselControls'
@@ -136,20 +138,20 @@ export default function PromotionsSection() {
       level: '銅牌會員',
       requirement: '累積維修 1 次',
       benefits: ['95折優惠', '優先預約'],
-      color: 'from-orange-400 to-orange-600'
+      icon: Medal,
     },
     {
       level: '銀牌會員',
       requirement: '累積維修 3 次',
       benefits: ['9折優惠', '免費檢測', '延長保固'],
-      color: 'from-gray-400 to-gray-600'
+      icon: Award,
     },
     {
       level: '金牌會員',
       requirement: '累積維修 5 次',
       benefits: ['85折優惠', '免費收送', 'VIP 通道'],
-      color: 'from-gold-400 to-gold-600'
-    }
+      icon: Crown,
+    },
   ]
 
 
@@ -355,17 +357,20 @@ export default function PromotionsSection() {
               aria-label="會員專屬優惠"
             >
               {loyaltyProgram.map((level, index) => (
-                <div key={index} className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight">
-                  <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mx-auto mb-4">
-                    <Trophy className="w-8 h-8 text-white" />
+                <div
+                  key={index}
+                  className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight"
+                >
+                  <div className="glass-control glass-strong mx-auto mb-4 flex h-16 w-16 items-center justify-center text-neutral-900">
+                    <level.icon className="h-8 w-8" aria-hidden="true" />
                   </div>
                   <h4 className="font-bold text-xl text-neutral-900 mb-2">{level.level}</h4>
                   <p className="text-neutral-600 text-sm mb-4">{level.requirement}</p>
                   <div className="space-y-2">
                     {level.benefits.map((benefit, benefitIndex) => (
-                      <div key={benefitIndex} className="flex items-center justify-center">
-                        <Heart className="w-4 h-4 text-accent-500 mr-2" />
-                        <span className="text-sm text-neutral-700">{benefit}</span>
+                      <div key={benefitIndex} className="flex items-center justify-center text-neutral-700">
+                        <CheckCircle className="mr-2 h-4 w-4 text-accent-500" aria-hidden="true" />
+                        <span className="text-sm">{benefit}</span>
                       </div>
                     ))}
                   </div>

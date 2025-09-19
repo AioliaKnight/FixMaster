@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { trackClick } from '@/lib/tracking'
 import {
+  ArrowRight,
   Award,
   Video,
   DollarSign,
@@ -11,11 +12,13 @@ import {
   Shield,
   Clock,
   CheckCircle,
-  Users,
   Trophy,
   Star,
   Wrench,
-  UserCog
+  UserCog,
+  Smile,
+  Headset,
+  BadgeCheck
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { SliderDots } from './CarouselControls'
@@ -139,23 +142,23 @@ export default function TrustSection() {
     {
       number: '5000+',
       label: '成功維修案例',
-      icon: CheckCircle
+      icon: Wrench,
     },
     {
       number: '99.8%',
       label: '客戶滿意度',
-      icon: Star
+      icon: Smile,
     },
     {
       number: '3年+',
       label: '專業經驗',
-      icon: Trophy
+      icon: BadgeCheck,
     },
     {
       number: '24/7',
       label: '客服支援',
-      icon: Users
-    }
+      icon: Headset,
+    },
   ]
 
   return (
@@ -312,8 +315,8 @@ export default function TrustSection() {
           >
             <div className="text-center">
               <div className="flex items-center justify-center mb-6">
-                <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mr-4">
-                  <Shield className="w-8 h-8 text-white" />
+                <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center mr-4 text-neutral-900">
+                  <Shield className="w-8 h-8" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-2">
@@ -353,9 +356,7 @@ export default function TrustSection() {
               >
                 <Shield className="w-5 h-5 mr-3" />
                 Apple 官方驗證頁面
-                <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </a>
               
               <p className="text-xs text-neutral-500 mt-4">
@@ -374,8 +375,8 @@ export default function TrustSection() {
           >
             {statistics.map((stat, index) => (
               <div key={index} className="text-center bg-white flat-card p-6">
-                <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="w-8 h-8 text-white" />
+                <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900">
+                  <stat.icon className="w-8 h-8" />
                 </div>
                 <div className="text-3xl font-bold text-neutral-900 mb-2">{stat.number}</div>
                 <div className="text-neutral-600 text-sm">{stat.label}</div>
