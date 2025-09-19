@@ -289,13 +289,13 @@ FixMaster 維修預約通知
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 text-center border border-neutral-200 hover:border-neutral-400 transition-all duration-200"
+                className="bg-white flat-card p-6 text-center transition-all duration-200 glass-highlight"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="w-16 h-16 bg-white border border-neutral-200 flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-white glass-elevated flex items-center justify-center mx-auto mb-4">
                   <info.icon className="w-8 h-8 text-neutral-900" />
                 </div>
                 <h3 className="text-neutral-900 font-semibold mb-2">{info.title}</h3>
@@ -306,14 +306,14 @@ FixMaster 維修預約通知
                     href="https://line.me/R/ti/p/@fixmaster"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-accent-600 hover:text-accent-700 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 border border-neutral-300"
+                    className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70"
                     onClick={() => trackClick('contact_card_line_click')}
                   >
                     {info.action}
                   </a>
                 ) : (
                   <button 
-                    className="text-accent-600 hover:text-accent-700 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 border border-neutral-300"
+                    className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70"
                     onClick={() => {
                       trackClick('contact_card_action_click', { type: info.actionType })
                       if (info.actionType === 'phone') {
@@ -354,7 +354,7 @@ FixMaster 維修預約通知
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             {/* 預約表單 */}
             <motion.div
-              className="bg-white p-8 border border-neutral-200"
+              className="bg-white flat-card p-8"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3 }}
@@ -383,7 +383,7 @@ FixMaster 維修預約通知
                       autoComplete="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className={`w-full bg-white border px-4 py-3 text-neutral-900 placeholder-neutral-400 focus:outline-none transition-colors duration-200 ${
+                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
                         formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
                       }`}
                       placeholder="請輸入您的姓名"
@@ -402,7 +402,7 @@ FixMaster 維修預約通知
                       autoComplete="tel"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className={`w-full bg-white border px-4 py-3 text-neutral-900 placeholder-neutral-400 focus:outline-none transition-colors duration-200 ${
+                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
                         formErrors.phone ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
                       }`}
                       placeholder="手機（09xxxxxxxx）"
@@ -421,7 +421,7 @@ FixMaster 維修預約通知
                       name="device"
                       value={formData.device}
                       onChange={handleInputChange}
-                      className={`w-full bg-white border px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
+                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
                         formErrors.device ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
                       }`}
                       required
@@ -451,7 +451,7 @@ FixMaster 維修預約通知
                       name="issue"
                       value={formData.issue}
                       onChange={handleInputChange}
-                      className={`w-full bg-white border px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
+                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
                         formErrors.issue ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
                       }`}
                       required
@@ -480,7 +480,7 @@ FixMaster 維修預約通知
                     autoComplete="off"
                     value={formData.preferredTime}
                     onChange={handleInputChange}
-                    className="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 focus:outline-none focus:border-accent-500"
+                    className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent-500"
                   />
                 </div>
                 
@@ -492,7 +492,7 @@ FixMaster 維修預約通知
                     onChange={handleInputChange}
                     rows={3}
                     autoComplete="off"
-                    className="w-full bg-white border border-neutral-300 px-4 py-3 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-accent-500"
+                    className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500"
                     placeholder="可描述症狀、發生時間與特殊狀況"
                   />
                 </div>

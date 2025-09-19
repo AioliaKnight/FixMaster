@@ -183,7 +183,7 @@ export default function PromotionsSection() {
             {mainPromotions.map((promo, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-6 md:p-8 group relative overflow-hidden border border-neutral-200 hover:border-neutral-400 transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto"
+                className="bg-white flat-card p-6 md:p-8 group relative overflow-hidden transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto glass-highlight"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -194,7 +194,7 @@ export default function PromotionsSection() {
                 
                 {/* 標章 */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-white border border-neutral-200 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-white glass-elevated flex items-center justify-center">
                     <promo.icon className="w-8 h-8 text-neutral-900" />
                   </div>
                   <div className="text-accent-600 text-sm font-medium">
@@ -237,7 +237,7 @@ export default function PromotionsSection() {
 
                 {/* 立即使用按鈕 */}
                 <button 
-                  className="w-full bg-neutral-900 text-white py-3 flat-button font-medium hover:bg-black transition-colors duration-200"
+                  className="w-full flat-button font-medium bg-white/50 glass-elevated hover:bg-white/60 text-neutral-900 py-3 transition-colors duration-200"
                   onClick={() => {
                     trackClick('promo_apply_click', { section: 'promotions', promo: promo.title })
                     scrollToSectionId('contact')
@@ -294,10 +294,10 @@ export default function PromotionsSection() {
               aria-label="限時優惠"
             >
               {flashDeals.map((deal, index) => (
-                <div key={index} className="border border-neutral-200 p-6 hover:border-neutral-400 transition-colors duration-200 flex-none w-64 snap-start md:w-auto">
+                <div key={index} className="bg-white flat-card p-6 transition-colors duration-200 flex-none w-64 snap-start md:w-auto glass-highlight">
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-2xl">{deal.icon}</div>
-                    <div className="bg-accent-100 text-accent-600 px-2 py-1 text-sm font-medium">
+                    <div className="bg-white/60 glass-elevated text-accent-600 px-2 py-1 text-sm font-medium">
                       {deal.discount}
                     </div>
                   </div>
@@ -347,7 +347,7 @@ export default function PromotionsSection() {
               aria-label="會員專屬優惠"
             >
               {loyaltyProgram.map((level, index) => (
-                <div key={index} className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto">
+                <div key={index} className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight">
                   <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mx-auto mb-4">
                     <Trophy className="w-8 h-8 text-white" />
                   </div>

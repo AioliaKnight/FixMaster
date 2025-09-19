@@ -302,7 +302,7 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
           >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center bg-white flat-card p-4 md:p-6 flex-none w-56 snap-start md:w-auto">
+              <div key={index} className="text-center bg-white flat-card p-4 md:p-6 flex-none w-56 snap-start md:w-auto glass-highlight">
                 <div className="w-12 h-12 bg-accent-500 flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
@@ -367,7 +367,7 @@ export default function TestimonialsSection() {
                         .map((testimonial, index) => (
                           <motion.div
                             key={pageIndex * slidesPerView + index}
-                            className="bg-white p-6 border border-neutral-200 hover:border-neutral-400 transition-all duration-200 h-full rounded-none flex flex-col justify-between min-h-[320px]"
+                            className="bg-white flat-card p-6 transition-all duration-200 h-full flex flex-col justify-between min-h-[320px] glass-highlight"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
@@ -390,7 +390,7 @@ export default function TestimonialsSection() {
                             </div>
                             {/* 客戶資訊 */}
                             <div className="flex items-center justify-center mt-auto">
-                              <div className="w-10 h-10 bg-white flex items-center justify-center mr-3 border border-neutral-200">
+                              <div className="w-10 h-10 bg-white glass-elevated flex items-center justify-center mr-3">
                                 <span className="text-lg">{testimonial.avatar}</span>
                               </div>
                               <div>

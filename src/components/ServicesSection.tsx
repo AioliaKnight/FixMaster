@@ -210,7 +210,7 @@ export default function ServicesSection() {
         <div className="max-w-6xl mx-auto">
           {/* iPhone 17 系列上市提示 */}
           <motion.div 
-            className="bg-white flat-card p-4 md:p-6 mb-8 border border-neutral-200"
+            className="bg-white flat-card p-4 md:p-6 mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -276,7 +276,7 @@ export default function ServicesSection() {
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <div className="max-w-2xl mx-auto">
                       <motion.div
-                        className="relative bg-white flat-card p-6 md:p-10 group border border-neutral-200 hover:border-accent-300 transition-all duration-200 overflow-hidden shadow-sm rounded-none"
+                        className="relative bg-white flat-card p-6 md:p-10 group transition-all duration-200 overflow-hidden"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
@@ -299,7 +299,7 @@ export default function ServicesSection() {
                         </div>
 
                         {/* 服務詳細資訊 */}
-                        <div className="bg-white p-4 mb-6 grid grid-cols-2 gap-4 text-center border border-neutral-200">
+                        <div className="bg-white/50 glass p-4 mb-6 grid grid-cols-2 gap-4 text-center">
                           <div>
                             <div className="text-accent-500 font-semibold text-sm mb-1">維修時間</div>
                             <div className="text-neutral-900 font-medium text-sm">{service.duration}</div>
@@ -321,7 +321,7 @@ export default function ServicesSection() {
                         </div>
 
                         {/* 保固資訊 */}
-                        <div className="p-3 mb-6 border border-neutral-200">
+                        <div className="p-3 mb-6 glass bg-white/50">
                           <div className="flex items-center justify-center">
                             <Shield className="w-4 h-4 text-neutral-900 mr-2" />
                             <span className="text-neutral-900 font-medium text-sm text-center">{service.warranty}</span>

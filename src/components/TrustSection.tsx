@@ -186,10 +186,10 @@ export default function TrustSection() {
             aria-label="主要承諾"
             ref={promisesRef}
           >
-            {promises.map((promise, index) => (
+              {promises.map((promise, index) => (
               <motion.div
                 key={index}
-                className="bg-white flat-card p-6 md:p-8 hover:border-neutral-400 transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto"
+                  className="bg-white flat-card p-6 md:p-8 transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto glass-highlight"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -323,7 +323,7 @@ export default function TrustSection() {
                 </div>
               </div>
               
-              <div className="bg-neutral-50 flat-card p-6 mb-6 border border-neutral-200">
+                <div className="bg-white/50 flat-card glass p-6 mb-6">
                 <div className="flex items-center justify-center mb-4">
                   <Image 
                     src="/apple_logo.webp" 
@@ -346,7 +346,7 @@ export default function TrustSection() {
                 href="https://support.apple.com/zh-tw/repair/verify-repair-provider"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center bg-accent-500 text-white px-8 py-4 font-semibold hover:bg-accent-600 transition-colors duration-200 group"
+                className="inline-flex items-center glass-elevated bg-white/60 text-neutral-900 px-8 py-4 font-semibold hover:bg-white/80 transition-colors duration-200 group"
                 onClick={() => trackClick('trust_apple_verify_click', { section: 'trust' })}
               >
                 <Shield className="w-5 h-5 mr-3" />
