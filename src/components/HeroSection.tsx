@@ -165,7 +165,7 @@ export default function HeroSection() {
 
           <div className="order-1 w-full max-w-[520px] self-center lg:order-2 lg:w-auto">
             <motion.div
-              className="glass-surface glass-strong relative z-10 w-full overflow-hidden px-6 pb-10 pt-6 shadow-[var(--elev-2)]"
+              className="glass-surface glass-strong relative z-10 w-full overflow-hidden px-6 pt-6 pb-24 md:pb-24 lg:pb-28 shadow-[var(--elev-2)]"
               initial={{ opacity: 0, x: 32, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -180,7 +180,7 @@ export default function HeroSection() {
                 priority
                 className="relative z-10 h-auto w-full"
               />
-              <div className="glass-control glass-strong absolute bottom-6 left-6 right-6 flex items-center justify-between px-4 py-3 text-sm text-neutral-900">
+              <div className="glass-control glass-strong absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between px-4 py-3 text-sm text-neutral-900">
                 <div>
                   <p className="font-semibold flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-accent-500" aria-hidden="true" />
