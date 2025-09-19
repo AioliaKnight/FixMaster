@@ -15,10 +15,46 @@ import {
   Trophy,
   Star
 } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { SliderDots } from './CarouselControls'
 
 export default function TrustSection() {
   const promisesId = 'trust-promises'
   const certsId = 'trust-certs'
+
+  // 滑動狀態與同步（promises）
+  const promisesRef = useRef<HTMLDivElement>(null)
+  const [promisesActive, setPromisesActive] = useState(0)
+  useEffect(() => {
+    const el = promisesRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setPromisesActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
+
+  // 滑動狀態與同步（certs）
+  const certsRef = useRef<HTMLDivElement>(null)
+  const [certsActive, setCertsActive] = useState(0)
+  useEffect(() => {
+    const el = certsRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setCertsActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
   const promises = [
     {
       icon: Award,
@@ -144,10 +180,11 @@ export default function TrustSection() {
           {/* 主要承諾 */}
           <div
             id={promisesId}
-            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 mb-16 -mx-1 px-1"
+            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 mb-6 md:mb-16 -mx-1 px-1"
             role="region"
             aria-roledescription="carousel"
             aria-label="主要承諾"
+            ref={promisesRef}
           >
             {promises.map((promise, index) => (
               <motion.div
@@ -188,7 +225,19 @@ export default function TrustSection() {
               </motion.div>
             ))}
           </div>
-          {/* dots replaced by unified SliderDots handled at higher level if needed */}
+          <SliderDots
+            count={promises.length}
+            activeIndex={promisesActive}
+            onDotClick={(i) => {
+              const el = promisesRef.current
+              if (!el) return
+              const a = el.children[0] as HTMLElement | undefined
+              const b = el.children[1] as HTMLElement | undefined
+              const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+              el.scrollTo({ left: i * step, behavior: 'smooth' })
+            }}
+            className="md:hidden -mt-2 mb-12"
+          />
 
           {/* 認證資格 */}
           <motion.div
@@ -207,6 +256,7 @@ export default function TrustSection() {
               role="region"
               aria-roledescription="carousel"
               aria-label="專業認證與資格"
+              ref={certsRef}
             >
               {certifications.map((cert, index) => (
                 <motion.div
@@ -235,7 +285,19 @@ export default function TrustSection() {
                 </motion.div>
               ))}
             </div>
-            {/* dots replaced by unified SliderDots handled at higher level if needed */}
+            <SliderDots
+              count={certifications.length}
+              activeIndex={certsActive}
+              onDotClick={(i) => {
+                const el = certsRef.current
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }}
+              className="md:hidden mt-4"
+            />
           </motion.div>
 
           {/* Apple 官方認證驗證 */}

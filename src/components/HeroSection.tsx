@@ -95,6 +95,9 @@ export default function HeroSection() {
                 />
                 <motion.div 
                   className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-3 sm:grid sm:grid-cols-3 sm:gap-6 sm:overflow-visible -mx-1 px-1"
+                  role="region"
+                  aria-roledescription="carousel"
+                  aria-label="特色亮點"
                   ref={(() => {
                     const ref = useRef<HTMLDivElement>(null)
                     const [active, setActive] = useState(0)
