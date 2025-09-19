@@ -12,16 +12,26 @@ type SectionHeaderProps = {
 export default function SectionHeader({ title, description, align = 'center', className }: SectionHeaderProps) {
   const isCenter = align === 'center'
   return (
-    <div className={`${isCenter ? 'text-center' : ''} ${className || ''}`}>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4">{title}</h2>
+    <div className={`${isCenter ? 'text-center' : ''} space-y-3 ${className || ''}`}>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900">
+        {title}
+      </h2>
       {description && (
-        <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
+        <p
+          className={`text-neutral-600 text-base sm:text-lg md:text-xl leading-relaxed ${
+            isCenter ? 'mx-auto' : ''
+          } max-w-3xl`}
+        >
           {description}
         </p>
       )}
-      <div className={`w-16 h-px bg-neutral-900 ${isCenter ? 'mx-auto' : ''} mt-6`}></div>
+      <div
+        className={`inline-flex h-[2px] w-16 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-transparent via-neutral-900/70 to-transparent ${
+          isCenter ? '' : ''
+        }`}
+        aria-hidden="true"
+      />
     </div>
   )
 }
-
 

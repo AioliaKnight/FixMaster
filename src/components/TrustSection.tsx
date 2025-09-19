@@ -3,17 +3,19 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { trackClick } from '@/lib/tracking'
-import { 
-  Award, 
-  Video, 
-  DollarSign, 
-  FileText, 
-  Shield, 
-  Clock, 
+import {
+  Award,
+  Video,
+  DollarSign,
+  FileText,
+  Shield,
+  Clock,
   CheckCircle,
   Users,
   Trophy,
-  Star
+  Star,
+  Wrench,
+  UserCog
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { SliderDots } from './CarouselControls'
@@ -119,17 +121,17 @@ export default function TrustSection() {
     {
       title: '原廠零件供應',
       description: '正品零件保證',
-      icon: '🔧'
+      icon: Wrench
     },
     {
       title: '專業技師執照',
       description: '經驗豐富團隊',
-      icon: '👨‍🔧'
+      icon: UserCog
     },
     {
       title: '品質管理認證',
       description: 'ISO 品質標準',
-      icon: '🏆'
+      icon: Trophy
     }
   ]
 
@@ -269,15 +271,15 @@ export default function TrustSection() {
                 >
                   <div className="text-4xl mb-4 flex justify-center">
                     {cert.icon === 'apple_logo' ? (
-                      <Image 
-                        src="/apple_logo.webp" 
-                        alt="Apple Logo" 
+                      <Image
+                        src="/apple_logo.webp"
+                        alt="Apple Logo"
                         width={48}
                         height={48}
-                        className="w-12 h-12 object-contain"
+                        className="h-12 w-12 object-contain"
                       />
                     ) : (
-                      cert.icon
+                      <cert.icon className="h-8 w-8 text-neutral-900" aria-hidden="true" />
                     )}
                   </div>
                   <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>

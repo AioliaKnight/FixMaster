@@ -2,16 +2,19 @@
 
 import { motion } from 'framer-motion'
 import { scrollToSectionId } from '@/lib/scroll'
-import { 
-  Gift, 
-  Truck, 
-  Tag, 
-  Clock, 
-  Star, 
-  Zap, 
+import {
+  Gift,
+  Truck,
+  Tag,
+  Clock,
+  Star,
+  Zap,
   Heart,
   ShoppingCart,
-  Trophy
+  Trophy,
+  Smartphone,
+  Battery,
+  Search
 } from 'lucide-react'
 import { useRef, useEffect, useState } from 'react'
 import { SliderDots } from './CarouselControls'
@@ -108,7 +111,7 @@ export default function PromotionsSection() {
       salePrice: '預約後告知',
       discount: '9折優惠',
       timeLeft: '48小時',
-      icon: '📱'
+      icon: Smartphone,
     },
     {
       title: 'iPhone 17 電池更換（預約備料）',
@@ -116,7 +119,7 @@ export default function PromotionsSection() {
       salePrice: '備料後通知',
       discount: '9折優惠',
       timeLeft: '72小時',
-      icon: '🔋'
+      icon: Battery,
     },
     {
       title: 'iPhone 17 全機檢測',
@@ -124,8 +127,8 @@ export default function PromotionsSection() {
       salePrice: '上市月免費',
       discount: '9折優惠',
       timeLeft: '24小時',
-      icon: '🔍'
-    }
+      icon: Search,
+    },
   ]
 
   const loyaltyProgram = [
@@ -250,7 +253,10 @@ export default function PromotionsSection() {
                     }, 1000)
                   }}
                 >
-                  🎁 立即享受優惠
+                  <span className="inline-flex items-center justify-center gap-2">
+                    <Gift className="h-4 w-4" aria-hidden="true" />
+                    立即享受優惠
+                  </span>
                 </button>
               </motion.div>
             ))}
@@ -296,7 +302,9 @@ export default function PromotionsSection() {
               {flashDeals.map((deal, index) => (
                 <div key={index} className="bg-white flat-card p-6 transition-colors duration-200 flex-none w-64 snap-start md:w-auto glass-highlight">
                   <div className="flex items-center justify-between mb-4">
-                    <div className="text-2xl">{deal.icon}</div>
+                    <div className="glass-control glass-strong h-10 w-10 flex items-center justify-center text-neutral-900">
+                      <deal.icon className="h-5 w-5" aria-hidden="true" />
+                    </div>
                     <div className="bg-white/60 glass-elevated text-accent-600 px-2 py-1 text-sm font-medium">
                       {deal.discount}
                     </div>

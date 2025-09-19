@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
 import Button from './ui/Button'
+import SectionHeader from './ui/SectionHeader'
 
 export default function FAQSection() {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0)
@@ -223,74 +224,32 @@ export default function FAQSection() {
   // 依據當前選取的分類取得 FAQ 清單
   const currentFaqs = faqCategories[selectedCategoryIndex]?.faqs ?? []
 
-  const quickAnswers = [
-    {
-      question: '需要預約嗎？',
-      answer: '建議先預約，但也接受現場服務',
-      icon: '📅'
-    },
-    {
-      question: '支援哪些付款方式？',
-      answer: '現金、銀行轉帳、街口支付',
-      icon: '💳'
-    },
-    {
-      question: '有到府收送服務嗎？',
-      answer: '台北市區提供到府收送，滿額免費',
-      icon: '🚚'
-    },
-    {
-      question: '維修期間有備用機嗎？',
-      answer: '可提供備用機借用服務（需押金）',
-      icon: '📱'
-    },
-    {
-      question: '支援 iPad 維修嗎？',
-      answer: 'iPad 螢幕、電池、充電孔等維修',
-      icon: '📟'
-    },
-    {
-      question: '有 Mac 維修服務嗎？',
-      answer: 'MacBook 螢幕、鍵盤、主機板維修',
-      icon: '💻'
-    },
-    {
-      question: '進水手機能救嗎？',
-      answer: '24小時內送修，成功率85%',
-      icon: '💧'
-    },
-    {
-      question: '維修多久保固？',
-      answer: '90天維修保固，業界最長',
-      icon: '🛡️'
-    }
-  ]
-
   return (
-    <section id="faq" className="section-padding bg-neutral-50">
-      <div className="container mx-auto container-padding">
+    <section id="faq" className="section-padding relative overflow-hidden">
+      <div
+        className="pointer-events-none absolute inset-x-[-20%] top-0 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(239,68,68,0.16),_rgba(239,68,68,0))] blur-[120px]"
+        aria-hidden="true"
+      />
+      <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
-          <motion.div 
-            className="text-center mb-8 md:mb-16"
+          <motion.div
+            className="mb-10 md:mb-16 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 md:mb-6">
-              常見問答
-            </h2>
-            <p className="text-muted text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
-              更快找到答案：分類、掃描、點擊展開詳情
-            </p>
-            <div className="w-16 h-1 bg-accent-500 mx-auto mt-6 md:mt-8"></div>
+            <SectionHeader
+              title="常見問答"
+              description="針對維修流程、保固與服務收錄最常見的提問，一次解答。"
+            />
           </motion.div>
 
           {/* 分類 chips（可橫向滑動） */}
-          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4 py-2">
+          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4">
             <div 
-              className="relative overflow-x-auto no-scrollbar"
+              className="relative overflow-x-auto no-scrollbar glass-surface glass-strong rounded-[28px] px-3 py-3"
               role="tablist"
               aria-label="FAQ 分類"
               onKeyDown={(e) => {
@@ -328,8 +287,8 @@ export default function FAQSection() {
                 ))}
               </div>
               {/* Scroll fade edges */}
-              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white/90 to-transparent" />
-              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white/90 to-transparent" />
+              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 rounded-[28px] bg-gradient-to-r from-white/80 to-transparent" />
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 rounded-[28px] bg-gradient-to-l from-white/80 to-transparent" />
             </div>
           </div>
 
@@ -351,22 +310,22 @@ export default function FAQSection() {
                   setSelectedFaqIndex(index)
                   setIsSheetOpen(true)
                 }}
-                className="text-left bg-white flat-card p-6 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-white glass-highlight"
+                className="text-left glass-surface glass-strong p-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-transparent hover:-translate-y-0.5"
                 aria-haspopup="dialog"
                 aria-controls="faq-bottom-sheet"
               >
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white glass-elevated flex items-center justify-center flex-shrink-0">
+                  <div className="glass-control glass-strong flex h-10 w-10 flex-shrink-0 items-center justify-center md:h-12 md:w-12">
                     <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-semibold text-neutral-900 text-sm md:text-base mb-1 line-clamp-2">
+                    <h3 className="mb-1 text-sm md:text-base font-semibold text-neutral-900 line-clamp-2">
                       {faq.question}
                     </h3>
-                    <div className="text-neutral-600 text-xs md:text-sm font-medium mb-2">
+                    <div className="mb-2 text-xs font-medium text-neutral-500 md:text-sm">
                       {faq.category}
                     </div>
-                    <p className="text-neutral-600 text-xs md:text-sm line-clamp-2 whitespace-pre-line">
+                    <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line">
                       {faq.answer}
                     </p>
                   </div>
@@ -395,7 +354,7 @@ export default function FAQSection() {
 
                 {/* Sheet 內容容器 */}
                 <motion.div
-                  className="mt-auto bg-white border-t border-neutral-200"
+                  className="mt-auto glass-surface glass-strong border border-white/25"
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
@@ -403,26 +362,26 @@ export default function FAQSection() {
                   id="faq-bottom-sheet"
                 >
                   {/* 把手 */}
-                  <div className="pt-3 flex justify-center">
-                    <div className="w-12 h-1 bg-neutral-200" />
+                  <div className="flex justify-center pt-3">
+                    <div className="h-1 w-12 rounded-full bg-white/40" />
                   </div>
 
                   {/* 標題列 */}
-                  <div className="flex items-start justify-between px-4 md:px-6 py-3 md:py-4">
-                    <div className="pr-6">
+                  <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4">
+                    <div className="pr-4 md:pr-6">
                       <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
                         {currentFaqs[selectedFaqIndex].question}
                       </h3>
-                      <div className="text-xs md:text-sm text-neutral-500 mt-1">
+                      <div className="mt-1 text-xs text-neutral-500 md:text-sm">
                         {currentFaqs[selectedFaqIndex].category}
                       </div>
                     </div>
                     <button
                       aria-label="關閉"
-                      className="p-2 text-neutral-600 hover:text-neutral-900"
+                      className="glass-control glass-strong p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
                       onClick={() => setIsSheetOpen(false)}
                     >
-                      <X className="w-5 h-5" />
+                      <X className="h-4 w-4" />
                     </button>
                   </div>
 
@@ -438,33 +397,33 @@ export default function FAQSection() {
           </AnimatePresence>
 
           {/* 結尾 CTA */}
-              <motion.div
-                className="mt-12 md:mt-16 glass p-8 md:p-12 text-center"
+          <motion.div
+            className="mt-12 md:mt-16 glass-surface glass-strong px-6 py-8 text-center md:px-10 md:py-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
+            <h3 className="mb-4 text-2xl font-semibold text-neutral-900 md:text-3xl">
               還有其他問題嗎？
             </h3>
-                <p className="text-neutral-700 mb-6 md:mb-8 max-w-2xl mx-auto">
-              我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們
+            <p className="mx-auto mb-6 max-w-2xl text-neutral-600 md:mb-8">
+              我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們。
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-                  <Button 
-                    className="px-6 md:px-8 py-3 md:py-4"
-                    onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
-                  >
-                    直接撥打電話
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    className="px-6 md:px-8 py-3 md:py-4"
-                    onClick={() => trackClick('faq_line_click', { section: 'faq' })}
-                  >
-                    LINE 線上諮詢
-                  </Button>
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+              <Button
+                className="px-6 py-3 md:px-8 md:py-4"
+                onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
+              >
+                直接撥打電話
+              </Button>
+              <Button
+                variant="outline"
+                className="px-6 py-3 md:px-8 md:py-4"
+                onClick={() => trackClick('faq_line_click', { section: 'faq' })}
+              >
+                LINE 線上諮詢
+              </Button>
             </div>
           </motion.div>
         </div>

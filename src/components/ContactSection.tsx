@@ -1,17 +1,18 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { 
-  MapPin, 
-  Phone, 
-  Clock, 
-  MessageCircle, 
-  Mail, 
+import {
+  MapPin,
+  Phone,
+  Clock,
+  MessageCircle,
+  Mail,
   Calendar,
   Navigation,
   Star,
   CheckCircle,
-  Send
+  Send,
+  Zap
 } from 'lucide-react'
 import { useState } from 'react'
 import { trackClick, trackEvent } from '@/lib/tracking'
@@ -93,7 +94,7 @@ export default function ContactSection() {
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background-color: #dc2626; color: white; padding: 20px; text-align: center;">
-              <h1 style="margin: 0; font-size: 24px;">🔧 FixMaster 維修預約</h1>
+              <h1 style="margin: 0; font-size: 24px;">FixMaster 維修預約</h1>
             </div>
             
             <div style="padding: 30px; background-color: #f9f9f9;">
@@ -127,7 +128,7 @@ export default function ContactSection() {
               </table>
               
               <div style="margin-top: 30px; padding: 20px; background-color: #dc2626; color: white; text-align: center;">
-                <h3 style="margin: 0 0 10px 0;">📞 請儘快聯絡客戶確認預約</h3>
+                <h3 style="margin: 0 0 10px 0;">請儘快聯絡客戶確認預約</h3>
                 <p style="margin: 0; font-size: 14px;">建議在30分鐘內回電確認維修時間</p>
               </div>
               
@@ -257,10 +258,10 @@ FixMaster 維修預約通知
   ]
 
   const features = [
-    { icon: '⚡', title: '快速回應', description: '30分鐘內回覆' },
-    { icon: '📞', title: '電話預約', description: '立即確認時間' },
-    { icon: '💬', title: 'LINE 諮詢', description: '隨時線上詢問' },
-    { icon: '🚗', title: '交通便利', description: '捷運站步行3分鐘' }
+    { icon: Zap, title: '快速回應', description: '30分鐘內回覆' },
+    { icon: Phone, title: '電話預約', description: '立即確認時間' },
+    { icon: MessageCircle, title: 'LINE 諮詢', description: '隨時線上詢問' },
+    { icon: MapPin, title: '交通便利', description: '捷運站步行3分鐘' }
   ]
 
   return (
@@ -573,7 +574,10 @@ FixMaster 維修預約通知
                     }
                   }}
                 >
-                  🗺️ Google Maps 導航
+                  <span className="inline-flex items-center justify-center gap-2">
+                    <Navigation className="h-4 w-4" aria-hidden="true" />
+                    Google Maps 導航
+                  </span>
                 </button>
               </div>
             </motion.div>
@@ -588,10 +592,12 @@ FixMaster 維修預約通知
             viewport={{ once: true }}
           >
             {features.map((feature, index) => (
-              <div key={index} className="bg-white flat-card p-4 md:p-6 text-center">
-                <div className="text-2xl md:text-3xl mb-3">{feature.icon}</div>
+              <div key={index} className="glass-surface glass-strong p-4 md:p-6 text-center">
+                <div className="glass-control glass-strong mx-auto mb-3 flex h-12 w-12 items-center justify-center text-neutral-900">
+                  <feature.icon className="h-5 w-5" aria-hidden="true" />
+                </div>
                 <h4 className="text-neutral-900 font-semibold mb-2">{feature.title}</h4>
-                <p className="text-neutral-600 text-sm">{feature.description}</p>
+                <p className="text-neutral-600 text-sm leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </motion.div>

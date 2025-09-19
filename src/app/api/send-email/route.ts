@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 記錄郵件資訊到 console
-    console.log('=== 📧 FixMaster 郵件發送請求 ===')
+    console.log('=== FixMaster 郵件發送請求 ===')
     console.log('收件者:', to)
     console.log('主旨:', subject)
     console.log('時間:', new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }))
