@@ -13,22 +13,22 @@ type SliderArrowsProps = {
 
 export function SliderArrows({ onPrev, onNext, className, ariaLabelPrev = '上一個', ariaLabelNext = '下一個' }: SliderArrowsProps) {
   return (
-    <div className={`flex items-center justify-between absolute top-1/2 left-0 right-0 -translate-y-1/2 z-10 pointer-events-none ${className || ''}`}>
+    <div className={`absolute inset-x-0 top-1/2 -translate-y-1/2 px-2 md:px-3 z-10 pointer-events-none flex items-center justify-between ${className || ''}`}>
       <button
         onClick={onPrev}
-        className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-colors duration-200 ml-3 md:ml-4 rounded-full shadow-sm"
+        className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-700 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-colors duration-150 rounded-none shadow-none"
         aria-label={ariaLabelPrev}
         type="button"
       >
-        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+        <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
       </button>
       <button
         onClick={onNext}
-        className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-300 text-neutral-700 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-colors duration-200 mr-3 md:mr-4 rounded-full shadow-sm"
+        className="pointer-events-auto bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-700 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-colors duration-150 rounded-none shadow-none"
         aria-label={ariaLabelNext}
         type="button"
       >
-        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+        <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
       </button>
     </div>
   )
