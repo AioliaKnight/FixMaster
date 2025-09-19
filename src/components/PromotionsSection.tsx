@@ -13,8 +13,58 @@ import {
   ShoppingCart,
   Trophy
 } from 'lucide-react'
+import { useRef, useEffect, useState } from 'react'
+import { SliderDots } from './CarouselControls'
+import { trackClick } from '@/lib/tracking'
 
 export default function PromotionsSection() {
+  const mainRef = useRef<HTMLDivElement>(null)
+  const [mainActive, setMainActive] = useState(0)
+  useEffect(() => {
+    const el = mainRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setMainActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
+
+  const flashRef = useRef<HTMLDivElement>(null)
+  const [flashActive, setFlashActive] = useState(0)
+  useEffect(() => {
+    const el = flashRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setFlashActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
+
+  const memberRef = useRef<HTMLDivElement>(null)
+  const [memberActive, setMemberActive] = useState(0)
+  useEffect(() => {
+    const el = memberRef.current
+    if (!el) return
+    const onScroll = () => {
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setMemberActive(Math.round(el.scrollLeft / step))
+    }
+    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
+    onScroll()
+    return () => el.removeEventListener('scroll', onScroll as any)
+  }, [])
   const mainPromotions = [
     {
       icon: Gift,
@@ -123,7 +173,13 @@ export default function PromotionsSection() {
           </motion.div>
 
           {/* 主要優惠 */}
-          <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-3 md:gap-8 mb-16 -mx-1 px-1">
+          <div
+            ref={mainRef}
+            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-3 md:gap-8 mb-16 -mx-1 px-1"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="主要優惠"
+          >
             {mainPromotions.map((promo, index) => (
               <motion.div
                 key={index}
@@ -183,6 +239,7 @@ export default function PromotionsSection() {
                 <button 
                   className="w-full bg-neutral-900 text-white py-3 flat-button font-medium hover:bg-black transition-colors duration-200"
                   onClick={() => {
+                    trackClick('promo_apply_click', { section: 'promotions', promo: promo.title })
                     scrollToSectionId('contact')
                     setTimeout(() => {
                       const messageTextarea = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement
@@ -198,11 +255,19 @@ export default function PromotionsSection() {
               </motion.div>
             ))}
           </div>
-          <div className="flex md:hidden items-center justify-center -mt-10 mb-14 space-x-2">
-            {mainPromotions.map((_, i) => (
-              <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
-            ))}
-          </div>
+          <SliderDots
+            count={mainPromotions.length}
+            activeIndex={mainActive}
+            onDotClick={(i) => {
+              const el = mainRef.current
+              if (!el) return
+              const a = el.children[0] as HTMLElement | undefined
+              const b = el.children[1] as HTMLElement | undefined
+              const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+              el.scrollTo({ left: i * step, behavior: 'smooth' })
+            }}
+            className="-mt-10 mb-14"
+          />
 
           {/* 限時搶購 */}
           <motion.div
@@ -221,7 +286,13 @@ export default function PromotionsSection() {
               </div>
             </div>
             
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-6 -mx-1 px-1">
+            <div
+              ref={flashRef}
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-6 -mx-1 px-1"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="限時優惠"
+            >
               {flashDeals.map((deal, index) => (
                 <div key={index} className="border border-neutral-200 p-6 hover:border-neutral-400 transition-colors duration-200 flex-none w-64 snap-start md:w-auto">
                   <div className="flex items-center justify-between mb-4">
@@ -242,11 +313,19 @@ export default function PromotionsSection() {
                 </div>
               ))}
             </div>
-            <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
-              {flashDeals.map((_, i) => (
-                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
-              ))}
-            </div>
+            <SliderDots
+              count={flashDeals.length}
+              activeIndex={flashActive}
+              onDotClick={(i) => {
+                const el = flashRef.current
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }}
+              className="mt-4"
+            />
           </motion.div>
 
           {/* 會員制度 */}
@@ -260,7 +339,13 @@ export default function PromotionsSection() {
             <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
               會員專屬優惠
             </h3>
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-6 -mx-1 px-1">
+            <div
+              ref={memberRef}
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-6 -mx-1 px-1"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="會員專屬優惠"
+            >
               {loyaltyProgram.map((level, index) => (
                 <div key={index} className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto">
                   <div className="w-16 h-16 bg-accent-500 flex items-center justify-center mx-auto mb-4">
@@ -279,11 +364,19 @@ export default function PromotionsSection() {
                 </div>
               ))}
             </div>
-            <div className="flex md:hidden items-center justify-center mt-4 space-x-2">
-              {loyaltyProgram.map((_, i) => (
-                <span key={i} className="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
-              ))}
-            </div>
+            <SliderDots
+              count={loyaltyProgram.length}
+              activeIndex={memberActive}
+              onDotClick={(i) => {
+                const el = memberRef.current
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }}
+              className="mt-4"
+            />
           </motion.div>
 
 

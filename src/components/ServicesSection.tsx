@@ -16,6 +16,7 @@ import {
   Award
 } from 'lucide-react'
 import { SliderArrows, SliderDots } from './CarouselControls'
+import { trackClick } from '@/lib/tracking'
 
 export default function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -221,7 +222,10 @@ export default function ServicesSection() {
               </p>
               <button 
                 className="w-full sm:w-auto bg-neutral-900 hover:bg-black text-white px-5 py-2 flat-button text-sm"
-                onClick={() => scrollToSectionId('contact')}
+                onClick={() => {
+                  trackClick('services_precheck_cta', { section: 'services', from: 'iphone17_notice' })
+                  scrollToSectionId('contact')
+                }}
               >
                 立即預約檢測
               </button>
@@ -333,6 +337,7 @@ export default function ServicesSection() {
                           <button 
                             className="w-full md:w-auto bg-neutral-900 hover:bg-black text-white px-6 md:px-8 py-3 flat-button font-medium rounded-none transition-colors duration-200"
                             onClick={() => {
+                              trackClick('services_book_cta', { section: 'services', service: service.title })
                               scrollToSectionId('contact')
                               setTimeout(() => {
                                 const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
@@ -379,7 +384,13 @@ export default function ServicesSection() {
             <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-8 md:mb-12">
               為什麼選擇 FixMaster？
             </h3>
-            <div ref={additionalRef} className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1">
+            <div
+              ref={additionalRef}
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="為什麼選擇 FixMaster"
+            >
               {additionalServices.map((service, index) => (
                 <motion.div
                   key={index}
@@ -397,24 +408,19 @@ export default function ServicesSection() {
                 </motion.div>
               ))}
             </div>
-            {/* dots: additional services */}
-            <div className="flex md:hidden items-center justify-center mt-3 space-x-2">
-              {additionalServices.map((_, i) => (
-                <button
-                  key={i}
-                  aria-label={`前往第 ${i + 1} 個重點`}
-                  onClick={() => {
-                    const el = additionalRef.current
-                    if (!el) return
-                    const a = el.children[0] as HTMLElement | undefined
-                    const b = el.children[1] as HTMLElement | undefined
-                    const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-                    el.scrollTo({ left: i * step, behavior: 'smooth' })
-                  }}
-                  className={additionalActive === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
-                />
-              ))}
-            </div>
+            <SliderDots
+              count={additionalServices.length}
+              activeIndex={additionalActive}
+              onDotClick={(i) => {
+                const el = additionalRef.current
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }}
+              className="mt-3"
+            />
           </motion.div>
 
           {/* 服務流程 */}
@@ -428,7 +434,13 @@ export default function ServicesSection() {
             <h3 className="text-2xl font-bold text-neutral-900 mb-8">
               簡單三步驟，輕鬆完成維修
             </h3>
-            <div ref={stepsRef} className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1">
+            <div
+              ref={stepsRef}
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="維修流程三步驟"
+            >
               <div className="text-center flex-none w-56 snap-start md:w-auto">
                 <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                   1
@@ -451,24 +463,19 @@ export default function ServicesSection() {
                 <p className="text-neutral-600 text-sm">1小時內完修取件</p>
               </div>
             </div>
-            {/* dots: steps */}
-            <div className="flex md:hidden items-center justify-center mt-3 space-x-2">
-              {Array.from({ length: 3 }, (_, i) => (
-                <button
-                  key={i}
-                  aria-label={`前往第 ${i + 1} 步驟`}
-                  onClick={() => {
-                    const el = stepsRef.current
-                    if (!el) return
-                    const a = el.children[0] as HTMLElement | undefined
-                    const b = el.children[1] as HTMLElement | undefined
-                    const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-                    el.scrollTo({ left: i * step, behavior: 'smooth' })
-                  }}
-                  className={stepsActive === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
-                />
-              ))}
-            </div>
+            <SliderDots
+              count={3}
+              activeIndex={stepsActive}
+              onDotClick={(i) => {
+                const el = stepsRef.current
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }}
+              className="mt-3"
+            />
           </motion.div>
         </div>
       </div>
