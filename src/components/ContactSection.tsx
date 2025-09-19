@@ -278,7 +278,7 @@ FixMaster 維修預約通知
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
               聯絡我們
             </h2>
-            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
               有需要，交給我們。留下需求，我們盡快回覆。
             </p>
             <div className="w-16 h-0.5 bg-neutral-900 mx-auto mt-8"></div>

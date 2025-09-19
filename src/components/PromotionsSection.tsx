@@ -166,7 +166,7 @@ export default function PromotionsSection() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
               限時優惠活動
             </h2>
-            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
               多重優惠等您來享受，讓您的維修體驗更加超值
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>

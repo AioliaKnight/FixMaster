@@ -283,7 +283,7 @@ export default function TestimonialsSection() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
               顧客真實好評
             </h2>
-            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
               真實評價，來自每一次信賴。
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>

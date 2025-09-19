@@ -171,7 +171,7 @@ export default function TrustSection() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
               我們的安心承諾
             </h2>
-            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
               Apple IRP 認證、原廠零件、全程錄影與明確保固，讓每一步都可驗證、可追溯。
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>

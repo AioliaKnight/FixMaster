@@ -78,6 +78,12 @@ body {
   transform: none;
 }
 
+/* Text utilities */
+.text-muted { color: #525252; }
+.text-subtle { color: #6b7280; }
+.link-inline { color: #111827; text-decoration: underline; text-decoration-color: rgba(17,24,39,0.25); text-underline-offset: 2px; }
+.link-inline:hover { text-decoration-color: rgba(17,24,39,0.45); }
+
 /* 玻璃效果工具類 */
 .glass {
   border-radius: 18px;

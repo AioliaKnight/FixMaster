@@ -281,7 +281,7 @@ export default function FAQSection() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 md:mb-6">
               常見問答
             </h2>
-            <p className="text-neutral-600 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
+            <p className="text-muted text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
               更快找到答案：分類、掃描、點擊展開詳情
             </p>
             <div className="w-16 h-1 bg-accent-500 mx-auto mt-6 md:mt-8"></div>
