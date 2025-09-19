@@ -17,14 +17,16 @@ export default function Home() {
         <ClientAnalytics />
       </Suspense>
       <Navbar />
-      <main className="min-h-screen bg-white">
+      <main className="bg-gradient-to-b from-white via-neutral-50 to-white">
         <HeroSection />
-        <ServicesSection />
-        <TestimonialsSection />
-        <FAQSection />
-        <TrustSection />
-        <PromotionsSection />
-        <ContactSection />
+        <div className="space-y-24 md:space-y-32">
+          <ServicesSection />
+          <TestimonialsSection />
+          <FAQSection />
+          <TrustSection />
+          <PromotionsSection />
+          <ContactSection />
+        </div>
       </main>
       <Footer />
     </>

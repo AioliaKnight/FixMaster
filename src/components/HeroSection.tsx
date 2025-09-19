@@ -2,13 +2,11 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Check, Clock, Eye, Phone, Shield } from 'lucide-react'
+import { Sparkles, Shield, Clock, Eye, Phone } from 'lucide-react'
 
 import Button from './ui/Button'
 import Chip from './ui/Chip'
 import SectionHeader from './ui/SectionHeader'
-import { SliderArrows, SliderDots } from './CarouselControls'
 import { scrollToSectionId } from '@/lib/scroll'
 import { trackClick } from '@/lib/tracking'
 
@@ -18,76 +16,32 @@ const highlightItems = [
   {
     icon: Clock,
     title: '30 分鐘完修',
-    description: '現場維修同步錄影，流程透明可追溯。',
+    description: '熱門維修 30–60 分鐘交付，可現場等候。',
   },
   {
     icon: Eye,
     title: '全程透明紀錄',
-    description: '拆裝與檢測完整留存，客戶可即時查閱。',
+    description: '拆裝與檢測完整錄影，紀錄可隨時索取。',
   },
   {
     icon: Shield,
     title: 'Apple IRP 認證',
-    description: '原廠規範維修流程，零件與保固同步官方。',
+    description: '原廠授權零件與技師執照，流程同步官方。',
   },
 ]
 
-const quickFacts = [
-  '專業 IRP 認證技師團隊',
-  'Apple 原廠零件與校準設備',
-  '90 天延伸保固與換修支援',
-]
-
 export default function HeroSection() {
-  const [activeHighlight, setActiveHighlight] = useState(0)
-  const highlightScrollerRef = useRef<HTMLDivElement>(null)
-
-  const scrollToHighlight = (index: number, behavior: ScrollBehavior = 'auto') => {
-    const scroller = highlightScrollerRef.current
-    if (!scroller) return
-    const cards = Array.from(scroller.children) as HTMLElement[]
-    if (cards.length < 2) {
-      scroller.scrollTo({ left: 0, behavior })
-      return
-    }
-    const step = cards[1].offsetLeft - cards[0].offsetLeft
-    scroller.scrollTo({ left: index * step, behavior })
-  }
-
-  useEffect(() => {
-    const scroller = highlightScrollerRef.current
-    if (!scroller) return
-
-    const handleScroll = () => {
-      const cards = Array.from(scroller.children) as HTMLElement[]
-      if (cards.length < 2) {
-        setActiveHighlight(0)
-        return
-      }
-      const step = cards[1].offsetLeft - cards[0].offsetLeft
-      if (step <= 0) return
-      const index = Math.round(scroller.scrollLeft / step)
-      setActiveHighlight(Math.max(0, Math.min(cards.length - 1, index)))
-    }
-
-    scroller.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => scroller.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const highlightAria = useMemo(() => highlightItems.map((item) => item.title).join('、'), [])
-
   return (
-    <section id="home" className="relative overflow-hidden pt-28 pb-20 md:pt-36 lg:pb-28">
+    <section id="home" className="relative overflow-hidden pt-24 pb-20 md:pt-32 lg:pb-28">
       <div
-        className="pointer-events-none absolute inset-x-0 -top-32 h-[420px] bg-[radial-gradient(circle_at_top,_rgba(239,68,68,0.22),_rgba(239,68,68,0))] blur-3xl"
+        className="pointer-events-none absolute inset-x-[-15%] -top-32 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(239,68,68,0.18),_rgba(239,68,68,0))] blur-[140px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)] items-center">
-          <div className="order-2 space-y-10 text-center lg:order-1 lg:text-left">
+        <div className="flex flex-col items-center gap-16 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
+          <div className="order-2 w-full space-y-8 text-center lg:order-1 lg:space-y-10 lg:text-left">
             <motion.div
-              className="inline-flex items-center gap-3 rounded-full glass-control glass-strong px-4 py-2 text-sm text-neutral-900"
+              className="inline-flex items-center gap-2 rounded-full glass-control glass-strong px-4 py-2 text-sm text-neutral-900"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
@@ -110,90 +64,63 @@ export default function HeroSection() {
               transition={{ duration: 0.3, delay: 0.05 }}
             >
               <SectionHeader
-                title="FixMaster 維修大師"
-                description="士林 iPhone 專業維修｜原廠認證零件｜30 分鐘完修"
+                title="iPhone 維修，30 分鐘就安心"
+                description="原廠授權零件、透明錄影與 90 天保固，一通電話即可安排維修、換機或到府收送。"
                 align="left"
                 className="!mb-0"
               />
-              <p className="text-neutral-600 text-base sm:text-lg lg:text-xl max-w-3xl lg:max-w-none">
-                透明維修錄影、原廠零件、90 天保固，提供到府收送與嚴選二手 iPhone，讓維修與換機都更安心。
-              </p>
             </motion.div>
 
             <motion.div
-              className="-mx-1 flex w-full gap-2 overflow-x-auto px-1 no-scrollbar"
+              className="-mx-1 flex w-full gap-2 overflow-x-auto px-1 no-scrollbar lg:justify-start"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              {modelBadges.map((label) => (
-                <Chip
-                  key={label}
-                  onClick={() => {
-                    trackClick('hero_model_chip_click', { label })
-                    scrollToSectionId('services')
-                  }}
-                  aria-label={`查看 ${label} 維修項目`}
-                >
-                  {label}
-                </Chip>
-              ))}
+              <div className="flex w-full justify-center gap-2 lg:w-auto lg:justify-start">
+                {modelBadges.map((label) => (
+                  <Chip
+                    key={label}
+                    onClick={() => {
+                      trackClick('hero_model_chip_click', { label })
+                      scrollToSectionId('services')
+                    }}
+                    aria-label={`查看 ${label} 維修項目`}
+                    className="px-5"
+                  >
+                    {label}
+                  </Chip>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div
-              className="relative"
-              initial={{ opacity: 0, y: 24 }}
+              className="glass-surface glass-strong px-6 py-6 text-left"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.16 }}
             >
-              <SliderArrows
-                onPrev={() => {
-                  const target = Math.max(0, activeHighlight - 1)
-                  setActiveHighlight(target)
-                  scrollToHighlight(target, 'smooth')
-                }}
-                onNext={() => {
-                  const target = Math.min(highlightItems.length - 1, activeHighlight + 1)
-                  setActiveHighlight(target)
-                  scrollToHighlight(target, 'smooth')
-                }}
-                ariaLabelPrev="上一個服務亮點"
-                ariaLabelNext="下一個服務亮點"
-              />
-              <motion.div
-                ref={highlightScrollerRef}
-                className="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible"
-                role="region"
-                aria-roledescription="carousel"
-                aria-label={`服務亮點：${highlightAria}`}
-              >
-                {highlightItems.map((item, index) => (
-                  <div
-                    key={item.title}
-                    className="glass-surface glass-strong flex min-w-[14rem] snap-start flex-col gap-3 px-5 py-6 text-left"
-                  >
-                    <item.icon className="h-6 w-6 text-neutral-900" aria-hidden="true" />
-                    <h3 className="text-base font-semibold text-neutral-900">{item.title}</h3>
-                    <p className="text-sm text-neutral-600 leading-relaxed">{item.description}</p>
-                  </div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
+                為什麼選擇 FixMaster
+              </p>
+              <ul className="space-y-3">
+                {highlightItems.map((item) => (
+                  <li key={item.title} className="flex items-start gap-3 text-sm text-neutral-600">
+                    <item.icon className="mt-0.5 h-4 w-4 text-neutral-900" aria-hidden="true" />
+                    <div>
+                      <p className="font-medium text-neutral-900">{item.title}</p>
+                      <p>{item.description}</p>
+                    </div>
+                  </li>
                 ))}
-              </motion.div>
-              <SliderDots
-                count={highlightItems.length}
-                activeIndex={activeHighlight}
-                onDotClick={(index) => {
-                  setActiveHighlight(index)
-                  scrollToHighlight(index, 'smooth')
-                }}
-                className="mt-2"
-              />
+              </ul>
             </motion.div>
 
             <motion.div
               className="flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.2 }}
+              transition={{ duration: 0.3, delay: 0.22 }}
             >
               <Button
                 className="w-full sm:w-auto"
@@ -202,7 +129,7 @@ export default function HeroSection() {
                   scrollToSectionId('contact')
                 }}
               >
-                立即預約維修
+                預約維修時段
               </Button>
               <Button
                 variant="outline"
@@ -212,40 +139,33 @@ export default function HeroSection() {
                   scrollToSectionId('services')
                 }}
               >
-                精選二手 iPhone
+                查看服務方案
               </Button>
             </motion.div>
 
             <motion.div
-              className="glass-surface glass-strong flex flex-col gap-4 px-6 py-5 text-left"
-              initial={{ opacity: 0, y: 24 }}
+              className="glass-surface glass-strong flex items-center gap-3 px-6 py-5 text-left"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.26 }}
+              transition={{ duration: 0.3, delay: 0.28 }}
             >
-              <div className="flex items-center gap-3 text-neutral-900">
-                <Phone className="h-5 w-5" />
+              <Phone className="h-5 w-5 text-neutral-900" aria-hidden="true" />
+              <div>
                 <a
                   href="tel:+886-2-2816-6666"
                   className="text-base font-semibold text-neutral-900 hover:text-neutral-950 transition-colors"
+                  onClick={() => trackClick('hero_support_phone_inline')}
                 >
                   02-2816-6666
                 </a>
+                <p className="text-sm text-neutral-600">營業時間 14:00 – 23:00（每日）</p>
               </div>
-              <p className="text-sm text-neutral-600">台北市士林區文林路 60 號（捷運劍潭站步行 3 分鐘）</p>
-              <ul className="grid gap-2 text-sm text-neutral-600">
-                {quickFacts.map((fact) => (
-                  <li key={fact} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 text-accent-500" />
-                    <span>{fact}</span>
-                  </li>
-                ))}
-              </ul>
             </motion.div>
           </div>
 
-          <div className="relative order-1 flex justify-center lg:order-2">
+          <div className="order-1 w-full max-w-[520px] self-center lg:order-2 lg:w-auto">
             <motion.div
-              className="glass-surface glass-strong relative z-10 w-full max-w-[420px] overflow-hidden px-6 pb-8 pt-6 shadow-[var(--elev-2)] sm:max-w-[480px] lg:max-w-[520px]"
+              className="glass-surface glass-strong relative z-10 w-full overflow-hidden px-6 pb-10 pt-6 shadow-[var(--elev-2)]"
               initial={{ opacity: 0, x: 32, scale: 0.9 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -256,10 +176,28 @@ export default function HeroSection() {
                 alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
                 width={780}
                 height={780}
-                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 60vw, 520px"
+                sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 520px"
                 priority
                 className="relative z-10 h-auto w-full"
               />
+              <div className="glass-control glass-strong absolute bottom-6 left-6 right-6 flex items-center justify-between px-4 py-3 text-sm text-neutral-900">
+                <div>
+                  <p className="font-semibold flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-accent-500" aria-hidden="true" />
+                    今日可預約時段
+                  </p>
+                  <p className="text-neutral-600">14:00 – 23:00 立即安排</p>
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    trackClick('hero_image_cta')
+                    scrollToSectionId('contact')
+                  }}
+                >
+                  立即預約
+                </Button>
+              </div>
             </motion.div>
           </div>
         </div>
