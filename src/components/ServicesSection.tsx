@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { scrollToSectionId } from '@/lib/scroll'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { 
@@ -11,13 +11,13 @@ import {
   Truck, 
   Video, 
   CheckCircle, 
-  Star,
   Clock,
   Award
 } from 'lucide-react'
 import { SliderArrows, SliderDots } from './CarouselControls'
 import { trackClick } from '@/lib/tracking'
 import SectionHeader from './ui/SectionHeader'
+import Button from './ui/Button'
 
 export default function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -67,51 +67,42 @@ export default function ServicesSection() {
     {
       icon: Monitor,
       title: 'iPhone 原廠螢幕更換',
-      description: '還你清晰與手感，如新機般流暢。',
+      tagline: '觸控靈敏、色準穩定，體驗如新。',
       features: ['原廠 OLED 顯示', '觸控零延遲', '色彩準確穩定', '90 天功能保固'],
       price: '$8,900 起',
       duration: '約 30–60 分鐘',
       models: ['iPhone 12-15 系列'],
-      warranty: '90天螢幕功能保固',
-      highlight: '',
-      color: ''
+      warranty: '90 天螢幕功能保固',
     },
     {
       icon: Battery,
       title: '原廠電池更換',
-      description: '充電次數少一點，安心多一點。',
+      tagline: '健康度回復穩定，續航重現。',
       features: ['原廠電池芯片', '健康度回復穩定', '支援快充', '90 天電池保固'],
       price: '$2,990 起',
       duration: '約 30–45 分鐘',
       models: ['iPhone 11-15 系列'],
-      warranty: '90天電池效能保固',
-      highlight: '',
-      color: ''
+      warranty: '90 天電池效能保固',
     },
     {
       icon: Smartphone,
       title: '二手 iPhone 嚴選',
-      description: '幫你挑到放心的一支好手機。',
+      tagline: '附完整檢測與保固，嚴選可信賴。',
       features: ['30 項功能檢測', '外觀等級清楚標示', '配件齊全', '30 天硬體保固'],
       price: '$8,000 起',
       duration: '現場挑選',
       models: ['iPhone 11-14 系列'],
-      warranty: '30天硬體功能保固',
-      highlight: '',
-      color: ''
+      warranty: '30 天硬體功能保固',
     },
     {
       icon: Truck,
       title: '到府收送服務',
-      description: '你忙你的，來回交給我們。',
-      features: ['台北市區專送', '當日收件處理', '完修後送回',
- '全程保險保障'],
+      tagline: '台北市區到府收送，方便省時。',
+      features: ['台北市區專送', '當日收件處理', '完修後送回', '全程保險保障'],
       price: '滿 $1,500 免費',
-      duration: '1-2個工作天',
-      models: ['所有iPhone機型'],
+      duration: '1-2 個工作天',
+      models: ['所有 iPhone 機型'],
       warranty: '與維修項目相同',
-      highlight: '',
-      color: ''
     }
   ]
 
@@ -128,7 +119,7 @@ export default function ServicesSection() {
     },
     {
       icon: Clock,
-              title: '1小時內完修',
+      title: '1小時內完修',
       description: '現場等候，快速完成維修'
     },
     {
@@ -198,20 +189,23 @@ export default function ServicesSection() {
     setCurrentSlide(index)
   }
 
-  const toggleAutoPlay = () => {
-    setIsAutoPlaying(!isAutoPlaying)
-  }
-
   // 計算是否需要顯示輪播控制項
   const shouldShowControls = services.length > 1
 
   return (
-    <section id="services" className="section-padding bg-neutral-50">
-      <div className="container mx-auto container-padding">
+    <section
+      id="services"
+      className="section-padding relative overflow-hidden bg-gradient-to-b from-neutral-100 via-white to-neutral-50"
+    >
+      <div
+        className="pointer-events-none absolute inset-x-[-10%] -top-40 h-72 rounded-full bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.18),rgba(239,68,68,0))] blur-3xl"
+        aria-hidden="true"
+      />
+      <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* iPhone 17 系列上市提示 */}
           <motion.div 
-            className="bg-white flat-card p-4 md:p-6 mb-8"
+            className="glass-surface glass-strong p-5 md:p-6 mb-10"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -221,15 +215,16 @@ export default function ServicesSection() {
               <p className="text-neutral-900 text-sm md:text-base">
                 iPhone 17／Air／17 Pro／17 Pro Max 現已支援免費檢測與備料預約。部分原廠料件供應量有限，建議先預約以安排最快時程。
               </p>
-              <button 
-                className="w-full sm:w-auto bg-neutral-900 hover:bg-black text-white px-5 py-2 flat-button text-sm"
+              <Button
+                size="sm"
+                className="w-full sm:w-auto"
                 onClick={() => {
                   trackClick('services_precheck_cta', { section: 'services', from: 'iphone17_notice' })
                   scrollToSectionId('contact')
                 }}
               >
                 立即預約檢測
-              </button>
+              </Button>
             </div>
           </motion.div>
           {/* 區塊標題 */}
@@ -271,7 +266,7 @@ export default function ServicesSection() {
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <div className="max-w-2xl mx-auto">
                       <motion.div
-                        className="relative bg-white flat-card p-6 md:p-10 group transition-all duration-200 overflow-hidden"
+                        className="glass-surface glass-strong p-8 md:p-10 flex flex-col gap-8"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
@@ -280,62 +275,62 @@ export default function ServicesSection() {
                         {/* 極簡風：移除背景漸層與推薦標籤 */}
 
                         {/* 服務圖示與標題 */}
-                        <div className="flex flex-col items-center mb-6 mt-4">
-                          <div className="w-20 h-20 bg-white flex items-center justify-center mb-4 border border-neutral-200">
-                            <service.icon className="w-10 h-10 text-accent-500" />
+                        <div className="flex flex-col items-center text-center gap-4">
+                          <div className="glass-control w-20 h-20 flex items-center justify-center text-accent-500">
+                            <service.icon className="w-10 h-10" />
                           </div>
-                          <h3 className="text-xl md:text-2xl font-bold text-neutral-900 mb-2 text-center">{service.title}</h3>
-                          <p className="text-neutral-500 text-sm md:text-base text-center mb-2">
-                            {index === 0 && '觸控靈敏、色準穩定，體驗如新。'}
-                            {index === 1 && '健康度回復穩定，續航重現。'}
-                            {index === 2 && '附完整檢測與保固，嚴選可信賴。'}
-                            {index === 3 && '台北市區到府收送，方便省時。'}
-                          </p>
+                          <div className="space-y-2">
+                            <h3 className="text-xl md:text-2xl font-semibold text-neutral-900 tracking-tight">
+                              {service.title}
+                            </h3>
+                            <p className="text-neutral-600 text-sm md:text-base leading-relaxed">
+                              {service.tagline}
+                            </p>
+                          </div>
                         </div>
 
                         {/* 服務詳細資訊 */}
-                        <div className="bg-white/50 glass p-4 mb-6 grid grid-cols-2 gap-4 text-center">
-                          <div>
-                            <div className="text-accent-500 font-semibold text-sm mb-1">維修時間</div>
-                            <div className="text-neutral-900 font-medium text-sm">{service.duration}</div>
+                        <div className="surface-muted p-4 md:p-5 grid grid-cols-2 gap-4 text-center">
+                          <div className="space-y-1">
+                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">維修時間</span>
+                            <span className="text-neutral-900 text-sm font-semibold">{service.duration}</span>
                           </div>
-                          <div>
-                            <div className="text-accent-500 font-semibold text-sm mb-1">適用機型</div>
-                            <div className="text-neutral-900 font-medium text-xs">{service.models[0]}</div>
+                          <div className="space-y-1">
+                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">適用機型</span>
+                            <span className="text-neutral-900 text-sm font-semibold">{service.models.join('、')}</span>
                           </div>
                         </div>
 
                         {/* 特色功能 */}
-                        <div className="grid grid-cols-1 gap-3 mb-6">
+                        <ul className="grid gap-3">
                           {service.features.map((feature, featureIndex) => (
-                            <div key={featureIndex} className="flex items-center">
-                              <CheckCircle className="w-5 h-5 text-accent-500 mr-3 flex-shrink-0" />
-                              <span className="text-neutral-700 text-sm">{feature}</span>
-                            </div>
+                            <li key={featureIndex} className="flex items-center text-neutral-700 text-sm">
+                              <CheckCircle className="mr-3 h-5 w-5 text-accent-500" />
+                              <span>{feature}</span>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
 
                         {/* 保固資訊 */}
-                        <div className="p-3 mb-6 glass bg-white/50">
-                          <div className="flex items-center justify-center">
-                            <Shield className="w-4 h-4 text-neutral-900 mr-2" />
-                            <span className="text-neutral-900 font-medium text-sm text-center">{service.warranty}</span>
-                          </div>
+                        <div className="glass-control glass-strong px-4 py-3 flex items-center justify-center gap-2 text-neutral-900 text-sm">
+                          <Shield className="h-4 w-4" />
+                          <span>{service.warranty}</span>
                         </div>
 
                         {/* 價格和按鈕 */}
-                        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                           <div className="text-center md:text-left">
-                            <div className="text-2xl font-bold text-neutral-900">{service.price}</div>
-                            <div className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</div>
+                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">起價</span>
+                            <div className="mt-1 text-2xl md:text-3xl font-semibold text-neutral-900">{service.price}</div>
+                            <p className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</p>
                           </div>
-                          <button 
-                            className="w-full md:w-auto bg-neutral-900 hover:bg-black text-white px-6 md:px-8 py-3 flat-button font-medium rounded-none transition-colors duration-200"
+                          <Button
+                            className="w-full md:w-auto"
                             onClick={() => {
                               trackClick('services_book_cta', { section: 'services', service: service.title })
                               scrollToSectionId('contact')
                               setTimeout(() => {
-                                const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
+                                const issueSelect = document.querySelector('select[name=\"issue\"]') as HTMLSelectElement
                                 if (issueSelect) {
                                   if (service.title.includes('螢幕')) {
                                     issueSelect.value = '螢幕破裂'
@@ -348,7 +343,7 @@ export default function ServicesSection() {
                             }}
                           >
                             立即預約
-                          </button>
+                          </Button>
                         </div>
                       </motion.div>
                     </div>
@@ -370,7 +365,7 @@ export default function ServicesSection() {
 
           {/* 附加服務 */}
           <motion.div
-            className="bg-white p-8 md:p-12 flat-card mb-16"
+            className="glass-surface glass-strong p-8 md:p-12 mb-16 space-y-10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -395,11 +390,11 @@ export default function ServicesSection() {
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="w-16 h-16 bg-neutral-100 flex items-center justify-center mx-auto mb-4">
-                    <service.icon className="w-8 h-8 text-neutral-900" />
+                  <div className="glass-control w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900">
+                    <service.icon className="w-8 h-8" />
                   </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{service.title}</h4>
-                  <p className="text-neutral-600 text-sm">{service.description}</p>
+                  <h4 className="font-semibold text-neutral-900 mb-2 tracking-tight">{service.title}</h4>
+                  <p className="text-neutral-600 text-sm leading-relaxed">{service.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -420,7 +415,7 @@ export default function ServicesSection() {
 
           {/* 服務流程 */}
           <motion.div
-            className="text-center"
+            className="glass-surface glass-strong p-8 md:p-10 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -436,27 +431,19 @@ export default function ServicesSection() {
               aria-roledescription="carousel"
               aria-label="維修流程三步驟"
             >
-              <div className="text-center flex-none w-56 snap-start md:w-auto">
-                <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  1
+              {[
+                { title: '聯絡預約', description: 'LINE 或電話快速預約' },
+                { title: '現場檢測', description: '免費檢測，透明報價' },
+                { title: '快速完修', description: '1小時內完修取件' },
+              ].map((step, stepIndex) => (
+                <div key={step.title} className="text-center flex-none w-56 snap-start md:w-auto">
+                  <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center text-2xl font-semibold text-neutral-900 mx-auto mb-4">
+                    {stepIndex + 1}
+                  </div>
+                  <h4 className="font-semibold text-neutral-900 mb-2">{step.title}</h4>
+                  <p className="text-neutral-600 text-sm">{step.description}</p>
                 </div>
-                <h4 className="font-semibold text-neutral-900 mb-2">聯絡預約</h4>
-                <p className="text-neutral-600 text-sm">LINE 或電話快速預約</p>
-              </div>
-              <div className="text-center flex-none w-56 snap-start md:w-auto">
-                <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  2
-                </div>
-                <h4 className="font-semibold text-neutral-900 mb-2">現場檢測</h4>
-                <p className="text-neutral-600 text-sm">免費檢測，透明報價</p>
-              </div>
-              <div className="text-center flex-none w-56 snap-start md:w-auto">
-                <div className="w-16 h-16 bg-accent-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  3
-                </div>
-                <h4 className="font-semibold text-neutral-900 mb-2">快速完修</h4>
-                <p className="text-neutral-600 text-sm">1小時內完修取件</p>
-              </div>
+              ))}
             </div>
             <SliderDots
               count={3}

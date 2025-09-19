@@ -11,6 +11,16 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
 
+  const openMenu = () => {
+    setIsMenuOpen(true)
+    document.body.classList.add('no-scroll')
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+    document.body.classList.remove('no-scroll')
+  }
+
   // 監聽滾動事件
   useEffect(() => {
     let timeoutId: NodeJS.Timeout | null = null
@@ -74,32 +84,36 @@ export default function Navbar() {
     { name: '聯絡我們', href: '#contact' }
   ]
 
+  const navToneClass = isScrolled || isMenuOpen
+    ? 'glass-surface glass-strong border border-white/25 shadow-[var(--elev-1)]'
+    : 'glass-surface border border-transparent'
+
+  const navHeightClass = isScrolled ? 'h-14 md:h-18' : 'h-16 md:h-20'
+
+  const menuButtonClass = `lg:hidden glass-control p-2 transition-all duration-200 z-50 ${
+    isMenuOpen
+      ? 'glass-strong text-neutral-900 shadow-[var(--brand-glow)]'
+      : 'text-neutral-700 hover:text-neutral-900'
+  }`
+
   const handleNavClick = (href: string) => {
     const targetId = href.replace('#', '')
     const element = document.getElementById(targetId)
+    closeMenu()
+
     if (element) {
-      // 關閉選單和解鎖滾動
-      setIsMenuOpen(false)
-      document.body.classList.remove('no-scroll')
-      
       // 使用 setTimeout 確保選單關閉動畫完成後再滾動
       setTimeout(() => {
         scrollToSectionId(targetId)
       }, 100)
-    } else {
-      // 如果找不到元素，也要關閉選單
-      setIsMenuOpen(false)
-      document.body.classList.remove('no-scroll')
     }
   }
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-    // 防止背景滾動
-    if (!isMenuOpen) {
-      document.body.classList.add('no-scroll')
+    if (isMenuOpen) {
+      closeMenu()
     } else {
-      document.body.classList.remove('no-scroll')
+      openMenu()
     }
   }
 
@@ -111,9 +125,9 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'nav-glass' : 'bg-white/80'} border-b border-white/40`}> 
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass}`}>
       <div className="container mx-auto container-padding">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-200`}>
           {/* Logo */}
           <motion.div 
             className="flex items-center"
@@ -191,7 +205,7 @@ export default function Navbar() {
 
           {/* 行動版選單按鈕 */}
           <motion.button
-            className="lg:hidden p-2 text-neutral-700 hover:text-accent-500 transition-colors duration-200 z-50"
+            className={menuButtonClass}
             onClick={toggleMenu}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -209,7 +223,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="lg:hidden bg-white/70 nav-glass border-t border-white/40"
+            className="lg:hidden px-4 pb-6 pt-3"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -218,52 +232,76 @@ export default function Navbar() {
             role="dialog"
             aria-modal="true"
           >
-            <div className="container mx-auto container-padding py-4">
-              <div className="space-y-4">
-                {navigationItems.map((item, index) => (
-                  <motion.button
-                    key={item.name}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`block w-full text-left py-4 px-6 transition-all duration-200 hover:bg-white/50 rounded-2xl ${
-                      activeSection === item.href.replace('#', '')
-                        ? 'text-neutral-900 bg-white/60 border border-white/50'
-                        : 'text-neutral-700'
-                    }`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                  >
-                    <span className="flex items-center">
-                      {item.name}
-                    </span>
-                  </motion.button>
-                ))}
-                
-                {/* 行動版聯絡按鈕 */}
-                <motion.div 
-                  className="pt-4 border-t border-white/40 space-y-3"
-                  initial={{ opacity: 0, y: 20 }}
+            <div className="max-w-lg mx-auto">
+              <div className="glass-surface glass-strong border border-white/25 rounded-[24px] shadow-[var(--elev-2)] px-5 py-6 space-y-6">
+                <div className="space-y-3">
+                  {navigationItems.map((item, index) => {
+                    const isActive = activeSection === item.href.replace('#', '')
+                    return (
+                      <motion.button
+                        key={item.name}
+                        onClick={() => handleNavClick(item.href)}
+                        className={`group relative flex w-full items-center justify-between px-5 py-4 text-base font-medium transition-all duration-200 shadow-none ${
+                          isActive
+                            ? 'glass-control glass-strong text-neutral-900 shadow-[var(--brand-glow)]'
+                            : 'glass-control text-neutral-600 hover:text-neutral-900'
+                        }`}
+                        style={{ borderRadius: 'var(--radius-xl)' }}
+                        initial={{ opacity: 0, x: -12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.25, delay: index * 0.05 }}
+                      >
+                        <span className="flex items-center gap-2">{item.name}</span>
+                        <span
+                          className={`h-2 w-2 rounded-full transition-colors duration-200 ${
+                            isActive
+                              ? 'bg-accent-500 shadow-[0_0_8px_rgba(239,68,68,0.45)]'
+                              : 'bg-white/40 group-hover:bg-white/70'
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </motion.button>
+                    )
+                  })}
+                </div>
+
+                <motion.div
+                  className="space-y-3 border-t border-white/20 pt-4"
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.3 }}
+                  transition={{ duration: 0.25, delay: 0.25 }}
                 >
-                  <a
-                    href="tel:+886-2-2816-6666"
-                    className="flex items-center space-x-3 p-4 text-neutral-700 hover:bg-white/50 rounded-2xl transition-colors duration-200"
-                    onClick={() => trackClick('navbar_tel_click', { context: 'mobile_menu' })}
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span className="font-medium">02-2816-6666</span>
-                  </a>
-                  <a
-                    href="https://line.me/R/ti/p/@fixmaster"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-3 text-accent-600 p-4 font-medium hover:bg-white/50 rounded-2xl transition-colors duration-200"
-                    onClick={() => trackClick('navbar_line_click', { context: 'mobile_menu' })}
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                    <span>LINE 諮詢</span>
-                  </a>
+                  <p className="text-[11px] uppercase tracking-[0.35em] text-neutral-500">
+                    快速聯絡
+                  </p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <a
+                      href="tel:+886-2-2816-6666"
+                      className="glass-control glass-strong flex items-center justify-center gap-2 py-3 text-neutral-900 transition-all duration-200"
+                      style={{ borderRadius: 'var(--radius-xl)' }}
+                      onClick={() => {
+                        trackClick('navbar_tel_click', { context: 'mobile_menu' })
+                        closeMenu()
+                      }}
+                    >
+                      <Phone className="w-5 h-5" />
+                      <span className="text-sm font-medium">電話</span>
+                    </a>
+                    <a
+                      href="https://line.me/R/ti/p/@fixmaster"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass-control glass-strong flex items-center justify-center gap-2 py-3 text-neutral-900 transition-all duration-200"
+                      style={{ borderRadius: 'var(--radius-xl)' }}
+                      onClick={() => {
+                        trackClick('navbar_line_click', { context: 'mobile_menu' })
+                        closeMenu()
+                      }}
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      <span className="text-sm font-medium">LINE</span>
+                    </a>
+                  </div>
                 </motion.div>
               </div>
             </div>
