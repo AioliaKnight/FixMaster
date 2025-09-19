@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle } from 'lucide-react'
 import { useState } from 'react'
+import { trackClick } from '@/lib/tracking'
 
 export default function FAQSection() {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0)
@@ -426,6 +427,7 @@ export default function FAQSection() {
               <a 
                 href="tel:+886-2-2816-6666" 
                 className="bg-white text-neutral-900 px-6 md:px-8 py-3 md:py-4 flat-button font-semibold hover:bg-neutral-100 transition-colors duration-200 inline-flex items-center justify-center"
+                onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
               >
                 直接撥打電話
               </a>
@@ -434,6 +436,7 @@ export default function FAQSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-accent-500 text-white px-6 md:px-8 py-3 md:py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"
+                onClick={() => trackClick('faq_line_click', { section: 'faq' })}
               >
                 LINE 線上諮詢
               </a>

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { trackClick } from '@/lib/tracking'
 import { 
   Award, 
   Video, 
@@ -284,6 +285,7 @@ export default function TrustSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-accent-500 text-white px-8 py-4 font-semibold hover:bg-accent-600 transition-colors duration-200 group"
+                onClick={() => trackClick('trust_apple_verify_click', { section: 'trust' })}
               >
                 <Shield className="w-5 h-5 mr-3" />
                 Apple 官方驗證頁面
