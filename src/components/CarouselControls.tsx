@@ -43,14 +43,18 @@ type SliderDotsProps = {
 
 export function SliderDots({ count, activeIndex, onDotClick, className }: SliderDotsProps) {
   return (
-    <div className={`flex items-center justify-center space-x-2 ${className || ''}`}>
+    <div className={`flex items-center justify-center space-x-1.5 ${className || ''}`}>
       {Array.from({ length: count }, (_, i) => (
         <button
           key={i}
           type="button"
           aria-label={`前往第 ${i + 1} 個項目`}
           onClick={() => onDotClick(i)}
-          className={activeIndex === i ? 'w-2.5 h-2.5 rounded-full bg-neutral-900' : 'w-2.5 h-2.5 rounded-full bg-neutral-300'}
+          className={
+            activeIndex === i
+              ? 'w-3.5 h-1.5 bg-neutral-900 border border-neutral-900 rounded-none'
+              : 'w-3.5 h-1.5 bg-white border border-neutral-300 rounded-none hover:border-neutral-400'
+          }
         />
       ))}
     </div>

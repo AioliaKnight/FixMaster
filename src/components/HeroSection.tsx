@@ -7,6 +7,9 @@ import Image from 'next/image'
 import { scrollToSectionId } from '@/lib/scroll'
 import { useEffect, useRef, useState } from 'react'
 import { trackClick } from '@/lib/tracking'
+import Button from './ui/Button'
+import Chip from './ui/Chip'
+import SectionHeader from './ui/SectionHeader'
 
 export default function HeroSection() {
   return (
@@ -37,22 +40,22 @@ export default function HeroSection() {
               </motion.div>
 
               {/* 主標題 */}
-              <motion.h1 
-                className="text-neutral-900 mb-6 lg:mb-8"
+              <motion.div
+                className="mb-6 lg:mb-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.1 }}
               >
-                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-tight mb-2">
-                  FixMaster
-                </span>
-                <span className="block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-neutral-900 mb-2 lg:mb-3">
-                  維修大師｜士林店
-                </span>
-                <span className="block text-base sm:text-lg md:text-xl lg:text-2xl font-normal text-neutral-600">
+                <SectionHeader 
+                  title="FixMaster"
+                  description="維修大師｜士林店"
+                  align="left"
+                  className="!mb-0"
+                />
+                <p className="text-neutral-600 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto lg:mx-0 mt-4">
                   現場透明錄影、Apple 認證零件、90 天保固，最快三十分鐘完修。
-                </span>
-              </motion.h1>
+                </p>
+              </motion.div>
 
               {/* 副標題 */}
               <motion.p 
@@ -73,14 +76,13 @@ export default function HeroSection() {
               >
                 <div className="flex items-center gap-2 w-max">
                   {['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max'].map((label) => (
-                    <button
+                    <Chip
                       key={label}
                       onClick={() => { trackClick('hero_model_chip_click', { label }); scrollToSectionId('services') }}
-                      className="whitespace-nowrap px-4 py-2 text-sm border flat-button bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400"
                       aria-label={`查看 ${label} 維修項目`}
                     >
                       {label}
-                    </button>
+                    </Chip>
                   ))}
                 </div>
               </motion.div>
@@ -171,19 +173,20 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.4 }}
               >
-                <button 
-                  className="w-full sm:w-auto bg-neutral-900 hover:bg-black text-white px-8 lg:px-12 py-3 lg:py-4 flat-button font-medium text-base lg:text-lg tracking-wide transition-colors duration-200"
+                <Button 
+                  className="w-full sm:w-auto"
                   onClick={() => { trackClick('hero_primary_cta_click'); scrollToSectionId('contact') }}
                 >
                   立即預約維修
-                </button>
+                </Button>
                 
-                <button 
-                  className="w-full sm:w-auto text-accent-600 hover:text-accent-700 border border-neutral-300 px-8 lg:px-12 py-3 lg:py-4 flat-button font-medium text-base lg:text-lg tracking-wide transition-all duration-200"
+                <Button 
+                  variant="outline"
+                  className="w-full sm:w-auto"
                   onClick={() => { trackClick('hero_secondary_cta_click'); scrollToSectionId('services') }}
                 >
                   精選二手 iPhone
-                </button>
+                </Button>
               </motion.div>
 
               {/* 聯絡資訊 */}
