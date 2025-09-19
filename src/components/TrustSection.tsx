@@ -315,9 +315,6 @@ export default function TrustSection() {
           >
             <div className="text-center">
               <div className="flex items-center justify-center mb-6">
-                <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center mr-4 text-neutral-900">
-                  <Shield className="w-8 h-8" />
-                </div>
                 <div>
                   <h3 className="text-2xl font-bold text-neutral-900 mb-2">
                     驗證 Apple 維修認證資格
@@ -354,7 +351,6 @@ export default function TrustSection() {
                 className="inline-flex items-center glass-elevated bg-white/60 text-neutral-900 px-8 py-4 font-semibold hover:bg-white/80 transition-colors duration-200 group"
                 onClick={() => trackClick('trust_apple_verify_click', { section: 'trust' })}
               >
-                <Shield className="w-5 h-5 mr-3" />
                 Apple 官方驗證頁面
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </a>
