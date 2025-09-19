@@ -12,9 +12,9 @@ export default function Chip({ active = false, className, children, ...props }: 
       type="button"
       className={`${
         active
-          ? 'bg-neutral-900 text-white border-neutral-900'
-          : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400'
-      } border flat-button whitespace-nowrap px-4 py-2 text-sm rounded-none ${className || ''}`}
+          ? 'bg-neutral-900 text-white'
+          : 'bg-white/50 text-neutral-800'
+      } flat-button whitespace-nowrap px-4 py-2 text-sm glass-elevated ${className || ''}`}
       {...props}
     >
       {children}
