@@ -157,7 +157,7 @@ export default function PromotionsSection() {
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -175,7 +175,7 @@ export default function PromotionsSection() {
           {/* 主要優惠 */}
           <div
             ref={mainRef}
-            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-3 md:gap-8 mb-16 -mx-1 px-1"
+            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-3 md:gap-8 mb-14 md:mb-16 -mx-1 px-1"
             role="region"
             aria-roledescription="carousel"
             aria-label="主要優惠"
@@ -271,7 +271,7 @@ export default function PromotionsSection() {
 
           {/* 限時搶購 */}
           <motion.div
-            className="bg-white flat-card p-8 mb-16"
+            className="bg-white flat-card p-8 mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -330,7 +330,7 @@ export default function PromotionsSection() {
 
           {/* 會員制度 */}
           <motion.div
-            className="bg-neutral-50 flat-card p-8 mb-16"
+            className="bg-neutral-50 flat-card p-8 mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}

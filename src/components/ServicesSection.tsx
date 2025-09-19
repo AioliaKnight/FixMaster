@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { SliderArrows, SliderDots } from './CarouselControls'
 import { trackClick } from '@/lib/tracking'
+import SectionHeader from './ui/SectionHeader'
 
 export default function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -233,23 +234,17 @@ export default function ServicesSection() {
           </motion.div>
           {/* 區塊標題 */}
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
-              專業服務項目
-            </h2>
-            <p className="text-neutral-600 text-lg sm:text-xl max-w-2xl mx-auto">
-              專業 iPhone 維修與二手選購，透明報價、品質有保障。
-            </p>
-            <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
+            <SectionHeader title="專業服務項目" description="專業 iPhone 維修與二手選購，透明報價、品質有保障。" />
           </motion.div>
 
           {/* 服務輪播 */}
-          <div className="relative mb-16" role="region" aria-label="服務項目輪播">
+          <div className="relative mb-14 md:mb-16" role="region" aria-label="服務項目輪播">
             {shouldShowControls && (
               <SliderArrows
                 onPrev={prevSlide}
@@ -368,7 +363,7 @@ export default function ServicesSection() {
                 count={services.length}
                 activeIndex={currentSlide}
                 onDotClick={goToSlide}
-                className="mt-8"
+                className="mt-6 md:mt-8"
               />
             )}
           </div>

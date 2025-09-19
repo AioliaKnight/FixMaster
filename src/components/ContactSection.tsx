@@ -269,7 +269,7 @@ FixMaster 維修預約通知
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -285,7 +285,7 @@ FixMaster 維修預約通知
           </motion.div>
 
           {/* 聯絡方式 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14 md:mb-16">
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
@@ -351,7 +351,7 @@ FixMaster 維修預約通知
           </div>
 
           {/* 主要內容區 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-14 md:mb-16">
             {/* 預約表單 */}
             <motion.div
               className="bg-white flat-card p-8"
@@ -581,7 +581,7 @@ FixMaster 維修預約通知
 
           {/* 服務特色 */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}

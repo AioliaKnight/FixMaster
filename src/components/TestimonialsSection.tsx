@@ -274,7 +274,7 @@ export default function TestimonialsSection() {
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -291,7 +291,7 @@ export default function TestimonialsSection() {
 
           {/* 統計數據 */}
           <motion.div 
-            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:gap-8 mb-4 md:mb-16 -mx-1 px-1"
+            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-4 md:gap-8 mb-3 md:mb-14 -mx-1 px-1"
             ref={statsRef}
             role="region"
             aria-roledescription="carousel"
@@ -326,7 +326,7 @@ export default function TestimonialsSection() {
           />
 
           {/* 評價輪播 */}
-          <div className="relative mb-16" role="region" aria-label="顧客評價輪播">
+          <div className="relative mb-14 md:mb-16" role="region" aria-label="顧客評價輪播">
             {indicatorCount > 1 && (
               <SliderArrows
                 onPrev={prevSlide}
@@ -412,7 +412,7 @@ export default function TestimonialsSection() {
                 count={indicatorCount}
                 activeIndex={currentSlide}
                 onDotClick={goToSlide}
-                className="mt-8"
+                className="mt-6 md:mt-8"
               />
             )}
           </div>
