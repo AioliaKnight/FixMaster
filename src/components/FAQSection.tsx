@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle } from 'lucide-react'
 import { useState } from 'react'
 import { trackClick } from '@/lib/tracking'
+import Chip from './ui/Chip'
+import Button from './ui/Button'
 
 export default function FAQSection() {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0)
@@ -289,21 +291,17 @@ export default function FAQSection() {
           <div className="mb-6 md:mb-8 -mx-4 px-4 overflow-x-auto no-scrollbar">
             <div className="flex items-center gap-2 md:gap-3 w-max">
               {faqCategories.map((category, index) => (
-                <button
+                <Chip
                   key={category.title}
+                  active={selectedCategoryIndex === index}
                   onClick={() => {
                     setSelectedCategoryIndex(index)
                     setSelectedFaqIndex(null)
                   }}
-                  className={`whitespace-nowrap px-4 py-2 text-sm border flat-button ${
-                    selectedCategoryIndex === index
-                      ? 'bg-accent-500 text-white border-accent-500'
-                      : 'bg-white text-neutral-700 border-neutral-300 hover:border-neutral-400'
-                  }`}
                   aria-pressed={selectedCategoryIndex === index}
                 >
                   {category.title}
-                </button>
+                </Chip>
               ))}
             </div>
           </div>
@@ -323,12 +321,12 @@ export default function FAQSection() {
                   setSelectedFaqIndex(index)
                   setIsSheetOpen(true)
                 }}
-                className="text-left bg-white p-6 border border-neutral-200 hover:border-neutral-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-white rounded-none"
+                className="text-left bg-white flat-card p-6 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-white glass-highlight"
                 aria-haspopup="dialog"
                 aria-controls="faq-bottom-sheet"
               >
                 <div className="flex items-start gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white glass-elevated flex items-center justify-center flex-shrink-0">
                     <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
                   </div>
                   <div className="min-w-0">
@@ -410,8 +408,8 @@ export default function FAQSection() {
           </AnimatePresence>
 
           {/* 結尾 CTA */}
-          <motion.div
-            className="mt-12 md:mt-16 bg-neutral-900 p-8 md:p-12 text-center text-white"
+              <motion.div
+                className="mt-12 md:mt-16 glass p-8 md:p-12 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -420,26 +418,23 @@ export default function FAQSection() {
             <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">
               還有其他問題嗎？
             </h3>
-            <p className="text-neutral-300 mb-6 md:mb-8 max-w-2xl mx-auto">
+                <p className="text-neutral-700 mb-6 md:mb-8 max-w-2xl mx-auto">
               我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們
             </p>
             <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-              <a 
-                href="tel:+886-2-2816-6666" 
-                className="bg-white text-neutral-900 px-6 md:px-8 py-3 md:py-4 flat-button font-semibold hover:bg-neutral-100 transition-colors duration-200 inline-flex items-center justify-center"
-                onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
-              >
-                直接撥打電話
-              </a>
-              <a 
-                href="https://line.me/R/ti/p/@fixmaster" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-accent-500 text-white px-6 md:px-8 py-3 md:py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"
-                onClick={() => trackClick('faq_line_click', { section: 'faq' })}
-              >
-                LINE 線上諮詢
-              </a>
+                  <Button 
+                    className="px-6 md:px-8 py-3 md:py-4"
+                    onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
+                  >
+                    直接撥打電話
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    className="px-6 md:px-8 py-3 md:py-4"
+                    onClick={() => trackClick('faq_line_click', { section: 'faq' })}
+                  >
+                    LINE 線上諮詢
+                  </Button>
             </div>
           </motion.div>
         </div>
