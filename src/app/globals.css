@@ -54,19 +54,39 @@ body {
 
 /* 去除所有陰影和邊框半徑 */
 .flat-card {
-  border-radius: 0;
-  box-shadow: none;
-  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.65);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .flat-button {
-  border-radius: 0;
-  box-shadow: none;
+  border-radius: 9999px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
 .flat-button:hover {
   transform: none;
+}
+
+/* 玻璃效果工具類 */
+.glass {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.nav-glass {
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 /* 簡化間距 */

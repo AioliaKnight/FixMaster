@@ -111,7 +111,7 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-neutral-200`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'nav-glass' : 'bg-white/80'} border-b border-white/40`}> 
       <div className="container mx-auto container-padding">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -129,7 +129,7 @@ export default function Navbar() {
               <span className="sr-only">FixMaster 維修大師</span>
               <span className="flex items-center">
                 <span className="text-[18px] md:text-[20px] tracking-tight font-semibold text-neutral-900">Fix</span>
-                <span aria-hidden className="mx-2 h-2 w-2 bg-accent-500 group-hover:bg-accent-600 transition-colors duration-200" />
+                <span aria-hidden className="mx-2 h-2 w-2 rounded-full bg-accent-500 group-hover:bg-accent-600 transition-colors duration-200" />
                 <span className="text-[18px] md:text-[20px] tracking-tight font-normal text-neutral-900">Master</span>
               </span>
             </button>
@@ -209,7 +209,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="lg:hidden bg-white border-t border-neutral-200"
+            className="lg:hidden bg-white/70 nav-glass border-t border-white/40"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -224,10 +224,10 @@ export default function Navbar() {
                   <motion.button
                     key={item.name}
                     onClick={() => handleNavClick(item.href)}
-                    className={`block w-full text-left py-4 px-6 transition-all duration-200 hover:bg-neutral-50 active:bg-neutral-100 ${
+                    className={`block w-full text-left py-4 px-6 transition-all duration-200 hover:bg-white/50 rounded-2xl ${
                       activeSection === item.href.replace('#', '')
-                        ? 'text-neutral-900 bg-neutral-50 border-l border-neutral-900 font-medium'
-                        : 'text-neutral-700 hover:text-neutral-900'
+                        ? 'text-neutral-900 bg-white/60 border border-white/50'
+                        : 'text-neutral-700'
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -235,28 +235,20 @@ export default function Navbar() {
                   >
                     <span className="flex items-center">
                       {item.name}
-                      {activeSection === item.href.replace('#', '') && (
-                        <motion.div
-                          className="ml-auto w-2 h-2 bg-neutral-900"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ duration: 0.2 }}
-                        />
-                      )}
                     </span>
                   </motion.button>
                 ))}
                 
                 {/* 行動版聯絡按鈕 */}
                 <motion.div 
-                  className="pt-4 border-t border-neutral-200 space-y-3"
+                  className="pt-4 border-t border-white/40 space-y-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.3 }}
                 >
                   <a
                     href="tel:+886-2-2816-6666"
-                    className="flex items-center space-x-3 p-4 text-neutral-700 hover:bg-neutral-50 active:bg-neutral-100 transition-colors duration-200"
+                    className="flex items-center space-x-3 p-4 text-neutral-700 hover:bg-white/50 rounded-2xl transition-colors duration-200"
                     onClick={() => trackClick('navbar_tel_click', { context: 'mobile_menu' })}
                   >
                     <Phone className="w-5 h-5" />
@@ -266,7 +258,7 @@ export default function Navbar() {
                     href="https://line.me/R/ti/p/@fixmaster"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 text-accent-600 p-4 font-medium hover:bg-neutral-50 active:bg-neutral-100 transition-colors duration-200"
+                    className="flex items-center space-x-3 text-accent-600 p-4 font-medium hover:bg-white/50 rounded-2xl transition-colors duration-200"
                     onClick={() => trackClick('navbar_line_click', { context: 'mobile_menu' })}
                   >
                     <MessageCircle className="w-5 h-5" />
