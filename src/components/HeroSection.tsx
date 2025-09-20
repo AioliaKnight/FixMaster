@@ -10,6 +10,7 @@ import SectionHeader from './ui/SectionHeader'
 import { scrollToSectionId } from '@/lib/scroll'
 import { trackClick } from '@/lib/tracking'
 import { motionTimings } from '@/lib/motion'
+import heroImg from '../../public/Hero_1.png'
 
 const modelBadges = ['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max']
 
@@ -184,15 +185,18 @@ export default function HeroSection() {
               transition={{ duration: motionTimings.medium.duration, ease: motionTimings.medium.ease }}
               >
               <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(239,68,68,0.22),_rgba(239,68,68,0))] blur-3xl" />
-              <Image
-                src="/Hero_1.png"
-                alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
-                width={780}
-                height={780}
-                sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 520px"
-                priority
-                className="relative z-10 h-auto w-full"
-              />
+              <div className="relative z-10 mx-auto w-full aspect-[1/1] sm:aspect-[5/6] lg:aspect-[4/5]">
+                <Image
+                  src={heroImg}
+                  alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 520px"
+                  priority
+                  placeholder="blur"
+                  draggable={false}
+                  className="object-contain"
+                />
+              </div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-white/85 via-white/50 to-transparent" aria-hidden="true" />
               <div className="glass-control glass-elevated absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 px-4 py-3 text-sm text-neutral-900">
                 <div>
