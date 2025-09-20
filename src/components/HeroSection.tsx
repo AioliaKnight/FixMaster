@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Sparkles, Shield, Clock, Eye, Phone } from 'lucide-react'
 
 import Button from './ui/Button'
@@ -33,6 +33,10 @@ const highlightItems = [
 ]
 
 export default function HeroSection() {
+  const { scrollYProgress } = useScroll()
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 40])
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
+  const sweepX = useTransform(scrollYProgress, [0, 1], ['-120%', '140%'])
   return (
     <section id="home" className="relative overflow-hidden pt-24 pb-20 md:pt-32 lg:pb-28">
       <div
@@ -185,18 +189,27 @@ export default function HeroSection() {
               transition={{ duration: motionTimings.medium.duration, ease: motionTimings.medium.ease }}
               >
               <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(239,68,68,0.22),_rgba(239,68,68,0))] blur-3xl" />
-              <div className="relative z-10 mx-auto w-full aspect-[1/1] sm:aspect-[5/6] lg:aspect-[4/5]">
-                <Image
-                  src={heroImg}
-                  alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 520px"
-                  priority
-                  placeholder="blur"
-                  draggable={false}
-                  className="object-contain"
-                />
-              </div>
+              <motion.div style={{ y: parallaxY }} className="relative z-10 mx-auto w-full aspect-[1/1] sm:aspect-[5/6] lg:aspect-[4/5]">
+                <motion.div style={{ scale: imageScale }} className="absolute inset-0">
+                  <Image
+                    src={heroImg}
+                    alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 520px"
+                    priority
+                    placeholder="blur"
+                    draggable={false}
+                    className="object-contain"
+                  />
+                </motion.div>
+                <motion.div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-6 -inset-x-10 sm:-inset-x-6 rounded-[var(--radius-xl)]"
+                  style={{ x: sweepX }}
+                >
+                  <div className="h-full w-24 sm:w-32 bg-gradient-to-r from-transparent via-white/35 to-transparent blur-2xl mix-blend-overlay" />
+                </motion.div>
+              </motion.div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-white/85 via-white/50 to-transparent" aria-hidden="true" />
               <div className="glass-control glass-elevated absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 px-4 py-3 text-sm text-neutral-900">
                 <div>
