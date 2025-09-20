@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { trackClick, trackEvent } from '@/lib/tracking'
+import { motionTimings, motionViewport } from '@/lib/motion'
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -31,6 +32,7 @@ export default function ContactSection() {
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [fallbackNotice, setFallbackNotice] = useState<string | null>(null)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -171,6 +173,7 @@ FixMaster 維修預約通知
       }
       
       console.log('Form submitted successfully:', formData)
+      setFallbackNotice(null)
       setSubmitSuccess(true)
       
       // 重置表單
@@ -209,8 +212,7 @@ FixMaster 維修預約通知
       
       const mailtoUrl = `mailto:fixmastertw@gmail.com?subject=${subject}&body=${body}`
       window.open(mailtoUrl, '_blank')
-      
-      alert('表單將透過您的預設郵件程式發送，請確認寄出。或您可直接來電 02-2816-6666 預約。')
+      setFallbackNotice('表單改以預設郵件程式開啟，若未寄出請直接來電 02-2816-6666。')
     } finally {
       setIsSubmitting(false)
     }
@@ -273,8 +275,8 @@ FixMaster 維修預約通知
             className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
               聯絡我們
@@ -290,38 +292,39 @@ FixMaster 維修預約通知
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
-                className="bg-white flat-card p-6 text-center transition-all duration-200 glass-highlight"
+                className="bg-white flat-card p-1 glass-highlight motion-soft-enter"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                transition={{ ...motionTimings.soft, delay: index * 0.08 }}
+                viewport={motionViewport}
               >
-                <div className="w-16 h-16 bg-white glass-elevated flex items-center justify-center mx-auto mb-4">
-                  <info.icon className="w-8 h-8 text-neutral-900" />
-                </div>
-                <h3 className="text-neutral-900 font-semibold mb-2">{info.title}</h3>
-                <p className="text-neutral-700 font-medium mb-1">{info.content}</p>
-                <p className="text-neutral-600 text-sm mb-4">{info.subContent}</p>
-                {info.actionType === 'line' ? (
-                  <a
-                    href="https://line.me/R/ti/p/@fixmaster"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70"
-                    onClick={() => trackClick('contact_card_line_click')}
-                  >
-                    {info.action}
-                  </a>
-                ) : (
-                  <button 
-                    className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70"
-                    onClick={() => {
-                      trackClick('contact_card_action_click', { type: info.actionType })
-                      if (info.actionType === 'phone') {
-                        window.location.href = 'tel:+886-2-2816-6666'
-                      } else if (info.actionType === 'email') {
-                        const subject = encodeURIComponent('FixMaster 維修諮詢')
-                        const body = encodeURIComponent(`您好，我想諮詢iPhone維修服務。
+                <div className="glass-content p-6 text-center transition-all duration-200">
+                  <div className="w-16 h-16 bg-white glass-elevated flex items-center justify-center mx-auto mb-4">
+                    <info.icon className="w-8 h-8 text-neutral-900" />
+                  </div>
+                  <h3 className="text-neutral-900 font-semibold mb-2">{info.title}</h3>
+                  <p className="text-neutral-700 font-medium mb-1">{info.content}</p>
+                  <p className="text-neutral-600 text-sm mb-4">{info.subContent}</p>
+                  {info.actionType === 'line' ? (
+                    <a
+                      href="https://line.me/R/ti/p/@fixmaster"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70 motion-hover-pop"
+                      onClick={() => trackClick('contact_card_line_click')}
+                    >
+                      {info.action}
+                    </a>
+                  ) : (
+                    <button
+                      className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70 motion-hover-pop"
+                      onClick={() => {
+                        trackClick('contact_card_action_click', { type: info.actionType })
+                        if (info.actionType === 'phone') {
+                          window.location.href = 'tel:+886-2-2816-6666'
+                        } else if (info.actionType === 'email') {
+                          const subject = encodeURIComponent('FixMaster 維修諮詢')
+                          const body = encodeURIComponent(`您好，我想諮詢iPhone維修服務。
 
 請提供以下資訊：
 - 維修項目：
@@ -329,24 +332,23 @@ FixMaster 維修預約通知
 - 聯絡電話：
 
 謝謝！`)
-                        window.open(`mailto:fixmastertw@gmail.com?subject=${subject}&body=${body}`, '_blank')
-                      } else if (info.actionType === 'navigation') {
-                        const address = '台北市士林區文林路60號'
-                        const encodedAddress = encodeURIComponent(address)
-                        
-                        // 手機優先使用 Google Maps App
-                        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                          window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
-                        } else {
-                          // 桌面版使用 Google Maps 網頁版
-                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                          window.open(`mailto:fixmastertw@gmail.com?subject=${subject}&body=${body}`, '_blank')
+                        } else if (info.actionType === 'navigation') {
+                          const address = '台北市士林區文林路60號'
+                          const encodedAddress = encodeURIComponent(address)
+
+                          if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                            window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
+                          } else {
+                            window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                          }
                         }
-                      }
-                    }}
-                  >
-                    {info.action}
-                  </button>
-                )}
+                      }}
+                    >
+                      {info.action}
+                    </button>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
@@ -355,230 +357,246 @@ FixMaster 維修預約通知
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-14 md:mb-16">
             {/* 預約表單 */}
             <motion.div
-              className="bg-white flat-card p-8"
+              className="bg-white flat-card p-1 motion-soft-enter"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
+              transition={motionTimings.soft}
+              viewport={motionViewport}
             >
+              <div className="glass-content p-8">
                 <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
-                <Calendar className="w-6 h-6 mr-2" />
+                  <Calendar className="w-6 h-6 mr-2" />
                   線上預約
-              </h3>
-              
-              <form onSubmit={(e) => { trackEvent('contact_form_submit_attempt'); handleSubmit(e) }} className="space-y-4">
-                {/* 成功訊息 */}
-                {submitSuccess && (
-                  <div className="bg-green-50 border border-green-200 p-4 mb-4 flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
-                    <span className="text-green-800">預約已送出！我們將在30分鐘內與您聯繫確認。</span>
-                  </div>
-                )}
+                </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-neutral-700 text-sm mb-2">姓名 *</label>
-                    <input
-                      type="text"
-                      name="name"
-                      autoComplete="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
-                        formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                      }`}
-                      placeholder="請輸入您的姓名"
-                      required
-                    />
-                    {formErrors.name && (
-                      <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-neutral-700 text-sm mb-2">手機 *</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      inputMode="numeric"
-                      autoComplete="tel"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
-                        formErrors.phone ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                      }`}
-                      placeholder="手機（09xxxxxxxx）"
-                      required
-                    />
-                    {formErrors.phone && (
-                      <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
-                    )}
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-neutral-700 text-sm mb-2">裝置型號 *</label>
-                    <select
-                      name="device"
-                      value={formData.device}
-                      onChange={handleInputChange}
-                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
-                        formErrors.device ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                      }`}
-                      required
-                    >
-                      <option value="">請選擇裝置</option>
-                      <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
-                      <option value="iPhone 15 Pro">iPhone 15 Pro</option>
-                      <option value="iPhone 15">iPhone 15</option>
-                      <option value="iPhone 14 Pro Max">iPhone 14 Pro Max</option>
-                      <option value="iPhone 14 Pro">iPhone 14 Pro</option>
-                      <option value="iPhone 14">iPhone 14</option>
-                      <option value="iPhone 13 Pro Max">iPhone 13 Pro Max</option>
-                      <option value="iPhone 13 Pro">iPhone 13 Pro</option>
-                      <option value="iPhone 13">iPhone 13</option>
-                      <option value="iPhone 12 Pro Max">iPhone 12 Pro Max</option>
-                      <option value="iPhone 12 Pro">iPhone 12 Pro</option>
-                      <option value="iPhone 12">iPhone 12</option>
-                      <option value="其他機型">其他機型</option>
-                    </select>
-                    {formErrors.device && (
-                      <p className="text-red-500 text-xs mt-1">{formErrors.device}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-neutral-700 text-sm mb-2">問題類型 *</label>
-                    <select
-                      name="issue"
-                      value={formData.issue}
-                      onChange={handleInputChange}
-                    className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
-                        formErrors.issue ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                      }`}
-                      required
-                    >
-                      <option value="">請選擇問題</option>
-                      <option value="螢幕破裂">螢幕破裂</option>
-                      <option value="電池老化">電池老化</option>
-                      <option value="無法開機">無法開機</option>
-                      <option value="進水損壞">進水損壞</option>
-                      <option value="按鍵失靈">按鍵失靈</option>
-                      <option value="相機故障">相機故障</option>
-                      <option value="充電異常">充電異常</option>
-                      <option value="其他問題">其他問題</option>
-                    </select>
-                    {formErrors.issue && (
-                      <p className="text-red-500 text-xs mt-1">{formErrors.issue}</p>
-                    )}
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-neutral-700 text-sm mb-2">希望時間</label>
-                  <input
-                    type="datetime-local"
-                    name="preferredTime"
-                    autoComplete="off"
-                    value={formData.preferredTime}
-                    onChange={handleInputChange}
-                    className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-neutral-700 text-sm mb-2">補充說明</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={3}
-                    autoComplete="off"
-                    className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    placeholder="可描述症狀、發生時間與特殊狀況"
-                  />
-                </div>
-                
-                <input type="text" name="token" value={formData.token} onChange={handleInputChange} className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full py-3 flat-button font-medium transition-colors duration-200 flex items-center justify-center ${
-                    isSubmitting 
-                      ? 'bg-neutral-300 cursor-not-allowed' 
-                      : 'bg-neutral-900 hover:bg-black text-white'
-                  }`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      送出中...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5 mr-2" />
-                      送出預約
-                    </>
+                <form onSubmit={(e) => { trackEvent('contact_form_submit_attempt'); handleSubmit(e) }} className="space-y-4">
+                  {/* 成功訊息 */}
+                  {submitSuccess && (
+                    <div className="bg-green-50 border border-green-200 p-4 mb-4 flex items-center" role="status" aria-live="polite">
+                      <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                      <span className="text-green-800">預約已送出！我們將在30分鐘內與您聯繫確認。</span>
+                    </div>
                   )}
-                </button>
-              </form>
+                  {fallbackNotice && (
+                    <div className="bg-amber-50 border border-amber-200 p-4 mb-4 text-sm text-amber-700" role="status" aria-live="polite">
+                      {fallbackNotice}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-neutral-700 text-sm mb-2">姓名 *</label>
+                      <input
+                        type="text"
+                        name="name"
+                        autoComplete="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
+                          formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                        }`}
+                        placeholder="請輸入您的姓名"
+                        required
+                      />
+                      {formErrors.name && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-neutral-700 text-sm mb-2">手機 *</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        inputMode="numeric"
+                        autoComplete="tel"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
+                          formErrors.phone ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                        }`}
+                        placeholder="手機（09xxxxxxxx）"
+                        required
+                      />
+                      {formErrors.phone && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-neutral-700 text-sm mb-2">裝置型號 *</label>
+                      <select
+                        name="device"
+                        value={formData.device}
+                        onChange={handleInputChange}
+                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
+                          formErrors.device ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                        }`}
+                        required
+                      >
+                        <option value="">請選擇裝置</option>
+                        <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
+                        <option value="iPhone 15 Pro">iPhone 15 Pro</option>
+                        <option value="iPhone 15">iPhone 15</option>
+                        <option value="iPhone 14 Pro Max">iPhone 14 Pro Max</option>
+                        <option value="iPhone 14 Pro">iPhone 14 Pro</option>
+                        <option value="iPhone 14">iPhone 14</option>
+                        <option value="iPhone 13 Pro Max">iPhone 13 Pro Max</option>
+                        <option value="iPhone 13 Pro">iPhone 13 Pro</option>
+                        <option value="iPhone 13">iPhone 13</option>
+                        <option value="iPhone 12 Pro Max">iPhone 12 Pro Max</option>
+                        <option value="iPhone 12 Pro">iPhone 12 Pro</option>
+                        <option value="iPhone 12">iPhone 12</option>
+                        <option value="其他機型">其他機型</option>
+                      </select>
+                      {formErrors.device && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.device}</p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-neutral-700 text-sm mb-2">問題類型 *</label>
+                      <select
+                        name="issue"
+                        value={formData.issue}
+                        onChange={handleInputChange}
+                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
+                          formErrors.issue ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
+                        }`}
+                        required
+                      >
+                        <option value="">請選擇問題</option>
+                        <option value="螢幕破裂">螢幕破裂</option>
+                        <option value="電池老化">電池老化</option>
+                        <option value="無法開機">無法開機</option>
+                        <option value="進水損壞">進水損壞</option>
+                        <option value="按鍵失靈">按鍵失靈</option>
+                        <option value="相機故障">相機故障</option>
+                        <option value="充電異常">充電異常</option>
+                        <option value="其他問題">其他問題</option>
+                      </select>
+                      {formErrors.issue && (
+                        <p className="text-red-500 text-xs mt-1">{formErrors.issue}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-neutral-700 text-sm mb-2">希望時間</label>
+                    <input
+                      type="datetime-local"
+                      name="preferredTime"
+                      autoComplete="off"
+                      value={formData.preferredTime}
+                      onChange={handleInputChange}
+                      className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-neutral-700 text-sm mb-2">補充說明</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={3}
+                      autoComplete="off"
+                      className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500"
+                      placeholder="可描述症狀、發生時間與特殊狀況"
+                    />
+                  </div>
+
+                  <input
+                    type="text"
+                    name="token"
+                    value={formData.token}
+                    onChange={handleInputChange}
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full py-3 flat-button font-medium transition-colors duration-200 flex items-center justify-center ${
+                      isSubmitting
+                        ? 'bg-neutral-300 cursor-not-allowed'
+                        : 'bg-neutral-900 hover:bg-black text-white'
+                    }`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        送出中...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5 mr-2" />
+                        送出預約
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </motion.div>
 
             {/* 營業時間與地圖 */}
             <motion.div
-              className="bg-white flat-card p-6 md:p-8"
+              className="bg-white flat-card p-1 motion-soft-enter"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
+              transition={motionTimings.soft}
+              viewport={motionViewport}
             >
-              <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
-                <Clock className="w-6 h-6 mr-2" />
-                營業時間
-              </h3>
-              
-              <div className="space-y-3 mb-6">
-                {businessHours.map((time, index) => (
-                  <div key={index} className="flex justify-between items-center">
-                    <span className="text-neutral-600">{time.day}</span>
-                    <span className="text-neutral-900 font-medium">{time.hours}</span>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="bg-neutral-50 flat-card p-6">
-                 <h3 className="text-xl font-bold text-neutral-900 mb-4 flex items-center">
-                  <Navigation className="w-6 h-6 mr-2" />
-                   店面位置
+              <div className="glass-content p-6 md:p-8">
+                <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
+                  <Clock className="w-6 h-6 mr-2" />
+                  營業時間
                 </h3>
-                <div className="bg-neutral-100 p-4 mb-4">
-                  <div className="text-neutral-900 text-center">
-                    <MapPin className="w-12 h-12 mx-auto mb-2 text-accent-500" />
-                    <p className="font-medium">台北市士林區文林路60號</p>
-                    <p className="text-neutral-600 text-sm">捷運劍潭站1號出口步行3分鐘</p>
-                  </div>
+
+                <div className="space-y-3 mb-6">
+                  {businessHours.map((time, index) => (
+                    <div key={index} className="flex justify-between items-center">
+                      <span className="text-neutral-600">{time.day}</span>
+                      <span className="text-neutral-900 font-medium">{time.hours}</span>
+                    </div>
+                  ))}
                 </div>
-                <button 
-                  className="w-full bg-accent-500 hover:bg-accent-600 text-white py-2 flat-button font-medium transition-colors duration-200"
-                  onClick={() => {
-                    trackClick('contact_map_navigate_click')
-                    const address = '台北市士林區文林路60號'
-                    const encodedAddress = encodeURIComponent(address)
-                    
-                    // 手機優先使用 Google Maps App
-                    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                      window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
-                    } else {
-                      // 桌面版使用 Google Maps 網頁版
-                      window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
-                    }
-                  }}
-                >
-                  <span className="inline-flex items-center justify-center gap-2">
-                    <Navigation className="h-4 w-4" aria-hidden="true" />
-                    Google Maps 導航
-                  </span>
-                </button>
+
+                <div className="bg-neutral-50 flat-card p-6">
+                  <h3 className="text-xl font-bold text-neutral-900 mb-4 flex items-center">
+                    <Navigation className="w-6 h-6 mr-2" />
+                    店面位置
+                  </h3>
+                  <div className="bg-neutral-100 p-4 mb-4">
+                    <div className="text-neutral-900 text-center">
+                      <MapPin className="w-12 h-12 mx-auto mb-2 text-accent-500" />
+                      <p className="font-medium">台北市士林區文林路60號</p>
+                      <p className="text-neutral-600 text-sm">捷運劍潭站1號出口步行3分鐘</p>
+                    </div>
+                  </div>
+                  <button
+                    className="w-full bg-accent-500 hover:bg-accent-600 text-white py-2 flat-button font-medium transition-colors duration-200"
+                    onClick={() => {
+                      trackClick('contact_map_navigate_click')
+                      const address = '台北市士林區文林路60號'
+                      const encodedAddress = encodeURIComponent(address)
+
+                      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
+                      } else {
+                        window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                      }
+                    }}
+                  >
+                    <span className="inline-flex items-center justify-center gap-2">
+                      <Navigation className="h-4 w-4" aria-hidden="true" />
+                      Google Maps 導航
+                    </span>
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -588,12 +606,12 @@ FixMaster 維修預約通知
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
             {features.map((feature, index) => (
-              <div key={index} className="glass-surface glass-strong p-4 md:p-6 text-center">
-                <div className="glass-control glass-strong mx-auto mb-3 flex h-12 w-12 items-center justify-center text-neutral-900">
+              <div key={index} className="glass-surface p-4 md:p-6 text-center">
+                <div className="glass-control glass-elevated mx-auto mb-3 flex h-12 w-12 items-center justify-center text-neutral-900">
                   <feature.icon className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <h4 className="text-neutral-900 font-semibold mb-2">{feature.title}</h4>
@@ -604,35 +622,37 @@ FixMaster 維修預約通知
 
           {/* 最終 CTA */}
           <motion.div
-            className="bg-white flat-card p-12 text-center"
+            className="bg-white flat-card p-1 text-center motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
-            <h3 className="text-3xl font-bold text-neutral-900 mb-6">
-              今天的煩惱，今天就解決。
-            </h3>
-            <p className="text-neutral-600 text-xl mb-8 max-w-2xl mx-auto">
-              一通電話或一則訊息，讓我們幫你的手機恢復到最好狀態
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-              <a 
-                href="tel:+886-2-2816-6666" 
-                className="w-full sm:w-auto bg-accent-500 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center"
-                onClick={() => trackClick('contact_final_tel_click')}
-              >
-                立即撥打預約
-              </a>
-              <a 
-                href="https://line.me/R/ti/p/@fixmaster" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-neutral-900 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-neutral-800 transition-colors duration-200 inline-flex items-center justify-center"
-                onClick={() => trackClick('contact_final_line_click')}
-              >
-                LINE 快速諮詢
-              </a>
+            <div className="glass-content p-10 md:p-12">
+              <h3 className="text-3xl font-bold text-neutral-900 mb-6">
+                今天的煩惱，今天就解決。
+              </h3>
+              <p className="text-neutral-600 text-xl mb-8 max-w-2xl mx-auto">
+                一通電話或一則訊息，讓我們幫你的手機恢復到最好狀態
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
+                <a
+                  href="tel:+886-2-2816-6666"
+                  className="w-full sm:w-auto bg-accent-500 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-accent-600 transition-colors duration-200 inline-flex items-center justify-center motion-hover-pop"
+                  onClick={() => trackClick('contact_final_tel_click')}
+                >
+                  立即撥打預約
+                </a>
+                <a
+                  href="https://line.me/R/ti/p/@fixmaster"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto bg-neutral-900 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-neutral-800 transition-colors duration-200 inline-flex items-center justify-center motion-hover-pop"
+                  onClick={() => trackClick('contact_final_line_click')}
+                >
+                  LINE 快速諮詢
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>

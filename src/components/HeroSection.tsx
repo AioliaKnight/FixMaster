@@ -9,6 +9,7 @@ import Chip from './ui/Chip'
 import SectionHeader from './ui/SectionHeader'
 import { scrollToSectionId } from '@/lib/scroll'
 import { trackClick } from '@/lib/tracking'
+import { motionTimings } from '@/lib/motion'
 
 const modelBadges = ['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max']
 
@@ -41,10 +42,10 @@ export default function HeroSection() {
         <div className="flex flex-col items-center gap-16 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] xl:grid-cols-[minmax(0,1fr)_minmax(0,560px)]">
           <div className="order-2 w-full space-y-8 text-center lg:order-1 lg:space-y-10 lg:text-left">
             <motion.div
-              className="inline-flex items-center gap-2 rounded-full glass-control glass-strong px-4 py-2 text-sm text-neutral-900"
+              className="inline-flex items-center gap-2 rounded-full glass-control glass-strong px-4 py-2 text-sm text-neutral-900 motion-soft-enter"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={motionTimings.soft}
             >
               <Image
                 src="/apple_logo.webp"
@@ -58,10 +59,10 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="space-y-5"
+              className="space-y-5 motion-soft-enter"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.05 }}
+              transition={{ ...motionTimings.soft, delay: 0.06 }}
             >
               <SectionHeader
                 title="iPhone 維修，30 分鐘就安心"
@@ -72,10 +73,10 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="-mx-1 flex w-full gap-2 overflow-x-auto px-1 no-scrollbar lg:justify-start"
+              className="-mx-1 flex w-full gap-2 overflow-x-auto px-1 no-scrollbar lg:justify-start motion-soft-enter"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
+              transition={{ ...motionTimings.soft, delay: 0.12 }}
             >
               <div className="flex w-full justify-center gap-2 lg:w-auto lg:justify-start">
                 {modelBadges.map((label) => (
@@ -95,35 +96,37 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="glass-surface glass-strong px-6 py-6 text-left"
+              className="glass-panel p-1 motion-soft-enter"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.16 }}
+              transition={{ ...motionTimings.soft, delay: 0.18 }}
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
-                為什麼選擇 FixMaster
-              </p>
-              <ul className="space-y-3">
-                {highlightItems.map((item) => (
-                  <li key={item.title} className="flex items-start gap-3 text-sm text-neutral-600">
-                    <item.icon className="mt-0.5 h-4 w-4 text-neutral-900" aria-hidden="true" />
-                    <div>
-                      <p className="font-medium text-neutral-900">{item.title}</p>
-                      <p>{item.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className="glass-content px-6 py-6 text-left">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
+                  為什麼選擇 FixMaster
+                </p>
+                <ul className="space-y-3">
+                  {highlightItems.map((item) => (
+                    <li key={item.title} className="flex items-start gap-3 text-sm text-neutral-600">
+                      <item.icon className="mt-0.5 h-4 w-4 text-neutral-900" aria-hidden="true" />
+                      <div>
+                        <p className="font-medium text-neutral-900">{item.title}</p>
+                        <p>{item.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </motion.div>
 
             <motion.div
-              className="flex flex-col items-center gap-4 sm:flex-row lg:justify-start"
+              className="flex flex-col items-center gap-4 sm:flex-row lg:justify-start motion-soft-enter"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.22 }}
+              transition={{ ...motionTimings.soft, delay: 0.24 }}
             >
               <Button
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto motion-hover-pop"
                 onClick={() => {
                   trackClick('hero_primary_cta_click')
                   scrollToSectionId('contact')
@@ -133,7 +136,7 @@ export default function HeroSection() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto motion-hover-pop"
                 onClick={() => {
                   trackClick('hero_secondary_cta_click')
                   scrollToSectionId('services')
@@ -142,34 +145,44 @@ export default function HeroSection() {
                 查看服務方案
               </Button>
             </motion.div>
+            <motion.p
+              className="text-sm text-neutral-500 motion-soft-enter"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...motionTimings.soft, delay: 0.3 }}
+            >
+              線上預約成功後，我們將在 30 分鐘內回電確認並提供到府收送選項。
+            </motion.p>
 
             <motion.div
-              className="glass-surface glass-strong flex items-center gap-3 px-6 py-5 text-left"
+              className="glass-panel p-1 motion-soft-enter"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.28 }}
+              transition={{ ...motionTimings.soft, delay: 0.32 }}
             >
-              <Phone className="h-5 w-5 text-neutral-900" aria-hidden="true" />
-              <div>
-                <a
-                  href="tel:+886-2-2816-6666"
-                  className="text-base font-semibold text-neutral-900 hover:text-neutral-950 transition-colors"
-                  onClick={() => trackClick('hero_support_phone_inline')}
-                >
-                  02-2816-6666
-                </a>
-                <p className="text-sm text-neutral-600">營業時間 14:00 – 23:00（每日）</p>
+              <div className="glass-content flex items-center gap-3 px-6 py-5 text-left">
+                <Phone className="h-5 w-5 text-neutral-900" aria-hidden="true" />
+                <div>
+                  <a
+                    href="tel:+886-2-2816-6666"
+                    className="text-base font-semibold text-neutral-900 hover:text-neutral-950 transition-colors"
+                    onClick={() => trackClick('hero_support_phone_inline')}
+                  >
+                    02-2816-6666
+                  </a>
+                  <p className="text-sm text-neutral-600">營業時間 14:00 – 23:00（每日）</p>
+                </div>
               </div>
             </motion.div>
           </div>
 
           <div className="order-1 w-full max-w-[520px] self-center lg:order-2 lg:w-auto">
             <motion.div
-              className="glass-surface glass-strong relative z-10 w-full overflow-hidden px-6 pt-6 pb-24 md:pb-24 lg:pb-28 shadow-[var(--elev-2)]"
-              initial={{ opacity: 0, x: 32, scale: 0.9 }}
+              className="glass-panel relative z-10 w-full overflow-hidden px-6 pt-6 pb-28 lg:pb-32 shadow-[var(--elev-2)] motion-soft-enter"
+              initial={{ opacity: 0, x: 32, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-            >
+              transition={{ duration: motionTimings.medium.duration, ease: motionTimings.medium.ease }}
+              >
               <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(239,68,68,0.22),_rgba(239,68,68,0))] blur-3xl" />
               <Image
                 src="/Hero_1.png"
@@ -180,7 +193,8 @@ export default function HeroSection() {
                 priority
                 className="relative z-10 h-auto w-full"
               />
-              <div className="glass-control glass-strong absolute bottom-6 left-6 right-6 z-20 flex items-center justify-between px-4 py-3 text-sm text-neutral-900">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-white/85 via-white/50 to-transparent" aria-hidden="true" />
+              <div className="glass-control glass-elevated absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 px-4 py-3 text-sm text-neutral-900">
                 <div>
                   <p className="font-semibold flex items-center gap-2">
                     <Sparkles className="h-4 w-4 text-accent-500" aria-hidden="true" />
@@ -190,6 +204,7 @@ export default function HeroSection() {
                 </div>
                 <Button
                   size="sm"
+                  className="w-full sm:w-auto"
                   onClick={() => {
                     trackClick('hero_image_cta')
                     scrollToSectionId('contact')

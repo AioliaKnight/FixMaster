@@ -65,7 +65,7 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="glass-surface glass-strong px-8 py-10 md:px-12 md:py-12"
+            className="glass-panel px-8 py-10 md:px-12 md:py-12"
           >
             <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-center lg:justify-between">
               <div className="max-w-2xl space-y-8 text-center lg:text-left">
@@ -144,7 +144,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="glass-surface glass-strong px-5 py-4 text-sm font-medium text-neutral-700 transition-transform duration-200 hover:-translate-y-0.5"
+                className="glass-surface px-5 py-4 text-sm font-medium text-neutral-700 transition-transform duration-200 hover:-translate-y-0.5"
               >
                 {link.label}
               </Link>

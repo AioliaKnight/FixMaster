@@ -18,6 +18,7 @@ import { SliderArrows, SliderDots } from './CarouselControls'
 import { trackClick } from '@/lib/tracking'
 import SectionHeader from './ui/SectionHeader'
 import Button from './ui/Button'
+import { motionTimings, motionViewport } from '@/lib/motion'
 
 export default function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -205,19 +206,19 @@ export default function ServicesSection() {
         <div className="max-w-6xl mx-auto">
           {/* iPhone 17 系列上市提示 */}
           <motion.div 
-            className="glass-surface glass-strong p-5 md:p-6 mb-10"
+            className="glass-surface p-1 mb-10 motion-soft-enter"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="glass-content flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 py-4 md:px-6 md:py-5">
               <p className="text-neutral-900 text-sm md:text-base">
                 iPhone 17／Air／17 Pro／17 Pro Max 現已支援免費檢測與備料預約。部分原廠料件供應量有限，建議先預約以安排最快時程。
               </p>
               <Button
                 size="sm"
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto motion-hover-pop"
                 onClick={() => {
                   trackClick('services_precheck_cta', { section: 'services', from: 'iphone17_notice' })
                   scrollToSectionId('contact')
@@ -232,10 +233,13 @@ export default function ServicesSection() {
             className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
             <SectionHeader title="專業服務項目" description="專業 iPhone 維修與二手選購，透明報價、品質有保障。" />
+            <p className="mt-4 text-sm text-neutral-500">
+              依照維修類型為您推薦最快速的完修方案，保固說明與價格均會於檢測後再次確認。
+            </p>
           </motion.div>
 
           {/* 服務輪播 */}
@@ -266,14 +270,13 @@ export default function ServicesSection() {
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <div className="max-w-2xl mx-auto">
                       <motion.div
-                        className="glass-surface glass-strong p-8 md:p-10 flex flex-col gap-8"
+                        className="glass-panel p-1 flex flex-col gap-4 motion-soft-enter"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3 }}
-                        viewport={{ once: true }}
+                        transition={motionTimings.medium}
+                        viewport={motionViewport}
                       >
-                        {/* 極簡風：移除背景漸層與推薦標籤 */}
-
+                        <div className="glass-content flex flex-col gap-8 p-8 md:p-10">
                         {/* 服務圖示與標題 */}
                         <div className="flex flex-col items-center text-center gap-4">
                           <div className="glass-control w-20 h-20 flex items-center justify-center text-accent-500">
@@ -325,12 +328,12 @@ export default function ServicesSection() {
                             <p className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</p>
                           </div>
                           <Button
-                            className="w-full md:w-auto"
+                            className="w-full md:w-auto motion-hover-pop"
                             onClick={() => {
                               trackClick('services_book_cta', { section: 'services', service: service.title })
                               scrollToSectionId('contact')
                               setTimeout(() => {
-                                const issueSelect = document.querySelector('select[name=\"issue\"]') as HTMLSelectElement
+                                const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
                                 if (issueSelect) {
                                   if (service.title.includes('螢幕')) {
                                     issueSelect.value = '螢幕破裂'
@@ -344,6 +347,7 @@ export default function ServicesSection() {
                           >
                             立即預約
                           </Button>
+                        </div>
                         </div>
                       </motion.div>
                     </div>
@@ -365,15 +369,16 @@ export default function ServicesSection() {
 
           {/* 附加服務 */}
           <motion.div
-            className="glass-surface glass-strong p-8 md:p-12 mb-16 space-y-10"
+            className="glass-panel p-1 mb-16 space-y-10 motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
-            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-8 md:mb-12">
-              為什麼選擇 FixMaster？
-            </h3>
+            <div className="glass-content p-8 md:p-12 space-y-10">
+              <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-8 md:mb-12">
+                為什麼選擇 FixMaster？
+              </h3>
             <div
               ref={additionalRef}
               className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1"
@@ -387,8 +392,8 @@ export default function ServicesSection() {
                   className="text-center flex-none w-56 snap-start md:w-auto"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
+                  transition={{ ...motionTimings.soft, delay: index * 0.08 }}
+                  viewport={motionViewport}
                 >
                   <div className="glass-control w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900">
                     <service.icon className="w-8 h-8" />
@@ -411,53 +416,59 @@ export default function ServicesSection() {
               }}
               className="mt-3"
             />
+            </div>
           </motion.div>
 
           {/* 服務流程 */}
           <motion.div
-            className="glass-surface glass-strong p-8 md:p-10 text-center"
+            className="glass-panel p-1 text-center motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
-            <h3 className="text-2xl font-bold text-neutral-900 mb-8">
-              簡單三步驟，輕鬆完成維修
-            </h3>
-            <div
-              ref={stepsRef}
-              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1"
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="維修流程三步驟"
-            >
-              {[
-                { title: '聯絡預約', description: 'LINE 或電話快速預約' },
-                { title: '現場檢測', description: '免費檢測，透明報價' },
-                { title: '快速完修', description: '1小時內完修取件' },
-              ].map((step, stepIndex) => (
-                <div key={step.title} className="text-center flex-none w-56 snap-start md:w-auto">
-                  <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center text-2xl font-semibold text-neutral-900 mx-auto mb-4">
-                    {stepIndex + 1}
+            <div className="glass-content p-8 md:p-10 space-y-8">
+              <div>
+                <h3 className="text-2xl font-bold text-neutral-900">簡單三步驟，輕鬆完成維修</h3>
+                <p className="mt-3 text-sm text-neutral-500">
+                  無論現場或到府收送，每一步都有人員即時回報，保障維修進度與資料安全。
+                </p>
+              </div>
+              <div
+                ref={stepsRef}
+                className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="維修流程三步驟"
+              >
+                {[
+                  { title: '聯絡預約', description: 'LINE 或電話快速預約' },
+                  { title: '現場檢測', description: '免費檢測，透明報價' },
+                  { title: '快速完修', description: '1小時內完修取件' },
+                ].map((step, stepIndex) => (
+                  <div key={step.title} className="text-center flex-none w-56 snap-start md:w-auto">
+                    <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center text-2xl font-semibold text-neutral-900 mx-auto mb-4">
+                      {stepIndex + 1}
+                    </div>
+                    <h4 className="font-semibold text-neutral-900 mb-2">{step.title}</h4>
+                    <p className="text-neutral-600 text-sm">{step.description}</p>
                   </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{step.title}</h4>
-                  <p className="text-neutral-600 text-sm">{step.description}</p>
-                </div>
-              ))}
+                ))}
+              </div>
+              <SliderDots
+                count={3}
+                activeIndex={stepsActive}
+                onDotClick={(i) => {
+                  const el = stepsRef.current
+                  if (!el) return
+                  const a = el.children[0] as HTMLElement | undefined
+                  const b = el.children[1] as HTMLElement | undefined
+                  const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                  el.scrollTo({ left: i * step, behavior: 'smooth' })
+                }}
+                className="mt-3"
+              />
             </div>
-            <SliderDots
-              count={3}
-              activeIndex={stepsActive}
-              onDotClick={(i) => {
-                const el = stepsRef.current
-                if (!el) return
-                const a = el.children[0] as HTMLElement | undefined
-                const b = el.children[1] as HTMLElement | undefined
-                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-                el.scrollTo({ left: i * step, behavior: 'smooth' })
-              }}
-              className="mt-3"
-            />
           </motion.div>
         </div>
       </div>

@@ -8,17 +8,36 @@
   --background-rgb: 255, 255, 255;
   --brand-rgb: 239, 68, 68;
   /* Liquid Glass tokens */
-  --glass-blur: 12px;
-  --glass-blur-strong: 18px;
-  --glass-tint: rgba(255, 255, 255, 0.12);
-  --glass-tint-dark: rgba(0, 0, 0, 0.18);
-  --glass-border: rgba(255, 255, 255, 0.35);
-  --glass-inner: rgba(0, 0, 0, 0.15);
+  --glass-thin-blur: 10px;
+  --glass-thin-top: rgba(255, 255, 255, 0.42);
+  --glass-thin-bottom: rgba(255, 255, 255, 0.10);
+  --glass-thin-highlight: rgba(255, 255, 255, 0.55);
+
+  --glass-regular-blur: 16px;
+  --glass-regular-top: rgba(255, 255, 255, 0.52);
+  --glass-regular-bottom: rgba(255, 255, 255, 0.16);
+  --glass-regular-highlight: rgba(255, 255, 255, 0.68);
+
+  --glass-thick-blur: 22px;
+  --glass-thick-top: rgba(255, 255, 255, 0.62);
+  --glass-thick-bottom: rgba(255, 255, 255, 0.22);
+  --glass-thick-highlight: rgba(255, 255, 255, 0.78);
+
+  --glass-border-soft: rgba(255, 255, 255, 0.35);
+  --glass-border-strong: rgba(255, 255, 255, 0.5);
+  --glass-inner-shadow: rgba(0, 0, 0, 0.1);
   --radius-xl: 20px;
   --radius-pill: 999px;
   --elev-1: 0 2px 8px rgba(0, 0, 0, 0.06);
   --elev-2: 0 6px 24px rgba(0, 0, 0, 0.12);
   --brand-glow: 0 0 32px rgba(var(--brand-rgb), 0.25);
+  --motion-duration-xs: 0.16s;
+  --motion-duration-sm: 0.22s;
+  --motion-duration-md: 0.32s;
+  --motion-ease-standard: cubic-bezier(0.26, 0.1, 0.25, 1);
+  --motion-ease-emphasized: cubic-bezier(0.3, 0, 0.3, 1);
+  --motion-scale-subtle: 0.98;
+  --motion-scale-emphasized: 1.02;
 }
 
 * {
@@ -67,47 +86,93 @@ body {
 
 /* Glass vocabulary */
 .glass-surface,
-.flat-card {
-  border-radius: var(--radius-xl);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.1);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--elev-1);
+.flat-card,
+.glass-control,
+.glass-panel,
+.glass-elevated {
+  --glass-blur: var(--glass-thin-blur);
+  --glass-top: var(--glass-thin-top);
+  --glass-bottom: var(--glass-thin-bottom);
+  --glass-highlight: var(--glass-thin-highlight);
+  --glass-border-color: var(--glass-border-soft);
+  --glass-shadow: var(--elev-1);
+  --glass-radius: var(--radius-xl);
   position: relative;
+  border-radius: var(--glass-radius);
+  background: linear-gradient(180deg, var(--glass-top) 4%, var(--glass-bottom) 100%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.12);
+  border: 1px solid var(--glass-border-color);
+  box-shadow: var(--glass-shadow);
+  outline: 1px solid rgba(255, 255, 255, 0.06);
+  outline-offset: -1px;
 }
 
 .glass-surface::after,
-.flat-card::after {
+.flat-card::after,
+.glass-control::after,
+.glass-panel::after,
+.glass-elevated::after {
   content: '';
   position: absolute;
   inset: 1px;
-  border-radius: calc(var(--radius-xl) - 1px);
+  border-radius: calc(var(--glass-radius) - 1px);
   pointer-events: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), inset 0 -1px 0 var(--glass-inner);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), inset 0 -1px 0 var(--glass-inner-shadow);
 }
 
-.glass-surface.is-dark,
-.flat-card.is-dark {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.24) 0%, rgba(0, 0, 0, 0.1) 100%);
-  border-color: rgba(255, 255, 255, 0.22);
+.glass-surface,
+.flat-card {
+  --glass-blur: var(--glass-regular-blur);
+  --glass-top: var(--glass-regular-top);
+  --glass-bottom: var(--glass-regular-bottom);
+  --glass-highlight: var(--glass-regular-highlight);
+  --glass-border-color: rgba(255, 255, 255, 0.45);
+  --glass-shadow: 0 12px 28px rgba(15, 15, 15, 0.08);
 }
 
-.glass-control,
+.glass-panel {
+  --glass-blur: var(--glass-thick-blur);
+  --glass-top: var(--glass-thick-top);
+  --glass-bottom: var(--glass-thick-bottom);
+  --glass-highlight: var(--glass-thick-highlight);
+  --glass-border-color: rgba(255, 255, 255, 0.55);
+  --glass-shadow: 0 18px 38px rgba(12, 12, 12, 0.12);
+}
+
+.glass-control {
+  --glass-radius: var(--radius-pill);
+  --glass-blur: var(--glass-thin-blur);
+  --glass-top: var(--glass-thin-top);
+  --glass-bottom: var(--glass-thin-bottom);
+  --glass-highlight: var(--glass-thin-highlight);
+  --glass-border-color: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 6px 18px rgba(17, 17, 17, 0.06);
+}
+
 .glass-elevated {
-  border-radius: var(--radius-pill);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.15);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: var(--elev-1);
+  --glass-radius: var(--radius-pill);
+  --glass-blur: var(--glass-regular-blur);
+  --glass-top: var(--glass-regular-top);
+  --glass-bottom: var(--glass-regular-bottom);
+  --glass-highlight: var(--glass-regular-highlight);
+  --glass-border-color: rgba(255, 255, 255, 0.48);
+  --glass-shadow: 0 14px 28px rgba(15, 15, 15, 0.1);
 }
 
-.glass-strong,
-.glass-elevated.glass-strong {
-  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.2);
-  backdrop-filter: blur(var(--glass-blur-strong)) saturate(1.2);
-  box-shadow: var(--elev-2);
+.glass-strong {
+  --glass-blur: var(--glass-thick-blur);
+  --glass-top: var(--glass-thick-top);
+  --glass-bottom: var(--glass-thick-bottom);
+  --glass-highlight: var(--glass-thick-highlight);
+  --glass-border-color: rgba(255, 255, 255, 0.58);
+  --glass-shadow: 0 22px 44px rgba(12, 12, 12, 0.14);
+}
+
+.glass-content {
+  border-radius: calc(var(--radius-xl) - 12px);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.28), inset 0 -1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .surface-muted {
@@ -296,6 +361,24 @@ body {
 
 /* 響應式文字大小 */
 @layer utilities {
+  .motion-soft-enter {
+    transition: opacity var(--motion-duration-sm) var(--motion-ease-standard),
+      transform var(--motion-duration-sm) var(--motion-ease-standard);
+  }
+
+  .motion-pop {
+    transition: opacity var(--motion-duration-xs) var(--motion-ease-emphasized),
+      transform var(--motion-duration-xs) var(--motion-ease-emphasized);
+  }
+
+  .motion-hover-pop:hover {
+    transform: scale(var(--motion-scale-emphasized));
+  }
+
+  .glow-brand {
+    box-shadow: var(--brand-glow);
+  }
+
   .text-responsive-xl {
     @apply text-xl md:text-2xl lg:text-3xl;
   }

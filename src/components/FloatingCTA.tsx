@@ -18,7 +18,7 @@ export default function FloatingCTA({ lineUrl }: FloatingCTAProps) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="透過 LINE 聯絡我們"
-        className="group inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#06C755] hover:bg-[#07b94f] text-white shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#06C755]"
+        className="group inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 glass-control glass-elevated text-[#06C755] bg-white/70 hover:bg-white/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#18d36a]"
         onClick={() => trackClick('floating_line_cta', { location: 'global_fixed_button' })}
       >
         <MessageCircle className="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" />

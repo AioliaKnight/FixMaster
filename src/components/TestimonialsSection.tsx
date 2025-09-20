@@ -130,7 +130,7 @@ export default function TestimonialsSection() {
             {stats.map((item) => (
               <div
                 key={item.label}
-                className="glass-surface glass-strong flex flex-col gap-2 px-5 py-6 text-left"
+                className="glass-surface flex flex-col gap-2 px-5 py-6 text-left"
               >
                 <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">{item.label}</p>
                 <p className="text-2xl font-semibold text-neutral-900">{item.value}</p>
@@ -163,7 +163,7 @@ export default function TestimonialsSection() {
                 {testimonials.map((item) => (
                   <article
                     key={`${item.name}-${item.service}`}
-                    className="glass-surface glass-strong flex min-w-[18rem] flex-col gap-5 px-6 py-6"
+                    className="glass-surface flex min-w-[18rem] flex-col gap-5 px-6 py-6"
                   >
                     <div className="flex items-center justify-between text-sm text-neutral-500">
                       <span>{item.date}</span>

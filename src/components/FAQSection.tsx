@@ -1,17 +1,23 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle } from 'lucide-react'
+import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
 import Button from './ui/Button'
 import SectionHeader from './ui/SectionHeader'
+import { motionTimings, motionViewport } from '@/lib/motion'
+
+const focusableSelector = 'button, a[href], textarea, input, select, [tabindex]:not([tabindex="-1"])'
 
 export default function FAQSection() {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState<number>(0)
   const [selectedFaqIndex, setSelectedFaqIndex] = useState<number | null>(null)
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false)
+  const sheetRef = useRef<HTMLDivElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null)
 
   const faqCategories = [
     {
@@ -223,6 +229,64 @@ export default function FAQSection() {
 
   // 依據當前選取的分類取得 FAQ 清單
   const currentFaqs = faqCategories[selectedCategoryIndex]?.faqs ?? []
+  const currentFaq = selectedFaqIndex !== null ? currentFaqs[selectedFaqIndex] : null
+
+  const openFaqDetail = (target: HTMLElement, index: number) => {
+    previousFocusRef.current = target
+    setSelectedFaqIndex(index)
+    setIsSheetOpen(true)
+  }
+
+  const closeFaqDetail = () => {
+    setIsSheetOpen(false)
+    setSelectedFaqIndex(null)
+  }
+
+  useEffect(() => {
+    if (!isSheetOpen) {
+      document.body.classList.remove('no-scroll')
+      previousFocusRef.current?.focus()
+      return
+    }
+
+    document.body.classList.add('no-scroll')
+    const getFocusables = () => {
+      const node = sheetRef.current
+      return node ? (Array.from(node.querySelectorAll(focusableSelector)) as HTMLElement[]) : []
+    }
+
+    const focusables = getFocusables()
+    const initialFocus = closeButtonRef.current ?? focusables[0]
+    initialFocus?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closeFaqDetail()
+        return
+      }
+
+      if (event.key !== 'Tab') return
+      const items = getFocusables()
+      if (items.length === 0) return
+      const firstEl = items[0]
+      const lastEl = items[items.length - 1]
+
+      if (event.shiftKey && document.activeElement === firstEl) {
+        event.preventDefault()
+        lastEl.focus()
+      } else if (!event.shiftKey && document.activeElement === lastEl) {
+        event.preventDefault()
+        firstEl.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.classList.remove('no-scroll')
+    }
+  }, [isSheetOpen])
 
   return (
     <section id="faq" className="section-padding relative overflow-hidden">
@@ -237,8 +301,8 @@ export default function FAQSection() {
             className="mb-10 md:mb-16 text-center"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
             <SectionHeader
               title="常見問答"
@@ -249,7 +313,7 @@ export default function FAQSection() {
           {/* 分類 chips（可橫向滑動） */}
           <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4">
             <div 
-              className="relative overflow-x-auto no-scrollbar glass-surface glass-strong rounded-[28px] px-3 py-3"
+              className="relative overflow-x-auto no-scrollbar glass-panel rounded-[28px] px-3 py-3"
               role="tablist"
               aria-label="FAQ 分類"
               onKeyDown={(e) => {
@@ -300,34 +364,39 @@ export default function FAQSection() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
             {currentFaqs.map((faq, index) => (
               <button
                 key={`${faq.question}-${index}`}
-                onClick={() => {
-                  setSelectedFaqIndex(index)
-                  setIsSheetOpen(true)
-                }}
-                className="text-left glass-surface glass-strong p-6 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-transparent hover:-translate-y-0.5"
+                type="button"
+                onClick={(event) => openFaqDetail(event.currentTarget, index)}
+                className="text-left glass-surface p-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-transparent hover:-translate-y-0.5 motion-soft-enter"
                 aria-haspopup="dialog"
                 aria-controls="faq-bottom-sheet"
+                aria-expanded={isSheetOpen && selectedFaqIndex === index}
               >
-                <div className="flex items-start gap-3 md:gap-4">
-                  <div className="glass-control glass-strong flex h-10 w-10 flex-shrink-0 items-center justify-center md:h-12 md:w-12">
-                    <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="mb-1 text-sm md:text-base font-semibold text-neutral-900 line-clamp-2">
-                      {faq.question}
-                    </h3>
-                    <div className="mb-2 text-xs font-medium text-neutral-500 md:text-sm">
-                      {faq.category}
+                <div className="glass-content flex flex-col gap-4 p-6">
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="glass-control glass-elevated flex h-10 w-10 flex-shrink-0 items-center justify-center md:h-12 md:w-12">
+                      <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
                     </div>
-                    <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line">
-                      {faq.answer}
-                    </p>
+                    <div className="min-w-0">
+                      <h3 className="mb-1 text-sm md:text-base font-semibold text-neutral-900 line-clamp-2">
+                        {faq.question}
+                      </h3>
+                      <div className="mb-2 text-xs font-medium text-neutral-500 md:text-sm">
+                        {faq.category}
+                      </div>
+                      <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between text-xs font-medium text-neutral-500 md:text-sm">
+                    <span>查看完整解答</span>
+                    <ArrowRight className="h-4 w-4 text-neutral-400" aria-hidden="true" />
                   </div>
                 </div>
               </button>
@@ -336,7 +405,7 @@ export default function FAQSection() {
 
           {/* 底部彈出層 Bottom Sheet */}
           <AnimatePresence>
-            {isSheetOpen && selectedFaqIndex !== null && (
+            {isSheetOpen && currentFaq && (
               <motion.div
                 className="fixed inset-0 z-[10000] flex flex-col"
                 initial={{ opacity: 0 }}
@@ -345,50 +414,88 @@ export default function FAQSection() {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="faq-sheet-title"
+                aria-describedby="faq-sheet-description"
               >
                 {/* 背景遮罩 */}
                 <div
                   className="absolute inset-0 bg-black/40"
-                  onClick={() => setIsSheetOpen(false)}
+                  onClick={closeFaqDetail}
+                  aria-hidden="true"
                 />
 
                 {/* Sheet 內容容器 */}
                 <motion.div
-                  className="mt-auto glass-surface glass-strong border border-white/25"
+                  ref={sheetRef}
+                  className="mt-auto glass-panel p-1 border border-white/25 motion-soft-enter"
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
                   exit={{ y: '100%' }}
                   transition={{ type: 'spring', stiffness: 260, damping: 28 }}
                   id="faq-bottom-sheet"
                 >
-                  {/* 把手 */}
-                  <div className="flex justify-center pt-3">
-                    <div className="h-1 w-12 rounded-full bg-white/40" />
-                  </div>
-
-                  {/* 標題列 */}
-                  <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4">
-                    <div className="pr-4 md:pr-6">
-                      <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
-                        {currentFaqs[selectedFaqIndex].question}
-                      </h3>
-                      <div className="mt-1 text-xs text-neutral-500 md:text-sm">
-                        {currentFaqs[selectedFaqIndex].category}
-                      </div>
+                  <div className="glass-content max-h-[70vh] overflow-hidden">
+                    <div className="flex justify-center pt-3">
+                      <div className="h-1 w-12 rounded-full bg-white/50" aria-hidden="true" />
                     </div>
-                    <button
-                      aria-label="關閉"
-                      className="glass-control glass-strong p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
-                      onClick={() => setIsSheetOpen(false)}
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
 
-                  {/* 內文 */}
-                  <div className="px-4 md:px-6 pb-6 md:pb-8 max-h-[60vh] overflow-y-auto">
-                    <div className="text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line">
-                      {currentFaqs[selectedFaqIndex].answer}
+                    <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4 border-b border-white/20">
+                      <div className="flex items-start gap-3 pr-4 md:pr-6">
+                        <div className="glass-control glass-elevated flex h-10 w-10 items-center justify-center text-neutral-900 md:h-12 md:w-12">
+                          <currentFaq.icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
+                            {currentFaq.question}
+                          </h3>
+                          <div className="mt-1 text-xs text-neutral-500 md:text-sm">
+                            {currentFaq.category}
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        ref={closeButtonRef}
+                        type="button"
+                        aria-label="關閉"
+                        className="glass-control glass-elevated p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
+                        onClick={closeFaqDetail}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+
+                    <div className="px-4 md:px-6 pt-4 pb-0 max-h-[calc(70vh-140px)] overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" id="faq-sheet-description">
+                      {currentFaq.answer}
+                    </div>
+
+                    <div className="px-4 md:px-6 py-4 border-t border-white/20">
+                      <div className="glass-control glass-strong px-4 py-3 text-xs text-neutral-600 md:text-sm mb-4" aria-hidden="true">
+                        仍不確定？我們可以協助安排檢測、提供即時報價或線上諮詢。
+                      </div>
+                      <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+                        <Button
+                          variant="outline"
+                          className="sm:w-auto motion-hover-pop"
+                          onClick={() => {
+                            trackClick('faq_sheet_contact_line')
+                            window.open('https://line.me/R/ti/p/@fixmaster', '_blank')
+                          }}
+                        >
+                          透過 LINE 詢問
+                        </Button>
+                        <Button
+                          className="sm:w-auto motion-hover-pop"
+                          onClick={() => {
+                            trackClick('faq_sheet_contact_book')
+                            closeFaqDetail()
+                            setTimeout(() => {
+                              const contactSection = document.getElementById('contact')
+                              if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                            }, 100)
+                          }}
+                        >
+                          預約維修時段
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -398,32 +505,36 @@ export default function FAQSection() {
 
           {/* 結尾 CTA */}
           <motion.div
-            className="mt-12 md:mt-16 glass-surface glass-strong px-6 py-8 text-center md:px-10 md:py-12"
+            className="mt-12 md:mt-16 glass-panel p-1 text-center motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
-            <h3 className="mb-4 text-2xl font-semibold text-neutral-900 md:text-3xl">
-              還有其他問題嗎？
-            </h3>
-            <p className="mx-auto mb-6 max-w-2xl text-neutral-600 md:mb-8">
-              我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們。
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
-              <Button
-                className="px-6 py-3 md:px-8 md:py-4"
-                onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
-              >
-                直接撥打電話
-              </Button>
-              <Button
-                variant="outline"
-                className="px-6 py-3 md:px-8 md:py-4"
-                onClick={() => trackClick('faq_line_click', { section: 'faq' })}
-              >
-                LINE 線上諮詢
-              </Button>
+            <div className="glass-content px-6 py-8 text-center md:px-10 md:py-12 space-y-6">
+              <div className="space-y-3">
+                <h3 className="text-2xl font-semibold text-neutral-900 md:text-3xl">
+                  還有其他問題嗎？
+                </h3>
+                <p className="mx-auto max-w-2xl text-neutral-600">
+                  我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們。
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
+                <Button
+                  className="px-6 py-3 md:px-8 md:py-4 motion-hover-pop"
+                  onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
+                >
+                  直接撥打電話
+                </Button>
+                <Button
+                  variant="outline"
+                  className="px-6 py-3 md:px-8 md:py-4 motion-hover-pop"
+                  onClick={() => trackClick('faq_line_click', { section: 'faq' })}
+                >
+                  LINE 線上諮詢
+                </Button>
+              </div>
             </div>
           </motion.div>
         </div>

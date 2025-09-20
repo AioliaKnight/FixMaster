@@ -49,6 +49,8 @@ export function SliderDots({ count, activeIndex, onDotClick, className }: Slider
           key={i}
           type="button"
           aria-label={`前往第 ${i + 1} 個項目`}
+          aria-current={activeIndex === i ? 'true' : undefined}
+          aria-pressed={activeIndex === i}
           onClick={() => onDotClick(i)}
           className={activeIndex === i
             ? 'w-2.5 h-2.5 rounded-full bg-neutral-900'
@@ -58,5 +60,4 @@ export function SliderDots({ count, activeIndex, onDotClick, className }: Slider
     </div>
   )
 }
-
 
