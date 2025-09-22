@@ -165,12 +165,8 @@ export default function Navbar() {
               aria-label="前往首頁"
             >
               <span className="sr-only">FixMaster 維修大師</span>
-              <span className="flex items-center">
+              <span className="flex items-center gap-1.5 md:gap-2">
                 <span className="text-[18px] md:text-[20px] tracking-tight font-semibold text-neutral-900">Fix</span>
-                <span
-                  aria-hidden
-                  className="mx-2 h-2 w-2 rounded-full bg-accent-500 ring-1 ring-accent-500/30 shadow-[0_0_10px_rgba(239,68,68,0.5)] transition-all duration-200 group-hover:bg-accent-600 group-hover:shadow-[0_0_16px_rgba(239,68,68,0.6)]"
-                />
                 <span className="text-[18px] md:text-[20px] tracking-tight font-normal text-neutral-900">Master</span>
               </span>
             </button>
