@@ -161,7 +161,7 @@ export default function Navbar() {
                 trackClick('navbar_logo_click')
                 handleNavClick('#home')
               }}
-              className="group flex items-center hover:opacity-90 transition-opacity duration-200"
+              className="group relative inline-flex items-center gap-2 rounded-full glass-control glass-elevated px-3.5 py-2 pr-4 text-neutral-900 transition-all duration-200 hover:shadow-[var(--brand-glow)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 motion-hover-pop"
               aria-label="前往首頁"
             >
               <span className="sr-only">FixMaster 維修大師</span>
@@ -169,7 +169,7 @@ export default function Navbar() {
                 <span className="text-[18px] md:text-[20px] tracking-tight font-semibold text-neutral-900">Fix</span>
                 <span
                   aria-hidden
-                  className="mx-2 h-2 w-2 rounded-full bg-accent-500 transition-colors duration-200 group-hover:bg-accent-600"
+                  className="mx-2 h-2 w-2 rounded-full bg-accent-500 ring-1 ring-accent-500/30 shadow-[0_0_10px_rgba(239,68,68,0.5)] transition-all duration-200 group-hover:bg-accent-600 group-hover:shadow-[0_0_16px_rgba(239,68,68,0.6)]"
                 />
                 <span className="text-[18px] md:text-[20px] tracking-tight font-normal text-neutral-900">Master</span>
               </span>
