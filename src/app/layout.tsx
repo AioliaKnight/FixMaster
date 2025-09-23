@@ -64,12 +64,10 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
-    other: {
-      'baidu-site-verification': 'your-baidu-verification-code',
-    },
+    google: undefined,
+    yandex: undefined,
+    yahoo: undefined,
+    other: {},
   },
   other: {
     'geo.region': 'TW-TPE',
@@ -107,6 +105,11 @@ const structuredData = {
       "url": "https://fixmastertw.com",
       "telephone": "+886-2-2816-6666",
       "email": "fixmastertw@gmail.com",
+      "sameAs": [
+        "https://g.page/r/CbYgK2L0-店家示意",
+        "https://www.facebook.com/fixmaster.tw",
+        "https://www.instagram.com/fixmaster.tw/"
+      ],
       "foundingDate": "2020",
       "numberOfEmployees": "5-10",
       "address": {
@@ -135,6 +138,10 @@ const structuredData = {
         "name": "FixMaster",
         "logo": "https://fixmastertw.com/apple_logo.webp"
       },
+      "openingHoursSpecification": [
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "14:00", "closes": "23:00"},
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "15:00", "closes": "23:00"}
+      ],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
@@ -280,7 +287,18 @@ const structuredData = {
         "url": "https://fixmastertw.com/apple_logo.webp",
         "width": 200,
         "height": 200
-      }
+      },
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+886-2-2816-6666",
+        "contactType": "customer service",
+        "areaServed": "TW",
+        "availableLanguage": ["zh-TW"]
+      }],
+      "sameAs": [
+        "https://www.facebook.com/fixmaster.tw",
+        "https://www.instagram.com/fixmaster.tw/"
+      ]
     },
     {
       "@type": "FAQPage",

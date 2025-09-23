@@ -74,6 +74,7 @@ export default function HeroSection() {
                 description="原廠授權零件、透明錄影與 90 天保固，一通電話即可安排維修、換機或到府收送。"
                 align="left"
                 className="!mb-0"
+                as="h1"
               />
             </motion.div>
 

@@ -7,15 +7,17 @@ type SectionHeaderProps = {
   description?: string
   align?: 'left' | 'center'
   className?: string
+  as?: 'h1' | 'h2' | 'h3'
 }
 
-export default function SectionHeader({ title, description, align = 'center', className }: SectionHeaderProps) {
+export default function SectionHeader({ title, description, align = 'center', className, as = 'h2' }: SectionHeaderProps) {
   const isCenter = align === 'center'
+  const Tag = as
   return (
     <div className={`${isCenter ? 'text-center' : ''} space-y-3 ${className || ''}`}>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900">
+      <Tag className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-neutral-900">
         {title}
-      </h2>
+      </Tag>
       {description && (
         <p
           className={`text-neutral-600 text-base sm:text-lg md:text-xl leading-relaxed ${
