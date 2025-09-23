@@ -63,7 +63,7 @@ const testimonials = [
   {
     name: '林先生',
     location: '士林區',
-    service: 'iPhone 17 Pro 螢幕更換',
+    service: 'iPhone 15 Pro 螢幕更換',
     comment:
       'IRP 認證門市、使用 Apple 認證零件，螢幕色準與亮度都與原廠一致。全程透明錄影，約 45 分鐘完修並提供 90 天保固。',
     badge: '原廠零件',
@@ -72,7 +72,7 @@ const testimonials = [
   {
     name: '周小姐',
     location: '中山區',
-    service: '到府收送（iPhone 17 電池更換）',
+    service: '到府收送（iPhone 14 電池更換）',
     comment:
       'LINE 預約到府收送，先免費檢測再報價。電池更換後續航回到穩定水準，整體流程透明，對台北市的上班族很方便。',
     badge: '到府收送',
