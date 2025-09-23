@@ -171,12 +171,6 @@ export default function TestimonialsSection() {
                         {item.badge}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-neutral-500">
-                      <span className="inline-flex items-center gap-1">
-                        <Star className="h-3.5 w-3.5 text-yellow-400" />
-                        已驗證評論
-                      </span>
-                    </div>
                     <Quote className="h-6 w-6 text-accent-500" aria-hidden="true" />
                     <p className="text-neutral-700 leading-relaxed">{item.comment}</p>
                     <footer className="mt-auto">
