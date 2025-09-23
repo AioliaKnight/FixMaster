@@ -25,7 +25,9 @@ export default function Home() {
           <FAQSection />
           <TrustSection />
           <PromotionsSection />
-          <ContactSection />
+          <Suspense fallback={null}>
+            <ContactSection />
+          </Suspense>
         </div>
       </main>
       <Footer />
