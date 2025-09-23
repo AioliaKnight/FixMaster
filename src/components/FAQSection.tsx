@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight } from 'lucide-react'
+import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight, Navigation, FileText } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
@@ -222,6 +222,30 @@ export default function FAQSection() {
           question: '維修後的測試流程包含哪些項目？',
           answer: '依項目執行：觸控/多點觸控、顯示色偏/亮度、相機前後/對焦/錄影、喇叭/麥克風/聽筒、充電/電流、感測器（距離/環境光/陀螺儀）、網路與通話、Face ID/Touch ID；完成後提供檢測紀錄與保固憑證。',
           category: '測試流程'
+        },
+        {
+          icon: DollarSign,
+          question: '維修價格如何計算？是否有隱藏費用？',
+          answer: '先免費檢測再報價；價格依機型與維修類型（螢幕/電池/相機/主機板）而定，現場/LINE 皆提供明細，不維修不收費。到府收送台北市區滿 $1,500 免收送。',
+          category: '價格與報價'
+        },
+        {
+          icon: Navigation,
+          question: '怎麼到 FixMaster 士林店？附近停車與交通？',
+          answer: '地址：台北市士林區文林路 60 號；捷運劍潭站 1 號出口步行 3 分鐘。附近有嘟嘟房、路邊停車格；也可改用到府收送服務。',
+          category: '交通資訊'
+        },
+        {
+          icon: Shield,
+          question: '什麼是 Apple IRP 認證？對維修有什麼幫助？',
+          answer: 'IRP（Independent Repair Provider）為 Apple 官方授權計畫，提供認證零件與流程、技師訓練與檢測規範。使用 Apple 認證零件、完成色準/True Tone/相容性檢測，品質一致。',
+          category: 'IRP 認證'
+        },
+        {
+          icon: FileText,
+          question: '維修是否開立發票與保固憑證？',
+          answer: '可開立統一發票；維修完成提供保固憑證與檢測紀錄。保固 90 天（人為損壞與新故障除外）。',
+          category: '憑證與保固'
         }
       ]
     }

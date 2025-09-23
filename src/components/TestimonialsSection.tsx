@@ -60,6 +60,33 @@ const testimonials = [
     badge: '原廠規範',
     date: '2024.12',
   },
+  {
+    name: '林先生',
+    location: '士林區',
+    service: 'iPhone 17 Pro 螢幕更換',
+    comment:
+      'IRP 認證門市、使用 Apple 認證零件，螢幕色準與亮度都與原廠一致。全程透明錄影，約 45 分鐘完修並提供 90 天保固。',
+    badge: '原廠零件',
+    date: '2025.03',
+  },
+  {
+    name: '周小姐',
+    location: '中山區',
+    service: '到府收送（iPhone 17 電池更換）',
+    comment:
+      'LINE 預約到府收送，先免費檢測再報價。電池更換後續航回到穩定水準，整體流程透明，對台北市的上班族很方便。',
+    badge: '到府收送',
+    date: '2025.02',
+  },
+  {
+    name: '張先生',
+    location: '北投區',
+    service: 'Face ID 檢測與維修',
+    comment:
+      '依 IRP 流程做原深感相機檢測與校正，維修前完整說明風險與時程，完工提供檢測紀錄與保固，使用起來恢復正常。',
+    badge: 'IRP 認證',
+    date: '2024.12',
+  },
 ]
 
 export default function TestimonialsSection() {
