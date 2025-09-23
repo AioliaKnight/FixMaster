@@ -29,7 +29,7 @@ const contactItems = [
   {
     icon: MessageCircle,
     label: '@fixmaster',
-    href: 'https://line.me/R/ti/p/@fixmaster',
+    href: 'https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=footer&utm_campaign=contact_line',
     tracker: () => trackClick('footer_line_click'),
     external: true,
   },

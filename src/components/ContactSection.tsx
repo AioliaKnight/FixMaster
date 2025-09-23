@@ -14,11 +14,13 @@ import {
   Send,
   Zap
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { trackClick, trackEvent } from '@/lib/tracking'
 import { motionTimings, motionViewport } from '@/lib/motion'
 
 export default function ContactSection() {
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -26,13 +28,40 @@ export default function ContactSection() {
     issue: '',
     preferredTime: '',
     message: '',
-    token: '' // honeypot
+    token: '', // honeypot
+    utm_source: '',
+    utm_medium: '',
+    utm_campaign: '',
+    utm_content: '',
+    utm_term: '',
+    gclid: '',
+    fbclid: '',
+    referrer: ''
   })
 
   const [formErrors, setFormErrors] = useState<{[key: string]: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [fallbackNotice, setFallbackNotice] = useState<string | null>(null)
+
+  // 初始化 UTM/CLID/Referrer
+  useEffect(() => {
+    try {
+      const pick = (k: string) => searchParams?.get(k) || ''
+      const updated = {
+        utm_source: pick('utm_source'),
+        utm_medium: pick('utm_medium'),
+        utm_campaign: pick('utm_campaign'),
+        utm_content: pick('utm_content'),
+        utm_term: pick('utm_term'),
+        gclid: pick('gclid'),
+        fbclid: pick('fbclid'),
+        referrer: typeof document !== 'undefined' ? document.referrer : ''
+      }
+      setFormData(prev => ({ ...prev, ...updated }))
+    } catch {}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -129,6 +158,24 @@ export default function ContactSection() {
                 </tr>
               </table>
               
+              <h3 style="color:#333; margin: 24px 0 10px;">行銷歸因資訊</h3>
+              <table style="width: 100%; border-collapse: collapse; background-color: white;">
+                ${[
+                  ['utm_source', formData.utm_source],
+                  ['utm_medium', formData.utm_medium],
+                  ['utm_campaign', formData.utm_campaign],
+                  ['utm_content', formData.utm_content],
+                  ['utm_term', formData.utm_term],
+                  ['gclid', formData.gclid],
+                  ['fbclid', formData.fbclid],
+                  ['referrer', formData.referrer]
+                ].map(([k,v]) => `
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px; width: 120px; font-weight: bold; background: #fafafa;">${k}</td>
+                    <td style="padding: 10px;">${v || ''}</td>
+                  </tr>`).join('')}
+              </table>
+              
               <div style="margin-top: 30px; padding: 20px; background-color: #dc2626; color: white; text-align: center;">
                 <h3 style="margin: 0 0 10px 0;">請儘快聯絡客戶確認預約</h3>
                 <p style="margin: 0; font-size: 14px;">建議在30分鐘內回電確認維修時間</p>
@@ -151,6 +198,16 @@ FixMaster 維修預約通知
 - 問題: ${formData.issue}
 - 希望時間: ${formData.preferredTime || '未指定'}
 - 補充說明: ${formData.message || '無'}
+
+行銷歸因資訊:
+- utm_source: ${formData.utm_source}
+- utm_medium: ${formData.utm_medium}
+- utm_campaign: ${formData.utm_campaign}
+- utm_content: ${formData.utm_content}
+- utm_term: ${formData.utm_term}
+- gclid: ${formData.gclid}
+- fbclid: ${formData.fbclid}
+- referrer: ${formData.referrer}
 
 預約時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}
 
@@ -175,6 +232,7 @@ FixMaster 維修預約通知
       console.log('Form submitted successfully:', formData)
       setFallbackNotice(null)
       setSubmitSuccess(true)
+      trackEvent('lead_submit_success', { channel: 'form' })
       
       // 重置表單
       setFormData({
@@ -184,7 +242,15 @@ FixMaster 維修預約通知
         issue: '',
         preferredTime: '',
         message: '',
-        token: ''
+        token: '',
+        utm_source: '',
+        utm_medium: '',
+        utm_campaign: '',
+        utm_content: '',
+        utm_term: '',
+        gclid: '',
+        fbclid: '',
+        referrer: ''
       })
       
       // 3秒後隱藏成功訊息
@@ -205,6 +271,16 @@ FixMaster 維修預約通知
 希望時間: ${formData.preferredTime || '未指定'}
 補充說明: ${formData.message || '無'}
 
+行銷歸因資訊:
+utm_source: ${formData.utm_source}
+utm_medium: ${formData.utm_medium}
+utm_campaign: ${formData.utm_campaign}
+utm_content: ${formData.utm_content}
+utm_term: ${formData.utm_term}
+gclid: ${formData.gclid}
+fbclid: ${formData.fbclid}
+referrer: ${formData.referrer}
+
 預約時間: ${new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })}
 
 請儘快聯絡客戶確認預約時間。
@@ -213,6 +289,7 @@ FixMaster 維修預約通知
       const mailtoUrl = `mailto:fixmastertw@gmail.com?subject=${subject}&body=${body}`
       window.open(mailtoUrl, '_blank')
       setFallbackNotice('表單改以預設郵件程式開啟，若未寄出請直接來電 02-2816-6666。')
+      trackEvent('lead_submit_fallback_mailto')
     } finally {
       setIsSubmitting(false)
     }
@@ -307,7 +384,7 @@ FixMaster 維修預約通知
                   <p className="text-neutral-600 text-sm mb-4">{info.subContent}</p>
                   {info.actionType === 'line' ? (
                     <a
-                      href="https://line.me/R/ti/p/@fixmaster"
+                      href="https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=contact_card&utm_campaign=contact_line"
                       target="_blank"
                       rel="noopener noreferrer"
                     className="text-neutral-900 px-4 py-2 flat-button text-sm font-medium transition-colors duration-200 glass-elevated bg-white/60 hover:bg-white/70 motion-hover-pop"
@@ -644,7 +721,7 @@ FixMaster 維修預約通知
                   立即撥打預約
                 </a>
                 <a
-                  href="https://line.me/R/ti/p/@fixmaster"
+                  href="https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=final_cta&utm_campaign=contact_line"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto bg-neutral-900 text-white px-6 sm:px-8 py-4 flat-button font-semibold hover:bg-neutral-800 transition-colors duration-200 inline-flex items-center justify-center motion-hover-pop"

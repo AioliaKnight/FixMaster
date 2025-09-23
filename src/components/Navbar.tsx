@@ -221,7 +221,7 @@ export default function Navbar() {
               <span className="text-sm font-medium">02-2816-6666</span>
             </a>
             <a
-              href="https://line.me/R/ti/p/@fixmaster"
+              href="https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=navbar&utm_campaign=contact_line"
               target="_blank"
               rel="noopener noreferrer"
               className="text-accent-600 transition-colors duration-200 hover:text-accent-700 text-sm font-medium motion-soft-enter"
@@ -319,7 +319,7 @@ export default function Navbar() {
                       <span className="text-sm font-medium">電話</span>
                     </a>
                     <a
-                      href="https://line.me/R/ti/p/@fixmaster"
+                      href="https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=mobile_menu&utm_campaign=contact_line"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="glass-control glass-elevated flex items-center justify-center gap-2 py-3 text-neutral-900 transition-all duration-200 motion-soft-enter"

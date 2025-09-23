@@ -9,7 +9,9 @@ type FloatingCTAProps = {
 }
 
 export default function FloatingCTA({ lineUrl }: FloatingCTAProps) {
-  const href = lineUrl || process.env.NEXT_PUBLIC_LINE_URL || 'https://line.me/R/ti/p/@fixmaster'
+  const base = lineUrl || process.env.NEXT_PUBLIC_LINE_URL || 'https://line.me/R/ti/p/@fixmaster'
+  const hasQuery = base.includes('?')
+  const href = `${base}${hasQuery ? '&' : '?'}utm_source=website&utm_medium=floating_cta&utm_campaign=contact_line`
 
   return (
     <div className="fixed bottom-5 right-5 md:bottom-6 md:right-6 z-[9998]">

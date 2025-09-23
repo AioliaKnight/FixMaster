@@ -477,7 +477,7 @@ export default function FAQSection() {
                           className="sm:w-auto motion-hover-pop"
                           onClick={() => {
                             trackClick('faq_sheet_contact_line')
-                            window.open('https://line.me/R/ti/p/@fixmaster', '_blank')
+                            window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
                           }}
                         >
                           透過 LINE 詢問
