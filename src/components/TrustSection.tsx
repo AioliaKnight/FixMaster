@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { trackClick } from '@/lib/tracking'
+import { motionTimings, motionViewport } from '@/lib/motion'
 import {
   ArrowRight,
   Award,
@@ -183,52 +184,66 @@ export default function TrustSection() {
           </motion.div>
 
           {/* 主要承諾 */}
-          <div
-            id={promisesId}
-            className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 mb-6 md:mb-16 -mx-1 px-1"
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="主要承諾"
-            ref={promisesRef}
-          >
+          <div className="space-y-8">
+            <motion.div
+              id={promisesId}
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 -mx-1 px-1"
+              role="region"
+              aria-roledescription="carousel"
+              aria-label="主要承諾"
+              ref={promisesRef}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+              viewport={motionViewport}
+            >
               {promises.map((promise, index) => (
-              <motion.div
-                key={index}
-                  className="bg-white flat-card p-6 md:p-8 transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto glass-highlight"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                {/* 標章 */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-white border border-neutral-200 flex items-center justify-center">
-                    <promise.icon className="w-8 h-8 text-neutral-900" />
-                  </div>
-                  <div className="text-neutral-900 text-sm font-medium">
-                    {promise.badge}
-                  </div>
-                </div>
-
-                {/* 標題與描述 */}
-                <h3 className="text-xl font-bold text-neutral-900 mb-3">
-                  {promise.title}
-                </h3>
-                <p className="text-neutral-600 mb-6 leading-relaxed">
-                  {promise.description}
-                </p>
-
-                {/* 詳細項目 */}
-                <div className="space-y-3">
-                  {promise.details.map((detail, detailIndex) => (
-                    <div key={detailIndex} className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-neutral-900 mr-3 flex-shrink-0" />
-                      <span className="text-neutral-700 text-sm">{detail}</span>
+                <motion.div
+                  key={index}
+                  className="glass-panel p-1 flex-none w-[22rem] snap-start md:w-auto motion-soft-enter"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ ...motionTimings.soft, delay: index * 0.08 }}
+                  viewport={motionViewport}
+                >
+                  <div className="glass-content p-6 md:p-7 space-y-5">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="glass-control glass-elevated w-14 h-14 flex items-center justify-center text-neutral-900">
+                        <promise.icon className="w-7 h-7" />
+                      </div>
+                      <span className="glass-control glass-elevated px-3 py-1 text-xs font-semibold text-neutral-700">
+                        {promise.badge}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold text-neutral-900">{promise.title}</h3>
+                      <p className="text-sm text-neutral-600 leading-relaxed">{promise.description}</p>
+                    </div>
+                    <ul className="space-y-2">
+                      {promise.details.map((detail, detailIndex) => (
+                        <li key={detailIndex} className="flex items-start gap-2 text-sm text-neutral-600">
+                          <CheckCircle className="mt-0.5 h-4 w-4 text-neutral-900" aria-hidden="true" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+            <SliderDots
+              count={promises.length}
+              activeIndex={promisesActive}
+              onDotClick={(i) => {
+                const el = promisesRef.current
+                if (!el) return
+                const a = el.children[0] as HTMLElement | undefined
+                const b = el.children[1] as HTMLElement | undefined
+                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+              }}
+              className="md:hidden -mt-2"
+            />
           </div>
           <SliderDots
             count={promises.length}
@@ -244,137 +259,127 @@ export default function TrustSection() {
             className="md:hidden -mt-2 mb-12"
           />
 
-          {/* 認證資格 */}
-          <motion.div
-            className="bg-white flat-card p-8 mb-14 md:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-2xl font-bold text-neutral-900 text-center mb-8">
-              專業認證與資格
-            </h3>
-            <div
-              id={certsId}
-              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-1 px-1"
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="專業認證與資格"
-              ref={certsRef}
-            >
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center group flex-none w-56 snap-start md:w-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="text-4xl mb-4 flex justify-center">
-                    {cert.icon === 'apple_logo' ? (
-                      <Image
-                        src="/apple_logo.webp"
-                        alt="Apple Logo"
-                        width={48}
-                        height={48}
-                        className="h-12 w-12 object-contain"
-                      />
-                    ) : (
-                      <cert.icon className="h-8 w-8 text-neutral-900" aria-hidden="true" />
-                    )}
-                  </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>
-                  <p className="text-neutral-600 text-sm">{cert.description}</p>
-                </motion.div>
-              ))}
-            </div>
-            <SliderDots
-              count={certifications.length}
-              activeIndex={certsActive}
-              onDotClick={(i) => {
-                const el = certsRef.current
-                if (!el) return
-                const a = el.children[0] as HTMLElement | undefined
-                const b = el.children[1] as HTMLElement | undefined
-                const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-                el.scrollTo({ left: i * step, behavior: 'smooth' })
-              }}
-              className="md:hidden mt-4"
-            />
-          </motion.div>
 
-          {/* Apple 官方認證驗證 */}
-          <motion.div
-            className="bg-white flat-card p-8 mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-neutral-900 mb-2">
-                    驗證 Apple 維修認證資格
-                  </h3>
-                  <p className="text-neutral-600">
-                    透過 Apple 官方系統驗證獨立維修商資格
-                  </p>
-                </div>
-              </div>
-              
-                <div className="bg-white/50 flat-card glass p-6 mb-6">
-                <div className="flex items-center justify-center mb-4">
-                  <Image 
-                    src="/apple_logo.webp" 
-                    alt="Apple Logo" 
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 mr-3 object-contain"
-                  />
-                  <div>
-                    <p className="text-lg font-semibold text-neutral-900">聯豐通信有限公司</p>
-                    <p className="text-neutral-600">Apple 官方認證獨立維修中心</p>
-                  </div>
-                </div>
-                <p className="text-sm text-neutral-500 mb-4">
-                  您可以透過 Apple 官方維修中心驗證頁面，查詢我們的認證資格
-                </p>
-              </div>
+{/* 認證資格 */}
+<motion.div
+  className="glass-panel p-1"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={motionTimings.soft}
+  viewport={motionViewport}
+>
+  <div className="glass-content p-8 md:p-10 space-y-8">
+    <div className="text-center space-y-3">
+      <h3 className="text-2xl font-bold text-neutral-900">專業認證與資格</h3>
+      <p className="text-neutral-600 text-sm md:text-base">
+        每一張證書都對應 Apple 官方准許的維修流程與零件管控。
+      </p>
+    </div>
+    <div
+      id={certsId}
+      className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-1 px-1"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="專業認證與資格"
+      ref={certsRef}
+    >
+      {certifications.map((cert, index) => (
+        <motion.div
+          key={index}
+          className="glass-surface p-4 md:p-5 text-center flex-none w-56 snap-start md:w-auto motion-soft-enter"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ...motionTimings.soft, delay: index * 0.08 }}
+          viewport={motionViewport}
+        >
+          <div className="glass-control glass-elevated mx-auto mb-4 flex h-14 w-14 items-center justify-center text-neutral-900">
+            {cert.icon === 'apple_logo' ? (
+              <Image
+                src="/apple_logo.webp"
+                alt="Apple Logo"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-contain"
+              />
+            ) : (
+              <cert.icon className="h-6 w-6" aria-hidden="true" />
+            )}
+          </div>
+          <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>
+          <p className="text-neutral-600 text-sm leading-relaxed">{cert.description}</p>
+        </motion.div>
+      ))}
+    </div>
+    <SliderDots
+      count={certifications.length}
+      activeIndex={certsActive}
+      onDotClick={(i) => {
+        const el = certsRef.current
+        if (!el) return
+        const a = el.children[0] as HTMLElement | undefined
+        const b = el.children[1] as HTMLElement | undefined
+        const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+        el.scrollTo({ left: i * step, behavior: 'smooth' })
+      }}
+      className="md:hidden -mt-2"
+    />
+  </div>
+</motion.div>
 
-              <a 
+{/* Apple 官方認證驗證 */}
+<motion.div
+  className="glass-panel p-1"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={motionTimings.soft}
+  viewport={motionViewport}
+>
+  <div className="glass-content p-8 md:p-10 space-y-6 text-center">
+    <div className="space-y-3">
+      <h3 className="text-2xl font-bold text-neutral-900">Apple 官方認證</h3>
+      <p className="text-neutral-600 text-sm md:text-base">
+        透過 Apple 官方系統即可查詢 FixMaster 的獨立維修商資格。
+      </p>
+    </div>
+    <div className="glass-surface p-5 flex flex-col items-center gap-4 text-neutral-700 text-sm">
+      <div className="flex items-center gap-3">
+        <Image src="/apple_logo.webp" alt="Apple Logo" width={36} height={36} className="h-9 w-9 object-contain" />
+        <div className="text-left">
+          <p className="text-base font-semibold text-neutral-900">聯豐通信有限公司</p>
+          <p>Apple 官方認證獨立維修中心</p>
+        </div>
+      </div>
+      <p className="leading-relaxed">
+        前往官方頁面後，於搜尋欄輸入「聯豐通信」並選擇地區「台北市」，即可看到 FixMaster 士林店的認證資訊。
+      </p>
+    </div>
+              <a
                 href="https://support.apple.com/zh-tw/repair/verify-repair-provider"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center glass-elevated bg-white/60 text-neutral-900 px-8 py-4 font-semibold hover:bg-white/80 transition-colors duration-200 group"
-                onClick={() => trackClick('trust_apple_verify_click', { section: 'trust' })}
-              >
-                Apple 官方驗證頁面
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </a>
-              
-              <p className="text-xs text-neutral-500 mt-4">
-                在搜尋欄位輸入「聯豐通信」及地區選擇「台北市」可找到我們的認證資訊
-              </p>
-            </div>
-          </motion.div>
+                className="group inline-flex items-center justify-center glass-control glass-elevated px-8 py-4 font-semibold text-neutral-900 motion-hover-pop"
+      onClick={() => trackClick('trust_apple_verify_click', { section: 'trust' })}
+    >
+      Apple 官方驗證頁面
+      <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+    </a>
+  </div>
+</motion.div>
 
           {/* 統計數據 */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-14 md:mb-16"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
           >
             {statistics.map((stat, index) => (
-              <div key={index} className="text-center bg-white flat-card p-6">
-                <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900">
-                  <stat.icon className="w-8 h-8" />
+              <div key={index} className="glass-surface p-4 md:p-5 text-center">
+                <div className="glass-control glass-elevated w-14 h-14 flex items-center justify-center mx-auto mb-3 text-neutral-900">
+                  <stat.icon className="w-6 h-6" />
                 </div>
-                <div className="text-3xl font-bold text-neutral-900 mb-2">{stat.number}</div>
+                <div className="text-2xl md:text-3xl font-bold text-neutral-900 mb-1">{stat.number}</div>
                 <div className="text-neutral-600 text-sm">{stat.label}</div>
               </div>
             ))}
@@ -382,30 +387,27 @@ export default function TrustSection() {
 
           {/* 服務承諾 */}
           <motion.div
-            className="bg-white flat-card p-12 text-center"
+            className="glass-panel p-1"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-6">
-              我們的服務承諾
-            </h3>
-            <p className="text-neutral-600 text-lg sm:text-xl mb-8 max-w-3xl mx-auto">
-              選擇 FixMaster 維修大師，您將享受到最專業、最透明、最安心的維修服務體驗
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
-                30分鐘快速完修
+            <div className="glass-content p-8 md:p-10 text-center space-y-6">
+              <div className="space-y-3">
+                <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900">
+                  我們的服務承諾
+                </h3>
+                <p className="text-neutral-600 text-sm md:text-base max-w-3xl mx-auto">
+                  選擇 FixMaster，即享原廠零件、透明錄影與資料保護流程，維修前後皆有記錄可查。
+                </p>
               </div>
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
-                90天品質保固
-              </div>
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
-                原廠零件保證
-              </div>
-              <div className="bg-neutral-100 text-neutral-900 px-6 py-3 text-sm font-medium">
-                全程透明錄影
+              <div className="flex flex-wrap justify-center gap-3">
+                {['30 分鐘快速完修', '90 天保固追蹤', 'Apple 認證零件', '全程透明錄影'].map((pill) => (
+                  <span key={pill} className="glass-control glass-elevated px-6 py-2 text-sm font-medium text-neutral-900 motion-hover-pop">
+                    {pill}
+                  </span>
+                ))}
               </div>
             </div>
           </motion.div>

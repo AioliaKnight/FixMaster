@@ -441,6 +441,14 @@ referrer: ${formData.referrer}
               viewport={motionViewport}
             >
               <div className="glass-content p-8">
+                <div className="glass-surface p-4 mb-5">
+                  <p className="text-sm text-neutral-600">
+                    預約後流程：
+                    <span className="ml-2 text-neutral-900 font-medium">1</span> 回電確認 →
+                    <span className="ml-2 text-neutral-900 font-medium">2</span> 到府收送選擇 →
+                    <span className="ml-2 text-neutral-900 font-medium">3</span> 完修通知
+                  </p>
+                </div>
                 <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
                   <Calendar className="w-6 h-6 mr-2" />
                   線上預約

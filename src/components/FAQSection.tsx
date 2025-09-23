@@ -495,6 +495,20 @@ export default function FAQSection() {
                         >
                           預約維修時段
                         </Button>
+                        <Button
+                          variant="ghost"
+                          className="sm:w-auto motion-hover-pop"
+                          onClick={() => {
+                            trackClick('faq_sheet_view_related_services', { category: currentFaq.category })
+                            closeFaqDetail()
+                            setTimeout(() => {
+                              const servicesSection = document.getElementById('services')
+                              if (servicesSection) servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                            }, 100)
+                          }}
+                        >
+                          查看相關服務
+                        </Button>
                       </div>
                     </div>
                   </div>

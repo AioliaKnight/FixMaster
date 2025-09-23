@@ -21,6 +21,7 @@ import {
 import { useRef, useEffect, useState } from 'react'
 import { SliderDots } from './CarouselControls'
 import { trackClick } from '@/lib/tracking'
+import { motionTimings, motionViewport } from '@/lib/motion'
 
 export default function PromotionsSection() {
   const mainRef = useRef<HTMLDivElement>(null)
@@ -109,7 +110,7 @@ export default function PromotionsSection() {
   const flashDeals = [
     {
       title: 'iPhone 17 螢幕更換（暫估）',
-      originalPrice: 'Apple 官方 TBA',
+      originalPrice: '價格將依原廠公告',
       salePrice: '預約後告知',
       discount: '9折優惠',
       timeLeft: '48小時',
@@ -117,7 +118,7 @@ export default function PromotionsSection() {
     },
     {
       title: 'iPhone 17 電池更換（預約備料）',
-      originalPrice: 'Apple官方 TBA',
+      originalPrice: '價格將依原廠公告',
       salePrice: '備料後通知',
       discount: '9折優惠',
       timeLeft: '72小時',
@@ -125,7 +126,7 @@ export default function PromotionsSection() {
     },
     {
       title: 'iPhone 17 全機檢測',
-      originalPrice: '官方 TBA',
+      originalPrice: '價格將依原廠公告',
       salePrice: '上市月免費',
       discount: '9折優惠',
       timeLeft: '24小時',
@@ -188,61 +189,70 @@ export default function PromotionsSection() {
             {mainPromotions.map((promo, index) => (
               <motion.div
                 key={index}
-                className="bg-white flat-card p-6 md:p-8 group relative overflow-hidden transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto glass-highlight"
+                className="glass-panel p-1 group relative overflow-hidden transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto motion-soft-enter"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true }}
+                transition={{ ...motionTimings.soft, delay: index * 0.1 }}
+                viewport={motionViewport}
                 whileHover={{ scale: 1.02 }}
               >
-                {/* 移除背景漸層，改為純白卡片 */}
-                
-                {/* 標章 */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-16 h-16 bg-white glass-elevated flex items-center justify-center">
-                    <promo.icon className="w-8 h-8 text-neutral-900" />
+                <div className="glass-content p-6 md:p-7 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="glass-control glass-elevated w-14 h-14 flex items-center justify-center text-neutral-900">
+                      <promo.icon className="w-7 h-7" />
+                    </div>
+                    <div className="glass-control glass-elevated px-3 py-1 text-xs font-semibold text-accent-600">
+                      {promo.badge}
+                    </div>
                   </div>
-                  <div className="text-accent-600 text-sm font-medium">
-                    {promo.badge}
-                  </div>
-                </div>
 
                 {/* 標題與描述 */}
-                <h3 className="text-xl font-bold text-neutral-900 mb-3">
-                  {promo.title}
-                </h3>
-                <p className="text-neutral-600 mb-6 leading-relaxed">
-                  {promo.description}
-                </p>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-neutral-900">
+                      {promo.title}
+                    </h3>
+                    <p className="text-neutral-600 text-sm leading-relaxed">
+                      {promo.description}
+                    </p>
+                  </div>
 
                 {/* 價格 */}
-                <div className="mb-6">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-neutral-400 text-sm line-through">
-                      {promo.originalPrice}
-                    </span>
-                    <span className="text-neutral-900 text-lg font-semibold">
-                      {promo.discountPrice}
-                    </span>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-neutral-400 text-sm line-through">
+                        {promo.originalPrice}
+                      </span>
+                      <span className="text-neutral-900 text-lg font-semibold">
+                        {promo.discountPrice}
+                      </span>
+                    </div>
+                    <p className="text-neutral-500 text-xs flex items-center gap-2">
+                      <Clock className="h-4 w-4" aria-hidden="true" />
+                      有效期限：{promo.validUntil}
+                    </p>
                   </div>
-                  <div className="text-neutral-500 text-sm">
-                    有效期限：{promo.validUntil}
-                  </div>
-                </div>
 
                 {/* 條件說明 */}
-                <div className="space-y-2 mb-6">
-                  {promo.terms.map((term, termIndex) => (
-                    <div key={termIndex} className="flex items-center">
-                      <Star className="w-4 h-4 text-neutral-900 mr-2 flex-shrink-0" />
-                      <span className="text-neutral-600 text-sm">{term}</span>
+                  <div className="space-y-2">
+                    {promo.terms.map((term, termIndex) => (
+                      <div key={termIndex} className="flex items-center gap-2 text-sm text-neutral-600">
+                        <Star className="h-4 w-4 text-neutral-900" aria-hidden="true" />
+                        <span>{term}</span>
+                      </div>
+                    ))}
+                    <div className="text-xs text-neutral-500">
+                      <button
+                        className="underline underline-offset-2 hover:text-neutral-700"
+                        onClick={() => trackClick('promo_terms_click', { title: promo.title })}
+                      >
+                        適用條件
+                      </button>
                     </div>
-                  ))}
-                </div>
+                  </div>
 
                 {/* 立即使用按鈕 */}
-                <button 
-                  className="w-full flat-button font-medium bg-white/50 glass-elevated hover:bg-white/60 text-neutral-900 py-3 transition-colors duration-200"
+                  <button 
+                  className="w-full flat-button font-medium glass-control glass-elevated text-neutral-900 py-3 motion-hover-pop"
                   onClick={() => {
                     trackClick('promo_apply_click', { section: 'promotions', promo: promo.title })
                     scrollToSectionId('contact')
@@ -254,12 +264,13 @@ export default function PromotionsSection() {
                       }
                     }, 1000)
                   }}
-                >
-                  <span className="inline-flex items-center justify-center gap-2">
-                    <Gift className="h-4 w-4" aria-hidden="true" />
-                    立即享受優惠
-                  </span>
-                </button>
+                  >
+                    <span className="inline-flex items-center justify-center gap-2">
+                      <Gift className="h-4 w-4" aria-hidden="true" />
+                      立即享受優惠
+                    </span>
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>

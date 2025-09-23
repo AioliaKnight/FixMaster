@@ -120,7 +120,7 @@ export default function ServicesSection() {
     },
     {
       icon: Clock,
-      title: '1小時內完修',
+      title: '1 小時內完修',
       description: '現場等候，快速完成維修'
     },
     {
@@ -315,7 +315,7 @@ export default function ServicesSection() {
                         </ul>
 
                         {/* 保固資訊 */}
-                        <div className="glass-control glass-strong px-4 py-3 flex items-center justify-center gap-2 text-neutral-900 text-sm">
+                        <div className="glass-control glass-strong px-4 py-3 flex items-center justify-center gap-2 text-neutral-900 text-sm font-semibold">
                           <Shield className="h-4 w-4" />
                           <span>{service.warranty}</span>
                         </div>
@@ -326,6 +326,7 @@ export default function ServicesSection() {
                             <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">起價</span>
                             <div className="mt-1 text-2xl md:text-3xl font-semibold text-neutral-900">{service.price}</div>
                             <p className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</p>
+                            <p className="text-neutral-400 text-[11px] mt-1">實際價格以檢測後為準</p>
                           </div>
                           <Button
                             className="w-full md:w-auto motion-hover-pop"
