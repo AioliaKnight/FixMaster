@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight, Navigation, FileText } from 'lucide-react'
+import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight, Navigation, FileText, CreditCard } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
@@ -246,6 +246,36 @@ export default function FAQSection() {
           question: '維修是否開立發票與保固憑證？',
           answer: '可開立統一發票；維修完成提供保固憑證與檢測紀錄。保固 90 天（人為損壞與新故障除外）。',
           category: '憑證與保固'
+        },
+        {
+          icon: CreditCard,
+          question: '支援哪些付款方式？是否可刷卡與行動支付？',
+          answer: '支援現金、信用卡，亦可使用行動支付（實際以門市公告為準）。到府收送維修完成後可線上支付。',
+          category: '付款方式'
+        },
+        {
+          icon: HelpCircle,
+          question: '保固與人為損壞的界線如何判定？',
+          answer: '保固涵蓋更換零件與施工品質造成的相同故障；摔落、進水、擠壓等人為因素或與原故障無關的新問題不在保固範圍。',
+          category: '保固條款'
+        },
+        {
+          icon: Smartphone,
+          question: '維修期間是否提供備援機？',
+          answer: '常規維修多於 1 小時內完修，若需留機檢測會視庫存提供臨時備援方案（以門市公告為準）。',
+          category: '備援裝置'
+        },
+        {
+          icon: FileText,
+          question: '資料救援與主機板級維修如何評估？',
+          answer: '先進行免費檢測評估可修復性與風險，提供報價與時程。主機板級專案需另行同意；資料救援將完整說明成功率與注意事項。',
+          category: '資料救援'
+        },
+        {
+          icon: Clock,
+          question: '預約改期或取消要怎麼辦？',
+          answer: '可於 LINE 或電話通知我們改期/取消；若有到府收送安排，請提前至少 2 小時告知以利調度。',
+          category: '預約調整'
         }
       ]
     }
