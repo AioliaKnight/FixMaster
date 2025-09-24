@@ -25,21 +25,33 @@ export default function FAQSection() {
       faqs: [
         {
           icon: Smartphone,
-          question: 'iPhone 17 系列目前支援哪些維修？',
-          answer: '上市月提供免費檢測與備料預約。常見項目包含：螢幕總成、電池、相機模組、背蓋玻璃與充電模組。實際交期依原廠料件到貨為準。',
-          category: 'iPhone17'
+          question: 'iPhone 系列目前支援哪些維修？',
+          answer: '支援常見項目：螢幕總成、電池、相機模組、背蓋玻璃、充電模組與麥克風/喇叭。實際交期依原廠料件供應與檢測結果為準。',
+          category: 'iPhone維修'
         },
         {
           icon: Settings,
-          question: 'iPhone 17 Face ID／Touch ID 維修與校準需要注意什麼？',
-          answer: '生物辨識模組與主板綁定，維修流程需經過原廠規格檢測。可維修項目含排線與鏡頭模組異常；若涉及主板更動將於施工前完整告知風險與時程。',
-          category: 'iPhone17'
+          question: 'iPhone 的 Face ID／Touch ID 維修與校準需要注意什麼？',
+          answer: '生物辨識模組與主板綁定，需依官方規格檢測。可維修項目含排線與鏡頭模組異常；若涉及主板更動將於施工前完整告知風險與時程並取得同意。',
+          category: 'iPhone維修'
         },
         {
           icon: Zap,
-          question: 'iPhone 17 螢幕維修會影響顯示或觸控體驗嗎？',
+          question: 'iPhone 螢幕維修會影響顯示或觸控體驗嗎？',
           answer: '不會。使用 Apple 認證零件並完成色域/亮度/True Tone 檢測校正，觸控靈敏、顯示準確。完修後提供檢測紀錄與 90 天保固。',
-          category: 'iPhone17'
+          category: 'iPhone維修'
+        },
+        {
+          icon: Shield,
+          question: '更換螢幕後 True Tone／原彩顯示還在嗎？',
+          answer: '維修後會依流程校正並保留 True Tone／原彩設定；若主板或感測模組受損，將先行說明可行替代方案與影響。',
+          category: 'iPhone維修'
+        },
+        {
+          icon: Wrench,
+          question: '背蓋玻璃破裂如何處理？是否需更換整機？',
+          answer: '視破裂範圍與機型評估，可更換背蓋玻璃或總成模組；不需整機更換。將先免費檢測並提供報價與時程。',
+          category: 'iPhone維修'
         },
         {
           icon: Clock,
@@ -68,7 +80,7 @@ export default function FAQSection() {
         {
           icon: HelpCircle,
           question: '維修是否影響原廠保固？',
-          answer: '在原廠保固期內，建議先洽 Apple 官方。保固外維修不會影響您對裝置的使用，但第三方維修可能不在 Apple 原廠保固範圍。我们提供 90 天維修保固作為保障。',
+          answer: '在原廠保固期內，建議先洽 Apple 官方。保固外維修不會影響您對裝置的使用，但第三方維修可能不在 Apple 原廠保固範圍。我們提供 90 天維修保固作為保障。',
           category: 'iPhone維修'
         },
         {
@@ -90,7 +102,7 @@ export default function FAQSection() {
       faqs: [
         {
           icon: AlertCircle,
-          question: 'iPhone 17 進水怎麼辦？',
+          question: '手機進水怎麼辦？',
           answer: '立刻關機、勿充電與加熱，保持裝置原狀送修。24 小時內處理成功率最高。我們提供主機板清洗與資料救援評估，並完整告知風險。',
           category: '進水救援'
         },
@@ -105,6 +117,18 @@ export default function FAQSection() {
           question: '維修後我們如何測試確保功能正常？',
           answer: '依項目逐項檢測：觸控/顯示、相機前後/錄影、喇叭/麥克風/聽筒、充電/電流、感測器、Face ID/Touch ID、通話/網路。完修提供檢測紀錄與保固。',
           category: '完修測試'
+        },
+        {
+          icon: Clock,
+          question: '維修需預約嗎？可以現場等候嗎？',
+          answer: '建議先透過 LINE 或電話預約以保留時段；螢幕與電池等常見維修可現場等候，主機板級或特殊項目將另行通知時程。',
+          category: '維修流程'
+        },
+        {
+          icon: Shield,
+          question: '維修後的防水會恢復嗎？',
+          answer: '裝置的防水等級（如 IP68）為組裝出廠條件，維修後雖會重貼膠條並檢測，但無法保證達到原出廠等級。建議遠離高濕或高壓水環境。',
+          category: '維修風險'
         },
         {
           icon: Wrench,
@@ -158,6 +182,18 @@ export default function FAQSection() {
           question: 'iPad 觸控不靈敏怎麼辦？',
           answer: '若特定區域遲滯或跳點，可能為觸控層或觸控 IC 問題。可先重啟與更新系統，若持續發生，建議更換螢幕總成或進一步檢測。',
           category: 'iPad維修'
+        },
+        {
+          icon: AlertCircle,
+          question: 'iPad 電池鼓脹怎麼處理？還能繼續使用嗎？',
+          answer: '不建議持續使用。電池鼓脹可能頂開螢幕造成二次損傷；建議盡快關機送修，由專業人員在安全環境下更換並檢測。',
+          category: 'iPad維修'
+        },
+        {
+          icon: FileText,
+          question: 'iPad 玻璃破裂一定要換總成嗎？',
+          answer: '多數整合型面板需更換總成（玻璃+顯示+觸控），以確保貼合品質與觸控靈敏度；檢測後會提供可行方案與差異說明。',
+          category: 'iPad維修'
         }
       ]
     },
@@ -181,6 +217,18 @@ export default function FAQSection() {
           question: 'Mac 維修會影響原廠保固嗎？',
           answer: '保固內建議先與 Apple 官方確認。保固外之第三方維修，不在原廠保固範圍。我們提供 90 天維修保固與檢測報告留存。',
           category: 'Mac維修'
+        },
+        {
+          icon: Wrench,
+          question: '是否提供風扇清潔與散熱維護？建議頻率？',
+          answer: '提供風扇與散熱模組清潔、散熱膏更換等服務；重度使用環境建議每 6–12 個月檢視一次，有效降低溫度與噪音。',
+          category: 'Mac維護'
+        },
+        {
+          icon: FileText,
+          question: '可否升級 SSD 或更換電池？資料如何轉移？',
+          answer: '視機型可行性而定；可協助資料備份與轉移，施工前先說明風險與時程。完成後提供檢測紀錄與保固。',
+          category: 'Mac升級'
         }
       ]
     },
