@@ -72,7 +72,7 @@ export default function ServicesSection() {
       features: ['原廠 OLED 顯示', '觸控零延遲', '色彩準確穩定', '90 天功能保固'],
       price: '$8,900 起',
       duration: '約 30–60 分鐘',
-      models: ['iPhone 12-15 系列'],
+      models: ['iPhone 12–17 系列'],
       warranty: '90 天螢幕功能保固',
     },
     {
@@ -82,7 +82,7 @@ export default function ServicesSection() {
       features: ['原廠電池芯片', '健康度回復穩定', '支援快充', '90 天電池保固'],
       price: '$2,990 起',
       duration: '約 30–45 分鐘',
-      models: ['iPhone 11-15 系列'],
+      models: ['iPhone 11–17 系列'],
       warranty: '90 天電池效能保固',
     },
     {

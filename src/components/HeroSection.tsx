@@ -13,7 +13,7 @@ import { motionTimings } from '@/lib/motion'
 import heroImg from '../../public/Hero_1.png'
 import React from 'react'
 
-const modelBadges = ['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max']
+const modelBadges = ['iPhone 17 系列', 'iPhone 15 系列', 'iPhone 14 系列', '到府收送']
 
 const highlightItems = [
   {
