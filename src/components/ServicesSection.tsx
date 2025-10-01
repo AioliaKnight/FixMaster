@@ -270,7 +270,7 @@ export default function ServicesSection() {
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <div className="max-w-2xl mx-auto">
                       <motion.div
-                        className="glass-panel p-1 flex flex-col gap-4 motion-soft-enter"
+                        className="glass-panel p-1 flex flex-col gap-4 motion-soft-enter tilt-hover specular"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={motionTimings.medium}
@@ -390,7 +390,7 @@ export default function ServicesSection() {
               {additionalServices.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="text-center flex-none w-56 snap-start md:w-auto"
+                  className="text-center flex-none w-56 snap-start md:w-auto tilt-hover"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ ...motionTimings.soft, delay: index * 0.08 }}

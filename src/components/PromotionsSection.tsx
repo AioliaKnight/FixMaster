@@ -189,7 +189,7 @@ export default function PromotionsSection() {
             {mainPromotions.map((promo, index) => (
               <motion.div
                 key={index}
-                className="glass-panel p-1 group relative overflow-hidden transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto motion-soft-enter"
+                className="glass-panel p-1 group relative overflow-hidden transition-all duration-200 flex-none w-[22rem] snap-start md:w-auto motion-soft-enter tilt-hover specular"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ ...motionTimings.soft, delay: index * 0.1 }}
@@ -313,7 +313,7 @@ export default function PromotionsSection() {
               aria-label="限時優惠"
             >
               {flashDeals.map((deal, index) => (
-                <div key={index} className="bg-white flat-card p-6 transition-colors duration-200 flex-none w-64 snap-start md:w-auto glass-highlight">
+                <div key={index} className="bg-white flat-card p-6 transition-colors duration-200 flex-none w-64 snap-start md:w-auto glass-highlight tilt-hover">
                   <div className="flex items-center justify-between mb-4">
                     <div className="glass-control glass-strong h-10 w-10 flex items-center justify-center text-neutral-900">
                       <deal.icon className="h-5 w-5" aria-hidden="true" />
@@ -370,7 +370,7 @@ export default function PromotionsSection() {
               {loyaltyProgram.map((level, index) => (
                 <div
                   key={index}
-                  className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight"
+                  className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight tilt-hover"
                 >
                   <div className="glass-control glass-strong mx-auto mb-4 flex h-16 w-16 items-center justify-center text-neutral-900">
                     <level.icon className="h-8 w-8" aria-hidden="true" />

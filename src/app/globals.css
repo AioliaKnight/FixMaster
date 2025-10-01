@@ -411,6 +411,32 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  /* Tilt & Specular (subtle) */
+  .tilt-hover {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform var(--motion-duration-sm) var(--motion-ease-standard), box-shadow var(--motion-duration-sm) var(--motion-ease-standard);
+  }
+  .tilt-hover:hover {
+    transform: perspective(800px) rotateX(2deg) rotateY(-2deg) translateY(-1px);
+  }
+  .specular::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(120% 80% at 80% 0%, rgba(255,255,255,0.18), rgba(255,255,255,0) 60%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  /* Glass contrast boost (ensure legibility on dark bg) */
+  .glass-contrast-boost {
+    --glass-top: rgba(255, 255, 255, 0.66);
+    --glass-bottom: rgba(255, 255, 255, 0.24);
+    --glass-highlight: rgba(255, 255, 255, 0.78);
+  }
 }
 
 /* 防止行動版選單展開時背景滾動 */

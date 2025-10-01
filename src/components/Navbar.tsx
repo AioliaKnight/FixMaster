@@ -146,7 +146,7 @@ export default function Navbar() {
   useEffect(() => () => document.body.classList.remove('no-scroll'), [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass} glass-contrast-boost`}>
       <div className="container mx-auto container-padding">
         <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-200`}>
           {/* Logo */}
