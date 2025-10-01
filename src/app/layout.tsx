@@ -189,10 +189,17 @@ const structuredData = {
       "areaServed": [
         { "@type": "Place", "name": "台北市" },
         { "@type": "Place", "name": "士林區" },
+        { "@type": "Place", "name": "士林" },
+        { "@type": "Place", "name": "Shilin District" },
         { "@type": "Place", "name": "大同區" },
         { "@type": "Place", "name": "中山區" },
         { "@type": "Place", "name": "內湖區" },
         { "@type": "Place", "name": "北投區" }
+      ],
+      "serviceArea": [
+        { "@type": "Place", "name": "台北市士林區" },
+        { "@type": "Place", "name": "士林" },
+        { "@type": "Place", "name": "Shilin District" }
       ],
       "knowsAbout": ["iPhone維修", "Apple產品維修", "手機螢幕更換", "電池更換", "主機板維修", "二手iPhone販售", "Apple IRP認證", "透明維修"]
     },
