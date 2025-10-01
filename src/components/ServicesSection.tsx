@@ -12,7 +12,8 @@ import {
   Video, 
   CheckCircle, 
   Clock,
-  Award
+  Award,
+  Wrench
 } from 'lucide-react'
 import { SliderArrows, SliderDots } from './CarouselControls'
 import { trackClick } from '@/lib/tracking'
@@ -104,6 +105,16 @@ export default function ServicesSection() {
       duration: '1-2 個工作天',
       models: ['所有 iPhone 機型'],
       warranty: '與維修項目相同',
+    },
+    {
+      icon: Wrench,
+      title: '資料救援 / 主機板級維修',
+      tagline: '專案級處理，透明評估風險與成功率。',
+      features: ['免費初檢與評估', '進水/摔落/短路故障處理', '資料救援評估', '施工流程與風險說明'],
+      price: '檢測後報價',
+      duration: '約 2–4 小時起（視狀況）',
+      models: ['iPhone 11–17 系列'],
+      warranty: '依項目提供保固',
     }
   ]
 
@@ -204,7 +215,7 @@ export default function ServicesSection() {
       />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
-          {/* iPhone 17 系列上市提示 */}
+          {/* iPhone 系列支援提示 */}
           <motion.div 
             className="glass-surface p-1 mb-10 motion-soft-enter"
             initial={{ opacity: 0, y: 20 }}
@@ -214,7 +225,7 @@ export default function ServicesSection() {
           >
             <div className="glass-content flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 py-4 md:px-6 md:py-5">
               <p className="text-neutral-900 text-sm md:text-base">
-                iPhone 17／Air／17 Pro／17 Pro Max 現已支援免費檢測與備料預約。部分原廠料件供應量有限，建議先預約以安排最快時程。
+                iPhone 12–17 系列均支援免費檢測與備料預約。部分原廠料件供應量有限，建議先預約以安排最快時程。
               </p>
               <Button
                 size="sm"
