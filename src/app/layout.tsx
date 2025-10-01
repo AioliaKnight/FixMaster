@@ -311,30 +311,20 @@ const structuredData = {
       "@type": "FAQPage",
       "@id": "https://fixmastertw.com/#faq",
       "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "維修需要多長時間？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "一般螢幕更換約 30–60 分鐘，電池更換約 30–45 分鐘，複雜維修可能 1–2 小時。可現場等候或預約時間。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "是否使用 Apple 認證零件？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "我們為 Apple IRP 認證維修商，使用 Apple 認證零件，並提供 90 天保固。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "二手 iPhone 有保固嗎？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "二手 iPhone 提供 30 天硬體功能保固，附完整檢測報告，可現場試用確認功能。"
-          }
-        }
+        {"@type":"Question","name":"維修需要多長時間？","acceptedAnswer":{"@type":"Answer","text":"一般螢幕更換約 30–60 分鐘，電池更換約 30–45 分鐘，相機/喇叭/充電模組約 60–90 分鐘，主機板級 2–4 小時（視狀況）。可現場等候或預約。"}},
+        {"@type":"Question","name":"是否使用 Apple 認證零件？","acceptedAnswer":{"@type":"Answer","text":"我們為 Apple IRP 認證維修商，使用 Apple 認證零件，並提供 90 天保固；維修完成會依流程逐項檢測功能與相容性。"}},
+        {"@type":"Question","name":"更換螢幕會影響 Face ID／Touch ID 嗎？","acceptedAnswer":{"@type":"Answer","text":"不會。Face ID／Touch ID 模組獨立於螢幕，維修時會完整轉移並檢測；若原件損壞，將於檢測報告說明處理方案與風險。"}},
+        {"@type":"Question","name":"手機進水怎麼辦？","acceptedAnswer":{"@type":"Answer","text":"立刻關機、勿充電與加熱，保持裝置原狀儘速送修。24 小時內處理成功率最高。我們提供主機板清洗與資料救援評估，並完整告知風險。"}},
+        {"@type":"Question","name":"維修價格如何計算？是否有隱藏費用？","acceptedAnswer":{"@type":"Answer","text":"先免費檢測再報價；價格依機型與維修類型（螢幕/電池/相機/主機板）而定，現場與 LINE 皆提供明細，不維修不收費。台北市區到府收送滿 $1,500 免收送。"}},
+        {"@type":"Question","name":"怎麼到 FixMaster 士林店？附近停車與交通？","acceptedAnswer":{"@type":"Answer","text":"地址：台北市士林區文林路 60 號；捷運劍潭站 1 號出口步行 3 分鐘。附近有停車場與路邊停車格；也可使用到府收送服務。"}},
+        {"@type":"Question","name":"什麼是 Apple IRP 認證？對維修有什麼幫助？","acceptedAnswer":{"@type":"Answer","text":"IRP（Independent Repair Provider）為 Apple 官方授權計畫，提供認證零件、流程與檢測規範；可完成色準/True Tone/相容性檢測，品質一致。"}},
+        {"@type":"Question","name":"支援哪些付款方式？是否可刷卡與行動支付？","acceptedAnswer":{"@type":"Answer","text":"支援現金、信用卡，亦可使用行動支付（以門市公告為準）。到府收送維修完成後可線上支付。"}},
+        {"@type":"Question","name":"保固與人為損壞的界線如何判定？","acceptedAnswer":{"@type":"Answer","text":"保固涵蓋更換零件與施工品質造成的相同故障；摔落、進水、擠壓等人為因素或與原故障無關的新問題不在保固範圍。"}},
+        {"@type":"Question","name":"維修期間是否提供備援機？","acceptedAnswer":{"@type":"Answer","text":"常規維修多於 1 小時內完修；若需留機檢測，會視庫存提供臨時備援方案（以門市公告為準）。"}},
+        {"@type":"Question","name":"資料救援與主機板級維修如何評估？","acceptedAnswer":{"@type":"Answer","text":"先免費檢測評估可修復性與風險，提供報價與時程。主機板級專案需另行同意；資料救援會說明成功率與注意事項。"}},
+        {"@type":"Question","name":"預約改期或取消要怎麼辦？","acceptedAnswer":{"@type":"Answer","text":"可於 LINE 或電話通知改期/取消；若有到府收送安排，請至少提前 2 小時告知以利調度。"}},
+        {"@type":"Question","name":"iPad 螢幕維修需要多久時間？","acceptedAnswer":{"@type":"Answer","text":"一般 2–4 小時，依機型與損傷程度調整；因膠體面積較大與排線較多，需以專業設備流程處理避免二次損傷。"}},
+        {"@type":"Question","name":"MacBook 無法開機怎麼辦？","acceptedAnswer":{"@type":"Answer","text":"可先檢查電源與充電器、嘗試 SMC/PRAM 重置與安全模式；若仍無法開機，可能為電池、SSD 或主機板異常，需專業檢測。"}}
       ]
     }
   ]
