@@ -559,6 +559,8 @@ referrer: ${formData.referrer}
                         <option value="按鍵失靈">按鍵失靈</option>
                         <option value="相機故障">相機故障</option>
                         <option value="充電異常">充電異常</option>
+                        <option value="資料救援">資料救援</option>
+                        <option value="主機板級維修">主機板級維修</option>
                         <option value="其他問題">其他問題</option>
                       </select>
                       {formErrors.issue && (

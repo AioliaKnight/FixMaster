@@ -250,6 +250,16 @@ const structuredData = {
       "areaServed": { "@type": "Place", "name": "台北市" }
     },
     {
+      "@type": "Service",
+      "@id": "https://fixmastertw.com/#board-repair",
+      "name": "資料救援／主機板級維修",
+      "provider": { "@id": "https://fixmastertw.com/#business" },
+      "serviceType": "Mainboard-level Repair / Data Recovery",
+      "description": "免費初檢與風險評估，進水/摔落/短路故障處理，資料救援評估與專案處理。",
+      "category": "Electronics Repair",
+      "areaServed": { "@type": "Place", "name": "台北市士林區" }
+    },
+    {
       "@type": "Product",
       "@id": "https://fixmastertw.com/#used-iphone",
       "name": "二手iPhone販售",
@@ -431,12 +441,8 @@ export default function RootLayout({
         <meta name="theme-color" content="#ef4444" />
         
         {/* Favicon and Touch Icons */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ef4444" />
+        {/* 若未提供其他格式，僅保留 svg 可避免 404 */}
         
         {/* Structured Data */}
         <script
