@@ -482,6 +482,40 @@ export default function ServicesSection() {
               />
             </div>
           </motion.div>
+
+          {/* 常見維修一覽（文字索引） */}
+          <motion.div
+            className="mt-12 md:mt-14 glass-surface p-1 motion-soft-enter"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={motionTimings.soft}
+            viewport={motionViewport}
+          >
+            <div className="glass-content p-6 md:p-8">
+              <h4 className="text-lg font-semibold text-neutral-900 mb-3">常見維修一覽</h4>
+              <div className="text-sm text-neutral-700 flex flex-wrap gap-3">
+                {['螢幕破裂','電池老化','相機故障','充電異常','無法開機','資料救援','主機板級維修'].map((label) => (
+                  <button
+                    key={label}
+                    type="button"
+                    className="underline underline-offset-2 hover:text-neutral-900"
+                    onClick={() => {
+                      scrollToSectionId('contact')
+                      setTimeout(() => {
+                        const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
+                        if (issueSelect) {
+                          issueSelect.value = label
+                          issueSelect.dispatchEvent(new Event('change', { bubbles: true }))
+                        }
+                      }, 700)
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
