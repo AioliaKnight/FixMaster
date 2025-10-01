@@ -447,6 +447,22 @@ body {
   .edge-glow {
     animation: edgeGlow 1s var(--motion-ease-standard);
   }
+  .sheen-hover {
+    position: relative;
+  }
+  .sheen-hover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.18) 18%, transparent 40%);
+    opacity: 0;
+    transition: opacity var(--motion-duration-sm) var(--motion-ease-standard);
+    pointer-events: none;
+  }
+  .sheen-hover:hover::after, .sheen-hover:focus-visible::after {
+    opacity: 1;
+  }
 }
 
 /* 防止行動版選單展開時背景滾動 */

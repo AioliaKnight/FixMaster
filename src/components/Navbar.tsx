@@ -13,6 +13,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const [prefersHighContrast, setPrefersHighContrast] = useState(false)
   const previousFocusRef = useRef<HTMLElement | null>(null)
   const menuContainerRef = useRef<HTMLDivElement>(null)
 
@@ -145,8 +146,19 @@ export default function Navbar() {
 
   useEffect(() => () => document.body.classList.remove('no-scroll'), [])
 
+  // 偏好高對比：提升玻璃對比（避免重度透明降低可讀性）
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mq = window.matchMedia('(prefers-contrast: more)')
+    setPrefersHighContrast(!!mq.matches)
+    const handler = (e: MediaQueryListEvent) => setPrefersHighContrast(!!e.matches)
+    mq.addEventListener?.('change', handler)
+    return () => mq.removeEventListener?.('change', handler)
+  }, [])
+
+  const boostClass = (isScrolled || isMenuOpen || prefersHighContrast) ? 'glass-contrast-boost' : ''
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass} glass-contrast-boost`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass} ${boostClass}`}>
       <div className="container mx-auto container-padding">
         <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-200`}>
           {/* Logo */}
