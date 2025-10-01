@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import NextImage from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Sparkles, Shield, Clock, Eye, Phone } from 'lucide-react'
 
@@ -11,6 +11,7 @@ import { scrollToSectionId } from '@/lib/scroll'
 import { trackClick } from '@/lib/tracking'
 import { motionTimings } from '@/lib/motion'
 import heroImg from '../../public/Hero_1.png'
+import React from 'react'
 
 const modelBadges = ['iPhone 17', 'iPhone Air', 'iPhone 17 Pro', 'iPhone 17 Pro Max']
 
@@ -37,6 +38,41 @@ export default function HeroSection() {
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 40])
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
   const sweepX = useTransform(scrollYProgress, [0, 1], ['-120%', '140%'])
+
+  // 動態對比：根據背景亮度微調 glass 透明度（簡易取樣）
+  React.useEffect(() => {
+    try {
+      const root = document.documentElement
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      const img = new window.Image()
+      img.src = (heroImg as unknown as { src: string }).src || '/Hero_1.png'
+      img.crossOrigin = 'anonymous'
+      img.onload = () => {
+        canvas.width = 32
+        canvas.height = 32
+        if (!ctx) return
+        ctx.drawImage(img, 0, 0, 32, 32)
+        const data = ctx.getImageData(0, 0, 32, 32).data
+        let sum = 0
+        for (let i = 0; i < data.length; i += 4) {
+          // perceived luminance
+          const r = data[i], g = data[i + 1], b = data[i + 2]
+          const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+          sum += lum
+        }
+        const avg = sum / (data.length / 4)
+        // 調整 token：暗背景→提高 top/bottom；亮背景→降低以更通透
+        if (avg < 110) {
+          root.style.setProperty('--glass-regular-top', 'rgba(255,255,255,0.52)')
+          root.style.setProperty('--glass-regular-bottom', 'rgba(255,255,255,0.18)')
+        } else if (avg > 180) {
+          root.style.setProperty('--glass-regular-top', 'rgba(255,255,255,0.42)')
+          root.style.setProperty('--glass-regular-bottom', 'rgba(255,255,255,0.08)')
+        }
+      }
+    } catch {}
+  }, [])
   return (
     <section id="home" className="relative overflow-hidden pt-24 pb-20 md:pt-32 lg:pb-28">
       <div
@@ -52,7 +88,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={motionTimings.soft}
             >
-              <Image
+              <NextImage
                 src="/apple_logo.webp"
                 alt="Apple 認證"
                 width={20}
@@ -132,7 +168,7 @@ export default function HeroSection() {
               transition={{ ...motionTimings.soft, delay: 0.24 }}
             >
               <Button
-                className="w-full sm:w-auto motion-hover-pop"
+                className="w-full sm:w-auto motion-hover-pop edge-glow"
                 onClick={() => {
                   trackClick('hero_primary_cta_click')
                   scrollToSectionId('contact')
@@ -192,7 +228,7 @@ export default function HeroSection() {
               <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(239,68,68,0.22),_rgba(239,68,68,0))] blur-3xl" />
               <motion.div style={{ y: parallaxY }} className="relative z-10 mx-auto w-full aspect-[6/7] sm:aspect-[5/6] md:aspect-[4/5] lg:aspect-[7/8]">
                 <motion.div style={{ scale: imageScale }} className="absolute inset-0">
-                  <Image
+                  <NextImage
                     src={heroImg}
                     alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
                     fill
