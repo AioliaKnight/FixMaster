@@ -163,8 +163,9 @@ export default function TrustSection() {
   ]
 
   return (
-    <section id="trust" className="section-padding bg-white">
-      <div className="container mx-auto container-padding">
+    <section id="trust" className="section-padding relative">
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(239,68,68,0.06),_rgba(239,68,68,0))] blur-[120px]" aria-hidden="true" />
+      <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 

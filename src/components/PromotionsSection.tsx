@@ -158,8 +158,9 @@ export default function PromotionsSection() {
 
 
   return (
-    <section id="promotions" className="section-padding bg-white">
-      <div className="container mx-auto container-padding">
+    <section id="promotions" className="section-padding relative">
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-24 h-80 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(239,68,68,0.08),_rgba(239,68,68,0))] blur-[100px]" aria-hidden="true" />
+      <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
@@ -290,7 +291,7 @@ export default function PromotionsSection() {
 
           {/* 限時搶購 */}
           <motion.div
-            className="bg-white flat-card p-8 mb-14 md:mb-16"
+            className="flat-card p-8 mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -313,7 +314,7 @@ export default function PromotionsSection() {
               aria-label="限時優惠"
             >
               {flashDeals.map((deal, index) => (
-                <div key={index} className="bg-white flat-card p-6 transition-colors duration-200 flex-none w-64 snap-start md:w-auto glass-highlight tilt-hover">
+                <div key={index} className="flat-card p-6 transition-colors duration-200 flex-none w-64 snap-start md:w-auto glass-highlight tilt-hover">
                   <div className="flex items-center justify-between mb-4">
                     <div className="glass-control glass-strong h-10 w-10 flex items-center justify-center text-neutral-900">
                       <deal.icon className="h-5 w-5" aria-hidden="true" />
@@ -351,7 +352,7 @@ export default function PromotionsSection() {
 
           {/* 會員制度 */}
           <motion.div
-            className="bg-neutral-50 flat-card p-8 mb-14 md:mb-16"
+            className="flat-card p-8 mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -370,7 +371,7 @@ export default function PromotionsSection() {
               {loyaltyProgram.map((level, index) => (
                 <div
                   key={index}
-                  className="bg-white flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight tilt-hover"
+                  className="flat-card p-6 text-center flex-none w-64 snap-start md:w-auto glass-highlight"
                 >
                   <div className="glass-control glass-strong mx-auto mb-4 flex h-16 w-16 items-center justify-center text-neutral-900">
                     <level.icon className="h-8 w-8" aria-hidden="true" />

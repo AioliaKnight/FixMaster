@@ -344,8 +344,9 @@ referrer: ${formData.referrer}
   ]
 
   return (
-    <section id="contact" className="section-padding bg-white">
-      <div className="container mx-auto container-padding">
+    <section id="contact" className="section-padding relative">
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-24 h-80 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(239,68,68,0.06),_rgba(239,68,68,0))] blur-[100px]" aria-hidden="true" />
+      <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
@@ -434,7 +435,7 @@ referrer: ${formData.referrer}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-14 md:mb-16">
             {/* 預約表單 */}
             <motion.div
-              className="bg-white flat-card p-1 motion-soft-enter"
+              className="flat-card p-1 motion-soft-enter"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={motionTimings.soft}
@@ -629,7 +630,7 @@ referrer: ${formData.referrer}
 
             {/* 營業時間與地圖 */}
             <motion.div
-              className="bg-white flat-card p-1 motion-soft-enter"
+              className="flat-card p-1 motion-soft-enter"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={motionTimings.soft}
@@ -707,7 +708,7 @@ referrer: ${formData.referrer}
 
           {/* 最終 CTA */}
           <motion.div
-            className="bg-white flat-card p-1 text-center motion-soft-enter"
+            className="flat-card p-1 text-center motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
