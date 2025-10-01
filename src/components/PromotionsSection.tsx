@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { scrollToSectionId } from '@/lib/scroll'
 import {
   Gift,
@@ -25,6 +25,9 @@ import { motionTimings, motionViewport } from '@/lib/motion'
 
 export default function PromotionsSection() {
   const mainRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: titleRef, offset: ['start end', 'end start'] })
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, 6])
   const [mainActive, setMainActive] = useState(0)
   useEffect(() => {
     const el = mainRef.current
@@ -164,13 +167,15 @@ export default function PromotionsSection() {
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
+            ref={titleRef}
             className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
+            style={{ y: titleY }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover">
               限時優惠活動
             </h2>
             <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">

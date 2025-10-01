@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { trackClick } from '@/lib/tracking'
 import { motionTimings, motionViewport } from '@/lib/motion'
@@ -27,6 +27,9 @@ import { SliderDots } from './CarouselControls'
 export default function TrustSection() {
   const promisesId = 'trust-promises'
   const certsId = 'trust-certs'
+  const titleRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: titleRef, offset: ['start end', 'end start'] })
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, 6])
 
   // 滑動狀態與同步（promises）
   const promisesRef = useRef<HTMLDivElement>(null)
@@ -169,13 +172,15 @@ export default function TrustSection() {
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
           <motion.div 
+            ref={titleRef}
             className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
             viewport={{ once: true }}
+            style={{ y: titleY }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover">
               我們的安心承諾
             </h2>
             <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
