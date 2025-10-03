@@ -39,6 +39,7 @@ export default function RepairCalculator() {
   const [selected, setSelected] = useState<RepairPriceItem | null>(null)
   const [symptom, setSymptom] = useState<SymptomKey>('crackedFront')
   const [overrideCategory, setOverrideCategory] = useState<RepairCategory | null>(null)
+  const [pickup, setPickup] = useState<boolean>(false)
 
   const suggestions = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -60,6 +61,36 @@ export default function RepairCalculator() {
   const yearHint = useMemo(() => (selected ? estimateReleaseYear(selected.model) : null), [selected])
   const estimateText = estimate.min === estimate.max ? formatPrice(estimate.min) : `${formatPrice(estimate.min)} ~ ${formatPrice(estimate.max)}`
 
+  const suggestedLabel = (overrideCategory ? [overrideCategory] : autoCategories)
+    .map(k => CATEGORIES.find(c=>c.key===k)?.label)
+    .join('、')
+
+  const buildMessage = () => {
+    return [
+      '【維修試算】',
+      `機型：${selected?.model || ''}`,
+      `症狀：${SYMPTOMS.find(s=>s.key===symptom)?.label}`,
+      `項目：${suggestedLabel}`,
+      `預估價格：${estimate.min ? estimateText : '-'}`,
+      pickup ? '需求：到府收送' : '需求：到店／可另詢到府收送',
+      '來源：FixMaster 官網 試算器'
+    ].join('\n')
+  }
+
+  const goStep = (next: 1 | 2 | 3) => {
+    setStep(next)
+    try { window.scrollTo({ top: (document.getElementById('repair')?.offsetTop || 0) - 24, behavior: 'smooth' }) } catch {}
+  }
+
+  const resetAll = () => {
+    setStep(1)
+    setQuery('')
+    setSelected(null)
+    setSymptom('crackedFront')
+    setOverrideCategory(null)
+    setPickup(false)
+  }
+
   return (
     <section id="repair" className="section-padding container-padding">
       <div className="max-w-3xl mx-auto">
@@ -73,7 +104,12 @@ export default function RepairCalculator() {
           <div className="glass-content p-4 space-y-3">
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold text-neutral-900">步驟 1：選擇機型</div>
-              {selected && <div className="text-xs text-neutral-500">{selected.model}{yearHint ? `（約 ${yearHint} 年）` : ''}</div>}
+              <div className="flex items-center gap-3 text-xs text-neutral-500">
+                {selected && <span>{selected.model}{yearHint ? `（約 ${yearHint} 年）` : ''}</span>}
+                {selected && (
+                  <button type="button" className="underline hover:text-neutral-900" onClick={resetAll}>重設</button>
+                )}
+              </div>
             </div>
             <input
               value={query}
@@ -87,7 +123,7 @@ export default function RepairCalculator() {
                   key={s.model}
                   type="button"
                   className={`glass-control px-3 py-1 text-sm ${selected?.model === s.model ? 'shadow-[var(--brand-glow)]' : ''}`}
-                  onClick={() => { setSelected(s); setStep(2); trackSelectPromotion({ context: 'repair_calc_mobile', model: s.model }) }}
+                  onClick={() => { setSelected(s); goStep(2); trackSelectPromotion({ context: 'repair_calc_mobile', model: s.model }) }}
                 >
                   {s.model}
                 </button>
@@ -138,8 +174,12 @@ export default function RepairCalculator() {
                 參考價格：<span className="font-semibold text-neutral-900">{estimate.min ? estimateText : '-'}</span>
               </div>
             )}
-            <div className="flex justify-end">
-              <Button disabled={!selected} onClick={() => setStep(3)}>下一步</Button>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <label className="inline-flex items-center gap-2 text-sm text-neutral-700">
+                <input type="checkbox" checked={pickup} onChange={(e)=>setPickup(e.target.checked)} />
+                到府收送需求
+              </label>
+              <Button disabled={!selected} onClick={() => goStep(3)}>下一步</Button>
             </div>
           </div>
         </div>
@@ -151,7 +191,7 @@ export default function RepairCalculator() {
             <div className="text-sm text-neutral-700">
               <div><span className="text-neutral-500">機型：</span>{selected?.model || '—'}{yearHint ? `（約 ${yearHint} 年）` : ''}</div>
               <div><span className="text-neutral-500">症狀：</span>{SYMPTOMS.find(s=>s.key===symptom)?.label}</div>
-              <div><span className="text-neutral-500">項目：</span>{(overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')}</div>
+              <div><span className="text-neutral-500">項目：</span>{suggestedLabel}</div>
               <div><span className="text-neutral-500">預估價格：</span><span className="font-semibold text-neutral-900">{estimate.min ? estimateText : '-'}</span></div>
               {(overrideCategory === 'other' || (!overrideCategory && autoCategories.includes('other'))) && (
                 <div className="mt-2 flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
@@ -162,30 +202,67 @@ export default function RepairCalculator() {
                 </div>
               )}
             </div>
-            <Button
-              className="w-full motion-hover-pop"
-              onClick={() => {
-                trackGenerateLead({ context: 'repair_calc_mobile', model: selected?.model, symptom, suggested: (overrideCategory ? [overrideCategory] : autoCategories), estimateMin: estimate.min, estimateMax: estimate.max })
-                const suggested = (overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')
-                const message = [
-                  '【維修試算】',
-                  `機型：${selected?.model || ''}`,
-                  `症狀：${SYMPTOMS.find(s=>s.key===symptom)?.label}`,
-                  `項目：${suggested}`,
-                  `預估價格：${estimate.min ? estimateText : '-'}`,
-                  '想了解：時程／實際報價／到府收送是否可行',
-                  '來源：FixMaster 官網 試算器'
-                ].join('\n')
-                const lineId = '@fixmaster'
-                const url = `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(message)}`
-                window.open(url, '_blank')
-              }}
-              disabled={!selected}
-            >
-              透過 LINE 詢問/預約
-            </Button>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(buildMessage())
+                    } catch {}
+                  }}
+                  disabled={!selected}
+                >
+                  複製明細
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={async () => {
+                    const msg = buildMessage()
+                    if (navigator.share) {
+                      try { await navigator.share({ title: '維修試算', text: msg }) } catch {}
+                    }
+                  }}
+                  disabled={!selected}
+                >
+                  分享
+                </Button>
+              </div>
+              <Button
+                className="motion-hover-pop"
+                onClick={() => {
+                  trackGenerateLead({ context: 'repair_calc_mobile', model: selected?.model, symptom, suggested: (overrideCategory ? [overrideCategory] : autoCategories), estimateMin: estimate.min, estimateMax: estimate.max, pickup })
+                  const lineId = '@fixmaster'
+                  const url = `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(buildMessage())}`
+                  window.open(url, '_blank')
+                }}
+                disabled={!selected}
+              >
+                透過 LINE 詢問/預約
+              </Button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile sticky summary */}
+        {selected && (
+          <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[60] w-[calc(100%-2rem)] max-w-3xl md:hidden">
+            <div className="glass-panel p-1">
+              <div className="glass-content px-4 py-3 flex items-center justify-between gap-3">
+                <div className="text-xs text-neutral-700">
+                  <div className="font-semibold text-neutral-900">{selected.model}</div>
+                  <div>{SYMPTOMS.find(s=>s.key===symptom)?.label}・{estimate.min ? estimateText : '-'}</div>
+                </div>
+                <div className="flex gap-2">
+                  {step < 3 && (
+                    <Button size="sm" onClick={() => goStep(3)}>下一步</Button>
+                  )}
+                  <Button size="sm" variant="outline" onClick={resetAll}>重設</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
