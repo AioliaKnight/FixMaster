@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight, Navigation, FileText, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
 import FAQCategoryNav from './FAQCategoryNav'
@@ -21,6 +22,8 @@ export default function FAQSection() {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const categoriesRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
 
   const faqCategories = [
     {
@@ -551,120 +554,123 @@ export default function FAQSection() {
           </motion.div>
 
           {/* 底部彈出層 Bottom Sheet */}
-          <AnimatePresence>
-            {isSheetOpen && currentFaq && (
-              <motion.div
-                className="fixed inset-0 z-[10000] flex flex-col"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="faq-sheet-title"
-                aria-describedby="faq-sheet-description"
-              >
-                {/* 背景遮罩 */}
-                <div
-                  className="absolute inset-0 bg-black/40"
-                  onClick={closeFaqDetail}
-                  aria-hidden="true"
-                />
-
-                {/* Sheet 內容容器 */}
+          {mounted && createPortal(
+            <AnimatePresence>
+              {isSheetOpen && currentFaq && (
                 <motion.div
-                  ref={sheetRef}
-                  className="mt-auto glass-panel p-1 border border-white/25 motion-soft-enter"
-                  initial={{ y: '100%' }}
-                  animate={{ y: 0 }}
-                  exit={{ y: '100%' }}
-                  transition={{ type: 'spring', stiffness: 260, damping: 28 }}
-                  id="faq-bottom-sheet"
+                  className="fixed inset-0 z-[10000] flex flex-col"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="faq-sheet-title"
+                  aria-describedby="faq-sheet-description"
                 >
-                  <div className="glass-content max-h-[70vh] overflow-hidden">
-                    <div className="flex justify-center pt-3">
-                      <div className="h-1 w-12 rounded-full bg-white/50" aria-hidden="true" />
-                    </div>
+                  {/* 背景遮罩 */}
+                  <div
+                    className="absolute inset-0 bg-black/40"
+                    onClick={closeFaqDetail}
+                    aria-hidden="true"
+                  />
 
-                    <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4 border-b border-white/20">
-                      <div className="flex items-start gap-3 pr-2 md:pr-4">
-                        <div className="glass-control glass-elevated flex h-10 w-10 items-center justify-center text-neutral-900 md:h-12 md:w-12">
-                          <currentFaq.icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-                        </div>
-                        <div>
-                          <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
-                            {currentFaq.question}
-                          </h3>
-                          <div className="mt-1 text-xs text-neutral-500 md:text-sm">
-                            {currentFaq.category}
+                  {/* Sheet 內容容器 */}
+                  <motion.div
+                    ref={sheetRef}
+                    className="mt-auto glass-panel p-1 border border-white/25 motion-soft-enter"
+                    initial={{ y: '100%' }}
+                    animate={{ y: 0 }}
+                    exit={{ y: '100%' }}
+                    transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+                    id="faq-bottom-sheet"
+                  >
+                    <div className="glass-content max-h-[70vh] overflow-hidden">
+                      <div className="flex justify-center pt-3">
+                        <div className="h-1 w-12 rounded-full bg-white/50" aria-hidden="true" />
+                      </div>
+
+                      <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4 border-b border-white/20">
+                        <div className="flex items-start gap-3 pr-2 md:pr-4">
+                          <div className="glass-control glass-elevated flex h-10 w-10 items-center justify-center text-neutral-900 md:h-12 md:w-12">
+                            <currentFaq.icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                          </div>
+                          <div>
+                            <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
+                              {currentFaq.question}
+                            </h3>
+                            <div className="mt-1 text-xs text-neutral-500 md:text-sm">
+                              {currentFaq.category}
+                            </div>
                           </div>
                         </div>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            aria-label="上一題"
+                            className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
+                            onClick={goPrevFaq}
+                            disabled={(selectedFaqIndex ?? 0) <= 0}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                          </button>
+                          <button
+                            type="button"
+                            aria-label="下一題"
+                            className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
+                            onClick={goNextFaq}
+                            disabled={(selectedFaqIndex ?? 0) >= currentFaqs.length - 1}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
+                          <button
+                            ref={closeButtonRef}
+                            type="button"
+                            aria-label="關閉"
+                            className="glass-control glass-elevated p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
+                            onClick={closeFaqDetail}
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          aria-label="上一題"
-                          className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
-                          onClick={goPrevFaq}
-                          disabled={(selectedFaqIndex ?? 0) <= 0}
-                        >
-                          <ChevronLeft className="h-4 w-4" />
-                        </button>
-                        <button
-                          type="button"
-                          aria-label="下一題"
-                          className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
-                          onClick={goNextFaq}
-                          disabled={(selectedFaqIndex ?? 0) >= currentFaqs.length - 1}
-                        >
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
-                        <button
-                          ref={closeButtonRef}
-                          type="button"
-                          aria-label="關閉"
-                          className="glass-control glass-elevated p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
-                          onClick={closeFaqDetail}
-                        >
-                          <X className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
 
-                    <div className="px-4 md:px-6 pt-4 pb-0 max-h-[calc(70vh-140px)] overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" id="faq-sheet-description">
-                      {currentFaq.answer}
-                    </div>
+                      <div className="px-4 md:px-6 pt-4 pb-0 max-h-[calc(70vh-140px)] overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" id="faq-sheet-description">
+                        {currentFaq.answer}
+                      </div>
 
-                    <div className="px-4 md:px-6 py-4 border-t border-white/20">
-                      <div className="glass-control glass-strong px-4 py-3 text-xs text-neutral-600 md:text-sm mb-4" aria-hidden="true">
-                        仍不確定？我們可以協助安排檢測、提供即時報價或線上諮詢。
-                      </div>
-                      <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-                        <Button
-                          variant="outline"
-                          className="sm:w-auto motion-hover-pop"
-                          onClick={() => {
-                            trackClick('faq_sheet_contact_line')
-                            window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
-                          }}
-                        >
-                          透過 LINE 詢問
-                        </Button>
-                        <Button
-                          className="sm:w-auto motion-hover-pop"
-                          onClick={() => {
-                            trackClick('faq_sheet_contact_book_line')
-                            window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
-                          }}
-                        >
-                          預約維修時段
-                        </Button>
+                      <div className="px-4 md:px-6 py-4 border-t border-white/20">
+                        <div className="glass-control glass-strong px-4 py-3 text-xs text-neutral-600 md:text-sm mb-4" aria-hidden="true">
+                          仍不確定？我們可以協助安排檢測、提供即時報價或線上諮詢。
+                        </div>
+                        <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+                          <Button
+                            variant="outline"
+                            className="sm:w-auto motion-hover-pop"
+                            onClick={() => {
+                              trackClick('faq_sheet_contact_line')
+                              window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
+                            }}
+                          >
+                            透過 LINE 詢問
+                          </Button>
+                          <Button
+                            className="sm:w-auto motion-hover-pop"
+                            onClick={() => {
+                              trackClick('faq_sheet_contact_book_line')
+                              window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
+                            }}
+                          >
+                            預約維修時段
+                          </Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              )}
+            </AnimatePresence>,
+            document.body
+          )}
 
           {/* 結尾 CTA */}
           <motion.div
