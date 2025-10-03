@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { motionTimings } from '@/lib/motion'
 import Button from './ui/Button'
 import { trackSelectPromotion, trackGenerateLead } from '@/lib/tracking'
+import { AlertTriangle } from 'lucide-react'
 
 const CATEGORIES: { key: RepairCategory; label: string }[] = [
   { key: 'frontGlass', label: '正面螢幕' },
@@ -13,7 +14,7 @@ const CATEGORIES: { key: RepairCategory; label: string }[] = [
   { key: 'displayModule', label: '螢幕總成' },
   { key: 'battery', label: '電池' },
   { key: 'rearCamera', label: '後置相機' },
-  { key: 'other', label: '其他損壞' },
+  { key: 'other', label: '整新/換機（參考）' },
 ]
 
 const SYMPTOMS: { key: SymptomKey; label: string }[] = [
@@ -47,6 +48,7 @@ export default function RepairCalculator() {
 
   const autoCategories = useMemo(() => symptomToCategories[symptom], [symptom])
   const categoriesToShow = overrideCategory ? [overrideCategory] : autoCategories
+  const includesOther = categoriesToShow.includes('other')
 
   const estimate = useMemo(() => {
     if (!selected) return { min: 0, max: 0 }
@@ -123,6 +125,14 @@ export default function RepairCalculator() {
                 </button>
               ))}
             </div>
+            {includesOther && (
+              <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
+                <AlertTriangle className="h-4 w-4 mt-0.5" />
+                <div>
+                  「整新/換機（參考）」為整新或更換整機的參考價。實際會先免費檢測，若可單項維修（如充電模組/喇叭/主機板級），通常費用會明顯低於此參考價。
+                </div>
+              </div>
+            )}
             {selected && (
               <div className="text-sm text-neutral-700">
                 參考價格：<span className="font-semibold text-neutral-900">{estimate.min ? estimateText : '-'}</span>
@@ -143,6 +153,14 @@ export default function RepairCalculator() {
               <div><span className="text-neutral-500">症狀：</span>{SYMPTOMS.find(s=>s.key===symptom)?.label}</div>
               <div><span className="text-neutral-500">項目：</span>{(overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')}</div>
               <div><span className="text-neutral-500">預估價格：</span><span className="font-semibold text-neutral-900">{estimate.min ? estimateText : '-'}</span></div>
+              {(overrideCategory === 'other' || (!overrideCategory && autoCategories.includes('other'))) && (
+                <div className="mt-2 flex items-start gap-2 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
+                  <AlertTriangle className="h-4 w-4 mt-0.5" />
+                  <div>
+                    此價格為整新或換機的「參考上限」。實際多以單項維修為主，以降低費用；建議先透過 LINE 提交症狀照片，技師將回覆更精準的評估與時程。
+                  </div>
+                </div>
+              )}
             </div>
             <Button
               className="w-full motion-hover-pop"
