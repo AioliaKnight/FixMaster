@@ -5,6 +5,7 @@ import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Mon
 import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
+import FAQCategoryNav from './FAQCategoryNav'
 import Button from './ui/Button'
 import SectionHeader from './ui/SectionHeader'
 import { motionTimings, motionViewport } from '@/lib/motion'
@@ -345,6 +346,18 @@ export default function FAQSection() {
     setSelectedFaqIndex(null)
   }
 
+  const goPrevFaq = () => {
+    if (!currentFaqs.length || selectedFaqIndex === null) return
+    const next = Math.max(0, selectedFaqIndex - 1)
+    setSelectedFaqIndex(next)
+  }
+
+  const goNextFaq = () => {
+    if (!currentFaqs.length || selectedFaqIndex === null) return
+    const next = Math.min(currentFaqs.length - 1, selectedFaqIndex + 1)
+    setSelectedFaqIndex(next)
+  }
+
   useEffect(() => {
     if (!isSheetOpen) {
       document.body.classList.remove('no-scroll')
@@ -366,6 +379,18 @@ export default function FAQSection() {
       if (event.key === 'Escape') {
         event.preventDefault()
         closeFaqDetail()
+        return
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        goPrevFaq()
+        return
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        goNextFaq()
         return
       }
 
@@ -413,92 +438,21 @@ export default function FAQSection() {
             />
           </motion.div>
 
-          {/* 分類 chips（可橫向滑動） */}
+          {/* 新分類導航 */}
           <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4">
-            <div 
-              className="relative overflow-x-auto no-scrollbar glass-panel rounded-[28px] px-3 py-3"
-              role="tablist"
-              aria-label="FAQ 分類"
-              onKeyDown={(e) => {
-                const max = faqCategories.length - 1
-                let next = selectedCategoryIndex
-                if (e.key === 'ArrowRight') next = Math.min(max, selectedCategoryIndex + 1)
-                if (e.key === 'ArrowLeft') next = Math.max(0, selectedCategoryIndex - 1)
-                if (e.key === 'Home') next = 0
-                if (e.key === 'End') next = max
-                if (next !== selectedCategoryIndex) {
-                  e.preventDefault()
-                  setSelectedCategoryIndex(next)
-                  setSelectedFaqIndex(null)
-                  const btn = document.getElementById(`faq-tab-${next}`) as HTMLButtonElement | null
-                  btn?.focus()
-                }
-              }}
-            >
-              <div className="flex items-center gap-2 md:gap-3 w-max" ref={categoriesRef}>
-                {faqCategories.map((category, index) => {
-                  const count = category.faqs.length
-                  const title = category.title
-                  const Icon = title.includes('iPhone') ? Smartphone
-                    : title.includes('iPad') ? Tablet
-                    : title.includes('Mac') ? Monitor
-                    : title.includes('服務') ? Shield
-                    : HelpCircle
-                  return (
-                    <Chip
-                      key={title}
-                      id={`faq-tab-${index}`}
-                      role="tab"
-                      aria-selected={selectedCategoryIndex === index}
-                      aria-controls="faq-panel"
-                      active={selectedCategoryIndex === index}
-                      onClick={() => {
-                        setSelectedCategoryIndex(index)
-                        setSelectedFaqIndex(null)
-                      }}
-                      className="flex items-center gap-2"
-                    >
-                      <Icon className="h-4 w-4" />
-                      <span className="whitespace-nowrap">{title}</span>
-                      <span className="text-xs text-neutral-500">({count})</span>
-                    </Chip>
-                  )
-                })}
-              </div>
-              {/* Scroll fade edges */}
-              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 rounded-[28px] bg-gradient-to-r from-white/80 to-transparent" />
-              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 rounded-[28px] bg-gradient-to-l from-white/80 to-transparent" />
-
-              {/* Scroll controls */}
-              <div className="pointer-events-none absolute inset-y-0 left-1 right-1 flex items-center justify-between">
-                <button
-                  type="button"
-                  className="pointer-events-auto glass-control glass-elevated p-2 hidden sm:inline-flex"
-                  aria-label="向左捲動分類"
-                  onClick={() => {
-                    const el = categoriesRef.current
-                    if (!el) return
-                    const step = el.clientWidth * 0.6
-                    el.scrollBy({ left: -step, behavior: 'smooth' })
-                  }}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  className="pointer-events-auto glass-control glass-elevated p-2 hidden sm:inline-flex"
-                  aria-label="向右捲動分類"
-                  onClick={() => {
-                    const el = categoriesRef.current
-                    if (!el) return
-                    const step = el.clientWidth * 0.6
-                    el.scrollBy({ left: step, behavior: 'smooth' })
-                  }}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
+            <FAQCategoryNav
+              categories={faqCategories.map(c => ({
+                title: c.title,
+                count: c.faqs.length,
+                Icon: c.title.includes('iPhone') ? Smartphone
+                  : c.title.includes('iPad') ? Tablet
+                  : c.title.includes('Mac') ? Monitor
+                  : c.title.includes('服務') ? Shield
+                  : HelpCircle
+              }))}
+              selectedIndex={selectedCategoryIndex}
+              onChange={(i) => { setSelectedCategoryIndex(i); setSelectedFaqIndex(null) }}
+            />
           </div>
 
           {/* 問題卡片網格（行動 1 欄、平板 2 欄、桌面 3 欄） */}
@@ -521,6 +475,12 @@ export default function FAQSection() {
                 aria-haspopup="dialog"
                 aria-controls="faq-bottom-sheet"
                 aria-expanded={isSheetOpen && selectedFaqIndex === index}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openFaqDetail(e.currentTarget, index)
+                  }
+                }}
               >
                 <div className="glass-content flex flex-col gap-4 p-6">
                   <div className="flex items-start gap-3 md:gap-4">
@@ -541,7 +501,14 @@ export default function FAQSection() {
                   </div>
                   <div className="flex items-center justify-between text-xs font-medium text-neutral-500 md:text-sm">
                     <span>查看完整解答</span>
-                    <ArrowRight className="h-4 w-4 text-neutral-400" aria-hidden="true" />
+                    <motion.span
+                      initial={false}
+                      animate={{ rotate: isSheetOpen && selectedFaqIndex === index ? 90 : 0 }}
+                      transition={motionTimings.soft}
+                      className="inline-flex"
+                    >
+                      <ArrowRight className="h-4 w-4 text-neutral-400" aria-hidden="true" />
+                    </motion.span>
                   </div>
                 </div>
               </button>
@@ -584,7 +551,7 @@ export default function FAQSection() {
                     </div>
 
                     <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4 border-b border-white/20">
-                      <div className="flex items-start gap-3 pr-4 md:pr-6">
+                      <div className="flex items-start gap-3 pr-2 md:pr-4">
                         <div className="glass-control glass-elevated flex h-10 w-10 items-center justify-center text-neutral-900 md:h-12 md:w-12">
                           <currentFaq.icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
                         </div>
@@ -597,15 +564,35 @@ export default function FAQSection() {
                           </div>
                         </div>
                       </div>
-                      <button
-                        ref={closeButtonRef}
-                        type="button"
-                        aria-label="關閉"
-                        className="glass-control glass-elevated p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
-                        onClick={closeFaqDetail}
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          aria-label="上一題"
+                          className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
+                          onClick={goPrevFaq}
+                          disabled={(selectedFaqIndex ?? 0) <= 0}
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          aria-label="下一題"
+                          className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
+                          onClick={goNextFaq}
+                          disabled={(selectedFaqIndex ?? 0) >= currentFaqs.length - 1}
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                        <button
+                          ref={closeButtonRef}
+                          type="button"
+                          aria-label="關閉"
+                          className="glass-control glass-elevated p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
+                          onClick={closeFaqDetail}
+                        >
+                          <X className="h-4 w-4" />
+                        </button>
+                      </div>
                     </div>
 
                     <div className="px-4 md:px-6 pt-4 pb-0 max-h-[calc(70vh-140px)] overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" id="faq-sheet-description">
