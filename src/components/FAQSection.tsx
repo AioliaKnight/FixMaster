@@ -584,7 +584,7 @@ export default function FAQSection() {
                     transition={{ type: 'spring', stiffness: 260, damping: 28 }}
                     id="faq-bottom-sheet"
                   >
-                    <div className="glass-content max-h-[70vh] overflow-hidden">
+                    <div className="glass-content overflow-hidden pb-safe" style={{ maxHeight: '85dvh' }}>
                       <div className="flex justify-center pt-3">
                         <div className="h-1 w-12 rounded-full bg-white/50" aria-hidden="true" />
                       </div>
@@ -634,7 +634,7 @@ export default function FAQSection() {
                         </div>
                       </div>
 
-                      <div className="px-4 md:px-6 pt-4 pb-0 max-h-[calc(70vh-140px)] overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" id="faq-sheet-description">
+                      <div className="px-4 md:px-6 pt-4 pb-0 overscroll-contain overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" style={{ maxHeight: 'calc(85dvh - 140px)' }} id="faq-sheet-description">
                         {currentFaq.answer}
                       </div>
 
