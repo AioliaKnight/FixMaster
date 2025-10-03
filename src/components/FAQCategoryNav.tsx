@@ -22,13 +22,19 @@ interface Props {
 export default function FAQCategoryNav({ categories, selectedIndex, onChange }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const rowRef = useRef<HTMLDivElement>(null)
-  const btnRefs = useRef<(HTMLButtonElement | null)[]>([])
   const [underlineLeft, setUnderlineLeft] = useState(0)
   const [underlineWidth, setUnderlineWidth] = useState(0)
   const scrollTimer = useRef<number | null>(null)
 
+  const getItemEl = (index: number): HTMLElement | null => {
+    const row = rowRef.current
+    if (!row) return null
+    const child = row.children.item(index) as HTMLElement | null
+    return child
+  }
+
   const measureUnderline = () => {
-    const btn = btnRefs.current[selectedIndex]
+    const btn = getItemEl(selectedIndex)
     const container = rowRef.current
     if (!btn || !container) return
     const b = btn.getBoundingClientRect()
@@ -39,14 +45,13 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
 
   useLayoutEffect(() => {
     measureUnderline()
-    // also re-measure on resize
     const onResize = () => measureUnderline()
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [selectedIndex, categories.length])
 
   useEffect(() => {
-    const el = btnRefs.current[selectedIndex]
+    const el = getItemEl(selectedIndex)
     el?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
   }, [selectedIndex])
 
@@ -66,33 +71,30 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
   const onWheelHorizontal: React.WheelEventHandler<HTMLDivElement> = (e) => {
     const sc = scrollRef.current
     if (!sc) return
-    // 轉為水平滾動（保留原始水平滾動增量）
     sc.scrollLeft += (Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX)
-    // 取消預設避免頁面垂直滾動
     e.preventDefault()
   }
 
   const onScroll = () => {
-    // 即時更新底線位置
     measureUnderline()
-    // debounce 自動貼齊最近的 chip
     if (scrollTimer.current) window.clearTimeout(scrollTimer.current)
     scrollTimer.current = window.setTimeout(() => {
       const sc = scrollRef.current
-      if (!sc) return
+      const row = rowRef.current
+      if (!sc || !row) return
       const center = sc.scrollLeft + sc.clientWidth / 2
       let nearestIdx = selectedIndex
       let nearestDist = Number.POSITIVE_INFINITY
-      btnRefs.current.forEach((el, i) => {
-        if (!el) return
-        const left = (el.offsetLeft || 0) + el.offsetWidth / 2
+      Array.from(row.children).forEach((el, i) => {
+        const elh = el as HTMLElement
+        const left = (elh.offsetLeft || 0) + elh.offsetWidth / 2
         const dist = Math.abs(left - center)
         if (dist < nearestDist) {
           nearestDist = dist
           nearestIdx = i
         }
       })
-      const target = btnRefs.current[nearestIdx]
+      const target = getItemEl(nearestIdx)
       target?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }, 120)
   }
@@ -115,7 +117,6 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
           {categories.map((cat, i) => (
             <Chip
               key={cat.title}
-              ref={(el: HTMLButtonElement | null) => (btnRefs.current[i] = el)}
               id={`faq-tab-${i}`}
               role="tab"
               aria-selected={selectedIndex === i}
