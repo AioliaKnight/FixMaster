@@ -7,6 +7,7 @@ const FAQSection = dynamic(() => import('@/components/FAQSection'))
 const TrustSection = dynamic(() => import('@/components/TrustSection'))
 const PromotionsSection = dynamic(() => import('@/components/PromotionsSection'))
 const ContactSection = dynamic(() => import('@/components/ContactSection'))
+const RepairCalculator = dynamic(() => import('@/components/RepairCalculator'))
 import Footer from '@/components/Footer'
 import ClientAnalytics from './tracking'
 import { Suspense } from 'react'
@@ -22,6 +23,7 @@ export default function Home() {
         <HeroSection />
         <div className="space-y-24 md:space-y-32">
           <div className="cv-auto"><ServicesSection /></div>
+          <div className="cv-auto"><RepairCalculator /></div>
           <div className="cv-auto"><TestimonialsSection /></div>
           <div className="cv-auto"><FAQSection /></div>
           <div className="cv-auto"><TrustSection /></div>
