@@ -26,7 +26,7 @@ export default function Home() {
           <div className="cv-auto"><FAQSection /></div>
           <div className="cv-auto"><TrustSection /></div>
           <div className="cv-auto"><PromotionsSection /></div>
-          <div className="cv-auto"><ContactSection /></div>
+          <div className="cv-auto"><Suspense fallback={null}><ContactSection /></Suspense></div>
         </div>
       </main>
       <Footer />
