@@ -108,6 +108,7 @@ const structuredData = {
       "url": "https://fixmastertw.com",
       "telephone": "+886-2-2816-6666",
       "email": "fixmastertw@gmail.com",
+      "priceRange": "$$",
       "sameAs": [
         reviewsMeta.googleUrl,
         "https://www.facebook.com/fixmaster.tw",
@@ -205,6 +206,13 @@ const structuredData = {
         { "@type": "Place", "name": "Shilin District" }
       ],
       "knowsAbout": ["iPhone維修", "Apple產品維修", "手機螢幕更換", "電池更換", "主機板維修", "二手iPhone販售", "Apple IRP認證", "透明維修"]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fixmastertw.com/#breadcrumbs",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "首頁", "item": "https://fixmastertw.com/"}
+      ]
     },
     {
       "@type": "Service",
