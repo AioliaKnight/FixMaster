@@ -167,8 +167,18 @@ export default function RepairCalculator() {
               onClick={() => {
                 trackGenerateLead({ context: 'repair_calc_mobile', model: selected?.model, symptom, suggested: (overrideCategory ? [overrideCategory] : autoCategories), estimateMin: estimate.min, estimateMax: estimate.max })
                 const suggested = (overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')
-                const msg = encodeURIComponent(`您好，我的 ${selected?.model || ''} 有「${SYMPTOMS.find(s=>s.key===symptom)?.label}」，預估 ${estimateText}，項目：${suggested}。想了解時程與報價。`)
-                window.open(`https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=repair_calc&utm_campaign=contact_line&text=${msg}`, '_blank')
+                const message = [
+                  '【維修試算】',
+                  `機型：${selected?.model || ''}`,
+                  `症狀：${SYMPTOMS.find(s=>s.key===symptom)?.label}`,
+                  `項目：${suggested}`,
+                  `預估價格：${estimate.min ? estimateText : '-'}`,
+                  '想了解：時程／實際報價／到府收送是否可行',
+                  '來源：FixMaster 官網 試算器'
+                ].join('\n')
+                const lineId = '@fixmaster'
+                const url = `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(message)}`
+                window.open(url, '_blank')
               }}
               disabled={!selected}
             >
