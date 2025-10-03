@@ -20,6 +20,7 @@ export default function FAQSection() {
   const previousFocusRef = useRef<HTMLElement | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const categoriesRef = useRef<HTMLDivElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const faqCategories = [
     {
@@ -157,6 +158,12 @@ export default function FAQSection() {
           category: '手機維修'
         },
         {
+          icon: Settings,
+          question: '維修後需要重新貼膜或做哪些保護？',
+          answer: '更換螢幕後建議重新貼滿版膜與邊框保護，加裝防摔殼可降低二次損傷風險；若為進水機，短期內避免潮濕環境並留意異味/異音。',
+          category: '維修建議'
+        },
+        {
           icon: Wrench,
           question: '進水檢測與處理流程、時程與費用？',
           answer: '流程：初檢（免費）→ 拆機乾燥／酒精或超音波清洗 → 檢測腐蝕區 → 報價確認施工。一般 2–4 小時完成初步處理與評估；資料救援屬選配專案，將先行告知風險與費用。',
@@ -196,6 +203,12 @@ export default function FAQSection() {
           question: 'iPad 玻璃破裂一定要換總成嗎？',
           answer: '多數整合型面板需更換總成（玻璃+顯示+觸控），以確保貼合品質與觸控靈敏度；檢測後會提供可行方案與差異說明。',
           category: 'iPad維修'
+        },
+        {
+          icon: Shield,
+          question: 'iPad 維修後是否影響 Apple Pencil 相容性？',
+          answer: '不會。更換面板或電池不影響 Apple Pencil 配對與使用；維修後會協助測試筆觸與延遲，確認無異常後交機。',
+          category: 'iPad維修'
         }
       ]
     },
@@ -231,6 +244,12 @@ export default function FAQSection() {
           question: '可否升級 SSD 或更換電池？資料如何轉移？',
           answer: '視機型可行性而定；可協助資料備份與轉移，施工前先說明風險與時程。完成後提供檢測紀錄與保固。',
           category: 'Mac升級'
+        },
+        {
+          icon: Settings,
+          question: 'MacBook 過熱或風扇大聲怎麼處理？',
+          answer: '建議清潔風扇與散熱模組、替換散熱膏；同時檢查背景程式與電源設定。改善後可顯著降低溫度與噪音。',
+          category: 'Mac維護'
         }
       ]
     },
@@ -302,6 +321,12 @@ export default function FAQSection() {
           question: '支援哪些付款方式？是否可刷卡與行動支付？',
           answer: '支援現金、信用卡，亦可使用行動支付（實際以門市公告為準）。到府收送維修完成後可線上支付。',
           category: '付款方式'
+        },
+        {
+          icon: DollarSign,
+          question: '是否提供企業/學校大量維修報價與到府服務？',
+          answer: '可提供專案報價與定期維護，支援到府收送與維修月結，請透過 LINE 提供機型數量與需求，我們將回覆專案方案。',
+          category: '商務合作'
         },
         {
           icon: HelpCircle,
@@ -451,7 +476,13 @@ export default function FAQSection() {
                   : HelpCircle
               }))}
               selectedIndex={selectedCategoryIndex}
-              onChange={(i) => { setSelectedCategoryIndex(i); setSelectedFaqIndex(null) }}
+              onChange={(i) => {
+                setSelectedCategoryIndex(i)
+                setSelectedFaqIndex(null)
+                // 捲回 FAQ 網格頂部避免上下文錯位
+                const grid = gridRef.current
+                if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+              }}
             />
           </div>
 
@@ -460,14 +491,15 @@ export default function FAQSection() {
             id="faq-panel"
             role="tabpanel"
             aria-labelledby={`faq-tab-${selectedCategoryIndex}`}
+            ref={gridRef}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
             viewport={motionViewport}
           >
             {currentFaqs.map((faq, index) => (
-              <button
+              <motion.button
                 key={`${faq.question}-${index}`}
                 type="button"
                 onClick={(event) => openFaqDetail(event.currentTarget, index)}
@@ -481,6 +513,9 @@ export default function FAQSection() {
                     openFaqDetail(e.currentTarget, index)
                   }
                 }}
+                initial={{ opacity: 0, scale: 0.98, y: 6 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ ...motionTimings.soft, delay: index * 0.03 }}
               >
                 <div className="glass-content flex flex-col gap-4 p-6">
                   <div className="flex items-start gap-3 md:gap-4">
@@ -511,7 +546,7 @@ export default function FAQSection() {
                     </motion.span>
                   </div>
                 </div>
-              </button>
+              </motion.button>
             ))}
           </motion.div>
 
