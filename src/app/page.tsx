@@ -1,12 +1,12 @@
 import Navbar from '@/components/Navbar'
 import HeroSection from '@/components/HeroSection'
 import dynamic from 'next/dynamic'
-const ServicesSection = dynamic(() => import('@/components/ServicesSection'), { ssr: true })
-const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), { ssr: false })
-const FAQSection = dynamic(() => import('@/components/FAQSection'), { ssr: false })
-const TrustSection = dynamic(() => import('@/components/TrustSection'), { ssr: false })
-const PromotionsSection = dynamic(() => import('@/components/PromotionsSection'), { ssr: false })
-const ContactSection = dynamic(() => import('@/components/ContactSection'), { ssr: false })
+const ServicesSection = dynamic(() => import('@/components/ServicesSection'))
+const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'))
+const FAQSection = dynamic(() => import('@/components/FAQSection'))
+const TrustSection = dynamic(() => import('@/components/TrustSection'))
+const PromotionsSection = dynamic(() => import('@/components/PromotionsSection'))
+const ContactSection = dynamic(() => import('@/components/ContactSection'))
 import Footer from '@/components/Footer'
 import ClientAnalytics from './tracking'
 import { Suspense } from 'react'
