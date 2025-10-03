@@ -44,3 +44,46 @@ export const repairPricing: RepairPriceItem[] = [
   { model: 'iPhone SE (第二代)', prices: { frontGlass: 4590, battery: 2290, other: 9790 } },
   { model: 'iPhone SE (第三代)', prices: { frontGlass: 4590, battery: 2290, other: 9790 } },
 ]
+
+export type SymptomKey =
+  | 'crackedFront'
+  | 'crackedBack'
+  | 'noDisplay'
+  | 'touchIssue'
+  | 'batteryDrain'
+  | 'cameraBlur'
+  | 'chargeIssue'
+  | 'noPower'
+  | 'waterDamage'
+
+export const symptomToCategories: Record<SymptomKey, RepairCategory[]> = {
+  crackedFront: ['frontGlass', 'displayModule'],
+  crackedBack: ['backGlass'],
+  noDisplay: ['displayModule'],
+  touchIssue: ['displayModule'],
+  batteryDrain: ['battery'],
+  cameraBlur: ['rearCamera'],
+  chargeIssue: ['other'],
+  noPower: ['other'],
+  waterDamage: ['other'],
+}
+
+export function estimateReleaseYear(model: string): number | null {
+  const n = /iPhone\s(\d+)|iPhone\sSE\s\((第二代|第三代)\)|iPhone\sX(R|S)?/.exec(model)
+  if (n?.[1]) {
+    const gen = parseInt(n[1], 10)
+    // simple mapping: iPhone 8->2017 then +1/yr; 15->2023, 16->2024, 17->2025
+    if (gen >= 8 && gen <= 17) return 2009 + gen // 8->2017
+  }
+  if (/iPhone\sX$/.test(model)) return 2017
+  if (/iPhone\sXS/.test(model)) return 2018
+  if (/iPhone\sXR/.test(model)) return 2018
+  if (/iPhone\sSE\s\(第二代\)/.test(model)) return 2020
+  if (/iPhone\sSE\s\(第三代\)/.test(model)) return 2022
+  return null
+}
+
+export function formatPrice(value?: number): string {
+  if (!value) return '-'
+  return `$${value.toLocaleString()}`
+}
