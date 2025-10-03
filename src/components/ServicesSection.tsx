@@ -342,19 +342,9 @@ export default function ServicesSection() {
                           <Button
                             className="w-full md:w-auto motion-hover-pop"
                             onClick={() => {
-                              trackClick('services_book_cta', { section: 'services', service: service.title })
-                              scrollToSectionId('contact')
-                              setTimeout(() => {
-                                const issueSelect = document.querySelector('select[name="issue"]') as HTMLSelectElement
-                                if (issueSelect) {
-                                  if (service.title.includes('螢幕')) {
-                                    issueSelect.value = '螢幕破裂'
-                                  } else if (service.title.includes('電池')) {
-                                    issueSelect.value = '電池老化'
-                                  }
-                                  issueSelect.dispatchEvent(new Event('change', { bubbles: true }))
-                                }
-                              }, 1000)
+                              trackClick('services_book_cta_line', { section: 'services', service: service.title })
+                              const msg = encodeURIComponent(`您好，我想諮詢：${service.title}（FixMaster 官網）`)
+                              window.open(`https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=services&utm_campaign=contact_line&text=${msg}`, '_blank')
                             }}
                           >
                             立即預約

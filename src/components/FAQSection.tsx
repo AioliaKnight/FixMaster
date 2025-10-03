@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight, Navigation, FileText, CreditCard } from 'lucide-react'
+import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Monitor, Tablet, Wrench, Zap, Settings, HelpCircle, ArrowRight, Navigation, FileText, CreditCard, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 import { trackClick } from '@/lib/tracking'
 import Chip from './ui/Chip'
@@ -18,6 +18,7 @@ export default function FAQSection() {
   const sheetRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
+  const categoriesRef = useRef<HTMLDivElement>(null)
 
   const faqCategories = [
     {
@@ -434,27 +435,69 @@ export default function FAQSection() {
                 }
               }}
             >
-              <div className="flex items-center gap-2 md:gap-3 w-max">
-                {faqCategories.map((category, index) => (
-                  <Chip
-                    key={category.title}
-                    id={`faq-tab-${index}`}
-                    role="tab"
-                    aria-selected={selectedCategoryIndex === index}
-                    aria-controls="faq-panel"
-                    active={selectedCategoryIndex === index}
-                    onClick={() => {
-                      setSelectedCategoryIndex(index)
-                      setSelectedFaqIndex(null)
-                    }}
-                  >
-                    {category.title}
-                  </Chip>
-                ))}
+              <div className="flex items-center gap-2 md:gap-3 w-max" ref={categoriesRef}>
+                {faqCategories.map((category, index) => {
+                  const count = category.faqs.length
+                  const title = category.title
+                  const Icon = title.includes('iPhone') ? Smartphone
+                    : title.includes('iPad') ? Tablet
+                    : title.includes('Mac') ? Monitor
+                    : title.includes('服務') ? Shield
+                    : HelpCircle
+                  return (
+                    <Chip
+                      key={title}
+                      id={`faq-tab-${index}`}
+                      role="tab"
+                      aria-selected={selectedCategoryIndex === index}
+                      aria-controls="faq-panel"
+                      active={selectedCategoryIndex === index}
+                      onClick={() => {
+                        setSelectedCategoryIndex(index)
+                        setSelectedFaqIndex(null)
+                      }}
+                      className="flex items-center gap-2"
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span className="whitespace-nowrap">{title}</span>
+                      <span className="text-xs text-neutral-500">({count})</span>
+                    </Chip>
+                  )
+                })}
               </div>
               {/* Scroll fade edges */}
               <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 rounded-[28px] bg-gradient-to-r from-white/80 to-transparent" />
               <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 rounded-[28px] bg-gradient-to-l from-white/80 to-transparent" />
+
+              {/* Scroll controls */}
+              <div className="pointer-events-none absolute inset-y-0 left-1 right-1 flex items-center justify-between">
+                <button
+                  type="button"
+                  className="pointer-events-auto glass-control glass-elevated p-2 hidden sm:inline-flex"
+                  aria-label="向左捲動分類"
+                  onClick={() => {
+                    const el = categoriesRef.current
+                    if (!el) return
+                    const step = el.clientWidth * 0.6
+                    el.scrollBy({ left: -step, behavior: 'smooth' })
+                  }}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  className="pointer-events-auto glass-control glass-elevated p-2 hidden sm:inline-flex"
+                  aria-label="向右捲動分類"
+                  onClick={() => {
+                    const el = categoriesRef.current
+                    if (!el) return
+                    const step = el.clientWidth * 0.6
+                    el.scrollBy({ left: step, behavior: 'smooth' })
+                  }}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -587,12 +630,8 @@ export default function FAQSection() {
                         <Button
                           className="sm:w-auto motion-hover-pop"
                           onClick={() => {
-                            trackClick('faq_sheet_contact_book')
-                            closeFaqDetail()
-                            setTimeout(() => {
-                              const contactSection = document.getElementById('contact')
-                              if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                            }, 100)
+                            trackClick('faq_sheet_contact_book_line')
+                            window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
                           }}
                         >
                           預約維修時段

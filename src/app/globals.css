@@ -493,6 +493,9 @@ body {
   .sheen-hover:hover::after, .sheen-hover:focus-visible::after {
     opacity: 1;
   }
+
+  /* Content visibility for below-the-fold sections */
+  .cv-auto { content-visibility: auto; contain-intrinsic-size: 800px 1000px; }
 }
 
 /* 防止行動版選單展開時背景滾動 */
@@ -541,4 +544,15 @@ html {
   .glass-content {
     background: rgba(255, 255, 255, 0.98) !important;
   }
+}
+
+/* Reduce expensive effects on touch-only devices */
+@media (hover: none) {
+  .tilt-hover { transform: none !important; }
+  .tilt-hover:hover { transform: none !important; }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cta-shine::after { animation: none !important; }
 }

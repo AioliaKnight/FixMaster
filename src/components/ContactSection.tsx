@@ -433,7 +433,7 @@ referrer: ${formData.referrer}
 
           {/* 主要內容區 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-14 md:mb-16">
-            {/* 預約表單 */}
+            {/* 快速聯絡 CTA 卡片（取代預約表單） */}
             <motion.div
               className="flat-card p-1 motion-soft-enter"
               initial={{ opacity: 0, x: -30 }}
@@ -442,191 +442,29 @@ referrer: ${formData.referrer}
               viewport={motionViewport}
             >
               <div className="glass-content p-8">
-                <div className="glass-surface p-4 mb-5">
-                  <p className="text-sm text-neutral-600">
-                    預約後流程：
-                    <span className="ml-2 text-neutral-900 font-medium">1</span> 回電確認 →
-                    <span className="ml-2 text-neutral-900 font-medium">2</span> 到府收送選擇 →
-                    <span className="ml-2 text-neutral-900 font-medium">3</span> 完修通知
-                  </p>
-                </div>
                 <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
                   <Calendar className="w-6 h-6 mr-2" />
-                  線上預約
+                  快速聯絡專人
                 </h3>
-
-                <form onSubmit={(e) => { trackEvent('contact_form_submit_attempt'); handleSubmit(e) }} className="space-y-4">
-                  {/* 成功訊息 */}
-                  {submitSuccess && (
-                    <div className="bg-green-50 border border-green-200 p-4 mb-4 flex items-center" role="status" aria-live="polite">
-                      <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
-                      <span className="text-green-800">預約已送出！我們將在30分鐘內與您聯繫確認。</span>
-                    </div>
-                  )}
-                  {fallbackNotice && (
-                    <div className="bg-amber-50 border border-amber-200 p-4 mb-4 text-sm text-amber-700" role="status" aria-live="polite">
-                      {fallbackNotice}
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-neutral-700 text-sm mb-2">姓名 *</label>
-                      <input
-                        type="text"
-                        name="name"
-                        autoComplete="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
-                          formErrors.name ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                        }`}
-                        placeholder="請輸入您的姓名"
-                        required
-                      />
-                      {formErrors.name && (
-                        <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-neutral-700 text-sm mb-2">手機 *</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        inputMode="numeric"
-                        autoComplete="tel"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none transition-colors duration-200 ${
-                          formErrors.phone ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                        }`}
-                        placeholder="手機（09xxxxxxxx）"
-                        required
-                      />
-                      {formErrors.phone && (
-                        <p className="text-red-500 text-xs mt-1">{formErrors.phone}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-neutral-700 text-sm mb-2">裝置型號 *</label>
-                      <select
-                        name="device"
-                        value={formData.device}
-                        onChange={handleInputChange}
-                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
-                          formErrors.device ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                        }`}
-                        required
-                      >
-                        <option value="">請選擇裝置</option>
-                        <option value="iPhone 15 Pro Max">iPhone 15 Pro Max</option>
-                        <option value="iPhone 15 Pro">iPhone 15 Pro</option>
-                        <option value="iPhone 15">iPhone 15</option>
-                        <option value="iPhone 14 Pro Max">iPhone 14 Pro Max</option>
-                        <option value="iPhone 14 Pro">iPhone 14 Pro</option>
-                        <option value="iPhone 14">iPhone 14</option>
-                        <option value="iPhone 13 Pro Max">iPhone 13 Pro Max</option>
-                        <option value="iPhone 13 Pro">iPhone 13 Pro</option>
-                        <option value="iPhone 13">iPhone 13</option>
-                        <option value="iPhone 12 Pro Max">iPhone 12 Pro Max</option>
-                        <option value="iPhone 12 Pro">iPhone 12 Pro</option>
-                        <option value="iPhone 12">iPhone 12</option>
-                        <option value="其他機型">其他機型</option>
-                      </select>
-                      {formErrors.device && (
-                        <p className="text-red-500 text-xs mt-1">{formErrors.device}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-neutral-700 text-sm mb-2">問題類型 *</label>
-                      <select
-                        name="issue"
-                        value={formData.issue}
-                        onChange={handleInputChange}
-                        className={`w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none transition-colors duration-200 ${
-                          formErrors.issue ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-accent-500'
-                        }`}
-                        required
-                      >
-                        <option value="">請選擇問題</option>
-                        <option value="螢幕破裂">螢幕破裂</option>
-                        <option value="電池老化">電池老化</option>
-                        <option value="無法開機">無法開機</option>
-                        <option value="進水損壞">進水損壞</option>
-                        <option value="按鍵失靈">按鍵失靈</option>
-                        <option value="相機故障">相機故障</option>
-                        <option value="充電異常">充電異常</option>
-                        <option value="資料救援">資料救援</option>
-                        <option value="主機板級維修">主機板級維修</option>
-                        <option value="其他問題">其他問題</option>
-                      </select>
-                      {formErrors.issue && (
-                        <p className="text-red-500 text-xs mt-1">{formErrors.issue}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-neutral-700 text-sm mb-2">希望時間</label>
-                    <input
-                      type="datetime-local"
-                      name="preferredTime"
-                      autoComplete="off"
-                      value={formData.preferredTime}
-                      onChange={handleInputChange}
-                      className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-neutral-700 text-sm mb-2">補充說明</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      rows={3}
-                      autoComplete="off"
-                      className="w-full bg-white/70 glass-elevated border-0 px-4 py-3 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-accent-500"
-                      placeholder="可描述症狀、發生時間與特殊狀況"
-                    />
-                  </div>
-
-                  <input
-                    type="text"
-                    name="token"
-                    value={formData.token}
-                    onChange={handleInputChange}
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                  />
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full py-3 flat-button font-medium transition-colors duration-200 flex items-center justify-center ${
-                      isSubmitting
-                        ? 'bg-neutral-300 cursor-not-allowed'
-                        : 'bg-neutral-900 hover:bg-black text-white'
-                    }`}
+                <p className="text-neutral-600 mb-5">建議以 LINE 或電話聯繫，我們將於營業時間內 30 分鐘內回覆，並提供到府收送建議與初步評估。</p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=contact_card&utm_campaign=contact_line"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto bg-neutral-900 text-white px-6 py-3 flat-button font-semibold hover:bg-neutral-800 transition-colors duration-200 inline-flex items-center justify-center motion-hover-pop"
+                    onClick={() => trackClick('contact_simple_line_cta')}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        送出中...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5 mr-2" />
-                        送出預約
-                      </>
-                    )}
-                  </button>
-                </form>
+                    透過 LINE 諮詢
+                  </a>
+                  <a
+                    href="tel:+886-2-2816-6666"
+                    className="w-full sm:w-auto glass-control px-6 py-3 text-neutral-900 font-semibold transition-colors duration-200 inline-flex items-center justify-center motion-hover-pop"
+                    onClick={() => trackClick('contact_simple_tel_cta')}
+                  >
+                    直接撥打電話
+                  </a>
+                </div>
               </div>
             </motion.div>
 

@@ -158,7 +158,7 @@ export default function Navbar() {
 
   const boostClass = (isScrolled || isMenuOpen || prefersHighContrast) ? 'glass-contrast-boost' : ''
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass} ${boostClass}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass} glass-contrast-boost pt-safe`}>
       <div className="container mx-auto container-padding">
         <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-200`}>
           {/* Logo */}

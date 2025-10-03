@@ -260,15 +260,9 @@ export default function PromotionsSection() {
                   <button 
                   className="w-full flat-button font-medium glass-control glass-elevated text-neutral-900 py-3 motion-hover-pop"
                   onClick={() => {
-                    trackClick('promo_apply_click', { section: 'promotions', promo: promo.title })
-                    scrollToSectionId('contact')
-                    setTimeout(() => {
-                      const messageTextarea = document.querySelector('textarea[name="message"]') as HTMLTextAreaElement
-                      if (messageTextarea) {
-                        messageTextarea.value = `我想使用「${promo.title}」優惠，請協助預約維修服務。`
-                        messageTextarea.dispatchEvent(new Event('input', { bubbles: true }))
-                      }
-                    }, 1000)
+                    trackClick('promo_apply_click_line', { section: 'promotions', promo: promo.title })
+                    const msg = encodeURIComponent(`您好，我想使用「${promo.title}」優惠，請協助安排維修（FixMaster 官網）`)
+                    window.open(`https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=promotions&utm_campaign=contact_line&text=${msg}`, '_blank')
                   }}
                   >
                     <span className="inline-flex items-center justify-center gap-2">

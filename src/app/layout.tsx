@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
+import { reviewsMeta } from '@/lib/reviews'
 import FloatingCTA from '@/components/FloatingCTA'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -106,7 +107,7 @@ const structuredData = {
       "telephone": "+886-2-2816-6666",
       "email": "fixmastertw@gmail.com",
       "sameAs": [
-        "https://g.page/r/CbYgK2L0-店家示意",
+        reviewsMeta.googleUrl,
         "https://www.facebook.com/fixmaster.tw",
         "https://www.instagram.com/fixmaster.tw/"
       ],
@@ -144,8 +145,8 @@ const structuredData = {
       ],
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "150",
+        "ratingValue": reviewsMeta.ratingValue,
+        "reviewCount": reviewsMeta.reviewCount,
         "bestRating": "5",
         "worstRating": "1"
       },
@@ -457,6 +458,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://d.line-scdn.net" />
         
         {/* DNS Prefetch */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -464,6 +466,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
         <link rel="dns-prefetch" href="//connect.facebook.net" />
+        <link rel="dns-prefetch" href="//d.line-scdn.net" />
       </head>
       <body className={`${inter.className} ${noto.className} antialiased`}>
         {/* Google Tag Manager (noscript) */}

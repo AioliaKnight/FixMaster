@@ -6,9 +6,11 @@ import { Quote, Sparkles, Star } from 'lucide-react'
 
 import SectionHeader from './ui/SectionHeader'
 import { SliderDots } from './CarouselControls'
+import { reviewsMeta } from '@/lib/reviews'
+import { trackClick } from '@/lib/tracking'
 
 const stats = [
-  { label: 'Google 評價', value: '4.8 / 5', detail: '超過 150 位客戶實際回饋' },
+  { label: 'Google 評價', value: `${reviewsMeta.ratingValue} / 5`, detail: `超過 ${reviewsMeta.reviewCount} 位客戶實際回饋` },
   { label: '當日完修率', value: '92%', detail: '主力維修 1 小時內完成' },
   { label: 'IRP 認證技師', value: '6 位', detail: '原廠授權，定期培訓考核' },
   { label: '保固追蹤', value: '90 天', detail: '雲端保固紀錄與提醒' },
@@ -145,6 +147,11 @@ export default function TestimonialsSection() {
               title="顧客真實好評"
               description="每一封評價，都是對 FixMaster 的信任與肯定。"
             />
+            <div className="mt-3 flex items-center justify-center">
+              <span className="glass-control px-3 py-1 text-xs font-medium text-neutral-900">
+                Google {reviewsMeta.ratingValue}/5 · {reviewsMeta.reviewCount} 則
+              </span>
+            </div>
           </motion.div>
 
           <motion.div
@@ -174,8 +181,19 @@ export default function TestimonialsSection() {
               </span>
               <div className="hidden md:flex items-center gap-1 text-sm text-neutral-500">
                 <Star className="h-4 w-4 text-yellow-400" />
-                150+ 五星評價整合
+                {reviewsMeta.reviewCount}+ 五星評價整合
               </div>
+            </div>
+            <div className="flex justify-end">
+              <a
+                href={reviewsMeta.googleUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-neutral-700 underline underline-offset-4 hover:text-neutral-900"
+                onClick={() => trackClick('testimonials_google_reviews_link')}
+              >
+                查看 Google 評論（{reviewsMeta.ratingValue}/5 · {reviewsMeta.reviewCount}）
+              </a>
             </div>
 
             <div className="relative">
@@ -186,6 +204,8 @@ export default function TestimonialsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.1 }}
+                role="region"
+                aria-label="客戶推薦卡片"
               >
                 {testimonials.map((item) => (
                   <article

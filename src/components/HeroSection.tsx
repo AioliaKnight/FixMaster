@@ -168,10 +168,10 @@ export default function HeroSection() {
               transition={{ ...motionTimings.soft, delay: 0.24 }}
             >
               <Button
-                className="w-full sm:w-auto motion-hover-pop edge-glow"
+                className="w-full sm:w-auto motion-hover-pop cta-shine"
                 onClick={() => {
-                  trackClick('hero_primary_cta_click')
-                  scrollToSectionId('contact')
+                  trackClick('hero_primary_cta_click_line')
+                  window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=hero&utm_campaign=contact_line', '_blank')
                 }}
               >
                 預約維修時段
@@ -232,7 +232,7 @@ export default function HeroSection() {
                     src={heroImg}
                     alt="FixMaster 維修大師 - 專業 iPhone 維修服務"
                     fill
-                    sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 640px"
+                    sizes="(max-width: 375px) 92vw, (max-width: 640px) 100vw, (max-width: 1024px) 80vw, 640px"
                     priority
                     placeholder="blur"
                     draggable={false}
