@@ -74,6 +74,7 @@ export function trackEvent(eventName: string, params: GenericParams = {}): void 
   // Facebook Pixel (custom events)
   const fbq = safeGet(() => (window as unknown as { fbq: (...args: unknown[]) => void }).fbq)
   if (typeof fbq === 'function') {
+    // Map common events to FB conventions if needed, default to trackCustom
     fbq('trackCustom', eventName, params)
   }
 
@@ -86,8 +87,22 @@ export function trackEvent(eventName: string, params: GenericParams = {}): void 
   }
 }
 
+// GA4 recommended events helpers
+export function trackGenerateLead(params: GenericParams = {}): void {
+  trackEvent('generate_lead', params)
+}
+
+export function trackSelectPromotion(params: GenericParams = {}): void {
+  trackEvent('select_promotion', params)
+}
+
+export function trackViewPromotion(params: GenericParams = {}): void {
+  trackEvent('view_promotion', params)
+}
+
+// Backward compatible click tracking: default to generate_lead
 export function trackClick(label: string, params: GenericParams = {}): void {
-  trackEvent('cta_click', { label, ...params })
+  trackGenerateLead({ label, ...params })
 }
 
 
