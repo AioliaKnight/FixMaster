@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, startTransition } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone, MessageCircle } from 'lucide-react'
 import { scrollToSectionId } from '@/lib/scroll'
@@ -18,12 +18,12 @@ export default function Navbar() {
   const menuContainerRef = useRef<HTMLDivElement>(null)
 
   const openMenu = () => {
-    setIsMenuOpen(true)
+    startTransition(() => setIsMenuOpen(true))
     document.body.classList.add('no-scroll')
   }
 
   const closeMenu = () => {
-    setIsMenuOpen(false)
+    startTransition(() => setIsMenuOpen(false))
     document.body.classList.remove('no-scroll')
   }
 

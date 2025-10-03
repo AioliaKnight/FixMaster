@@ -3,6 +3,8 @@ import { Inter, Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
 import { reviewsMeta } from '@/lib/reviews'
 import FloatingCTA from '@/components/FloatingCTA'
+import Script from 'next/script'
+import MotionProvider from '@/components/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'] })
@@ -352,80 +354,72 @@ export default function RootLayout({
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}></script>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);} 
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                    page_title: document.title,
-                    page_location: window.location.href,
-                    send_page_view: false
-                  });
-                `,
-              }}
-            />
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} strategy="afterInteractive" />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);} 
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
+                  page_title: document.title,
+                  page_location: window.location.href,
+                  send_page_view: false
+                });
+              `}
+            </Script>
           </>
         )}
-        
+
         {/* Google Tag Manager */}
         {process.env.NEXT_PUBLIC_GTM_ID && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
-              `,
-            }}
-          />
+          <Script id="gtm-init" strategy="afterInteractive">
+            {`
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
+            `}
+          </Script>
         )}
-        
+
         {/* Facebook Pixel */}
         {process.env.NEXT_PUBLIC_FB_PIXEL_ID && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
-                fbq('track', 'PageView');
-              `,
-            }}
-          />
+          <Script id="fb-pixel" strategy="afterInteractive">
+            {`
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+              fbq('track', 'PageView');
+            `}
+          </Script>
         )}
-        
+
         {/* LINE Tag */}
         {process.env.NEXT_PUBLIC_LINE_TAG_ID && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                _ltag = window._ltag || {};
-                _ltag.id = '${process.env.NEXT_PUBLIC_LINE_TAG_ID}';
-                _ltag.send = function(){
-                  _ltag.q = _ltag.q || [];
-                  _ltag.q.push(arguments);
-                };
-                (function(){
-                  var s = document.createElement('script');
-                  s.type = 'text/javascript';
-                  s.async = true;
-                  s.src = 'https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js';
-                  document.getElementsByTagName('head')[0].appendChild(s);
-                })();
-              `,
-            }}
-          />
+          <Script id="line-tag" strategy="afterInteractive">
+            {`
+              _ltag = window._ltag || {};
+              _ltag.id = '${process.env.NEXT_PUBLIC_LINE_TAG_ID}';
+              _ltag.send = function(){
+                _ltag.q = _ltag.q || [];
+                _ltag.q.push(arguments);
+              };
+              (function(){
+                var s = document.createElement('script');
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = 'https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js';
+                document.getElementsByTagName('head')[0].appendChild(s);
+              })();
+            `}
+          </Script>
         )}
         
         {/* Web App Manifest */}
@@ -492,8 +486,9 @@ export default function RootLayout({
             />
           </noscript>
         )}
-        
-        {children}
+        <MotionProvider>
+          {children}
+        </MotionProvider>
         <FloatingCTA />
       </body>
     </html>
