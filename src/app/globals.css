@@ -551,6 +551,7 @@ html {
 @media (hover: none) {
   .tilt-hover { transform: none !important; }
   .tilt-hover:hover { transform: none !important; }
+  .touch-no-glow { box-shadow: none !important; }
 }
 
 /* Respect reduced motion preference */

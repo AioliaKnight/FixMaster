@@ -32,6 +32,7 @@ export default function Navbar() {
     let timeoutId: NodeJS.Timeout | null = null
 
     const handleScroll = () => {
+      if (isMenuOpen) return
       setIsScrolled(window.scrollY > 50)
 
       if (timeoutId) clearTimeout(timeoutId)
@@ -64,7 +65,7 @@ export default function Navbar() {
       window.removeEventListener('resize', handleScroll)
       if (timeoutId) clearTimeout(timeoutId)
     }
-  }, [])
+  }, [isMenuOpen])
 
   // 行動選單焦點管理與鍵盤操作
   useEffect(() => {
@@ -265,10 +266,11 @@ export default function Navbar() {
           <motion.div
             ref={menuContainerRef}
             className="lg:hidden px-4 pb-6 pt-3"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={motionTimings.soft}
+            style={{ willChange: 'transform, opacity' }}
             id="mobile-nav"
             role="dialog"
             aria-modal="true"
@@ -291,7 +293,7 @@ export default function Navbar() {
                         style={{ borderRadius: 'var(--radius-xl)' }}
                         initial={{ opacity: 0, x: -12 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ ...motionTimings.soft, delay: index * 0.04 }}
+                        transition={{ ...motionTimings.soft, delay: index * 0.02 }}
                         aria-current={isActive ? 'page' : undefined}
                       >
                         <span className="flex items-center gap-2">{item.name}</span>
