@@ -20,12 +20,14 @@ interface Props {
 }
 
 export default function FAQCategoryNav({ categories, selectedIndex, onChange }: Props) {
+  const scrollRef = useRef<HTMLDivElement>(null)
   const rowRef = useRef<HTMLDivElement>(null)
   const btnRefs = useRef<(HTMLButtonElement | null)[]>([])
   const [underlineLeft, setUnderlineLeft] = useState(0)
   const [underlineWidth, setUnderlineWidth] = useState(0)
+  const scrollTimer = useRef<number | null>(null)
 
-  useLayoutEffect(() => {
+  const measureUnderline = () => {
     const btn = btnRefs.current[selectedIndex]
     const container = rowRef.current
     if (!btn || !container) return
@@ -33,6 +35,14 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
     const c = container.getBoundingClientRect()
     setUnderlineLeft(b.left - c.left)
     setUnderlineWidth(b.width)
+  }
+
+  useLayoutEffect(() => {
+    measureUnderline()
+    // also re-measure on resize
+    const onResize = () => measureUnderline()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [selectedIndex, categories.length])
 
   useEffect(() => {
@@ -53,16 +63,53 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
     }
   }
 
+  const onWheelHorizontal: React.WheelEventHandler<HTMLDivElement> = (e) => {
+    const sc = scrollRef.current
+    if (!sc) return
+    // 轉為水平滾動（保留原始水平滾動增量）
+    sc.scrollLeft += (Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX)
+    // 取消預設避免頁面垂直滾動
+    e.preventDefault()
+  }
+
+  const onScroll = () => {
+    // 即時更新底線位置
+    measureUnderline()
+    // debounce 自動貼齊最近的 chip
+    if (scrollTimer.current) window.clearTimeout(scrollTimer.current)
+    scrollTimer.current = window.setTimeout(() => {
+      const sc = scrollRef.current
+      if (!sc) return
+      const center = sc.scrollLeft + sc.clientWidth / 2
+      let nearestIdx = selectedIndex
+      let nearestDist = Number.POSITIVE_INFINITY
+      btnRefs.current.forEach((el, i) => {
+        if (!el) return
+        const left = (el.offsetLeft || 0) + el.offsetWidth / 2
+        const dist = Math.abs(left - center)
+        if (dist < nearestDist) {
+          nearestDist = dist
+          nearestIdx = i
+        }
+      })
+      const target = btnRefs.current[nearestIdx]
+      target?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    }, 120)
+  }
+
   return (
     <div className="relative">
       {/* Mobile: horizontal chips with underline */}
       <div
+        ref={scrollRef}
         className="relative overflow-x-auto no-scrollbar glass-panel rounded-[28px] px-3 py-3 md:hidden"
         role="tablist"
         aria-label="FAQ 分類"
         aria-orientation="horizontal"
         tabIndex={0}
         onKeyDown={onKeyTabs}
+        onWheel={onWheelHorizontal}
+        onScroll={onScroll}
       >
         <div ref={rowRef} className="relative flex items-center gap-2 w-max">
           {categories.map((cat, i) => (
