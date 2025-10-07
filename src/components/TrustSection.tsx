@@ -190,7 +190,7 @@ export default function TrustSection() {
           </motion.div>
 
           {/* 主要承諾 */}
-          <div className="space-y-8 md:space-y-10">
+          <div className="space-y-12 md:space-y-14">
             <motion.div
               id={promisesId}
               className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 lg:gap-10 -mx-1 px-1 pb-2"
@@ -256,7 +256,7 @@ export default function TrustSection() {
 
 {/* 認證資格 */}
 <motion.div
-  className="glass-panel p-1"
+  className="glass-panel p-1 mt-16 md:mt-20"
   initial={{ opacity: 0, y: 30 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={motionTimings.soft}
@@ -322,7 +322,7 @@ export default function TrustSection() {
 
 {/* Apple 官方認證驗證 */}
 <motion.div
-  className="glass-panel p-1"
+  className="glass-panel p-1 mt-16 md:mt-20"
   initial={{ opacity: 0, y: 30 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={motionTimings.soft}
@@ -362,7 +362,7 @@ export default function TrustSection() {
 
           {/* 統計數據 */}
           <motion.div
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mt-16 md:mt-20"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
@@ -381,7 +381,7 @@ export default function TrustSection() {
 
           {/* 服務承諾 */}
           <motion.div
-            className="glass-panel p-1"
+            className="glass-panel p-1 mt-16 md:mt-20"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
