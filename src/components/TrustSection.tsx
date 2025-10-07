@@ -190,10 +190,10 @@ export default function TrustSection() {
           </motion.div>
 
           {/* 主要承諾 */}
-          <div className="space-y-8">
+          <div className="space-y-8 md:space-y-10">
             <motion.div
               id={promisesId}
-              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 -mx-1 px-1"
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 -mx-1 px-1 pb-2"
               role="region"
               aria-roledescription="carousel"
               aria-label="主要承諾"
@@ -206,28 +206,29 @@ export default function TrustSection() {
               {promises.map((promise, index) => (
                 <motion.div
                   key={index}
-                  className="glass-panel p-1 flex-none w-[22rem] snap-start md:w-auto motion-soft-enter"
+                  className="glass-panel p-1 flex-none w-[22rem] snap-start md:w-auto motion-soft-enter tilt-hover sheen-hover"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ ...motionTimings.soft, delay: index * 0.08 }}
                   viewport={motionViewport}
+                  whileHover={{ y: -2, scale: 1.01 }}
                 >
-                  <div className="glass-content p-6 md:p-7 space-y-5">
+                  <div className="glass-content p-7 md:p-9 space-y-6">
                     <div className="flex items-start justify-between gap-4">
                       <div className="glass-control glass-elevated w-14 h-14 flex items-center justify-center text-neutral-900">
                         <promise.icon className="w-7 h-7" />
                       </div>
-                      <span className="glass-control glass-elevated px-3 py-1 text-xs font-semibold text-neutral-700">
+                      <span className="glass-control glass-elevated px-2.5 py-1 text-xs font-semibold text-neutral-700">
                         {promise.badge}
                       </span>
                     </div>
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-neutral-900">{promise.title}</h3>
-                      <p className="text-sm text-neutral-600 leading-relaxed">{promise.description}</p>
+                    <div className="space-y-2.5">
+                      <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-neutral-900">{promise.title}</h3>
+                      <p className="text-sm md:text-base text-neutral-600 leading-relaxed">{promise.description}</p>
                     </div>
-                    <ul className="space-y-2">
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
                       {promise.details.map((detail, detailIndex) => (
-                        <li key={detailIndex} className="flex items-start gap-2 text-sm text-neutral-600">
+                        <li key={detailIndex} className="flex items-start gap-2.5 text-sm text-neutral-600">
                           <CheckCircle className="mt-0.5 h-4 w-4 text-neutral-900" aria-hidden="true" />
                           <span>{detail}</span>
                         </li>
@@ -248,22 +249,9 @@ export default function TrustSection() {
                 const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
                 el.scrollTo({ left: i * step, behavior: 'smooth' })
               }}
-              className="md:hidden -mt-2"
+              className="md:hidden mt-1"
             />
           </div>
-          <SliderDots
-            count={promises.length}
-            activeIndex={promisesActive}
-            onDotClick={(i) => {
-              const el = promisesRef.current
-              if (!el) return
-              const a = el.children[0] as HTMLElement | undefined
-              const b = el.children[1] as HTMLElement | undefined
-              const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-              el.scrollTo({ left: i * step, behavior: 'smooth' })
-            }}
-            className="md:hidden -mt-2 mb-12"
-          />
 
 
 {/* 認證資格 */}
