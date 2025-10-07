@@ -38,7 +38,7 @@ export default function Navbar() {
       if (timeoutId) clearTimeout(timeoutId)
 
       timeoutId = setTimeout(() => {
-        const sections = ['home', 'services', 'testimonials', 'faq', 'trust', 'promotions', 'contact']
+        const sections = ['home', 'services', 'testimonials', 'faq', 'trust', 'contact']
         const navbarHeight = window.innerWidth >= 768 ? 80 : 64
         let currentSection = 'home'
 
@@ -112,7 +112,6 @@ export default function Navbar() {
     { name: '顧客評價', href: '#testimonials' },
     { name: '常見問答', href: '#faq' },
     { name: '安心承諾', href: '#trust' },
-    { name: '優惠活動', href: '#promotions' },
     { name: '聯絡我們', href: '#contact' },
   ]
 

@@ -5,7 +5,6 @@ const ServicesSection = dynamic(() => import('@/components/ServicesSection'))
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'))
 const FAQSection = dynamic(() => import('@/components/FAQSection'))
 const TrustSection = dynamic(() => import('@/components/TrustSection'))
-const PromotionsSection = dynamic(() => import('@/components/PromotionsSection'))
 const ContactSection = dynamic(() => import('@/components/ContactSection'))
 const RepairCalculator = dynamic(() => import('@/components/RepairCalculator'))
 import Footer from '@/components/Footer'
@@ -27,8 +26,7 @@ export default function Home() {
           <div className="cv-auto section-bg-a"><TestimonialsSection /></div>
           <div className="cv-auto section-bg-b"><FAQSection /></div>
           <div className="cv-auto section-bg-a"><TrustSection /></div>
-          <div className="cv-auto section-bg-b"><PromotionsSection /></div>
-          <div className="cv-auto section-bg-a"><Suspense fallback={null}><ContactSection /></Suspense></div>
+          <div className="cv-auto section-bg-b"><Suspense fallback={null}><ContactSection /></Suspense></div>
         </div>
       </main>
       <Footer />

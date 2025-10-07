@@ -15,7 +15,6 @@ const quickLinks = [
   { label: '顧客好評', href: '#testimonials' },
   { label: '常見問答', href: '#faq' },
   { label: '安心承諾', href: '#trust' },
-  { label: '優惠活動', href: '#promotions' },
   { label: '聯絡我們', href: '#contact' },
 ]
 
