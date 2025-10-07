@@ -166,7 +166,7 @@ export default function TrustSection() {
   ]
 
   return (
-    <section id="trust" className="section-padding relative">
+    <section id="trust" className="section-padding relative" aria-labelledby="trust-heading">
       <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(239,68,68,0.06),_rgba(239,68,68,0))] blur-[120px]" aria-hidden="true" />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
@@ -180,7 +180,7 @@ export default function TrustSection() {
             viewport={{ once: true }}
             style={{ y: titleY }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover">
+            <h2 id="trust-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover">
               我們的安心承諾
             </h2>
             <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
@@ -193,7 +193,7 @@ export default function TrustSection() {
           <div className="space-y-8 md:space-y-10">
             <motion.div
               id={promisesId}
-              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 md:gap-8 -mx-1 px-1 pb-2"
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 lg:gap-10 -mx-1 px-1 pb-2"
               role="region"
               aria-roledescription="carousel"
               aria-label="主要承諾"
@@ -213,7 +213,7 @@ export default function TrustSection() {
                   viewport={motionViewport}
                   whileHover={{ y: -2, scale: 1.01 }}
                 >
-                  <div className="glass-content p-7 md:p-9 space-y-6">
+                  <div className="glass-content p-7 md:p-9 lg:p-10 space-y-6">
                     <div className="flex items-start justify-between gap-4">
                       <div className="glass-control glass-elevated w-14 h-14 flex items-center justify-center text-neutral-900">
                         <promise.icon className="w-7 h-7" />
@@ -262,7 +262,7 @@ export default function TrustSection() {
   transition={motionTimings.soft}
   viewport={motionViewport}
 >
-  <div className="glass-content p-8 md:p-10 space-y-8">
+  <div className="glass-content p-8 md:p-10 lg:p-12 space-y-8">
     <div className="text-center space-y-3">
       <h3 className="text-2xl font-bold text-neutral-900">專業認證與資格</h3>
       <p className="text-neutral-600 text-sm md:text-base">
@@ -299,7 +299,7 @@ export default function TrustSection() {
               <cert.icon className="h-6 w-6" aria-hidden="true" />
             )}
           </div>
-          <h4 className="font-semibold text-neutral-900 mb-2">{cert.title}</h4>
+          <h4 className="font-semibold text-neutral-900 mb-1 md:mb-2">{cert.title}</h4>
           <p className="text-neutral-600 text-sm leading-relaxed">{cert.description}</p>
         </motion.div>
       ))}
@@ -362,7 +362,7 @@ export default function TrustSection() {
 
           {/* 統計數據 */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
