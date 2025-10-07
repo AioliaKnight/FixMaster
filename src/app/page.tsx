@@ -21,14 +21,14 @@ export default function Home() {
       <Navbar />
       <main className="bg-gradient-to-b from-white via-neutral-50 to-white">
         <HeroSection />
-        <div className="space-y-24 md:space-y-32">
-          <div className="cv-auto"><ServicesSection /></div>
-          <div className="cv-auto"><RepairCalculator /></div>
-          <div className="cv-auto"><TestimonialsSection /></div>
-          <div className="cv-auto"><FAQSection /></div>
-          <div className="cv-auto"><TrustSection /></div>
-          <div className="cv-auto"><PromotionsSection /></div>
-          <div className="cv-auto"><Suspense fallback={null}><ContactSection /></Suspense></div>
+        <div className="space-y-0">
+          <div className="cv-auto section-bg-a"><ServicesSection /></div>
+          <div className="cv-auto section-bg-b"><RepairCalculator /></div>
+          <div className="cv-auto section-bg-a"><TestimonialsSection /></div>
+          <div className="cv-auto section-bg-b"><FAQSection /></div>
+          <div className="cv-auto section-bg-a"><TrustSection /></div>
+          <div className="cv-auto section-bg-b"><PromotionsSection /></div>
+          <div className="cv-auto section-bg-a"><Suspense fallback={null}><ContactSection /></Suspense></div>
         </div>
       </main>
       <Footer />

@@ -207,7 +207,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="section-padding relative overflow-hidden bg-gradient-to-b from-neutral-100 via-white to-neutral-50"
+      className="section-padding relative overflow-hidden"
     >
       <div
         className="pointer-events-none absolute inset-x-[-10%] -top-40 h-72 rounded-full bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.18),rgba(239,68,68,0))] blur-3xl"

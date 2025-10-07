@@ -558,3 +558,11 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .cta-shine::after { animation: none !important; }
 }
+
+/* Section background variants for subtle alternation */
+.section-bg-a {
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 45%, #ffffff 100%);
+}
+.section-bg-b {
+  background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%);
+}
