@@ -11,7 +11,7 @@ const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700'
 
 export const metadata: Metadata = {
   title: 'FixMaster 維修大師｜支援 iPhone 12–17 系列・IRP 認證｜30 分鐘完修',
-  description: '士林 iPhone 維修（支援 iPhone 12–17 系列），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
+  description: '士林 iPhone 維修（支援 iPhone 12–17 系列），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。30 分鐘內完修，台北市士林區專業 iPhone 維修服務。',
   keywords: 'iPhone維修台北, 士林iPhone維修, Apple IRP, iPhone螢幕更換, iPhone電池更換, 透明維修, 快速維修, 二手 iPhone',
   authors: [{ name: 'FixMaster 維修大師' }],
   creator: 'FixMaster 維修大師',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'FixMaster 維修大師｜支援 iPhone 12–17 系列・IRP 認證｜30 分鐘完修',
-    description: '士林 iPhone 維修（支援 iPhone 12–17 系列），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
+    description: '士林 iPhone 維修（支援 iPhone 12–17 系列），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。30 分鐘內完修，台北市士林區專業 iPhone 維修服務。',
     url: 'https://fixmastertw.com',
     siteName: 'FixMaster 維修大師 士林店',
     locale: 'zh_TW',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'FixMaster 維修大師｜支援 iPhone 12–17 系列・IRP 認證｜30 分鐘完修',
-    description: '士林 iPhone 維修（支援 iPhone 12–17 系列），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。',
+    description: '士林 iPhone 維修（支援 iPhone 12–17 系列），Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。螢幕/電池/相機快速完修，提供到府收送與二手 iPhone 嚴選。30 分鐘內完修，台北市士林區專業 iPhone 維修服務。',
     images: ['/og-image.svg'],
   },
   robots: {
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     'DC.description': 'Apple IRP 認證授權維修中心，提供iPhone原廠螢幕、電池更換，90天保固',
     'DC.publisher': 'FixMaster 維修大師',
     'DC.contributor': 'FixMaster 維修大師',
-    'DC.date': '2024-03-15',
+    'DC.date': new Date().toISOString().split('T')[0],
     'DC.type': 'Text',
     'DC.format': 'text/html',
     'DC.identifier': 'https://fixmastertw.com',
@@ -205,7 +205,10 @@ const structuredData = {
         { "@type": "Place", "name": "士林" },
         { "@type": "Place", "name": "Shilin District" }
       ],
-      "knowsAbout": ["iPhone維修", "Apple產品維修", "手機螢幕更換", "電池更換", "主機板維修", "二手iPhone販售", "Apple IRP認證", "透明維修"]
+      "knowsAbout": ["iPhone維修", "Apple產品維修", "手機螢幕更換", "電池更換", "主機板維修", "二手iPhone販售", "Apple IRP認證", "透明維修"],
+      "paymentAccepted": ["Cash", "CreditCard", "行動支付"],
+      "currenciesAccepted": "TWD",
+      "priceCurrency": "TWD"
     },
     {
       "@type": "BreadcrumbList",
@@ -229,7 +232,9 @@ const structuredData = {
         "description": "Apple 認證零件，90 天保固",
         "priceRange": "$2000-$8000",
         "priceCurrency": "TWD",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2020-01-01",
+        "seller": { "@id": "https://fixmastertw.com/#business" }
       }
     },
     {
@@ -247,7 +252,9 @@ const structuredData = {
         "description": "Apple 認證零件，90 天保固",
         "priceRange": "$1500-$3000",
         "priceCurrency": "TWD",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2020-01-01",
+        "seller": { "@id": "https://fixmastertw.com/#business" }
       }
     },
     {
@@ -301,7 +308,15 @@ const structuredData = {
       "description": "士林 iPhone 維修，Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。",
       "publisher": { "@id": "https://fixmastertw.com/#business" },
       "inLanguage": "zh-TW",
-      "keywords": "iPhone維修, 手機維修, Apple IRP, 士林維修, 台北維修"
+      "keywords": "iPhone維修, 手機維修, Apple IRP, 士林維修, 台北維修",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://fixmastertw.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
     },
     {
       "@type": "Organization",
