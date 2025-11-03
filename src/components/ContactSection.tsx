@@ -345,7 +345,7 @@ referrer: ${formData.referrer}
 
   return (
     <section id="contact" className="section-padding relative">
-      <div className="pointer-events-none absolute inset-x-[-10%] -top-24 h-80 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(239,68,68,0.06),_rgba(239,68,68,0))] blur-[100px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-24 h-80 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(255,255,255,0.08),_rgba(255,255,255,0))] blur-[100px]" aria-hidden="true" />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}

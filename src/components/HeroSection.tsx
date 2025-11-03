@@ -76,7 +76,7 @@ export default function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden pt-24 pb-20 md:pt-32 lg:pb-28">
       <div
-        className="pointer-events-none absolute inset-x-[-15%] -top-32 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(239,68,68,0.18),_rgba(239,68,68,0))] blur-[140px]"
+        className="pointer-events-none absolute inset-x-[-15%] -top-32 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_rgba(255,255,255,0))] blur-[140px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
@@ -225,7 +225,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: motionTimings.medium.duration, ease: motionTimings.medium.ease }}
               >
-              <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(239,68,68,0.22),_rgba(239,68,68,0))] blur-3xl" />
+              <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.14),_rgba(255,255,255,0))] blur-3xl" />
               <motion.div style={{ y: parallaxY }} className="relative z-10 mx-auto w-full aspect-[6/7] sm:aspect-[5/6] md:aspect-[4/5] lg:aspect-[7/8]">
                 <motion.div style={{ scale: imageScale }} className="absolute inset-0">
                   <NextImage

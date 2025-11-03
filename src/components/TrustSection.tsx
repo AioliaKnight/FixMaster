@@ -167,7 +167,7 @@ export default function TrustSection() {
 
   return (
     <section id="trust" className="section-padding relative" aria-labelledby="trust-heading">
-      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(239,68,68,0.06),_rgba(239,68,68,0))] blur-[120px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(255,255,255,0.08),_rgba(255,255,255,0))] blur-[120px]" aria-hidden="true" />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
@@ -186,7 +186,7 @@ export default function TrustSection() {
             <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
               Apple IRP 認證、原廠零件、全程錄影與明確保固，讓每一步都可驗證、可追溯。
             </p>
-            <div className="w-16 h-1 bg-accent-500 mx-auto mt-8"></div>
+            <div className="w-16 h-1 bg-neutral-300 mx-auto mt-8"></div>
           </motion.div>
 
           {/* 主要承諾 */}

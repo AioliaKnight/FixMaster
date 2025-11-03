@@ -299,7 +299,7 @@ export default function Navbar() {
                         <span
                           className={`h-2 w-2 rounded-full transition-colors duration-200 ${
                             isActive
-                              ? 'bg-accent-500 shadow-[0_0_8px_rgba(239,68,68,0.45)]'
+                              ? 'bg-neutral-700 shadow-[0_0_8px_rgba(0,0,0,0.2)]'
                               : 'bg-white/40 group-hover:bg-white/70'
                           }`}
                           aria-hidden="true"

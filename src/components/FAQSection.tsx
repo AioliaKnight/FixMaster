@@ -447,7 +447,7 @@ export default function FAQSection() {
   return (
     <section id="faq" className="section-padding relative overflow-hidden">
       <div
-        className="pointer-events-none absolute inset-x-[-20%] top-0 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(239,68,68,0.16),_rgba(239,68,68,0))] blur-[120px]"
+        className="pointer-events-none absolute inset-x-[-20%] top-0 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.10),_rgba(255,255,255,0))] blur-[120px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
