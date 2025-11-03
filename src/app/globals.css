@@ -7,6 +7,8 @@
   --foreground-rgb: 23, 23, 23;
   --background-rgb: 255, 255, 255;
   --brand-rgb: 239, 68, 68;
+  --ring-strong: rgba(23,23,23,0.7);
+  --ring-soft: rgba(255,255,255,0.65);
   /* Liquid Glass tokens - Enhanced */
   --glass-thin-blur: 12px;
   --glass-thin-top: rgba(255, 255, 255, 0.42);
@@ -275,6 +277,19 @@ body {
   .container-padding {
     padding: 0 1.25rem;
   }
+}
+
+/* 可及性：統一焦點樣式（與 Apple 官網等級一致的低調但明確的焦點） */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring-strong), 0 0 0 6px var(--ring-soft);
+  border-radius: inherit;
+  transition: box-shadow var(--motion-duration-sm) var(--motion-ease-standard);
 }
 
 /* 行動版優化 */

@@ -28,7 +28,7 @@ export default function SectionHeader({ title, description, align = 'center', cl
         </p>
       )}
       <div
-        className={`inline-flex h-[2px] w-16 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-transparent via-neutral-900/70 to-transparent ${
+        className={`inline-flex h-[2px] w-16 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-transparent via-neutral-300/60 to-transparent ${
           isCenter ? '' : ''
         }`}
         aria-hidden="true"
