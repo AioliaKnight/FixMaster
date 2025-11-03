@@ -242,8 +242,14 @@ export default function ServicesSection() {
           {/* 區塊標題 */}
           <motion.div 
             className="text-center mb-14 md:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={
+              {
+                initial: { opacity: 0, y: 24 },
+                animate: { opacity: 1, y: 0 }
+              }
+            }
+            initial="initial"
+            whileInView="animate"
             transition={motionTimings.soft}
             viewport={motionViewport}
           >

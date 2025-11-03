@@ -137,11 +137,12 @@ export default function TestimonialsSection() {
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto space-y-14 md:space-y-16">
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
             className="text-center"
+            variants={{ initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } }}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.22, ease: [0.26, 0.1, 0.25, 1] }}
           >
             <SectionHeader
               title="顧客真實好評"

@@ -174,10 +174,11 @@ export default function TrustSection() {
           <motion.div 
             ref={titleRef}
             className="text-center mb-14 md:mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            viewport={{ once: true }}
+            variants={{ initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } }}
+            initial="initial"
+            whileInView="animate"
+            transition={motionTimings.soft}
+            viewport={motionViewport}
             style={{ y: titleY }}
           >
             <h2 id="trust-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover">
