@@ -64,8 +64,8 @@ export default function RepairCalculator() {
     <section id="repair" className="section-padding container-padding">
       <div className="max-w-3xl mx-auto">
         <motion.div className="mb-6 text-center" initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={motionTimings.soft}>
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">維修試算器（行動優化）</h2>
-          <p className="text-neutral-600 mt-2">三步完成試算：選機型 → 選症狀 → 查看預估與詢問</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">iPhone 維修試算器</h2>
+          <p className="text-neutral-600 mt-2">士林專業維修：電池更換・螢幕維修・快速報價｜三步完成試算</p>
         </motion.div>
 
         {/* Step 1: 選擇機型 */}
