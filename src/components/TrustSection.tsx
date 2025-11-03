@@ -213,7 +213,7 @@ export default function TrustSection() {
                   viewport={motionViewport}
                   whileHover={{ y: -2, scale: 1.01 }}
                 >
-                  <div className="glass-content p-7 md:p-9 lg:p-10 space-y-6">
+                  <div className="glass-content p-6 md:p-8 space-y-6 md:space-y-7">
                     <div className="flex items-start justify-between gap-4">
                       <div className="glass-control glass-elevated w-14 h-14 flex items-center justify-center text-neutral-900">
                         <promise.icon className="w-7 h-7" />
@@ -262,7 +262,7 @@ export default function TrustSection() {
   transition={motionTimings.soft}
   viewport={motionViewport}
 >
-  <div className="glass-content p-8 md:p-10 lg:p-12 space-y-8">
+  <div className="glass-content p-6 md:p-8 space-y-6 md:space-y-8">
     <div className="text-center space-y-3">
       <h3 className="text-2xl font-bold text-neutral-900">專業認證與資格</h3>
       <p className="text-neutral-600 text-sm md:text-base">
@@ -328,7 +328,7 @@ export default function TrustSection() {
   transition={motionTimings.soft}
   viewport={motionViewport}
 >
-  <div className="glass-content p-8 md:p-10 space-y-6 text-center">
+  <div className="glass-content p-6 md:p-8 space-y-6 text-center">
     <div className="space-y-3">
       <h3 className="text-2xl font-bold text-neutral-900">Apple 官方認證</h3>
       <p className="text-neutral-600 text-sm md:text-base">

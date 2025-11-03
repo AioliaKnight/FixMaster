@@ -441,7 +441,7 @@ referrer: ${formData.referrer}
               transition={motionTimings.soft}
               viewport={motionViewport}
             >
-              <div className="glass-content p-8">
+              <div className="glass-content p-6 md:p-8">
                 <h3 className="text-2xl font-bold text-neutral-900 mb-6 flex items-center">
                   <Calendar className="w-6 h-6 mr-2" />
                   快速聯絡專人
@@ -554,7 +554,7 @@ referrer: ${formData.referrer}
             transition={motionTimings.soft}
             viewport={motionViewport}
           >
-            <div className="glass-content p-10 md:p-12">
+              <div className="glass-content p-6 md:p-8">
               <h3 className="text-3xl font-bold text-neutral-900 mb-6">
                 今天的煩惱，今天就解決。
               </h3>

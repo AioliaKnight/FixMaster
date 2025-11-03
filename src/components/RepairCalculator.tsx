@@ -70,7 +70,7 @@ export default function RepairCalculator() {
 
         {/* Step 1: 選擇機型 */}
         <div className="glass-panel p-1 mb-5">
-          <div className="glass-content p-4 space-y-3">
+          <div className="glass-content p-6 md:p-8 space-y-3 md:space-y-4">
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold text-neutral-900">步驟 1：選擇機型</div>
               {selected && <div className="text-xs text-neutral-500">{selected.model}{yearHint ? `（約 ${yearHint} 年）` : ''}</div>}
@@ -98,7 +98,7 @@ export default function RepairCalculator() {
 
         {/* Step 2: 症狀與建議 */}
         <div className="glass-panel p-1 mb-5">
-          <div className="glass-content p-4 space-y-3">
+          <div className="glass-content p-6 md:p-8 space-y-3 md:space-y-4">
             <div className="flex items-center justify-between">
               <div className="text-sm font-semibold text-neutral-900">步驟 2：選擇症狀</div>
               {selected && <div className="text-xs text-neutral-500">已選：{selected.model}</div>}
@@ -146,7 +146,7 @@ export default function RepairCalculator() {
 
         {/* Step 3: 價格與諮詢 */}
         <div className="glass-panel p-1">
-          <div className="glass-content p-4 space-y-4">
+          <div className="glass-content p-6 md:p-8 space-y-4 md:space-y-5">
             <div className="text-sm font-semibold text-neutral-900">步驟 3：查看預估並聯絡我們</div>
             <div className="text-sm text-neutral-700">
               <div><span className="text-neutral-500">機型：</span>{selected?.model || '—'}{yearHint ? `（約 ${yearHint} 年）` : ''}</div>

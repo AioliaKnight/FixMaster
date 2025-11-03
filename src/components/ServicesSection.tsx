@@ -287,7 +287,7 @@ export default function ServicesSection() {
                         transition={motionTimings.medium}
                         viewport={motionViewport}
                       >
-                        <div className="glass-content flex flex-col gap-8 p-8 md:p-10">
+                        <div className="glass-content flex flex-col gap-6 md:gap-8 p-6 md:p-8">
                         {/* 服務圖示與標題 */}
                         <div className="flex flex-col items-center text-center gap-4">
                           <div className="glass-control w-20 h-20 flex items-center justify-center text-accent-500">
@@ -304,7 +304,7 @@ export default function ServicesSection() {
                         </div>
 
                         {/* 服務詳細資訊 */}
-                        <div className="surface-muted p-4 md:p-5 grid grid-cols-2 gap-4 text-center">
+                        <div className="surface-muted p-4 md:p-5 grid grid-cols-2 gap-4 md:gap-5 text-center">
                           <div className="space-y-1">
                             <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">維修時間</span>
                             <span className="text-neutral-900 text-sm font-semibold">{service.duration}</span>

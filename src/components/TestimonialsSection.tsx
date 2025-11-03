@@ -161,11 +161,11 @@ export default function TestimonialsSection() {
             transition={{ duration: 0.4, delay: 0.05 }}
             className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {stats.map((item) => (
-              <div
-                key={item.label}
-                className="glass-surface flex flex-col gap-2 px-5 py-6 text-left"
-              >
+              {stats.map((item) => (
+                <div
+                  key={item.label}
+                  className="glass-surface flex flex-col gap-2 p-6 md:p-8 text-left"
+                >
                 <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">{item.label}</p>
                 <p className="text-2xl font-semibold text-neutral-900">{item.value}</p>
                 <p className="text-sm text-neutral-600 leading-relaxed">{item.detail}</p>
