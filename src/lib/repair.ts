@@ -5,11 +5,15 @@ export interface RepairPriceItem {
   prices: Partial<Record<RepairCategory, number>>
 }
 
+// 維修價格數據
+// 注意：iPhone 17 系列為預留未來型號；iPhone Air 和 iPhone 16e 需確認是否為官方型號
 export const repairPricing: RepairPriceItem[] = [
+  // iPhone 17 系列（2025年可能尚未上市，預留）
   { model: 'iPhone 17', prices: { frontGlass: 10790, backGlass: 4990, displayModule: 13490, battery: 3350, rearCamera: 5190, other: 19790 } },
   { model: 'iPhone Air', prices: { frontGlass: 10790, backGlass: 4990, displayModule: 13490, battery: 4150, rearCamera: 5190, other: 22990 } },
   { model: 'iPhone 17 Pro', prices: { frontGlass: 11990, backGlass: 4990, displayModule: 14990, battery: 4150, rearCamera: 7990, other: 25990 } },
   { model: 'iPhone 17 Pro Max', prices: { frontGlass: 12290, backGlass: 4990, displayModule: 15090, battery: 4150, rearCamera: 7990, other: 27500 } },
+  // iPhone 16 系列（2024年9月上市）
   { model: 'iPhone 16', prices: { frontGlass: 8990, backGlass: 4990, displayModule: 11790, battery: 3350, rearCamera: 5190, other: 17790 } },
   { model: 'iPhone 16e', prices: { frontGlass: 7890, backGlass: 4990, displayModule: 11490, battery: 3350, rearCamera: 4590, other: 16990 } },
   { model: 'iPhone 16 Plus', prices: { frontGlass: 10790, backGlass: 4990, displayModule: 13490, battery: 3350, rearCamera: 5490, other: 19790 } },
@@ -35,6 +39,7 @@ export const repairPricing: RepairPriceItem[] = [
   { model: 'iPhone 11 Pro', prices: { frontGlass: 8990, battery: 2990, other: 16590 } },
   { model: 'iPhone 11 Pro Max', prices: { frontGlass: 10790, battery: 2990, other: 16590 } },
   { model: 'iPhone XR', prices: { frontGlass: 6590, battery: 2990, other: 13290 } },
+  // iPhone X 系列（已停產，僅提供整新/換機服務）
   { model: 'iPhone XS', prices: { other: 16590 } },
   { model: 'iPhone X', prices: { other: 16590 } },
   { model: 'iPhone 8', prices: { frontGlass: 5190, battery: 2290 } },
