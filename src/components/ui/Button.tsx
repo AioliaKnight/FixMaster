@@ -14,7 +14,7 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center pill-button font-medium tracking-wide transition-all duration-200 focus:outline-none focus:ring-0'
+  const base = 'inline-flex items-center justify-center pill-button font-semibold tracking-tight transition-all duration-200 focus:outline-none focus:ring-0'
   const variants: Record<string, string> = {
     primary: 'bg-neutral-900 text-white hover:bg-neutral-950 active:bg-black/90 shadow-[var(--elev-2)]',
     outline: 'glass-control text-neutral-900 hover:bg-white/70 active:bg-white/80',
