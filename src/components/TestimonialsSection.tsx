@@ -1,19 +1,41 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useInView } from 'framer-motion'
 import { motion } from 'framer-motion'
-import { Quote, Sparkles, Star } from 'lucide-react'
+import { Quote, Sparkles, Star, TrendingUp, Award, ShieldCheck, Clock } from 'lucide-react'
 
 import SectionHeader from './ui/SectionHeader'
 import { SliderDots } from './CarouselControls'
 import { reviewsMeta } from '@/lib/reviews'
-import { trackClick } from '@/lib/tracking'
+import { trackSelectPromotion, trackViewPromotion } from '@/lib/tracking'
+import { motionTimings, motionViewport } from '@/lib/motion'
 
 const stats = [
-  { label: 'Google 評價', value: `${reviewsMeta.ratingValue} / 5`, detail: `超過 ${reviewsMeta.reviewCount} 位客戶實際回饋` },
-  { label: '當日完修率', value: '92%', detail: '主力維修 1 小時內完成' },
-  { label: 'IRP 認證技師', value: '6 位', detail: '原廠授權，定期培訓考核' },
-  { label: '保固追蹤', value: '90 天', detail: '雲端保固紀錄與提醒' },
+  { 
+    label: 'Google 評價', 
+    value: `${reviewsMeta.ratingValue}`, 
+    detail: `基於 ${reviewsMeta.reviewCount}+ 則真實評論`,
+    icon: Star
+  },
+  { 
+    label: '當日完修率', 
+    value: '92%', 
+    detail: '多數維修於 1 小時內完成',
+    icon: Clock
+  },
+  { 
+    label: 'IRP 認證技師', 
+    value: '6 位', 
+    detail: '原廠受訓，定期考核認證',
+    icon: Award
+  },
+  { 
+    label: '保固追蹤', 
+    value: '90 天', 
+    detail: '完整的雲端履歷與保固',
+    icon: ShieldCheck
+  },
 ]
 
 const testimonials = [
@@ -22,7 +44,7 @@ const testimonials = [
     location: '士林區',
     service: 'iPhone 14 螢幕更換',
     comment:
-      '維修過程全程錄影，40 分鐘就換好螢幕，顯示色彩和觸控手感完全沒落差。維修前後還做檢測報告，超安心。',
+      '維修過程全程錄影讓人很放心，約 40 分鐘就換好螢幕，色彩和觸控手感跟原廠完全一樣。維修前後都有做詳細檢測，很專業。',
     badge: '快速完修',
     date: '2025.03',
   },
@@ -31,7 +53,7 @@ const testimonials = [
     location: '北投區',
     service: 'iPhone 13 電池更換',
     comment:
-      '電池健康度掉到 72%，維修前先檢測、報價透明。換上後續航明顯回來，還貼心提醒保固內若有異常可免費檢查。',
+      '電池健康度掉到 72% 才來換。維修前會先檢測並說明，報價很透明。換完後續航力明顯回來了，還提醒保固內有問題隨時回來檢查。',
     badge: '續航回復',
     date: '2025.02',
   },
@@ -40,7 +62,7 @@ const testimonials = [
     location: '內湖區',
     service: '到府收送維修',
     comment:
-      '晚上預約，隔天專人收件，維修狀況即時回報，完成後當天送回。全程都有照片紀錄，讓我不用跑來跑去。',
+      '晚上預約，隔天就有專人來收件。維修進度都會透過 LINE 回報，修好當天就送回來。全程都有照片紀錄，對上班族來說真的太方便。',
     badge: '省時便利',
     date: '2025.01',
   },
@@ -49,7 +71,7 @@ const testimonials = [
     location: '天母',
     service: '二手 iPhone 嚴選',
     comment:
-      '現場提供檢測單與保固，手機外觀近新，價格比官網安心很多。後續使用兩個月都很穩，推薦！',
+      '現場直接提供檢測報告單和保固卡，手機外觀跟新的一樣，價格比官網親民很多。已經用兩個月了，非常穩定，推薦！',
     badge: '品質保證',
     date: '2025.01',
   },
@@ -58,7 +80,7 @@ const testimonials = [
     location: '大同區',
     service: 'Face ID 排線檢測',
     comment:
-      '先做免費檢測才確認問題是排線，維修費用合理，現場還教我保養方式。Face ID 馬上恢復正常。',
+      '原本以為要換整新機，結果技師檢測後確認只是排線問題。維修費用合理很多，現場還教我怎麼保養。Face ID 終於復活了。',
     badge: '原廠規範',
     date: '2024.12',
   },
@@ -67,16 +89,16 @@ const testimonials = [
     location: '士林區',
     service: 'iPhone 15 Pro 螢幕更換',
     comment:
-      'IRP 認證門市、使用 Apple 認證零件，螢幕色準與亮度都與原廠一致。全程透明錄影，約 45 分鐘完修並提供 90 天保固。',
+      '找了幾家才選這間 IRP 認證門市。使用 Apple 認證零件，螢幕色準真的沒話說。全程透明錄影，45 分鐘搞定，還有 90 天保固。',
     badge: '原廠零件',
     date: '2025.03',
   },
   {
     name: '周小姐',
     location: '中山區',
-    service: '到府收送（iPhone 14 電池更換）',
+    service: '到府收送（電池更換）',
     comment:
-      'LINE 預約到府收送，先免費檢測再報價。電池更換後續航回到穩定水準，整體流程透明，對台北市的上班族很方便。',
+      '用 LINE 預約到府收送，流程很順暢。先免費檢測再報價，修完電池健康度回到 100%，不用請假跑一趟通訊行，真的很讚。',
     badge: '到府收送',
     date: '2025.02',
   },
@@ -85,7 +107,7 @@ const testimonials = [
     location: '北投區',
     service: 'Face ID 檢測與維修',
     comment:
-      '依 IRP 流程做原深感相機檢測與校正，維修前完整說明風險與時程，完工提供檢測紀錄與保固，使用起來恢復正常。',
+      '依照 IRP 標準流程做檢測，維修前風險和時間都講得很清楚。完工後有提供詳細的檢測紀錄，用起來跟新的一樣順。',
     badge: 'IRP 認證',
     date: '2024.12',
   },
@@ -94,6 +116,8 @@ const testimonials = [
 export default function TestimonialsSection() {
   const scrollerRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const titleRef = useRef<HTMLDivElement>(null)
+  const titleInView = useInView(titleRef, { once: true, amount: 0.3 })
 
   useEffect(() => {
     const el = scrollerRef.current
@@ -116,6 +140,12 @@ export default function TestimonialsSection() {
     return () => el.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (titleInView) {
+      trackViewPromotion({ section: 'testimonials', label: '顧客真實好評' })
+    }
+  }, [titleInView])
+
   const scrollToCard = (index: number) => {
     const el = scrollerRef.current
     if (!el) return
@@ -135,96 +165,115 @@ export default function TestimonialsSection() {
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
-        <div className="max-w-6xl mx-auto space-y-14 md:space-y-16">
+        <div className="max-w-6xl mx-auto space-y-16 md:space-y-20">
           <motion.div
             className="text-center"
             variants={{ initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } }}
             initial="initial"
             whileInView="animate"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.22, ease: [0.26, 0.1, 0.25, 1] }}
+            viewport={motionViewport}
+            transition={motionTimings.soft}
+            ref={titleRef}
           >
             <SectionHeader
               title="顧客真實好評"
-              description="每一封評價，都是對 FixMaster 的信任與肯定。"
+              description="Google 4.9+/5，高分來源：IRP 認證、原廠零件、錄影存證、到府收送與 90 天保固。"
             />
-            <div className="mt-3 flex items-center justify-center">
-              <span className="glass-control px-3 py-1 text-xs font-medium text-neutral-900">
-                Google {reviewsMeta.ratingValue}/5 · {reviewsMeta.reviewCount} 則
-              </span>
+            <div className="mt-6 flex items-center justify-center">
+              <a 
+                href={reviewsMeta.googleUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-control px-5 py-2 text-sm font-medium text-neutral-900 hover:bg-white/80 transition-colors flex items-center gap-2 shadow-[var(--elev-1)]"
+                onClick={() => trackSelectPromotion({ section: 'testimonials', action: 'link_click', target: 'google_reviews', label: 'rating_badge' })}
+              >
+                <span className="flex items-center gap-1 text-amber-500">
+                  <Star className="w-4 h-4 fill-current" />
+                  <span className="text-neutral-900 font-bold">{reviewsMeta.ratingValue}</span>
+                </span>
+                <span className="text-neutral-400">/</span>
+                <span className="text-neutral-600">5.0</span>
+                <span className="text-neutral-300">•</span>
+                <span className="text-neutral-600 underline decoration-neutral-300 underline-offset-4">{reviewsMeta.reviewCount} 則評論</span>
+              </a>
             </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+            viewport={motionViewport}
+            transition={{ ...motionTimings.soft, delay: 0.1 }}
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
           >
-              {stats.map((item) => (
+              {stats.map((item, i) => (
                 <div
                   key={item.label}
-                  className="glass-surface flex flex-col gap-2 p-6 md:p-8 text-left"
+                  className="glass-surface flex flex-col gap-3 p-6 md:p-8 text-left hover:bg-white/60 transition-colors"
                 >
-                <p className="text-xs uppercase tracking-[0.28em] text-neutral-500">{item.label}</p>
-                <p className="text-2xl font-semibold text-neutral-900">{item.value}</p>
-                <p className="text-sm text-neutral-600 leading-relaxed">{item.detail}</p>
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-semibold">{item.label}</p>
+                  <item.icon className="w-4 h-4 text-neutral-400" />
+                </div>
+                <p className="text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">{item.value}</p>
+                <p className="text-sm text-neutral-600 font-medium leading-relaxed">{item.detail}</p>
               </div>
             ))}
           </motion.div>
 
-          <div className="space-y-6">
-            <div className="flex items-center justify-between gap-4">
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-neutral-600">
-                <Sparkles className="h-4 w-4 text-accent-500" />
-                客戶推薦精選
+          <div className="space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-1">
+              <span className="inline-flex items-center gap-2.5 text-[15px] font-bold text-neutral-800">
+                <Sparkles className="h-4 w-4 text-amber-500" />
+                精選實際案例（錄影 / 到府 / 二手機）
               </span>
-              <div className="hidden md:flex items-center gap-1 text-sm text-neutral-500">
-                <Star className="h-4 w-4 text-yellow-400" />
-                {reviewsMeta.reviewCount}+ 五星評價整合
-              </div>
-            </div>
-            <div className="flex justify-end">
               <a
                 href={reviewsMeta.googleUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-neutral-700 underline underline-offset-4 hover:text-neutral-900"
-                onClick={() => trackClick('testimonials_google_reviews_link')}
+                className="text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-colors flex items-center gap-1 group"
+                onClick={() => trackSelectPromotion({ section: 'testimonials', action: 'link_click', target: 'google_reviews', label: 'see_more' })}
               >
-                查看 Google 評論（{reviewsMeta.ratingValue}/5 · {reviewsMeta.reviewCount}）
+                查看全部評論
+                <TrendingUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             </div>
 
             <div className="relative">
               <motion.div
                 ref={scrollerRef}
-                className="no-scrollbar -mx-2 flex snap-x snap-mandatory gap-4 overflow-x-auto px-2 pb-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible"
+                className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-8 lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:pb-0 lg:mx-0 lg:px-0"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                viewport={motionViewport}
+                transition={{ ...motionTimings.soft, delay: 0.2 }}
                 role="region"
                 aria-label="客戶推薦卡片"
               >
-                {testimonials.map((item) => (
+                {testimonials.map((item, index) => (
                   <article
                     key={`${item.name}-${item.service}`}
-                    className="glass-surface flex min-w-[18rem] flex-col gap-5 px-6 py-6"
+                    className="glass-surface flex min-w-[85vw] sm:min-w-[400px] lg:min-w-0 flex-col gap-6 px-7 py-7 snap-center md:snap-start tilt-hover h-full bg-white/40"
                   >
-                    <div className="flex items-center justify-between text-sm text-neutral-500">
-                      <span>{item.date}</span>
-                      <span className="glass-control px-3 py-1 text-xs font-medium text-neutral-900">
+                    <div className="flex items-center justify-between">
+                      <span className="glass-control px-3 py-1.5 text-[11px] font-bold text-neutral-900 tracking-wide shadow-none bg-white/50">
                         {item.badge}
                       </span>
+                      <span className="text-xs font-medium text-neutral-400 font-mono">{item.date}</span>
                     </div>
-                    <Quote className="h-6 w-6 text-accent-500" aria-hidden="true" />
-                    <p className="text-neutral-700 leading-relaxed">{item.comment}</p>
-                    <footer className="mt-auto">
-                      <p className="text-base font-semibold text-neutral-900">{item.name}</p>
-                      <p className="text-sm text-neutral-500">{item.service}｜{item.location}</p>
-                    </footer>
+                    <div className="flex-1">
+                      <Quote className="h-5 w-5 text-neutral-300 mb-3" aria-hidden="true" />
+                      <p className="text-[15px] text-neutral-700 leading-relaxed font-medium text-balance">{item.comment}</p>
+                    </div>
+                    <div className="pt-5 border-t border-neutral-200/50 mt-auto">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-[15px] font-bold text-neutral-900">{item.name}</p>
+                          <p className="text-xs text-neutral-500 mt-0.5">{item.location}</p>
+                        </div>
+                        <p className="text-xs font-medium text-neutral-500 bg-neutral-100/80 px-2 py-1 rounded-md">{item.service}</p>
+                      </div>
+                    </div>
                   </article>
                 ))}
               </motion.div>
@@ -235,7 +284,7 @@ export default function TestimonialsSection() {
                   setActiveIndex(index)
                   scrollToCard(index)
                 }}
-                className="mt-2"
+                className="mt-4 lg:hidden"
               />
             </div>
           </div>

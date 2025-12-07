@@ -116,14 +116,14 @@ export default function Navbar() {
   ]
 
   const navToneClass = isScrolled || isMenuOpen
-    ? 'glass-panel border border-white/25 shadow-[var(--elev-1)]'
-    : 'glass-surface border border-transparent'
+    ? 'glass-surface shadow-[var(--elev-2)]'
+    : 'backdrop-blur-[2px] bg-transparent border-transparent'
 
-  const navHeightClass = isScrolled ? 'h-14 md:h-18' : 'h-16 md:h-20'
+  const navHeightClass = isScrolled ? 'h-14 md:h-16' : 'h-16 md:h-20'
 
-  const menuButtonClass = `lg:hidden glass-control p-2 transition-all duration-200 z-50 ${
+  const menuButtonClass = `lg:hidden glass-control p-2.5 transition-all duration-300 z-50 ${
     isMenuOpen
-      ? 'glass-elevated text-neutral-900 shadow-[var(--brand-glow)]'
+      ? 'bg-white/80 text-neutral-900 shadow-[var(--elev-2)]'
       : 'text-neutral-700 hover:text-neutral-900'
   }`
 
@@ -173,7 +173,7 @@ export default function Navbar() {
                 trackClick('navbar_logo_click')
                 handleNavClick('#home')
               }}
-              className="group relative inline-flex items-center gap-2 rounded-full glass-control glass-elevated px-3.5 py-2 pr-4 text-neutral-900 transition-all duration-200 hover:shadow-[var(--brand-glow)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 motion-hover-pop"
+              className="group relative inline-flex items-center gap-2 rounded-full glass-control px-3.5 py-2 pr-4 text-neutral-900 transition-all duration-300 hover:shadow-[var(--elev-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 motion-hover-pop"
               aria-label="前往首頁"
             >
               <span className="sr-only">FixMaster 維修大師</span>
@@ -239,7 +239,7 @@ export default function Navbar() {
               className="text-accent-600 transition-colors duration-200 hover:text-accent-700 text-sm font-medium motion-soft-enter"
               onClick={() => trackClick('navbar_line_click')}
             >
-              LINE 諮詢
+              LINE 預約 / 諮詢
             </a>
           </motion.div>
 
@@ -276,7 +276,7 @@ export default function Navbar() {
             aria-label="行動版網站導覽"
           >
             <div className="max-w-lg mx-auto">
-              <div className="glass-panel border border-white/25 rounded-[24px] shadow-[var(--elev-2)] px-5 py-6 space-y-6">
+              <div className="glass-panel rounded-[32px] shadow-[var(--glass-thick-shadow)] px-6 py-8 space-y-8">
                 <div className="space-y-3">
                   {navigationItems.map((item, index) => {
                     const isActive = activeSection === item.href.replace('#', '')
@@ -284,69 +284,59 @@ export default function Navbar() {
                       <motion.button
                         key={item.name}
                         onClick={() => handleNavClick(item.href)}
-                        className={`group relative flex w-full items-center justify-between px-5 py-4 text-base font-medium transition-all duration-200 shadow-none motion-soft-enter ${
+                        className={`group relative flex w-full items-center justify-between px-6 py-4 text-[17px] font-medium transition-all duration-300 shadow-none motion-soft-enter rounded-[20px] ${
                           isActive
-                            ? 'glass-control glass-elevated text-neutral-900 shadow-[var(--brand-glow)]'
-                            : 'glass-control text-neutral-600 hover:text-neutral-900'
+                            ? 'bg-neutral-900 text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)]'
+                            : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/60'
                         }`}
-                        style={{ borderRadius: 'var(--radius-xl)' }}
                         initial={{ opacity: 0, x: -12 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ ...motionTimings.soft, delay: index * 0.02 }}
                         aria-current={isActive ? 'page' : undefined}
                       >
                         <span className="flex items-center gap-2">{item.name}</span>
-                        <span
-                          className={`h-2 w-2 rounded-full transition-colors duration-200 ${
-                            isActive
-                              ? 'bg-neutral-700 shadow-[0_0_8px_rgba(0,0,0,0.2)]'
-                              : 'bg-white/40 group-hover:bg-white/70'
-                          }`}
-                          aria-hidden="true"
-                        />
+                        {isActive && <span className="h-2 w-2 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.5)]" aria-hidden="true" />}
                       </motion.button>
                     )
                   })}
                 </div>
 
                 <motion.div
-                  className="space-y-3 border-t border-white/20 pt-4"
+                  className="space-y-4 border-t border-neutral-200/50 pt-6"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...motionTimings.soft, delay: 0.28 }}
                 >
-                  <p className="text-[11px] uppercase tracking-[0.35em] text-neutral-500">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-400 font-semibold pl-1">
                     快速聯絡
                   </p>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-4">
                     <a
                       href="tel:+886-2-2816-6666"
-                      className="glass-control glass-elevated flex items-center justify-center gap-2 py-3 text-neutral-900 transition-all duration-200 motion-soft-enter"
-                      style={{ borderRadius: 'var(--radius-xl)' }}
+                      className="glass-control flex items-center justify-center gap-2 py-3.5 text-neutral-900 transition-all duration-300 hover:bg-white active:scale-95"
                       onClick={() => {
                         trackClick('navbar_tel_click', { context: 'mobile_menu' })
                         closeMenu()
                       }}
                     >
                       <Phone className="w-5 h-5" />
-                      <span className="text-sm font-medium">電話</span>
+                      <span className="text-[15px] font-medium">電話</span>
                     </a>
                     <a
                       href="https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=mobile_menu&utm_campaign=contact_line"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="glass-control glass-elevated flex items-center justify-center gap-2 py-3 text-neutral-900 transition-all duration-200 motion-soft-enter"
-                      style={{ borderRadius: 'var(--radius-xl)' }}
+                      className="glass-control flex items-center justify-center gap-2 py-3.5 text-[#00B900] transition-all duration-300 hover:bg-white active:scale-95"
                       onClick={() => {
                         trackClick('navbar_line_click', { context: 'mobile_menu' })
                         closeMenu()
                       }}
                     >
                       <MessageCircle className="w-5 h-5" />
-                      <span className="text-sm font-medium">LINE</span>
+                      <span className="text-[15px] font-medium">LINE</span>
                     </a>
                   </div>
-                  <p className="text-xs text-neutral-500 leading-relaxed">
+                  <p className="text-xs text-neutral-400 leading-relaxed px-1">
                     提醒：LINE 與電話均由 IRP 認證顧問接聽，若選擇 LINE 對話可預留常用時段，我們會給予到府收送建議。
                   </p>
                 </motion.div>

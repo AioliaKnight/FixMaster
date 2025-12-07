@@ -5,7 +5,6 @@ import { X, Clock, Shield, DollarSign, Smartphone, CheckCircle, AlertCircle, Mon
 import { useState, useRef, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { trackClick } from '@/lib/tracking'
-import Chip from './ui/Chip'
 import FAQCategoryNav from './FAQCategoryNav'
 import Button from './ui/Button'
 import SectionHeader from './ui/SectionHeader'
@@ -32,73 +31,49 @@ export default function FAQSection() {
         {
           icon: Smartphone,
           question: 'iPhone 系列目前支援哪些維修？',
-          answer: '支援常見項目：螢幕總成、電池、相機模組、背蓋玻璃、充電模組與麥克風/喇叭。實際交期依原廠料件供應與檢測結果為準。',
+          answer: '支援全系列 iPhone 維修，包含：螢幕總成更換、電池更換、前後相機模組、背蓋玻璃、充電孔清潔/更換、聽筒/喇叭清潔等。iPhone 12 至 iPhone 15 系列零件庫存充足，多數項目可當日完修。',
           category: 'iPhone維修'
         },
         {
           icon: Settings,
-          question: 'iPhone 的 Face ID／Touch ID 維修與校準需要注意什麼？',
-          answer: '生物辨識模組與主板綁定，需依官方規格檢測。可維修項目含排線與鏡頭模組異常；若涉及主板更動將於施工前完整告知風險與時程並取得同意。',
+          question: '維修 Face ID 或 Touch ID 會影響功能嗎？',
+          answer: '生物辨識模組與主機板配對，維修需極高精密度。若是周邊排線或模組移位可修復；若涉及主機板加密晶片損壞，我們會先檢測並告知修復機率與風險，絕不貿然施工。',
           category: 'iPhone維修'
         },
         {
           icon: Zap,
-          question: 'iPhone 螢幕維修會影響顯示或觸控體驗嗎？',
-          answer: '不會。使用 Apple 認證零件並完成色域/亮度/True Tone 檢測校正，觸控靈敏、顯示準確。完修後提供檢測紀錄與 90 天保固。',
+          question: '換螢幕後，顯示色彩或觸控會變差嗎？',
+          answer: '我們提供「Apple 原廠零件」與「嚴選高品質零件」兩種選擇。原廠零件經 Apple 系統校正，色彩與觸控保證與出廠一致；嚴選零件亦經儀器測試色準與靈敏度，並提供 90 天保固，確保使用體驗。',
           category: 'iPhone維修'
         },
         {
           icon: Shield,
-          question: '更換螢幕後 True Tone／原彩顯示還在嗎？',
-          answer: '維修後會依流程校正並保留 True Tone／原彩設定；若主板或感測模組受損，將先行說明可行替代方案與影響。',
+          question: '更換螢幕後 True Tone (原彩顯示) 功能還在嗎？',
+          answer: '會的。我們擁有專業燒錄設備，更換螢幕時會將原螢幕的 True Tone 序號移植到新螢幕，確保原彩顯示功能正常運作（前提是原螢幕的感光排線功能正常）。',
           category: 'iPhone維修'
         },
         {
           icon: Wrench,
-          question: '背蓋玻璃破裂如何處理？是否需更換整機？',
-          answer: '視破裂範圍與機型評估，可更換背蓋玻璃或總成模組；不需整機更換。將先免費檢測並提供報價與時程。',
+          question: '背蓋玻璃破裂一定要換整支手機嗎？',
+          answer: '不需要。FixMaster 引進雷射拆屏設備，可單獨更換 iPhone 背蓋玻璃，無需更換整個機殼總成，費用僅需原廠換整新機的 1/3 左右，且保留無線充電功能。',
           category: 'iPhone維修'
         },
         {
           icon: Clock,
-          question: 'iPhone 維修需要多長時間？',
-          answer: '一般參考：\n\n螢幕更換：30–60 分鐘\n電池更換：30–45 分鐘\n相機/喇叭/充電模組：60–90 分鐘\n主機板級維修：2–4 小時（視狀況）\n\n可現場等候或預約時段，實際以檢測為準。',
+          question: '現場維修大概需要多久？',
+          answer: '一般維修參考時程：\n• 電池更換：約 30 分鐘\n• 螢幕更換：約 45–60 分鐘\n• 其他模組：約 1 小時\n• 主機板維修：需留機檢測 1–3 個工作天\n\n建議先預約時段，可減少現場等待時間。',
           category: 'iPhone維修'
         },
         {
           icon: Shield,
-          question: '是否使用 Apple 認證零件？',
-          answer: '我們為 Apple IRP 認證維修商，使用 Apple 認證零件，並提供 90 天保固。維修完成後，功能與相容性均依標準流程逐項檢測。',
+          question: '你們是 Apple 原廠授權維修中心嗎？',
+          answer: '是的，FixMaster 是 Apple 獨立維修中心 (IRP)，擁有 Apple 官方認證技師與原廠診斷工具，可合法採購並使用 Apple 原廠零件，維修紀錄也會同步至 Apple 官方系統，品質有保障。',
           category: 'iPhone維修'
         },
         {
           icon: Zap,
-          question: '螢幕破裂該怎麼評估與處理？',
-          answer: '輕微裂痕：可先貼保護膜觀察，避免裂痕擴大。\n觸控異常或出現彩線：建議立即更換，以免二度損傷。\n玻璃碎屑：請避免摩擦臉部與耳朵，儘速處理較安全。',
-          category: 'iPhone維修'
-        },
-        {
-          icon: Smartphone,
-          question: '更換螢幕會影響 Face ID／Touch ID 嗎？',
-          answer: '不會。Face ID／Touch ID 模組獨立於螢幕，維修時會完整轉移並檢測。若原件損壞，我們會於檢測報告中明確說明處理方案與風險。',
-          category: 'iPhone維修'
-        },
-        {
-          icon: HelpCircle,
-          question: '維修是否影響原廠保固？',
-          answer: '在原廠保固期內，建議先洽 Apple 官方。保固外維修不會影響您對裝置的使用，但第三方維修可能不在 Apple 原廠保固範圍。我們提供 90 天維修保固作為保障。',
-          category: 'iPhone維修'
-        },
-        {
-          icon: Shield,
-          question: '更換電池／主機板會影響 Face ID／Touch ID 嗎？',
-          answer: '更換電池：不會影響 Face ID／Touch ID。更換主機板：與生物辨識綁定，有風險需評估並簽署同意；我們會於施工前說明可行方案與影響並於完工後逐項測試。',
-          category: 'iPhone維修'
-        },
-        {
-          icon: Settings,
-          question: 'Face ID 無法設定的常見原因？',
-          answer: '常見為原深感相機模組（點陣投影、泛光感測）或前鏡頭排線受損，亦可能因撞擊或進水。建議檢測相機模組與排線，確認可修復性與風險後再行施工。',
+          question: '螢幕只是玻璃裂開，顯示跟觸控都正常，可以只換玻璃嗎？',
+          answer: '可以，這稱為「螢幕翻新」。若您的內層顯示器 (OLED/LCD) 完好無損，我們可以協助單獨更換表層玻璃，費用比換整組螢幕更划算，且保留原廠顯示面板。',
           category: 'iPhone維修'
         }
       ]
@@ -108,151 +83,80 @@ export default function FAQSection() {
       faqs: [
         {
           icon: AlertCircle,
-          question: '手機進水怎麼辦？',
-          answer: '立刻關機、勿充電與加熱，保持裝置原狀送修。24 小時內處理成功率最高。我們提供主機板清洗與資料救援評估，並完整告知風險。',
+          question: '手機進水了，第一時間該怎麼辦？',
+          answer: '1. 立即關機，切勿嘗試開機。\n2. 切勿充電，以免短路燒毀主機板。\n3. 擦乾表面水分，移除 SIM 卡托。\n4. 盡快送修，進行專業拆機清潔與除潮。\n\n切勿使用吹風機熱風吹或放入米缸，這可能加速內部腐蝕或將水氣吹入更深處。',
           category: '進水救援'
         },
         {
           icon: Shield,
-          question: '維修過程我的資料隱私如何保障？',
-          answer: '技師簽署保密協議、維修不查看個人資料、必要時於您在場或錄影下進行開機測試；全程留存交接與檢測紀錄，建議事前備份並登出敏感服務。',
+          question: '維修時會偷看我的照片或資料嗎？',
+          answer: '絕無可能。我們嚴格遵守個資保護規範，技師均簽署保密協議。維修過程多數不需要解鎖密碼（除非需測試特定功能並取得您同意）。若您擔心，可在維修時現場旁觀，全程錄影保障雙方權益。',
           category: '資料隱私'
         },
         {
           icon: CheckCircle,
-          question: '維修後我們如何測試確保功能正常？',
-          answer: '依項目逐項檢測：觸控/顯示、相機前後/錄影、喇叭/麥克風/聽筒、充電/電流、感測器、Face ID/Touch ID、通話/網路。完修提供檢測紀錄與保固。',
+          question: '維修後會做哪些測試？',
+          answer: '完修後會依照標準 SOP 進行全功能檢測，包含：螢幕顯示、觸控靈敏度、相機前後鏡頭、Face ID/Touch ID、通話功能、麥克風收音、喇叭外放、充電電流、無線充電、Wi-Fi/藍牙訊號等，確保交機時功能 100% 正常。',
           category: '完修測試'
         },
         {
           icon: Clock,
-          question: '維修需預約嗎？可以現場等候嗎？',
-          answer: '建議先透過 LINE 或電話預約以保留時段；螢幕與電池等常見維修可現場等候，主機板級或特殊項目將另行通知時程。',
+          question: '維修需要預約嗎？直接過去可以嗎？',
+          answer: '可以直接來店，但若現場客滿可能需要等候。強烈建議透過 LINE 或電話提前預約，我們能預先為您保留零件與技師時段，讓您到場即修，節省寶貴時間。',
           category: '維修流程'
         },
         {
           icon: Shield,
-          question: '維修後的防水會恢復嗎？',
-          answer: '裝置的防水等級（如 IP68）為組裝出廠條件，維修後雖會重貼膠條並檢測，但無法保證達到原出廠等級。建議遠離高濕或高壓水環境。',
+          question: '維修後手機還能防水嗎？',
+          answer: '手機的防水功能是透過邊框膠條密封，拆機維修後我們會重新補上專用防水膠條，但防水能力仍可能不如出廠時完美（IP68 等級）。建議維修後將手機視為「生活防潑水」，避免直接沖洗或浸泡水中。',
           category: '維修風險'
         },
         {
-          icon: Wrench,
-          question: '手機進水了該怎麼辦？',
-          answer: '盡快關機，切勿充電與吹風機加熱，勿搖晃。保留原狀送修，24 小時內處理成功率最高。我們提供主機板清洗與除鏽、資料救援評估。',
-          category: '手機維修'
-        },
-        {
           icon: Settings,
-          question: '維修前需要先備份嗎？',
-          answer: '建議先自行備份重要資料（iCloud／iTunes）。維修過程不會查看個人檔案，技師均簽署保密，同時提供現場透明錄影。',
+          question: '送修前我需要先備份資料嗎？',
+          answer: '雖然更換螢幕、電池等零件通常不會動到資料，但電子產品維修仍有極低機率的風險。為了保險起見，強烈建議您送修前先透過 iCloud 或電腦 iTunes 進行備份，以防萬一。',
           category: '手機維修'
         },
         {
           icon: DollarSign,
-          question: '維修價格如何計算？',
-          answer: '免費檢測與報價、透明價目、無隱藏費用。不同機型有固定標準，施工前會提供書面或口頭報價並徵得同意。若不維修不收費。',
-          category: '手機維修'
-        },
-        {
-          icon: AlertCircle,
-          question: '手機進水可以用米／吹風機自救嗎？',
-          answer: '不建議。米與乾燥劑無法深入機板，殘留水分與礦物質可能加速腐蝕；熱風易使水汽擴散並造成排線變形。建議關機、勿充電，儘速送修專業乾燥與清洗。',
-          category: '手機維修'
-        },
-        {
-          icon: Settings,
-          question: '維修後需要重新貼膜或做哪些保護？',
-          answer: '更換螢幕後建議重新貼滿版膜與邊框保護，加裝防摔殼可降低二次損傷風險；若為進水機，短期內避免潮濕環境並留意異味/異音。',
-          category: '維修建議'
-        },
-        {
-          icon: Wrench,
-          question: '進水檢測與處理流程、時程與費用？',
-          answer: '流程：初檢（免費）→ 拆機乾燥／酒精或超音波清洗 → 檢測腐蝕區 → 報價確認施工。一般 2–4 小時完成初步處理與評估；資料救援屬選配專案，將先行告知風險與費用。',
+          question: '檢測需要費用嗎？如果不修會收錢嗎？',
+          answer: 'FixMaster 提供「免費檢測」服務。技師檢測後會告知故障原因與準確報價，由您決定是否維修。如果您決定不修，我們不會收取任何檢測費或拆機費（進水清洗與特殊主板檢測除外，會先行告知）。',
           category: '手機維修'
         }
       ]
     },
     {
-      title: 'iPad 維修專區',
+      title: 'iPad / Mac 專區',
       faqs: [
         {
           icon: Tablet,
-          question: 'iPad 螢幕維修需要多久時間？',
-          answer: '一般 2–4 小時，依機型與損傷程度調整。由於膠體黏著面積較大、排線較多，需以專業設備與流程處理以避免二次損傷。',
+          question: 'iPad 螢幕破裂維修要多久？',
+          answer: 'iPad 螢幕膠合面積大，拆裝需更謹慎，一般約需 2–4 小時。建議預留半天時間，或早上送件、傍晚取件。我們會確保膠體完全固化後才交機，避免日後螢幕翹起。',
           category: 'iPad維修'
         },
         {
           icon: Zap,
-          question: 'iPad 充電異常怎麼處理？',
-          answer: '常見原因包含充電孔接觸不良、排線老化、充電 IC 異常。可先嘗試更換充電線與變壓器，若仍異常建議檢測充電模組與主機板。',
+          question: 'iPad 充電很慢或充不進去，是電池壞了嗎？',
+          answer: '不一定。除了電池老化，常見原因還有充電孔積塵、氧化或尾插排線損壞，甚至是主機板充電 IC 故障。我們會先進行交叉測試，確認是哪個環節問題再報價維修，避免您花冤枉錢。',
           category: 'iPad維修'
         },
-        {
-          icon: Settings,
-          question: 'iPad 觸控不靈敏怎麼辦？',
-          answer: '若特定區域遲滯或跳點，可能為觸控層或觸控 IC 問題。可先重啟與更新系統，若持續發生，建議更換螢幕總成或進一步檢測。',
-          category: 'iPad維修'
-        },
-        {
-          icon: AlertCircle,
-          question: 'iPad 電池鼓脹怎麼處理？還能繼續使用嗎？',
-          answer: '不建議持續使用。電池鼓脹可能頂開螢幕造成二次損傷；建議盡快關機送修，由專業人員在安全環境下更換並檢測。',
-          category: 'iPad維修'
-        },
-        {
-          icon: FileText,
-          question: 'iPad 玻璃破裂一定要換總成嗎？',
-          answer: '多數整合型面板需更換總成（玻璃+顯示+觸控），以確保貼合品質與觸控靈敏度；檢測後會提供可行方案與差異說明。',
-          category: 'iPad維修'
-        },
-        {
-          icon: Shield,
-          question: 'iPad 維修後是否影響 Apple Pencil 相容性？',
-          answer: '不會。更換面板或電池不影響 Apple Pencil 配對與使用；維修後會協助測試筆觸與延遲，確認無異常後交機。',
-          category: 'iPad維修'
-        }
-      ]
-    },
-    {
-      title: 'Mac 維修專區',
-      faqs: [
         {
           icon: Monitor,
-          question: 'MacBook 螢幕維修費用如何？',
-          answer: '費用與機型、尺寸、是否 Retina、是否更換上蓋總成相關。提供免費檢測與透明報價，施工前先說明備選方案與交期。',
+          question: 'MacBook 電池顯示「建議維修」該換嗎？',
+          answer: '建議更換。當電池循環次數過高或健康度低於 80%，系統會提示維修。此時電池可能有膨脹風險，不僅續航力差，還可能壓迫觸控板或鍵盤造成損壞。更換電池約 1–2 小時可完成。',
           category: 'Mac維修'
         },
         {
-          icon: Zap,
-          question: 'MacBook 無法開機怎麼辦？',
-          answer: '可先嘗試：檢查電源與充電器、SMC/PRAM 重置、安全模式。若仍無法開機，可能為電池、SSD 或主機板異常，需專業檢測。',
-          category: 'Mac維修'
-        },
-        {
-          icon: HelpCircle,
-          question: 'Mac 維修會影響原廠保固嗎？',
-          answer: '保固內建議先與 Apple 官方確認。保固外之第三方維修，不在原廠保固範圍。我們提供 90 天維修保固與檢測報告留存。',
-          category: 'Mac維修'
-        },
-        {
-          icon: Wrench,
-          question: '是否提供風扇清潔與散熱維護？建議頻率？',
-          answer: '提供風扇與散熱模組清潔、散熱膏更換等服務；重度使用環境建議每 6–12 個月檢視一次，有效降低溫度與噪音。',
+          icon: Settings,
+          question: 'MacBook 運作很慢、風扇很吵，可以改善嗎？',
+          answer: '通常是因為內部累積灰塵影響散熱，導致降頻跑不快。我們提供「深度清潔保養」服務，包含拆機除塵、更換高效散熱膏，能顯著降低運作溫度，讓效能與靜音回復水準。',
           category: 'Mac維護'
         },
         {
           icon: FileText,
-          question: '可否升級 SSD 或更換電池？資料如何轉移？',
-          answer: '視機型可行性而定；可協助資料備份與轉移，施工前先說明風險與時程。完成後提供檢測紀錄與保固。',
+          question: '我想升級 MacBook 的硬碟 (SSD) 容量可以嗎？',
+          answer: '這取決於機型。2017 年以前的舊款 MacBook Air/Pro 多數可更換 SSD；2018 年後的機型 SSD 多焊死在主機板上，無法單獨升級，僅能透過外接硬碟擴充。請提供型號讓我們幫您查詢。',
           category: 'Mac升級'
-        },
-        {
-          icon: Settings,
-          question: 'MacBook 過熱或風扇大聲怎麼處理？',
-          answer: '建議清潔風扇與散熱模組、替換散熱膏；同時檢查背景程式與電源設定。改善後可顯著降低溫度與噪音。',
-          category: 'Mac維護'
         }
       ]
     },
@@ -261,105 +165,44 @@ export default function FAQSection() {
       faqs: [
         {
           icon: CheckCircle,
-          question: '維修保固的範圍與申請方式？',
-          answer: '保固 90 天，含更換零件本身與施工品質、相同故障免費重修（不含人為損壞與新故障）。出示維修紀錄或保固卡，即可申請檢測與處理。',
+          question: '維修後的保固期是多久？',
+          answer: '• 電池/螢幕/一般零件：提供 90 天保固。\n• 主機板維修：提供 90 天保固。\n\n保固期間內，若出現非人為因素的相同故障（如觸控不良、電池異常），我們將免費為您處理到好。',
           category: '保固服務'
         },
         {
-          icon: Smartphone,
-          question: '二手 iPhone 有哪些保障？',
-          answer: '附 30 天硬體保固與完整檢測報告；電池健康度 80% 以上；可現場試用確認功能，並提供購買憑證與售後諮詢。',
-          category: '二手機保障'
-        },
-        {
           icon: AlertCircle,
-          question: '到府收送服務的範圍與時段？',
-          answer: '台北市區提供到府收送，滿 $1,500 免收送。一般於營業時段內收件與配送（14:00–23:00），可於預約時確認可行時段。',
+          question: '台北市到府收送服務要運費嗎？',
+          answer: '只要維修費用滿 $1,500 元，台北市區內（士林、北投、中山、大同、內湖等）皆享「免運費」到府收送。未滿額則酌收 $150–$300 元運費。',
           category: '服務與物流'
         },
         {
-          icon: Shield,
-          question: '維修過程如何保障個資與隱私？',
-          answer: '技師簽署保密協議；維修不查看個人檔案；如需開機測試將於您在場或錄影下進行；設備交接與流程全程留存紀錄，並建議您事前完成備份與登出敏感服務。',
-          category: '隱私與安全'
-        },
-        {
-          icon: Settings,
-          question: '維修前建議設定與準備？',
-          answer: '建議先備份資料、關閉 Apple Pay 與移除 eSIM、停用尋找我的 iPhone（如需主機板級維修）、登出社群帳號與雲端同步，並記下螢幕鎖以便現場功能測試。',
-          category: '維修前準備'
-        },
-        {
-          icon: CheckCircle,
-          question: '維修後的測試流程包含哪些項目？',
-          answer: '依項目執行：觸控/多點觸控、顯示色偏/亮度、相機前後/對焦/錄影、喇叭/麥克風/聽筒、充電/電流、感測器（距離/環境光/陀螺儀）、網路與通話、Face ID/Touch ID；完成後提供檢測紀錄與保固憑證。',
-          category: '測試流程'
-        },
-        {
-          icon: DollarSign,
-          question: '維修價格如何計算？是否有隱藏費用？',
-          answer: '先免費檢測再報價；價格依機型與維修類型（螢幕/電池/相機/主機板）而定，現場/LINE 皆提供明細，不維修不收費。到府收送台北市區滿 $1,500 免收送。',
-          category: '價格與報價'
-        },
-        {
-          icon: Navigation,
-          question: '怎麼到 FixMaster 士林店？附近停車與交通？',
-          answer: '地址：台北市士林區文林路 60 號；捷運劍潭站 1 號出口步行 3 分鐘。附近有嘟嘟房、路邊停車格；也可改用到府收送服務。',
-          category: '交通資訊'
-        },
-        {
-          icon: Shield,
-          question: '什麼是 Apple IRP 認證？對維修有什麼幫助？',
-          answer: 'IRP（Independent Repair Provider）為 Apple 官方授權計畫，提供認證零件與流程、技師訓練與檢測規範。使用 Apple 認證零件、完成色準/True Tone/相容性檢測，品質一致。',
-          category: 'IRP 認證'
-        },
-        {
-          icon: FileText,
-          question: '維修是否開立發票與保固憑證？',
-          answer: '可開立統一發票；維修完成提供保固憑證與檢測紀錄。保固 90 天（人為損壞與新故障除外）。',
-          category: '憑證與保固'
-        },
-        {
           icon: CreditCard,
-          question: '支援哪些付款方式？是否可刷卡與行動支付？',
-          answer: '支援現金、信用卡，亦可使用行動支付（實際以門市公告為準）。到府收送維修完成後可線上支付。',
+          question: '付款方式有哪些？可以刷卡嗎？',
+          answer: '門市支援：現金、信用卡（Visa/Master/JCB/銀聯）、Apple Pay、LINE Pay、街口支付。\n到府收送：可透過匯款轉帳或線上刷卡連結付款。',
           category: '付款方式'
         },
         {
-          icon: DollarSign,
-          question: '是否提供企業/學校大量維修報價與到府服務？',
-          answer: '可提供專案報價與定期維護，支援到府收送與維修月結，請透過 LINE 提供機型數量與需求，我們將回覆專案方案。',
-          category: '商務合作'
+          icon: FileText,
+          question: '維修會開立發票嗎？可以打統編嗎？',
+          answer: '當然可以。我們是合法登記的有限公司，所有服務皆開立統一發票，若需公司報帳，請於結帳時告知統一編號與公司抬頭。',
+          category: '憑證與保固'
         },
         {
           icon: HelpCircle,
-          question: '保固與人為損壞的界線如何判定？',
-          answer: '保固涵蓋更換零件與施工品質造成的相同故障；摔落、進水、擠壓等人為因素或與原故障無關的新問題不在保固範圍。',
+          question: '人為損壞有保固嗎？',
+          answer: '保固範圍僅限「零件本身的瑕疵」或「施工不良」。若是維修後因再次摔機、進水、壓傷等人為因素導致的故障，則不在保固範圍內，但我們會提供老客戶維修折扣。',
           category: '保固條款'
         },
         {
           icon: Smartphone,
-          question: '維修期間是否提供備援機？',
-          answer: '常規維修多於 1 小時內完修，若需留機檢測會視庫存提供臨時備援方案（以門市公告為準）。',
+          question: '維修期間有提供備用機嗎？',
+          answer: '一般 iPhone 維修多在一小時內完成，通常無需備用機。若遇主機板維修需留機較多天，我們門市備有少量備用機（iPhone 8/X 等級）可供借用，依現場庫存為準。',
           category: '備援裝置'
-        },
-        {
-          icon: FileText,
-          question: '資料救援與主機板級維修如何評估？',
-          answer: '先進行免費檢測評估可修復性與風險，提供報價與時程。主機板級專案需另行同意；資料救援將完整說明成功率與注意事項。',
-          category: '資料救援'
-        },
-        {
-          icon: Clock,
-          question: '預約改期或取消要怎麼辦？',
-          answer: '可於 LINE 或電話通知我們改期/取消；若有到府收送安排，請提前至少 2 小時告知以利調度。',
-          category: '預約調整'
         }
       ]
     }
   ]
 
-  // 依據當前選取的分類取得 FAQ 清單
   const currentFaqs = faqCategories[selectedCategoryIndex]?.faqs ?? []
   const currentFaq = selectedFaqIndex !== null ? currentFaqs[selectedFaqIndex] : null
 
@@ -442,6 +285,7 @@ export default function FAQSection() {
       document.removeEventListener('keydown', handleKeyDown)
       document.body.classList.remove('no-scroll')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSheetOpen])
 
   return (
@@ -467,7 +311,7 @@ export default function FAQSection() {
           </motion.div>
 
           {/* 新分類導航 */}
-          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4">
+          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4 bg-white/5 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none py-2 md:py-0">
             <FAQCategoryNav
               categories={faqCategories.map(c => ({
                 title: c.title,
@@ -482,14 +326,18 @@ export default function FAQSection() {
               onChange={(i) => {
                 setSelectedCategoryIndex(i)
                 setSelectedFaqIndex(null)
-                // 捲回 FAQ 網格頂部避免上下文錯位
                 const grid = gridRef.current
-                if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+                if (grid) {
+                  const offset = 140 
+                  const elementPosition = grid.getBoundingClientRect().top + window.scrollY
+                  const offsetPosition = elementPosition - offset
+                  window.scrollTo({ top: offsetPosition, behavior: "smooth" })
+                }
               }}
             />
           </div>
 
-          {/* 問題卡片網格（行動 1 欄、平板 2 欄、桌面 3 欄） */}
+          {/* 問題卡片網格 */}
           <motion.div
             id="faq-panel"
             role="tabpanel"
@@ -506,54 +354,43 @@ export default function FAQSection() {
                 key={`${faq.question}-${index}`}
                 type="button"
                 onClick={(event) => openFaqDetail(event.currentTarget, index)}
-                className="text-left glass-surface p-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-transparent hover:-translate-y-0.5 motion-soft-enter"
+                className="text-left glass-surface p-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-neutral-900/20 focus:ring-offset-2 hover:-translate-y-1 motion-soft-enter group"
                 aria-haspopup="dialog"
                 aria-controls="faq-bottom-sheet"
                 aria-expanded={isSheetOpen && selectedFaqIndex === index}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    openFaqDetail(e.currentTarget, index)
-                  }
-                }}
                 initial={{ opacity: 0, scale: 0.98, y: 6 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ ...motionTimings.soft, delay: index * 0.03 }}
               >
-                <div className="glass-content flex flex-col gap-4 p-6">
+                <div className="glass-content flex flex-col gap-4 p-6 h-full bg-white/40 group-hover:bg-white/60 transition-colors">
                   <div className="flex items-start gap-3 md:gap-4">
-                    <div className="glass-control glass-elevated flex h-10 w-10 flex-shrink-0 items-center justify-center md:h-12 md:w-12">
+                    <div className="glass-control flex h-10 w-10 flex-shrink-0 items-center justify-center md:h-12 md:w-12 shadow-[var(--elev-2)] bg-white/80">
                       <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="mb-1 text-sm md:text-base font-semibold text-neutral-900 line-clamp-2">
+                      <h3 className="mb-1.5 text-[15px] md:text-base font-bold text-neutral-900 line-clamp-2 leading-tight">
                         {faq.question}
                       </h3>
                       <div className="mb-2 text-xs font-medium text-neutral-500 md:text-sm">
                         {faq.category}
                       </div>
-                      <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line">
+                      <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between text-xs font-medium text-neutral-500 md:text-sm">
+                  <div className="flex items-center justify-between text-xs font-medium text-neutral-500 md:text-sm mt-auto pt-2 border-t border-neutral-200/30">
                     <span>查看完整解答</span>
-                    <motion.span
-                      initial={false}
-                      animate={{ rotate: isSheetOpen && selectedFaqIndex === index ? 90 : 0 }}
-                      transition={motionTimings.soft}
-                      className="inline-flex"
-                    >
-                      <ArrowRight className="h-4 w-4 text-neutral-400" aria-hidden="true" />
-                    </motion.span>
+                    <span className="inline-flex p-1 rounded-full glass-control shadow-sm group-hover:bg-white transition-colors">
+                      <ArrowRight className="h-3.5 w-3.5 text-neutral-400 group-hover:text-neutral-900 transition-colors" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
               </motion.button>
             ))}
           </motion.div>
 
-          {/* 底部彈出層 Bottom Sheet */}
+          {/* Bottom Sheet */}
           {mounted && createPortal(
             <AnimatePresence>
               {isSheetOpen && currentFaq && (
@@ -567,85 +404,87 @@ export default function FAQSection() {
                   aria-labelledby="faq-sheet-title"
                   aria-describedby="faq-sheet-description"
                 >
-                  {/* 背景遮罩 */}
                   <div
-                    className="absolute inset-0 bg-black/40"
+                    className="absolute inset-0 bg-black/20 backdrop-blur-[2px]"
                     onClick={closeFaqDetail}
                     aria-hidden="true"
                   />
 
-                  {/* Sheet 內容容器 */}
                   <motion.div
                     ref={sheetRef}
-                    className="mt-auto glass-panel p-1 border border-white/25 motion-soft-enter"
+                    className="mt-auto glass-panel border border-white/40 motion-soft-enter shadow-[0_-8px_30px_rgba(0,0,0,0.12)]"
                     initial={{ y: '100%' }}
                     animate={{ y: 0 }}
                     exit={{ y: '100%' }}
-                    transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     id="faq-bottom-sheet"
+                    style={{ borderRadius: '24px 24px 0 0' }}
                   >
-                    <div className="glass-content overflow-hidden pb-safe" style={{ maxHeight: '85dvh' }}>
-                      <div className="flex justify-center pt-3">
-                        <div className="h-1 w-12 rounded-full bg-white/50" aria-hidden="true" />
+                    <div className="glass-content overflow-hidden pb-safe bg-white/90 backdrop-blur-xl" style={{ maxHeight: '85dvh', borderRadius: '24px 24px 0 0' }}>
+                      <div className="flex justify-center pt-3 pb-1" onClick={closeFaqDetail}>
+                        <div className="h-1.5 w-12 rounded-full bg-neutral-300/80" aria-hidden="true" />
                       </div>
 
-                      <div className="flex items-start justify-between px-4 py-3 md:px-6 md:py-4 border-b border-white/20">
-                        <div className="flex items-start gap-3 pr-2 md:pr-4">
-                          <div className="glass-control glass-elevated flex h-10 w-10 items-center justify-center text-neutral-900 md:h-12 md:w-12">
-                            <currentFaq.icon className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+                      <div className="flex items-start justify-between px-5 py-4 md:px-8 md:py-6 border-b border-neutral-100">
+                        <div className="flex items-start gap-4 pr-4">
+                          <div className="glass-control flex h-12 w-12 items-center justify-center text-neutral-900 shadow-[var(--elev-2)] bg-white">
+                            <currentFaq.icon className="h-6 w-6" aria-hidden="true" />
                           </div>
                           <div>
-                            <h3 id="faq-sheet-title" className="text-base md:text-lg font-semibold text-neutral-900">
+                            <h3 id="faq-sheet-title" className="text-lg md:text-xl font-bold text-neutral-900 leading-tight">
                               {currentFaq.question}
                             </h3>
-                            <div className="mt-1 text-xs text-neutral-500 md:text-sm">
+                            <div className="mt-1.5 text-sm font-medium text-neutral-500">
                               {currentFaq.category}
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <button
-                            type="button"
-                            aria-label="上一題"
-                            className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
-                            onClick={goPrevFaq}
-                            disabled={(selectedFaqIndex ?? 0) <= 0}
-                          >
-                            <ChevronLeft className="h-4 w-4" />
-                          </button>
-                          <button
-                            type="button"
-                            aria-label="下一題"
-                            className="glass-control glass-elevated p-2 text-neutral-700 hover:text-neutral-900"
-                            onClick={goNextFaq}
-                            disabled={(selectedFaqIndex ?? 0) >= currentFaqs.length - 1}
-                          >
-                            <ChevronRight className="h-4 w-4" />
-                          </button>
-                          <button
-                            ref={closeButtonRef}
-                            type="button"
-                            aria-label="關閉"
-                            className="glass-control glass-elevated p-2 text-neutral-700 transition-colors duration-200 hover:text-neutral-900"
-                            onClick={closeFaqDetail}
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
+                        <button
+                          ref={closeButtonRef}
+                          type="button"
+                          aria-label="關閉"
+                          className="glass-control p-2.5 text-neutral-500 transition-colors duration-200 hover:text-neutral-900 hover:bg-white active:scale-95"
+                          onClick={closeFaqDetail}
+                        >
+                          <X className="h-5 w-5" />
+                        </button>
                       </div>
 
-                      <div className="px-4 md:px-6 pt-4 pb-0 overscroll-contain overflow-y-auto text-neutral-700 leading-relaxed text-sm md:text-base whitespace-pre-line" style={{ maxHeight: 'calc(85dvh - 140px)' }} id="faq-sheet-description">
+                      <div className="px-5 md:px-8 pt-6 pb-4 overscroll-contain overflow-y-auto text-neutral-800 leading-relaxed text-[15px] md:text-lg whitespace-pre-line font-medium" style={{ maxHeight: 'calc(85dvh - 180px)' }} id="faq-sheet-description">
                         {currentFaq.answer}
                       </div>
 
-                      <div className="px-4 md:px-6 py-4 border-t border-white/20">
-                        <div className="glass-control glass-strong px-4 py-3 text-xs text-neutral-600 md:text-sm mb-4" aria-hidden="true">
-                          仍不確定？我們可以協助安排檢測、提供即時報價或線上諮詢。
+                      <div className="px-5 md:px-8 py-5 border-t border-neutral-100 bg-white/50">
+                        <div className="flex items-center justify-between gap-4 mb-4">
+                          <button
+                            type="button"
+                            className="text-sm font-medium text-neutral-500 hover:text-neutral-900 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-neutral-100 transition-colors disabled:opacity-30"
+                            onClick={goPrevFaq}
+                            disabled={(selectedFaqIndex ?? 0) <= 0}
+                          >
+                            <ChevronLeft className="h-4 w-4" /> 上一題
+                          </button>
+                          <span className="text-xs font-medium text-neutral-400">
+                            {selectedFaqIndex !== null ? selectedFaqIndex + 1 : 0} / {currentFaqs.length}
+                          </span>
+                          <button
+                            type="button"
+                            className="text-sm font-medium text-neutral-500 hover:text-neutral-900 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-neutral-100 transition-colors disabled:opacity-30"
+                            onClick={goNextFaq}
+                            disabled={(selectedFaqIndex ?? 0) >= currentFaqs.length - 1}
+                          >
+                            下一題 <ChevronRight className="h-4 w-4" />
+                          </button>
+                        </div>
+                        
+                        <div className="glass-control px-4 py-3 text-sm font-medium text-neutral-600 mb-4 shadow-sm bg-white/60 flex items-start gap-2" aria-hidden="true">
+                          <div className="mt-0.5 shrink-0 w-1.5 h-1.5 rounded-full bg-green-500" />
+                          仍有疑問？歡迎直接聯繫，我們將提供更詳細的說明。
                         </div>
                         <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
                           <Button
                             variant="outline"
-                            className="sm:w-auto motion-hover-pop"
+                            className="sm:w-auto motion-hover-pop font-bold"
                             onClick={() => {
                               trackClick('faq_sheet_contact_line')
                               window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
@@ -654,7 +493,7 @@ export default function FAQSection() {
                             透過 LINE 詢問
                           </Button>
                           <Button
-                            className="sm:w-auto motion-hover-pop"
+                            className="sm:w-auto motion-hover-pop font-bold shadow-lg"
                             onClick={() => {
                               trackClick('faq_sheet_contact_book_line')
                               window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
@@ -680,25 +519,25 @@ export default function FAQSection() {
             transition={motionTimings.soft}
             viewport={motionViewport}
           >
-            <div className="glass-content px-6 py-8 text-center md:px-10 md:py-12 space-y-6">
+            <div className="glass-content px-6 py-8 text-center md:px-10 md:py-12 space-y-6 bg-white/40">
               <div className="space-y-3">
-                <h3 className="text-2xl font-semibold text-neutral-900 md:text-3xl">
+                <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
                   還有其他問題嗎？
                 </h3>
-                <p className="mx-auto max-w-2xl text-neutral-600">
+                <p className="mx-auto max-w-2xl text-neutral-600 text-base font-medium">
                   我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們。
                 </p>
               </div>
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5">
                 <Button
-                  className="px-6 py-3 md:px-8 md:py-4 motion-hover-pop"
+                  className="px-8 py-4 text-[15px] font-bold motion-hover-pop w-full sm:w-auto"
                   onClick={() => trackClick('faq_tel_click', { section: 'faq' })}
                 >
                   直接撥打電話
                 </Button>
                 <Button
                   variant="outline"
-                  className="px-6 py-3 md:px-8 md:py-4 motion-hover-pop"
+                  className="px-8 py-4 text-[15px] font-bold motion-hover-pop w-full sm:w-auto"
                   onClick={() => trackClick('faq_line_click', { section: 'faq' })}
                 >
                   LINE 線上諮詢
@@ -710,4 +549,4 @@ export default function FAQSection() {
       </div>
     </section>
   )
-} 
+}

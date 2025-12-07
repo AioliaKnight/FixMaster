@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { scrollToSectionId } from '@/lib/scroll'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { 
@@ -16,12 +16,14 @@ import {
   Wrench
 } from 'lucide-react'
 import { SliderArrows, SliderDots } from './CarouselControls'
-import { trackClick } from '@/lib/tracking'
+import { trackClick, trackGenerateLead, trackViewPromotion } from '@/lib/tracking'
 import SectionHeader from './ui/SectionHeader'
 import Button from './ui/Button'
 import { motionTimings, motionViewport } from '@/lib/motion'
 
 export default function ServicesSection() {
+  const titleRef = useRef<HTMLDivElement>(null)
+  const isTitleInView = useInView(titleRef, { once: true, amount: 0.3 })
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [touchStart, setTouchStart] = useState(0)
@@ -45,6 +47,12 @@ export default function ServicesSection() {
     onScroll()
     return () => el.removeEventListener('scroll', onScroll as any)
   }, [])
+
+  useEffect(() => {
+    if (isTitleInView) {
+      trackViewPromotion({ section: 'services', label: '專業服務項目' })
+    }
+  }, [isTitleInView])
 
   // Mobile dots for steps
   const stepsRef = useRef<HTMLDivElement>(null)
@@ -231,7 +239,7 @@ export default function ServicesSection() {
                 size="sm"
                 className="w-full sm:w-auto motion-hover-pop"
                 onClick={() => {
-                  trackClick('services_precheck_cta', { section: 'services', from: 'iphone17_notice' })
+                  trackGenerateLead({ section: 'services', action: 'cta_click', target: 'book', label: 'iphone17_notice' })
                   scrollToSectionId('contact')
                 }}
               >
@@ -255,7 +263,7 @@ export default function ServicesSection() {
           >
             <SectionHeader title="專業服務項目" description="專業 iPhone 維修與二手選購，透明報價、品質有保障。" />
             <p className="mt-4 text-sm text-neutral-500">
-              依照維修類型為您推薦最快速的完修方案，保固說明與價格均會於檢測後再次確認。
+              免費檢測後再報價，不維修不收費；熱門機型多數 30–60 分鐘完修，保固與價格當場說清楚。
             </p>
           </motion.div>
 
@@ -287,75 +295,72 @@ export default function ServicesSection() {
                   <div key={index} className="w-full flex-shrink-0 px-4">
                     <div className="max-w-2xl mx-auto">
                       <motion.div
-                        className="glass-panel p-1 flex flex-col gap-4 motion-soft-enter tilt-hover specular"
+                        className="glass-panel flex flex-col gap-6 md:gap-8 p-6 md:p-8 motion-soft-enter tilt-hover specular"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={motionTimings.medium}
                         viewport={motionViewport}
                       >
-                        <div className="glass-content flex flex-col gap-6 md:gap-8 p-6 md:p-8">
                         {/* 服務圖示與標題 */}
                         <div className="flex flex-col items-center text-center gap-4">
-                          <div className="glass-control w-20 h-20 flex items-center justify-center text-accent-500">
+                          <div className="glass-control w-20 h-20 flex items-center justify-center text-neutral-900 shadow-[var(--elev-2)]">
                             <service.icon className="w-10 h-10" />
                           </div>
                           <div className="space-y-2">
-                            <h3 className="text-xl md:text-2xl font-semibold text-neutral-900 tracking-tight">
+                            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight">
                               {service.title}
                             </h3>
-                            <p className="text-neutral-600 text-sm md:text-base leading-relaxed">
+                            <p className="text-neutral-600 text-base md:text-lg leading-relaxed font-medium">
                               {service.tagline}
                             </p>
                           </div>
                         </div>
 
                         {/* 服務詳細資訊 */}
-                        <div className="surface-muted p-4 md:p-5 grid grid-cols-2 gap-4 md:gap-5 text-center">
+                        <div className="glass-surface p-4 md:p-5 grid grid-cols-2 gap-4 md:gap-5 text-center bg-white/40">
                           <div className="space-y-1">
-                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">維修時間</span>
-                            <span className="text-neutral-900 text-sm font-semibold">{service.duration}</span>
+                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-semibold">維修時間</span>
+                            <span className="text-neutral-900 text-sm font-bold">{service.duration}</span>
                           </div>
                           <div className="space-y-1">
-                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">適用機型</span>
-                            <span className="text-neutral-900 text-sm font-semibold">{service.models.join('、')}</span>
+                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-semibold">適用機型</span>
+                            <span className="text-neutral-900 text-sm font-bold">{service.models.join('、')}</span>
                           </div>
                         </div>
 
                         {/* 特色功能 */}
                         <ul className="grid gap-3">
                           {service.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-center text-neutral-700 text-sm">
-                              <CheckCircle className="mr-3 h-5 w-5 text-accent-500" />
+                            <li key={featureIndex} className="flex items-center text-neutral-700 text-[15px] font-medium">
+                              <CheckCircle className="mr-3 h-5 w-5 text-[#00C805]" />
                               <span>{feature}</span>
                             </li>
                           ))}
                         </ul>
 
                         {/* 保固資訊 */}
-                        <div className="glass-control glass-strong px-4 py-3 flex items-center justify-center gap-2 text-neutral-900 text-sm font-semibold">
+                        <div className="glass-control px-4 py-3 flex items-center justify-center gap-2 text-neutral-900 text-sm font-bold bg-white/60">
                           <Shield className="h-4 w-4" />
                           <span>{service.warranty}</span>
                         </div>
 
                         {/* 價格和按鈕 */}
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-2">
                           <div className="text-center md:text-left">
-                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em]">起價</span>
-                            <div className="mt-1 text-2xl md:text-3xl font-semibold text-neutral-900">{service.price}</div>
-                            <p className="text-neutral-500 text-xs mt-1">價格透明，無隱藏費用</p>
-                            <p className="text-neutral-400 text-[11px] mt-1">實際價格以檢測後為準</p>
+                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-semibold">起價</span>
+                            <div className="mt-0.5 text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">{service.price}</div>
+                            <p className="text-neutral-500 text-xs mt-1 font-medium">先檢測再報價，不維修不收費</p>
                           </div>
                           <Button
-                            className="w-full md:w-auto motion-hover-pop"
+                            className="w-full md:w-auto motion-hover-pop text-base px-8"
                             onClick={() => {
-                              trackClick('services_book_cta_line', { section: 'services', service: service.title })
+                              trackGenerateLead({ section: 'services', action: 'cta_click', target: 'line', label: 'services_book', service: service.title })
                               const msg = encodeURIComponent(`您好，我想諮詢：${service.title}（FixMaster 官網）`)
                               window.open(`https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=services&utm_campaign=contact_line&text=${msg}`, '_blank')
                             }}
                           >
-                            立即預約
+                            立即預約 / 諮詢
                           </Button>
-                        </div>
                         </div>
                       </motion.div>
                     </div>
@@ -377,13 +382,13 @@ export default function ServicesSection() {
 
           {/* 附加服務 */}
           <motion.div
-            className="glass-panel p-1 mb-16 space-y-10 motion-soft-enter"
+            className="glass-panel mb-16 space-y-10 motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
             viewport={motionViewport}
           >
-            <div className="glass-content p-8 md:p-12 space-y-10">
+            <div className="p-8 md:p-12 space-y-10">
               <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-center mb-8 md:mb-12">
                 為什麼選擇 FixMaster？
               </h3>
@@ -403,11 +408,11 @@ export default function ServicesSection() {
                   transition={{ ...motionTimings.soft, delay: index * 0.08 }}
                   viewport={motionViewport}
                 >
-                  <div className="glass-control w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900">
+                  <div className="glass-control w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900 shadow-[var(--elev-2)]">
                     <service.icon className="w-8 h-8" />
                   </div>
-                  <h4 className="font-semibold text-neutral-900 mb-2 tracking-tight">{service.title}</h4>
-                  <p className="text-neutral-600 text-sm leading-relaxed">{service.description}</p>
+                  <h4 className="font-bold text-neutral-900 mb-2 tracking-tight text-lg">{service.title}</h4>
+                  <p className="text-neutral-600 text-base leading-relaxed">{service.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -429,16 +434,16 @@ export default function ServicesSection() {
 
           {/* 服務流程 */}
           <motion.div
-            className="glass-panel p-1 text-center motion-soft-enter"
+            className="glass-panel text-center motion-soft-enter"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
             viewport={motionViewport}
           >
-            <div className="glass-content p-8 md:p-10 space-y-8">
+            <div className="p-8 md:p-10 space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-neutral-900">簡單三步驟，輕鬆完成維修</h3>
-                <p className="mt-3 text-sm text-neutral-500">
+                <p className="mt-3 text-base text-neutral-500">
                   無論現場或到府收送，每一步都有人員即時回報，保障維修進度與資料安全。
                 </p>
               </div>
@@ -455,11 +460,11 @@ export default function ServicesSection() {
                   { title: '快速完修', description: '1小時內完修取件' },
                 ].map((step, stepIndex) => (
                   <div key={step.title} className="text-center flex-none w-56 snap-start md:w-auto">
-                    <div className="glass-control glass-strong w-16 h-16 flex items-center justify-center text-2xl font-semibold text-neutral-900 mx-auto mb-4">
+                    <div className="glass-control w-16 h-16 flex items-center justify-center text-2xl font-bold text-neutral-900 mx-auto mb-4 shadow-[var(--elev-2)]">
                       {stepIndex + 1}
                     </div>
-                    <h4 className="font-semibold text-neutral-900 mb-2">{step.title}</h4>
-                    <p className="text-neutral-600 text-sm">{step.description}</p>
+                    <h4 className="font-bold text-neutral-900 mb-2 text-lg">{step.title}</h4>
+                    <p className="text-neutral-600 text-base">{step.description}</p>
                   </div>
                 ))}
               </div>

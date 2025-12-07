@@ -11,7 +11,7 @@ const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700'
 
 export const metadata: Metadata = {
   title: 'FixMaster 維修大師｜士林 iPhone 維修・二手 iPhone・電池更換｜IRP 認證',
-  description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。30 分鐘內完修，台北市士林區專業 iPhone 維修、二手機販售、電池健康度回復。',
+  description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。不維修不收費、IRP 認證、全程錄影存證、原廠零件與 90 天保固。30 分鐘完修，亦提供到府收送，北投/中山/大同皆可預約。',
   keywords: '士林iPhone維修, 士林二手iPhone, 士林電池更換, iPhone維修士林, 二手iPhone士林, iPhone電池更換士林, Apple IRP認證, iPhone維修台北, 二手機販售, 電池健康度',
   authors: [{ name: 'FixMaster 維修大師' }],
   creator: 'FixMaster 維修大師',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'FixMaster 維修大師｜士林 iPhone 維修・二手 iPhone・電池更換｜IRP 認證',
-    description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。30 分鐘內完修，台北市士林區專業 iPhone 維修、二手機販售、電池健康度回復。',
+    description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。不維修不收費、IRP 認證、全程錄影存證、原廠零件與 90 天保固。30 分鐘完修，亦提供到府收送，北投/中山/大同皆可預約。',
     url: 'https://fixmastertw.com',
     siteName: 'FixMaster 維修大師 士林店',
     locale: 'zh_TW',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'FixMaster 維修大師｜士林 iPhone 維修・二手 iPhone・電池更換｜IRP 認證',
-    description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。Apple IRP 認證，透明錄影、Apple 認證零件、90 天保固。30 分鐘內完修，台北市士林區專業 iPhone 維修、二手機販售、電池健康度回復。',
+    description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。不維修不收費、IRP 認證、全程錄影存證、原廠零件與 90 天保固。30 分鐘完修，亦提供到府收送，北投/中山/大同皆可預約。',
     images: ['/og-image.svg'],
   },
   robots: {
@@ -109,6 +109,7 @@ const structuredData = {
       "telephone": "+886-2-2816-6666",
       "email": "fixmastertw@gmail.com",
       "priceRange": "$$",
+      "availableLanguage": ["zh-TW"],
       "sameAs": [
         reviewsMeta.googleUrl,
         "https://www.facebook.com/fixmaster.tw",
@@ -130,17 +131,47 @@ const structuredData = {
         "longitude": 121.5252
       },
       "hasMap": "https://maps.google.com/maps?q=台北市士林區文林路60號",
-      "image": ["https://fixmastertw.com/apple_logo.webp", "https://fixmastertw.com/Hero_1.png"],
+      "image": ["https://fixmastertw.com/logo.svg", "https://fixmastertw.com/Hero_1.png"],
       "logo": {
         "@type": "ImageObject",
-        "url": "https://fixmastertw.com/apple_logo.webp",
+        "url": "https://fixmastertw.com/logo.svg",
         "width": 200,
         "height": 200
       },
       "brand": {
         "@type": "Brand",
         "name": "FixMaster",
-        "logo": "https://fixmastertw.com/apple_logo.webp"
+        "logo": "https://fixmastertw.com/logo.svg"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "FixMaster 維修方案",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "iPhone 螢幕更換",
+            "priceRange": "$2000-$8000",
+            "priceCurrency": "TWD",
+            "availability": "https://schema.org/InStock",
+            "areaServed": { "@type": "Place", "name": "台北市士林區" }
+          },
+          {
+            "@type": "Offer",
+            "name": "iPhone 電池更換",
+            "priceRange": "$1500-$3000",
+            "priceCurrency": "TWD",
+            "availability": "https://schema.org/InStock",
+            "areaServed": { "@type": "Place", "name": "台北市" }
+          },
+          {
+            "@type": "Offer",
+            "name": "到府收送服務",
+            "priceRange": "滿 $1500 免運",
+            "priceCurrency": "TWD",
+            "availability": "https://schema.org/InStock",
+            "areaServed": { "@type": "Place", "name": "台北市" }
+          }
+        ]
       },
       "openingHoursSpecification": [
         {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "14:00", "closes": "23:00"},
@@ -156,6 +187,7 @@ const structuredData = {
       "review": [
         {
           "@type": "Review",
+          "inLanguage": "zh-TW",
           "author": { "@type": "Person", "name": "張小姐" },
           "datePublished": "2025-03-12",
           "reviewBody": "現場透明維修很安心，40 分鐘完成，色彩與手感都很好。",
@@ -163,6 +195,7 @@ const structuredData = {
         },
         {
           "@type": "Review",
+          "inLanguage": "zh-TW",
           "author": { "@type": "Person", "name": "陳先生" },
           "datePublished": "2025-02-20",
           "reviewBody": "電池更換後續航明顯回來，過程有檢測與說明，價格透明。",
@@ -170,6 +203,7 @@ const structuredData = {
         },
         {
           "@type": "Review",
+          "inLanguage": "zh-TW",
           "author": { "@type": "Person", "name": "李小姐" },
           "datePublished": "2025-02-05",
           "reviewBody": "購買二手 iPhone 14 Pro，附檢測報告與保固，用起來很穩。",
@@ -177,6 +211,7 @@ const structuredData = {
         },
         {
           "@type": "Review",
+          "inLanguage": "zh-TW",
           "author": { "@type": "Person", "name": "王先生" },
           "datePublished": "2025-01-18",
           "reviewBody": "到府收送很省時，進度都有通知，隔天就完修送回。",
@@ -184,6 +219,7 @@ const structuredData = {
         },
         {
           "@type": "Review",
+          "inLanguage": "zh-TW",
           "author": { "@type": "Person", "name": "吳先生" },
           "datePublished": "2024-12-10",
           "reviewBody": "進水後立刻送修，專業清洗與檢測，最後資料也救回來。",
@@ -348,7 +384,7 @@ const structuredData = {
       "url": "https://fixmastertw.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://fixmastertw.com/apple_logo.webp",
+        "url": "https://fixmastertw.com/logo.svg",
         "width": 200,
         "height": 200
       },
@@ -522,11 +558,13 @@ export default function RootLayout({
         {/* Facebook Pixel (noscript) */}
         {process.env.NEXT_PUBLIC_FB_PIXEL_ID && (
           <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               height="1" 
               width="1" 
               style={{ display: 'none' }}
               src={`https://www.facebook.com/tr?id=${process.env.NEXT_PUBLIC_FB_PIXEL_ID}&ev=PageView&noscript=1`}
+              alt=""
             />
           </noscript>
         )}

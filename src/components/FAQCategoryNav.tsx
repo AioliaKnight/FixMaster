@@ -48,6 +48,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
     const onResize = () => measureUnderline()
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedIndex, categories.length])
 
   useEffect(() => {
@@ -165,7 +166,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
             }`}
           >
             <div className="glass-content flex items-start gap-3 p-4">
-              <div className={`glass-control glass-elevated flex h-10 w-10 items-center justify-center text-neutral-900 ${selectedIndex === i ? 'shadow-[var(--brand-glow)]' : ''}`}>
+              <div className={`glass-control flex h-10 w-10 items-center justify-center text-neutral-900 transition-all ${selectedIndex === i ? 'bg-white shadow-[var(--elev-2)]' : ''}`}>
                 <cat.Icon className="h-5 w-5" />
               </div>
               <div className="min-w-0">
