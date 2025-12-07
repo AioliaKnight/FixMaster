@@ -368,13 +368,13 @@ export default function FAQSection() {
                       <faq.icon className="w-5 h-5 md:w-6 md:h-6 text-neutral-900" />
                     </div>
                     <div className="min-w-0">
-                      <h3 className="mb-1.5 text-[15px] md:text-base font-bold text-neutral-900 line-clamp-2 leading-tight">
+                      <h3 className="mb-1.5 text-[15px] md:text-base font-bold text-neutral-900 line-clamp-2 leading-tight text-balance">
                         {faq.question}
                       </h3>
                       <div className="mb-2 text-xs font-medium text-neutral-500 md:text-sm">
                         {faq.category}
                       </div>
-                      <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line leading-relaxed">
+                      <p className="text-xs text-neutral-600 md:text-sm line-clamp-2 whitespace-pre-line leading-relaxed text-pretty">
                         {faq.answer}
                       </p>
                     </div>
@@ -431,7 +431,7 @@ export default function FAQSection() {
                             <currentFaq.icon className="h-6 w-6" aria-hidden="true" />
                           </div>
                           <div>
-                            <h3 id="faq-sheet-title" className="text-lg md:text-xl font-bold text-neutral-900 leading-tight">
+                            <h3 id="faq-sheet-title" className="text-lg md:text-xl font-bold text-neutral-900 leading-tight text-balance">
                               {currentFaq.question}
                             </h3>
                             <div className="mt-1.5 text-sm font-medium text-neutral-500">
@@ -450,7 +450,7 @@ export default function FAQSection() {
                         </button>
                       </div>
 
-                      <div className="px-5 md:px-8 pt-6 pb-4 overscroll-contain overflow-y-auto text-neutral-800 leading-relaxed text-[15px] md:text-lg whitespace-pre-line font-medium" style={{ maxHeight: 'calc(85dvh - 180px)' }} id="faq-sheet-description">
+                      <div className="px-5 md:px-8 pt-6 pb-4 overscroll-contain overflow-y-auto text-neutral-800 leading-relaxed text-[15px] md:text-lg whitespace-pre-line font-medium text-pretty" style={{ maxHeight: 'calc(85dvh - 180px)' }} id="faq-sheet-description">
                         {currentFaq.answer}
                       </div>
 
@@ -484,7 +484,7 @@ export default function FAQSection() {
                         <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
                           <Button
                             variant="outline"
-                            className="sm:w-auto motion-hover-pop font-bold"
+                            className="sm:w-auto motion-hover-pop font-bold text-[15px]"
                             onClick={() => {
                               trackClick('faq_sheet_contact_line')
                               window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
@@ -493,7 +493,7 @@ export default function FAQSection() {
                             透過 LINE 詢問
                           </Button>
                           <Button
-                            className="sm:w-auto motion-hover-pop font-bold shadow-lg"
+                            className="sm:w-auto motion-hover-pop font-bold shadow-lg text-[15px]"
                             onClick={() => {
                               trackClick('faq_sheet_contact_book_line')
                               window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=faq_sheet&utm_campaign=contact_line', '_blank')
@@ -521,10 +521,10 @@ export default function FAQSection() {
           >
             <div className="glass-content px-6 py-8 text-center md:px-10 md:py-12 space-y-6 bg-white/40">
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">
+                <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl text-balance">
                   還有其他問題嗎？
                 </h3>
-                <p className="mx-auto max-w-2xl text-neutral-600 text-base font-medium">
+                <p className="mx-auto max-w-2xl text-neutral-600 text-base font-medium text-pretty">
                   我們的專業客服團隊隨時為您解答，歡迎透過以下方式聯絡我們。
                 </p>
               </div>

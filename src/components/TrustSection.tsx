@@ -182,10 +182,10 @@ export default function TrustSection() {
             style={{ y: titleY }}
             onViewportEnter={() => trackViewPromotion({ section: 'trust', label: '我們的安心承諾' })}
           >
-            <h2 id="trust-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover">
+            <h2 id="trust-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-6 sheen-hover text-balance">
               我們的安心承諾
             </h2>
-            <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto">
+            <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto text-pretty">
               IRP 認證 + 原廠零件 + 全程錄影存證 + 雲端保固，維修前後都有紀錄可查，不維修不收費。
             </p>
             <div className="w-16 h-1 bg-neutral-300 mx-auto mt-8"></div>
@@ -225,14 +225,14 @@ export default function TrustSection() {
                       </span>
                     </div>
                     <div className="space-y-2.5">
-                      <h3 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900">{promise.title}</h3>
-                      <p className="text-base text-neutral-600 leading-relaxed">{promise.description}</p>
+                      <h3 className="text-xl md:text-2xl font-bold tracking-tight text-neutral-900 text-balance">{promise.title}</h3>
+                      <p className="text-base text-neutral-600 leading-relaxed text-pretty">{promise.description}</p>
                     </div>
                     <ul className="grid grid-cols-1 gap-2">
                       {promise.details.map((detail, detailIndex) => (
                         <li key={detailIndex} className="flex items-center gap-3 text-[15px] text-neutral-700 font-medium">
-                          <CheckCircle className="h-4 w-4 text-[#00C805]" aria-hidden="true" />
-                          <span>{detail}</span>
+                          <CheckCircle className="h-4 w-4 text-[#00C805] shrink-0" aria-hidden="true" />
+                          <span className="text-pretty">{detail}</span>
                         </li>
                       ))}
                     </ul>
@@ -266,8 +266,8 @@ export default function TrustSection() {
 >
   <div className="p-8 md:p-10 space-y-8 md:space-y-10">
     <div className="text-center space-y-3">
-      <h3 className="text-2xl md:text-3xl font-bold text-neutral-900">專業認證與資格</h3>
-      <p className="text-neutral-600 text-base md:text-lg">
+      <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-balance">專業認證與資格</h3>
+      <p className="text-neutral-600 text-base md:text-lg text-pretty">
         每一張證書都對應 Apple 官方准許的維修流程與零件管控，維修全程可追溯。
       </p>
     </div>
@@ -301,8 +301,8 @@ export default function TrustSection() {
               <cert.icon className="h-7 w-7" aria-hidden="true" />
             )}
           </div>
-          <h4 className="font-bold text-neutral-900 mb-2 text-lg tracking-tight">{cert.title}</h4>
-          <p className="text-neutral-600 text-sm leading-relaxed font-medium">{cert.description}</p>
+          <h4 className="font-bold text-neutral-900 mb-2 text-lg tracking-tight text-balance">{cert.title}</h4>
+          <p className="text-neutral-600 text-sm leading-relaxed font-medium text-pretty">{cert.description}</p>
         </motion.div>
       ))}
     </div>
@@ -332,8 +332,8 @@ export default function TrustSection() {
 >
   <div className="p-8 md:p-12 space-y-8 text-center">
     <div className="space-y-3">
-      <h3 className="text-2xl md:text-3xl font-bold text-neutral-900">Apple 官方認證</h3>
-      <p className="text-neutral-600 text-base md:text-lg">
+      <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 text-balance">Apple 官方認證</h3>
+      <p className="text-neutral-600 text-base md:text-lg text-pretty">
         透過 Apple 官方系統即可查詢 FixMaster 的獨立維修商資格，搜尋「聯豐通信」（台北市）。
       </p>
     </div>
@@ -341,11 +341,11 @@ export default function TrustSection() {
       <div className="flex items-center gap-4">
         <Image src="/logo.svg" alt="FixMaster 品牌標誌" width={48} height={48} className="h-12 w-12 object-contain" />
         <div className="text-left">
-          <p className="text-lg font-bold text-neutral-900">聯豐通信有限公司</p>
-          <p className="font-medium text-neutral-600">Apple 官方認證獨立維修中心</p>
+          <p className="text-lg font-bold text-neutral-900 text-balance">聯豐通信有限公司</p>
+          <p className="font-medium text-neutral-600 text-pretty">Apple 官方認證獨立維修中心</p>
         </div>
       </div>
-      <p className="leading-relaxed text-base max-w-lg">
+      <p className="leading-relaxed text-base max-w-lg text-pretty">
         前往官方頁面後，於搜尋欄輸入「聯豐通信」並選擇地區「台北市」，即可看到 FixMaster 士林店的認證資訊。
       </p>
     </div>
@@ -353,7 +353,7 @@ export default function TrustSection() {
       href="https://support.apple.com/zh-tw/repair/verify-repair-provider"
       target="_blank"
       rel="noopener noreferrer"
-      className="group inline-flex items-center justify-center btn-primary px-8 py-4 font-bold text-white motion-hover-pop"
+      className="group inline-flex items-center justify-center btn-primary px-8 py-4 font-bold text-white motion-hover-pop text-[15px]"
       onClick={() => trackSelectPromotion({ section: 'trust', action: 'link_click', target: 'apple_verify', label: 'verify' })}
     >
       Apple 官方驗證頁面
@@ -391,10 +391,10 @@ export default function TrustSection() {
           >
             <div className="p-8 md:p-12 text-center space-y-8">
               <div className="space-y-3">
-                <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900">
+                <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 text-balance">
                   我們的服務承諾
                 </h3>
-                <p className="text-neutral-600 text-base md:text-lg max-w-3xl mx-auto">
+                <p className="text-neutral-600 text-base md:text-lg max-w-3xl mx-auto text-pretty">
                   原廠零件、透明錄影存證、資料與零件雙重檢測，保固期間免費檢測，不維修不收費。
                 </p>
               </div>
@@ -411,4 +411,4 @@ export default function TrustSection() {
       </div>
     </section>
   )
-} 
+}

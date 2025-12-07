@@ -232,12 +232,12 @@ export default function ServicesSection() {
             viewport={motionViewport}
           >
             <div className="glass-content flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-4 py-4 md:px-6 md:py-5">
-              <p className="text-neutral-900 text-sm md:text-base">
+              <p className="text-neutral-900 text-[15px] md:text-base text-pretty">
                 iPhone 12–17 系列均支援免費檢測與備料預約。部分原廠料件供應量有限，建議先預約以安排最快時程。
               </p>
               <Button
                 size="sm"
-                className="w-full sm:w-auto motion-hover-pop"
+                className="w-full sm:w-auto motion-hover-pop text-[15px]"
                 onClick={() => {
                   trackGenerateLead({ section: 'services', action: 'cta_click', target: 'book', label: 'iphone17_notice' })
                   scrollToSectionId('contact')
@@ -262,7 +262,7 @@ export default function ServicesSection() {
             viewport={motionViewport}
           >
             <SectionHeader title="專業服務項目" description="專業 iPhone 維修與二手選購，透明報價、品質有保障。" />
-            <p className="mt-4 text-sm text-neutral-500">
+            <p className="mt-4 text-sm md:text-[15px] text-neutral-500 text-pretty">
               免費檢測後再報價，不維修不收費；熱門機型多數 30–60 分鐘完修，保固與價格當場說清楚。
             </p>
           </motion.div>
@@ -307,10 +307,10 @@ export default function ServicesSection() {
                             <service.icon className="w-10 h-10" />
                           </div>
                           <div className="space-y-2">
-                            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight">
+                            <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 tracking-tight text-balance">
                               {service.title}
                             </h3>
-                            <p className="text-neutral-600 text-base md:text-lg leading-relaxed font-medium">
+                            <p className="text-neutral-600 text-base md:text-lg leading-relaxed font-medium text-pretty">
                               {service.tagline}
                             </p>
                           </div>
@@ -332,15 +332,15 @@ export default function ServicesSection() {
                         <ul className="grid gap-3">
                           {service.features.map((feature, featureIndex) => (
                             <li key={featureIndex} className="flex items-center text-neutral-700 text-[15px] font-medium">
-                              <CheckCircle className="mr-3 h-5 w-5 text-[#00C805]" />
-                              <span>{feature}</span>
+                              <CheckCircle className="mr-3 h-5 w-5 text-[#00C805] shrink-0" />
+                              <span className="text-pretty">{feature}</span>
                             </li>
                           ))}
                         </ul>
 
                         {/* 保固資訊 */}
                         <div className="glass-control px-4 py-3 flex items-center justify-center gap-2 text-neutral-900 text-sm font-bold bg-white/60">
-                          <Shield className="h-4 w-4" />
+                          <Shield className="h-4 w-4 shrink-0" />
                           <span>{service.warranty}</span>
                         </div>
 
@@ -352,7 +352,7 @@ export default function ServicesSection() {
                             <p className="text-neutral-500 text-xs mt-1 font-medium">先檢測再報價，不維修不收費</p>
                           </div>
                           <Button
-                            className="w-full md:w-auto motion-hover-pop text-base px-8"
+                            className="w-full md:w-auto motion-hover-pop text-[15px] px-8"
                             onClick={() => {
                               trackGenerateLead({ section: 'services', action: 'cta_click', target: 'line', label: 'services_book', service: service.title })
                               const msg = encodeURIComponent(`您好，我想諮詢：${service.title}（FixMaster 官網）`)
@@ -411,8 +411,8 @@ export default function ServicesSection() {
                   <div className="glass-control w-16 h-16 flex items-center justify-center mx-auto mb-4 text-neutral-900 shadow-[var(--elev-2)]">
                     <service.icon className="w-8 h-8" />
                   </div>
-                  <h4 className="font-bold text-neutral-900 mb-2 tracking-tight text-lg">{service.title}</h4>
-                  <p className="text-neutral-600 text-base leading-relaxed">{service.description}</p>
+                  <h4 className="font-bold text-neutral-900 mb-2 tracking-tight text-lg text-balance">{service.title}</h4>
+                  <p className="text-neutral-600 text-base leading-relaxed text-pretty">{service.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -443,7 +443,7 @@ export default function ServicesSection() {
             <div className="p-8 md:p-10 space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-neutral-900">簡單三步驟，輕鬆完成維修</h3>
-                <p className="mt-3 text-base text-neutral-500">
+                <p className="mt-3 text-[15px] md:text-base text-neutral-500 text-pretty max-w-2xl mx-auto">
                   無論現場或到府收送，每一步都有人員即時回報，保障維修進度與資料安全。
                 </p>
               </div>
@@ -463,8 +463,8 @@ export default function ServicesSection() {
                     <div className="glass-control w-16 h-16 flex items-center justify-center text-2xl font-bold text-neutral-900 mx-auto mb-4 shadow-[var(--elev-2)]">
                       {stepIndex + 1}
                     </div>
-                    <h4 className="font-bold text-neutral-900 mb-2 text-lg">{step.title}</h4>
-                    <p className="text-neutral-600 text-base">{step.description}</p>
+                    <h4 className="font-bold text-neutral-900 mb-2 text-lg text-balance">{step.title}</h4>
+                    <p className="text-neutral-600 text-[15px] md:text-base text-pretty">{step.description}</p>
                   </div>
                 ))}
               </div>
@@ -489,4 +489,4 @@ export default function ServicesSection() {
       </div>
     </section>
   )
-} 
+}

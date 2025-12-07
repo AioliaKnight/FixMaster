@@ -216,7 +216,7 @@ export default function TestimonialsSection() {
                   <item.icon className="w-4 h-4 text-neutral-400" />
                 </div>
                 <p className="text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">{item.value}</p>
-                <p className="text-sm text-neutral-600 font-medium leading-relaxed">{item.detail}</p>
+                <p className="text-sm text-neutral-600 font-medium leading-relaxed text-pretty">{item.detail}</p>
               </div>
             ))}
           </motion.div>
@@ -263,7 +263,7 @@ export default function TestimonialsSection() {
                     </div>
                     <div className="flex-1">
                       <Quote className="h-5 w-5 text-neutral-300 mb-3" aria-hidden="true" />
-                      <p className="text-[15px] text-neutral-700 leading-relaxed font-medium text-balance">{item.comment}</p>
+                      <p className="text-[15px] text-neutral-700 leading-relaxed text-pretty font-medium">{item.comment}</p>
                     </div>
                     <div className="pt-5 border-t border-neutral-200/50 mt-auto">
                       <div className="flex items-center justify-between">

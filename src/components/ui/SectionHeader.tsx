@@ -16,12 +16,12 @@ export default function SectionHeader({ title, description, align = 'center', cl
   
   return (
     <div className={`${isCenter ? 'text-center' : ''} space-y-4 ${className || ''}`}>
-      <Tag className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-neutral-900 leading-[1.1]">
+      <Tag className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-neutral-900 leading-[1.15] text-balance">
         {title}
       </Tag>
       {description && (
         <p
-          className={`text-neutral-600 text-lg sm:text-xl leading-relaxed text-balance ${
+          className={`text-neutral-600 text-lg sm:text-xl leading-relaxed text-pretty ${
             isCenter ? 'mx-auto' : ''
           } max-w-2xl font-medium opacity-90`}
         >

@@ -3,7 +3,6 @@
 import NextImage from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Sparkles, Shield, Clock, Eye, Phone } from 'lucide-react'
-
 import Button from './ui/Button'
 import Chip from './ui/Chip'
 import SectionHeader from './ui/SectionHeader'
@@ -135,7 +134,7 @@ export default function HeroSection() {
                       scrollToSectionId('services')
                     }}
                     aria-label={`查看 ${label} 維修項目`}
-                    className="px-5"
+                    className="px-5 text-[15px]"
                   >
                     {label}
                   </Chip>
@@ -155,10 +154,10 @@ export default function HeroSection() {
               <ul className="space-y-3">
                 {highlightItems.map((item) => (
                   <li key={item.title} className="flex items-start gap-3 text-[15px] text-neutral-700">
-                    <item.icon className="mt-0.5 h-4 w-4 text-neutral-900" aria-hidden="true" />
+                    <item.icon className="mt-0.5 h-4 w-4 text-neutral-900 shrink-0" aria-hidden="true" />
                     <div>
-                      <p className="font-semibold text-neutral-900">{item.title}</p>
-                      <p className="text-neutral-600">{item.description}</p>
+                      <p className="font-semibold text-neutral-900 text-balance">{item.title}</p>
+                      <p className="text-neutral-600 text-pretty">{item.description}</p>
                     </div>
                   </li>
                 ))}
@@ -172,7 +171,7 @@ export default function HeroSection() {
               transition={{ ...motionTimings.soft, delay: 0.24 }}
             >
               <Button
-                className="w-full sm:w-auto motion-hover-pop cta-shine"
+                className="w-full sm:w-auto motion-hover-pop cta-shine text-[15px]"
                 onClick={() => {
                   trackClick('hero_primary_cta_click_line')
                   window.open('https://line.me/R/ti/p/@fixmaster?utm_source=website&utm_medium=hero&utm_campaign=contact_line', '_blank')
@@ -182,7 +181,7 @@ export default function HeroSection() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full sm:w-auto motion-hover-pop"
+                className="w-full sm:w-auto motion-hover-pop text-[15px]"
                 onClick={() => {
                   trackClick('hero_secondary_cta_click')
                   scrollToSectionId('services')
@@ -192,7 +191,7 @@ export default function HeroSection() {
               </Button>
             </motion.div>
             <motion.p
-              className="text-sm text-neutral-500 motion-soft-enter"
+              className="text-sm text-neutral-500 motion-soft-enter text-pretty"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...motionTimings.soft, delay: 0.3 }}
@@ -238,10 +237,10 @@ export default function HeroSection() {
                 <div className="grid gap-3 sm:grid-cols-3">
                   {quickFacts.map((fact) => (
                     <div key={fact.title} className="glass-control flex items-start gap-3 px-4 py-3.5 bg-white/40 hover:bg-white/60 transition-colors">
-                      <fact.icon className="h-4 w-4 text-neutral-900 mt-0.5" aria-hidden="true" />
+                      <fact.icon className="h-4 w-4 text-neutral-900 mt-0.5 shrink-0" aria-hidden="true" />
                       <div>
-                        <p className="text-[13px] font-bold text-neutral-900 leading-tight mb-0.5">{fact.title}</p>
-                        <p className="text-[13px] text-neutral-600 leading-tight">{fact.description}</p>
+                        <p className="text-[13px] font-bold text-neutral-900 leading-tight mb-0.5 text-balance">{fact.title}</p>
+                        <p className="text-[13px] text-neutral-600 leading-tight text-balance">{fact.description}</p>
                       </div>
                     </div>
                   ))}
@@ -290,7 +289,7 @@ export default function HeroSection() {
                 </div>
                 <Button
                   size="sm"
-                  className="w-full sm:w-auto bg-neutral-900 text-white hover:bg-black shadow-none"
+                  className="w-full sm:w-auto bg-neutral-900 text-white hover:bg-black shadow-none text-[15px]"
                   onClick={() => {
                     trackClick('hero_image_cta')
                     scrollToSectionId('contact')
