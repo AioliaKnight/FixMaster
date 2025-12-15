@@ -85,8 +85,9 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
   }
 
   const onScroll = () => {
-    measureUnderline()
-    // Snap logic removed to prevent jitter
+    window.requestAnimationFrame(() => {
+      measureUnderline()
+    })
   }
 
   return (
@@ -155,7 +156,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
             }`}
           >
             <div className="glass-content flex items-start gap-3 p-4">
-              <div className={`glass-control flex h-10 w-10 items-center justify-center text-neutral-900 transition-all ${selectedIndex === i ? 'bg-white shadow-[var(--elev-2)]' : ''}`}>
+              <div className={`glass-control flex h-10 w-10 items-center justify-center text-neutral-900 transition-all ${selectedIndex === i ? 'bg-white shadow-(--elev-2)' : ''}`}>
                 <cat.Icon className="h-5 w-5" />
               </div>
               <div className="min-w-0">

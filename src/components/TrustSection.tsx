@@ -37,12 +37,22 @@ export default function TrustSection() {
   useEffect(() => {
     const el = promisesRef.current
     if (!el) return
+    
+    let ticking = false
     const onScroll = () => {
-      const a = el.children[0] as HTMLElement | undefined
-      const b = el.children[1] as HTMLElement | undefined
-      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-      if (step > 0) setPromisesActive(Math.round(el.scrollLeft / step))
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!el) return
+          const a = el.children[0] as HTMLElement | undefined
+          const b = el.children[1] as HTMLElement | undefined
+          const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+          if (step > 0) setPromisesActive(Math.round(el.scrollLeft / step))
+          ticking = false
+        })
+        ticking = true
+      }
     }
+
     el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
     onScroll()
     return () => el.removeEventListener('scroll', onScroll as any)
@@ -54,12 +64,22 @@ export default function TrustSection() {
   useEffect(() => {
     const el = certsRef.current
     if (!el) return
+
+    let ticking = false
     const onScroll = () => {
-      const a = el.children[0] as HTMLElement | undefined
-      const b = el.children[1] as HTMLElement | undefined
-      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-      if (step > 0) setCertsActive(Math.round(el.scrollLeft / step))
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!el) return
+          const a = el.children[0] as HTMLElement | undefined
+          const b = el.children[1] as HTMLElement | undefined
+          const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+          if (step > 0) setCertsActive(Math.round(el.scrollLeft / step))
+          ticking = false
+        })
+        ticking = true
+      }
     }
+    
     el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
     onScroll()
     return () => el.removeEventListener('scroll', onScroll as any)
@@ -167,7 +187,7 @@ export default function TrustSection() {
 
   return (
     <section id="trust" className="section-padding relative" aria-labelledby="trust-heading">
-      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(255,255,255,0.08),_rgba(255,255,255,0))] blur-[120px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0))] blur-[120px]" aria-hidden="true" />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
@@ -217,7 +237,7 @@ export default function TrustSection() {
                 >
                   <div className="p-6 md:p-8 space-y-6 md:space-y-7 flex-1">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 shadow-[var(--elev-2)]">
+                      <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 shadow-(--elev-2)">
                         <promise.icon className="w-7 h-7" />
                       </div>
                       <span className="glass-control px-3 py-1.5 text-[13px] font-bold text-neutral-700 bg-white/50">
@@ -288,7 +308,7 @@ export default function TrustSection() {
           transition={{ ...motionTimings.soft, delay: index * 0.08 }}
           viewport={motionViewport}
         >
-          <div className="glass-control mx-auto mb-5 flex h-16 w-16 items-center justify-center text-neutral-900 shadow-[var(--elev-2)]">
+          <div className="glass-control mx-auto mb-5 flex h-16 w-16 items-center justify-center text-neutral-900 shadow-(--elev-2)">
             {cert.icon === 'brand_logo' ? (
               <Image
                 src="/logo.svg"
@@ -372,7 +392,7 @@ export default function TrustSection() {
           >
             {statistics.map((stat, index) => (
               <div key={index} className="glass-surface p-6 md:p-8 text-center bg-white/40 backdrop-blur-[30px]">
-                <div className="glass-control w-14 h-14 flex items-center justify-center mx-auto mb-4 text-neutral-900 shadow-[var(--elev-2)]">
+                <div className="glass-control w-14 h-14 flex items-center justify-center mx-auto mb-4 text-neutral-900 shadow-(--elev-2)">
                   <stat.icon className="w-6 h-6" />
                 </div>
                 <div className="text-3xl md:text-4xl font-bold text-neutral-900 mb-1 tracking-tight">{stat.number}</div>
@@ -400,7 +420,7 @@ export default function TrustSection() {
               </div>
               <div className="flex flex-wrap justify-center gap-4">
                 {['30 分鐘快速完修', '90 天保固追蹤', 'Apple 認證零件', '全程透明錄影'].map((pill) => (
-                  <span key={pill} className="glass-control px-6 py-3 text-[15px] font-bold text-neutral-900 motion-hover-pop shadow-[var(--elev-2)]">
+                  <span key={pill} className="glass-control px-6 py-3 text-[15px] font-bold text-neutral-900 motion-hover-pop shadow-(--elev-2)">
                     {pill}
                   </span>
                 ))}

@@ -31,8 +31,15 @@ export default function Navbar() {
   useEffect(() => {
     if (typeof window === 'undefined' || isMenuOpen) return
 
+    let ticking = false
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20)
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -122,7 +129,7 @@ export default function Navbar() {
 
   const menuButtonClass = `lg:hidden glass-control p-2.5 transition-all duration-300 z-50 ${
     isMenuOpen
-      ? 'bg-white text-neutral-900 shadow-[var(--elev-2)]'
+      ? 'bg-white text-neutral-900 shadow-(--elev-2)'
       : 'text-neutral-700 hover:text-neutral-900 bg-white/50 backdrop-blur-md'
   }`
 
@@ -172,7 +179,7 @@ export default function Navbar() {
                 trackClick('navbar_logo_click')
                 handleNavClick('#home')
               }}
-              className="group relative inline-flex items-center gap-2 rounded-full glass-control px-3.5 py-2 pr-4 text-neutral-900 transition-all duration-300 hover:shadow-[var(--elev-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 motion-hover-pop"
+              className="group relative inline-flex items-center gap-2 rounded-full glass-control px-3.5 py-2 pr-4 text-neutral-900 transition-all duration-300 hover:shadow-(--elev-2) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/20 motion-hover-pop"
               aria-label="前往首頁"
             >
               <span className="sr-only">FixMaster 維修大師</span>
@@ -275,7 +282,7 @@ export default function Navbar() {
             aria-label="行動版網站導覽"
           >
             <div className="max-w-lg mx-auto">
-              <div className="glass-panel rounded-[32px] shadow-[var(--glass-thick-shadow)] px-6 py-8 space-y-8">
+              <div className="glass-panel rounded-[32px] shadow-(--glass-thick-shadow) px-6 py-8 space-y-8">
                 <div className="space-y-3">
                   {navigationItems.map((item, index) => {
                     const isActive = activeSection === item.href.replace('#', '')

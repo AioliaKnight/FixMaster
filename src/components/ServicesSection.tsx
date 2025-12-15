@@ -35,16 +35,28 @@ export default function ServicesSection() {
   useEffect(() => {
     const el = additionalRef.current
     if (!el) return
+    
+    let ticking = false
     const onScroll = () => {
-      if (!el) return
-      const a = el.children[0] as HTMLElement | undefined
-      const b = el.children[1] as HTMLElement | undefined
-      if (!a || !b) { setAdditionalActive(0); return }
-      const step = b.offsetLeft - a.offsetLeft
-      if (step > 0) setAdditionalActive(Math.round(el.scrollLeft / step))
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!el) return
+          const a = el.children[0] as HTMLElement | undefined
+          const b = el.children[1] as HTMLElement | undefined
+          if (!a || !b) {
+            setAdditionalActive(0)
+          } else {
+            const step = b.offsetLeft - a.offsetLeft
+            if (step > 0) setAdditionalActive(Math.round(el.scrollLeft / step))
+          }
+          ticking = false
+        })
+        ticking = true
+      }
     }
+    
     el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
-    onScroll()
+    onScroll() // Initial check
     return () => el.removeEventListener('scroll', onScroll as any)
   }, [])
 
@@ -60,16 +72,28 @@ export default function ServicesSection() {
   useEffect(() => {
     const el = flowRef.current
     if (!el) return
+    
+    let ticking = false
     const onScroll = () => {
-      if (!el) return
-      const a = el.children[0] as HTMLElement | undefined
-      const b = el.children[1] as HTMLElement | undefined
-      if (!a || !b) { setFlowActive(0); return }
-      const step = b.offsetLeft - a.offsetLeft
-      if (step > 0) setFlowActive(Math.round(el.scrollLeft / step))
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!el) return
+          const a = el.children[0] as HTMLElement | undefined
+          const b = el.children[1] as HTMLElement | undefined
+          if (!a || !b) {
+            setFlowActive(0)
+          } else {
+            const step = b.offsetLeft - a.offsetLeft
+            if (step > 0) setFlowActive(Math.round(el.scrollLeft / step))
+          }
+          ticking = false
+        })
+        ticking = true
+      }
     }
+
     el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
-    onScroll()
+    onScroll() // Initial check
     return () => el.removeEventListener('scroll', onScroll as any)
   }, [])
 
@@ -303,7 +327,7 @@ export default function ServicesSection() {
                       >
                         {/* 服務圖示與標題 */}
                         <div className="flex flex-col items-center text-center gap-4">
-                          <div className="glass-control w-20 h-20 flex items-center justify-center text-neutral-900 shadow-[var(--elev-2)]">
+                          <div className="glass-control w-20 h-20 flex items-center justify-center text-neutral-900 shadow-(--elev-2)">
                             <service.icon className="w-10 h-10" />
                           </div>
                           <div className="space-y-2">
@@ -358,7 +382,7 @@ export default function ServicesSection() {
                             <p className="text-neutral-400 text-[11px] mt-1 hidden md:block">不維修不收費</p>
                           </div>
                           <Button
-                            className="w-full md:w-auto motion-hover-pop text-[15px] px-8 py-3 h-12 shadow-[var(--elev-2)] hover:shadow-[var(--elev-3)]"
+                            className="w-full md:w-auto motion-hover-pop text-[15px] px-8 py-3 h-12 shadow-(--elev-2) hover:shadow-(--elev-3)"
                             onClick={() => {
                               trackGenerateLead({ section: 'services', action: 'cta_click', target: 'line', label: 'services_book', service: service.title })
                               const msg = encodeURIComponent(`您好，我想諮詢：${service.title}（FixMaster 官網）`)
@@ -474,7 +498,7 @@ export default function ServicesSection() {
                     <div className="absolute top-4 left-4 text-[10px] font-bold text-neutral-300">
                       STEP {String(index + 1).padStart(2, '0')}
                     </div>
-                    <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 mb-4 shadow-[var(--elev-2)] group-hover:scale-110 transition-transform duration-300 bg-white/80">
+                    <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 mb-4 shadow-(--elev-2) group-hover:scale-110 transition-transform duration-300 bg-white/80">
                       <step.icon className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-neutral-900 mb-2 text-balance">{step.title}</h4>

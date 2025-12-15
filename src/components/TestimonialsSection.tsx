@@ -186,16 +186,24 @@ export default function TestimonialsSection() {
     const el = scrollerRef.current
     if (!el) return
 
+    let ticking = false
     const handleScroll = () => {
-      const cards = Array.from(el.children) as HTMLElement[]
-      if (cards.length < 2) {
-        setActiveIndex(0)
-        return
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const cards = Array.from(el.children) as HTMLElement[]
+          if (cards.length < 2) {
+            setActiveIndex(0)
+          } else {
+            const step = cards[1].offsetLeft - cards[0].offsetLeft
+            if (step > 0) {
+              const index = Math.round(el.scrollLeft / step)
+              setActiveIndex(Math.max(0, Math.min(cards.length - 1, index)))
+            }
+          }
+          ticking = false
+        })
+        ticking = true
       }
-      const step = cards[1].offsetLeft - cards[0].offsetLeft
-      if (step <= 0) return
-      const index = Math.round(el.scrollLeft / step)
-      setActiveIndex(Math.max(0, Math.min(cards.length - 1, index)))
     }
 
     el.addEventListener('scroll', handleScroll, { passive: true })
@@ -224,7 +232,7 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="section-padding relative overflow-hidden">
       <div
-        className="pointer-events-none absolute inset-x-[-20%] top-0 h-72 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.12),_rgba(255,255,255,0))] blur-[120px]"
+        className="pointer-events-none absolute inset-x-[-20%] top-0 h-72 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),rgba(255,255,255,0))] blur-[120px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
@@ -247,7 +255,7 @@ export default function TestimonialsSection() {
                 href={reviewsMeta.googleUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-control pl-5 pr-6 py-3 text-base font-bold text-neutral-900 hover:bg-white transition-all duration-300 flex items-center gap-3.5 shadow-[var(--elev-2)] hover:shadow-[var(--elev-3)] hover:-translate-y-1 group bg-white/80"
+                className="glass-control pl-5 pr-6 py-3 text-base font-bold text-neutral-900 hover:bg-white transition-all duration-300 flex items-center gap-3.5 shadow-(--elev-2) hover:shadow-(--elev-3) hover:-translate-y-1 group bg-white/80"
                 onClick={() => trackSelectPromotion({ section: 'testimonials', action: 'link_click', target: 'google_reviews', label: 'rating_badge' })}
               >
                 <div className="flex -space-x-1">
