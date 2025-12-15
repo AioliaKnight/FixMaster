@@ -162,11 +162,15 @@
 
   .glass-panel {
     @apply relative overflow-hidden;
-    /* Optimize for mobile: Disable backdrop-filter or use very low value */
-    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Optimize for mobile: Use moderate blur and enhanced gradients for depth */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.7) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-top-color: rgba(255, 255, 255, 0.6);
+    border-left-color: rgba(255, 255, 255, 0.6);
     border-radius: var(--radius-2xl);
-    box-shadow: var(--elev-2);
+    box-shadow: var(--elev-2), 0 0 0 1px rgba(255,255,255,0.1) inset;
   }
 
   @media (min-width: 768px) {
@@ -184,28 +188,24 @@
     content: '';
     @apply absolute inset-0 pointer-events-none rounded-[inherit];
     background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.8) 0%, transparent 70%);
-    opacity: 0.5; /* Reduced opacity for mobile */
+    opacity: 0.6;
     mix-blend-mode: overlay;
   }
 
-  /* Specular Highlight - hidden on mobile for performance */
+  /* Specular Highlight */
   .glass-panel::after {
     content: '';
-    display: none;
-  }
-  @media (min-width: 768px) {
-    .glass-panel::after {
-      display: block;
-      @apply absolute inset-px pointer-events-none rounded-[calc(var(--radius-2xl)-1px)];
-      background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 30%);
-    }
+    @apply absolute inset-px pointer-events-none rounded-[calc(var(--radius-2xl)-1px)];
+    background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 25%, rgba(255,255,255,0) 90%, rgba(255,255,255,0.3) 100%);
   }
 
   .glass-surface {
     @apply relative;
-    /* Optimize for mobile: Solid semi-transparent background */
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Optimize for mobile: Lightweight blur + Depth */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.7) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: var(--radius-xl);
     box-shadow: var(--elev-1);
   }
@@ -221,15 +221,9 @@
   }
   
   .glass-surface::after {
-    display: none;
-  }
-  @media (min-width: 768px) {
-    .glass-surface::after {
-      display: block;
-      content: '';
-      @apply absolute inset-0 pointer-events-none rounded-[inherit];
-      box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.9);
-    }
+    content: '';
+    @apply absolute inset-0 pointer-events-none rounded-[inherit];
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.8), inset 0 0 20px rgba(255,255,255,0.3);
   }
 
   .glass-control {
