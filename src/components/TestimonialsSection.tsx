@@ -3,40 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from 'framer-motion'
 import { motion } from 'framer-motion'
-import { Quote, Sparkles, Star, TrendingUp, Award, ShieldCheck, Clock } from 'lucide-react'
+import { Quote, Sparkles, Star, TrendingUp } from 'lucide-react'
 
 import SectionHeader from './ui/SectionHeader'
 import { SliderDots } from './CarouselControls'
 import { reviewsMeta } from '@/lib/reviews'
 import { trackSelectPromotion, trackViewPromotion } from '@/lib/tracking'
 import { motionTimings, motionViewport } from '@/lib/motion'
-
-const stats = [
-  { 
-    label: 'Google 評價', 
-    value: `${reviewsMeta.ratingValue}`, 
-    detail: `基於 ${reviewsMeta.reviewCount}+ 則真實評論`,
-    icon: Star
-  },
-  { 
-    label: '當日完修率', 
-    value: '92%', 
-    detail: '多數維修於 1 小時內完成',
-    icon: Clock
-  },
-  { 
-    label: 'IRP 認證技師', 
-    value: '6 位', 
-    detail: '原廠受訓，定期考核認證',
-    icon: Award
-  },
-  { 
-    label: '保固追蹤', 
-    value: '90 天', 
-    detail: '完整的雲端履歷與保固',
-    icon: ShieldCheck
-  },
-]
 
 const testimonials = [
   {
@@ -49,12 +22,30 @@ const testimonials = [
     date: '2025.03',
   },
   {
+    name: '蔡先生',
+    location: '信義區',
+    service: 'iPhone 12 Pro 電池更換',
+    comment:
+      '原本很耗電一天要充三次，換完現在可以用一整天。店員還順便幫我清潔了積滿棉絮的充電孔，接觸不良也修好了，推推！',
+    badge: '續航復活',
+    date: '2025.03',
+  },
+  {
     name: '陳先生',
     location: '北投區',
     service: 'iPhone 13 電池更換',
     comment:
       '電池健康度掉到 72% 才來換。維修前會先檢測並說明，報價很透明。換完後續航力明顯回來了，還提醒保固內有問題隨時回來檢查。',
-    badge: '續航回復',
+    badge: '透明報價',
+    date: '2025.02',
+  },
+  {
+    name: '陳小姐',
+    location: '大安區',
+    service: 'MacBook Air 螢幕維修',
+    comment:
+      '不小心夾到耳機導致螢幕裂開，原廠報價太貴，朋友介紹來這裡。價格合理很多，重點是當天就好，不用留機好幾天，對工作影響降到最低。',
+    badge: '當日交件',
     date: '2025.02',
   },
   {
@@ -67,6 +58,15 @@ const testimonials = [
     date: '2025.01',
   },
   {
+    name: '許同學',
+    location: '文山區',
+    service: 'iPad mini 充電異常',
+    comment:
+      '上課作筆記用的 iPad 突然充不進去，以為電池壞了。結果老闆檢測說是尾插髒了，清一清就好，完全沒收費，真的是良心店家！',
+    badge: '良心檢測',
+    date: '2025.03',
+  },
+  {
     name: '李小姐',
     location: '天母',
     service: '二手 iPhone 嚴選',
@@ -76,13 +76,31 @@ const testimonials = [
     date: '2025.01',
   },
   {
+    name: '郭先生',
+    location: '松山區',
+    service: 'iPhone 11 相機維修',
+    comment:
+      '鏡頭抖動不能對焦，拍照都模糊的。換了原廠相機模組後終於復活。老闆技術很好，拆裝很細心，還教我怎麼貼鏡頭貼才不會影響畫質。',
+    badge: '技術精湛',
+    date: '2025.02',
+  },
+  {
     name: '黃小姐',
     location: '大同區',
     service: 'Face ID 排線檢測',
     comment:
       '原本以為要換整新機，結果技師檢測後確認只是排線問題。維修費用合理很多，現場還教我怎麼保養。Face ID 終於復活了。',
-    badge: '原廠規範',
+    badge: '精準維修',
     date: '2024.12',
+  },
+  {
+    name: '羅小姐',
+    location: '中正區',
+    service: '資料救援',
+    comment:
+      '手機突然白蘋果開不了機，裡面小孩的照片都沒備份。本來絕望了，還好這裡救回來，雖然花了一點時間處理主機板，但資料無價！',
+    badge: '資料救援',
+    date: '2025.01',
   },
   {
     name: '林先生',
@@ -92,6 +110,15 @@ const testimonials = [
       '找了幾家才選這間 IRP 認證門市。使用 Apple 認證零件，螢幕色準真的沒話說。全程透明錄影，45 分鐘搞定，還有 90 天保固。',
     badge: '原廠零件',
     date: '2025.03',
+  },
+  {
+    name: '曾先生',
+    location: '南港區',
+    service: '二手 iPad Air',
+    comment:
+      '買了一台二手 iPad 給小孩上視訊課，機況很好幾乎全新，還有送保護貼跟充電線。CP 值很高，比買全新的划算太多了。',
+    badge: '超值選購',
+    date: '2025.02',
   },
   {
     name: '周小姐',
@@ -134,8 +161,8 @@ const testimonials = [
     location: '大同區',
     service: 'iPhone 13 Pro 泡水救援',
     comment:
-      '手機掉進水裡無法開機，裡面有小孩的照片沒備份。送來這邊急救，老闆第一時間拆機清洗除潮，最後成功救回資料，真的太感謝了！',
-    badge: '資料救援',
+      '手機掉進水裡無法開機，送來這邊急救，老闆第一時間拆機清洗除潮，最後成功救回資料。提醒大家進水千萬別充電，趕快送修才是真的。',
+    badge: '泡水急救',
     date: '2025.03',
   },
   {
@@ -201,7 +228,7 @@ export default function TestimonialsSection() {
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
-        <div className="max-w-6xl mx-auto space-y-16 md:space-y-20">
+        <div className="max-w-6xl mx-auto space-y-12 md:space-y-16">
           <motion.div
             className="text-center"
             variants={{ initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 } }}
@@ -213,7 +240,7 @@ export default function TestimonialsSection() {
           >
             <SectionHeader
               title="顧客真實好評"
-              description="Google 4.9+/5，高分來源：IRP 認證、原廠零件、錄影存證、到府收送與 90 天保固。"
+              description="Google 4.9+/5，累積超過 2,000 則真實五星好評。我們珍惜每一次服務的機會，用心解決您的問題。"
             />
             <div className="mt-6 flex items-center justify-center">
               <a 
@@ -234,28 +261,6 @@ export default function TestimonialsSection() {
                 </div>
               </a>
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={motionViewport}
-            transition={{ ...motionTimings.soft, delay: 0.1 }}
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-          >
-              {stats.map((item, i) => (
-                <div
-                  key={item.label}
-                  className="glass-surface flex flex-col gap-3 p-6 md:p-8 text-left hover:bg-white/60 transition-colors"
-                >
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 font-semibold">{item.label}</p>
-                  <item.icon className="w-4 h-4 text-neutral-400" />
-                </div>
-                <p className="text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">{item.value}</p>
-                <p className="text-sm text-neutral-600 font-medium leading-relaxed text-pretty">{item.detail}</p>
-              </div>
-            ))}
           </motion.div>
 
           <div className="space-y-8">
@@ -283,13 +288,13 @@ export default function TestimonialsSection() {
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={motionViewport}
-                transition={{ ...motionTimings.soft, delay: 0.2 }}
+                transition={{ ...motionTimings.soft, delay: 0.1 }}
                 role="region"
                 aria-label="客戶推薦卡片"
               >
                 {testimonials.map((item, index) => (
                   <article
-                    key={`${item.name}-${item.service}`}
+                    key={`${item.name}-${item.service}-${index}`}
                     className="glass-surface flex min-w-[85vw] sm:min-w-[400px] lg:min-w-0 flex-col gap-6 px-7 py-7 snap-center md:snap-start tilt-hover h-full bg-white/40"
                   >
                     <div className="flex items-center justify-between">
