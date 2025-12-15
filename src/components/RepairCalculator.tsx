@@ -7,7 +7,31 @@ import { motionTimings } from '@/lib/motion'
 import Button from './ui/Button'
 import SectionHeader from './ui/SectionHeader'
 import { trackSelectPromotion, trackGenerateLead, trackViewPromotion } from '@/lib/tracking'
-import { AlertTriangle } from 'lucide-react'
+import { 
+  AlertTriangle, 
+  Smartphone, 
+  Battery, 
+  Camera, 
+  Wifi, 
+  Mic, 
+  Zap, 
+  Cpu, 
+  Droplets, 
+  Monitor,
+  Check
+} from 'lucide-react'
+
+const SYMPTOMS: { key: SymptomKey; label: string; icon: any }[] = [
+  { key: 'crackedFront', label: '正面螢幕破裂', icon: Smartphone },
+  { key: 'crackedBack', label: '背板玻璃破裂', icon: Smartphone },
+  { key: 'noDisplay', label: '黑屏/顯示異常', icon: Monitor },
+  { key: 'touchIssue', label: '觸控失靈/亂跳', icon:  Zap},
+  { key: 'batteryDrain', label: '耗電快/膨脹', icon: Battery },
+  { key: 'cameraBlur', label: '相機模糊/抖動', icon: Camera },
+  { key: 'chargeIssue', label: '無法充電/接觸不良', icon: Zap },
+  { key: 'noPower', label: '無法開機', icon: Cpu },
+  { key: 'waterDamage', label: '進水/受潮', icon: Droplets },
+]
 
 const CATEGORIES: { key: RepairCategory; label: string }[] = [
   { key: 'frontGlass', label: '正面螢幕' },
@@ -16,18 +40,6 @@ const CATEGORIES: { key: RepairCategory; label: string }[] = [
   { key: 'battery', label: '電池' },
   { key: 'rearCamera', label: '後置相機' },
   { key: 'other', label: '整新/換機（參考）' },
-]
-
-const SYMPTOMS: { key: SymptomKey; label: string }[] = [
-  { key: 'crackedFront', label: '正面玻璃破裂' },
-  { key: 'crackedBack', label: '背板玻璃破裂' },
-  { key: 'noDisplay', label: '黑屏/無法顯示' },
-  { key: 'touchIssue', label: '觸控失靈/延遲' },
-  { key: 'batteryDrain', label: '耗電快/電池異常' },
-  { key: 'cameraBlur', label: '相機模糊/抖動' },
-  { key: 'chargeIssue', label: '無法充電/Type-C 異常' },
-  { key: 'noPower', label: '無法開機' },
-  { key: 'waterDamage', label: '進水/潮濕' },
 ]
 
 const HOT_MODELS = [
@@ -107,41 +119,52 @@ export default function RepairCalculator() {
 
         {/* Step 2: 症狀與建議 */}
         <div className="glass-panel mb-6">
-          <div className="p-6 md:p-8 space-y-4 md:space-y-5">
+          <div className="p-6 md:p-8 space-y-6">
             <div className="flex items-center justify-between">
               <div className="text-[15px] font-bold text-neutral-900">步驟 2：選擇症狀</div>
               {selected && <div className="text-xs font-medium text-neutral-500">已選：{selected.model}</div>}
             </div>
-            <div className="relative">
-              <select
-                value={symptom}
-                onChange={(e) => { setSymptom(e.target.value as SymptomKey); setOverrideCategory(null); trackSelectPromotion({ section: 'repair_calc', action: 'option_select', target: 'symptom', label: e.target.value }) }}
-                className="input-ios w-full appearance-none font-medium text-neutral-900"
-              >
-                {SYMPTOMS.map((s) => (
-                  <option key={s.key} value={s.key}>{s.label}</option>
-                ))}
-              </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-              </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {SYMPTOMS.map((s) => {
+                const isSelected = symptom === s.key
+                return (
+                  <button
+                    key={s.key}
+                    type="button"
+                    className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-200 ${
+                      isSelected
+                        ? 'bg-neutral-900 border-neutral-900 text-white shadow-md scale-[1.02]'
+                        : 'bg-white/40 border-white/60 text-neutral-600 hover:bg-white/80 hover:border-white'
+                    }`}
+                    onClick={() => { setSymptom(s.key); setOverrideCategory(null); trackSelectPromotion({ section: 'repair_calc', action: 'option_select', target: 'symptom', label: s.label }) }}
+                  >
+                    <s.icon className={`w-6 h-6 mb-2 ${isSelected ? 'text-white' : 'text-neutral-500'}`} />
+                    <span className="text-xs font-bold text-center">{s.label}</span>
+                  </button>
+                )
+              })}
             </div>
-            <div className="text-xs font-bold text-neutral-500 uppercase tracking-wider">建議維修項目（可切換）：</div>
-            <div className="flex flex-wrap gap-2.5">
-              {CATEGORIES.filter(c => autoCategories.includes(c.key)).map((c) => (
-                <button
-                  key={c.key}
-                  type="button"
-                  className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 ${
-                    (!overrideCategory && autoCategories.includes(c.key) || overrideCategory===c.key)
-                      ? 'bg-neutral-900 text-white shadow-lg scale-[1.02]' 
-                      : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/80'
-                  }`}
-                  onClick={() => setOverrideCategory(c.key)}
-                >
-                  {c.label}
-                </button>
-              ))}
+
+            <div className="space-y-3 pt-2">
+              <div className="text-xs font-bold text-neutral-500 uppercase tracking-wider">建議維修項目（可切換）：</div>
+              <div className="flex flex-wrap gap-2.5">
+                {CATEGORIES.filter(c => autoCategories.includes(c.key)).map((c) => (
+                  <button
+                    key={c.key}
+                    type="button"
+                    className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 flex items-center gap-1.5 ${
+                      (!overrideCategory && autoCategories.includes(c.key) || overrideCategory===c.key)
+                        ? 'bg-neutral-900 text-white shadow-lg scale-[1.02]' 
+                        : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/80'
+                    }`}
+                    onClick={() => setOverrideCategory(c.key)}
+                  >
+                    {((!overrideCategory && autoCategories.includes(c.key)) || overrideCategory===c.key) && <Check className="w-3 h-3" />}
+                    {c.label}
+                  </button>
+                ))}
+              </div>
             </div>
             {includesOther && (
               <div className="flex items-start gap-3 text-[13px] text-amber-700 bg-amber-50/80 border border-amber-100 rounded-[16px] p-4">
@@ -165,36 +188,68 @@ export default function RepairCalculator() {
 
         {/* Step 3: 價格與諮詢 */}
         <div className="glass-panel">
-          <div className="p-6 md:p-8 space-y-5 md:space-y-6">
+          <div className="p-6 md:p-8 space-y-6">
             <div className="text-[15px] font-bold text-neutral-900">步驟 3：查看預估並聯絡我們</div>
-            <div className="bg-white/40 rounded-[20px] p-5 space-y-3 border border-white/40">
-              <div className="flex justify-between items-center text-[15px]">
-                <span className="text-neutral-500 font-medium">機型</span>
-                <span className="text-neutral-900 font-semibold">{selected?.model || '—'}{yearHint ? `（約 ${yearHint} 年）` : ''}</span>
-              </div>
-              <div className="flex justify-between items-center text-[15px]">
-                <span className="text-neutral-500 font-medium">症狀</span>
-                <span className="text-neutral-900 font-semibold">{SYMPTOMS.find(s=>s.key===symptom)?.label}</span>
-              </div>
-              <div className="flex justify-between items-center text-[15px]">
-                <span className="text-neutral-500 font-medium">項目</span>
-                <span className="text-neutral-900 font-semibold text-right">{(overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')}</span>
-              </div>
-              <div className="pt-3 mt-3 border-t border-neutral-200/50 flex justify-between items-center">
-                <span className="text-neutral-500 font-medium">預估價格</span>
-                <span className="text-2xl font-bold text-neutral-900">{estimate.min ? estimateText : '-'}</span>
-              </div>
-            </div>
-              {(overrideCategory === 'other' || (!overrideCategory && autoCategories.includes('other'))) && (
-                <div className="flex items-start gap-3 text-[13px] text-amber-700 bg-amber-50/80 border border-amber-100 rounded-[16px] p-4">
-                  <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
-                  <div className="font-medium leading-relaxed">
-                    此價格為整新或換機的「參考上限」。實際多以單項維修為主，以降低費用；建議先透過 LINE 提交症狀照片，技師將回覆更精準的評估與時程。
+            
+            {/* 收據樣式卡片 */}
+            <div className="relative bg-white shadow-sm border border-neutral-200 rounded-2xl overflow-hidden">
+              {/* 頂部裝飾條 */}
+              <div className="h-1.5 w-full bg-[repeating-linear-gradient(45deg,#171717,#171717_10px,#ffffff_10px,#ffffff_20px)] opacity-20" />
+              
+              <div className="p-6 space-y-4">
+                <div className="flex justify-between items-start pb-4 border-b border-dashed border-neutral-200">
+                  <div>
+                    <p className="text-xs text-neutral-500 uppercase tracking-wider font-semibold mb-1">估價單</p>
+                    <h3 className="text-lg font-bold text-neutral-900">{selected?.model}</h3>
+                  </div>
+                  <div className="text-right">
+                    <span className="inline-block px-2 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded uppercase">Estimated</span>
                   </div>
                 </div>
-              )}
+
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-500">故障症狀</span>
+                    <span className="font-medium text-neutral-900">{SYMPTOMS.find(s=>s.key===symptom)?.label}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-500">維修項目</span>
+                    <span className="font-medium text-neutral-900 text-right">
+                      {(overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-neutral-500">檢測費</span>
+                    <span className="font-medium text-neutral-900">$0</span>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-neutral-200 flex justify-between items-end">
+                  <div>
+                    <p className="text-xs text-neutral-500 mb-0.5">預估總額</p>
+                    <p className="text-[10px] text-neutral-400">含工帶料・90天保固</p>
+                  </div>
+                  <div className="text-2xl font-bold text-neutral-900 tracking-tight">
+                    {estimate.min ? estimateText : '-'}
+                  </div>
+                </div>
+              </div>
+              
+              {/* 底部鋸齒裝飾 (CSS 模擬) */}
+              <div className="h-3 bg-[radial-gradient(circle_at_10px_0,_transparent_0,_transparent_6px,_#ffffff_6px)] bg-[size:20px_20px] border-t border-transparent -mt-1 relative z-10" />
+            </div>
+
+            {(overrideCategory === 'other' || (!overrideCategory && autoCategories.includes('other'))) && (
+              <div className="flex items-start gap-3 text-[13px] text-amber-700 bg-amber-50/80 border border-amber-100 rounded-[16px] p-4">
+                <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+                <div className="font-medium leading-relaxed">
+                  此價格為整新或換機的「參考上限」。實際多以單項維修為主，以降低費用；建議先透過 LINE 提交症狀照片，技師將回覆更精準的評估與時程。
+                </div>
+              </div>
+            )}
+
             <Button
-              className="w-full motion-hover-pop text-base py-4"
+              className="w-full motion-hover-pop text-base py-4 shadow-lg"
               onClick={() => {
                 trackGenerateLead({ section: 'repair_calc', action: 'cta_click', target: 'line', label: 'send_inquiry', model: selected?.model, symptom, suggested: (overrideCategory ? [overrideCategory] : autoCategories), estimateMin: estimate.min, estimateMax: estimate.max })
                 const suggested = (overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')
@@ -213,7 +268,7 @@ export default function RepairCalculator() {
               }}
               disabled={!selected}
             >
-              透過 LINE 詢問/預約
+              傳送估價單並預約 (LINE)
             </Button>
           </div>
         </div>
