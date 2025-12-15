@@ -5,6 +5,7 @@ import { repairPricing, RepairCategory, RepairPriceItem, SymptomKey, symptomToCa
 import { motion } from 'framer-motion'
 import { motionTimings } from '@/lib/motion'
 import Button from './ui/Button'
+import SectionHeader from './ui/SectionHeader'
 import { trackSelectPromotion, trackGenerateLead, trackViewPromotion } from '@/lib/tracking'
 import { AlertTriangle } from 'lucide-react'
 
@@ -64,9 +65,12 @@ export default function RepairCalculator() {
   return (
     <section id="repair" className="section-padding container-padding">
       <div className="max-w-3xl mx-auto">
-        <motion.div className="mb-6 text中心" variants={{ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } }} initial="initial" whileInView="animate" transition={motionTimings.soft} onViewportEnter={() => trackViewPromotion({ section: 'repair_calc', label: '維修試算器' })}>
-          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">iPhone 維修試算器</h2>
-          <p className="text-neutral-600 mt-2">士林專業維修：電池更換・螢幕維修・快速報價｜三步完成試算</p>
+        <motion.div className="mb-10 text-center" variants={{ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } }} initial="initial" whileInView="animate" transition={motionTimings.soft} onViewportEnter={() => trackViewPromotion({ section: 'repair_calc', label: '維修試算器' })}>
+          <SectionHeader
+            title="iPhone 維修試算器"
+            description="士林專業維修：電池更換・螢幕維修・快速報價｜三步完成試算"
+            as="h2"
+          />
         </motion.div>
 
         {/* Step 1: 選擇機型 */}
@@ -80,7 +84,7 @@ export default function RepairCalculator() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="輸入型號，如 iPhone 15 Pro"
-              className="w-full rounded-[14px] border border-white/40 bg-white/60 px-4 py-3 outline-none focus:ring-2 focus:ring-neutral-900/10 focus:bg-white/80 transition-all text-[15px] placeholder:text-neutral-400 text-neutral-900 font-medium"
+              className="input-ios w-full font-medium placeholder:text-neutral-400 text-neutral-900"
             />
             <div className="flex flex-wrap gap-2.5">
               {suggestions.map((s) => (
@@ -112,7 +116,7 @@ export default function RepairCalculator() {
               <select
                 value={symptom}
                 onChange={(e) => { setSymptom(e.target.value as SymptomKey); setOverrideCategory(null); trackSelectPromotion({ section: 'repair_calc', action: 'option_select', target: 'symptom', label: e.target.value }) }}
-                className="w-full rounded-[14px] border border-white/40 bg-white/60 px-4 py-3 outline-none focus:ring-2 focus:ring-neutral-900/10 focus:bg-white/80 transition-all text-[15px] font-medium text-neutral-900 appearance-none"
+                className="input-ios w-full appearance-none font-medium text-neutral-900"
               >
                 {SYMPTOMS.map((s) => (
                   <option key={s.key} value={s.key}>{s.label}</option>

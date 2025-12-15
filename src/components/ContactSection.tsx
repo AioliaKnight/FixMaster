@@ -192,22 +192,22 @@ export default function ContactSection() {
             {contactInfo.map((info, index) => (
               <motion.div
                 key={index}
-                className="glass-surface p-6 text-center flex flex-col items-center gap-4 hover:bg-white/60 transition-colors group"
+                className="glass-surface p-6 text-center flex flex-col items-center gap-4 hover:bg-white/60 transition-colors group h-full"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ ...motionTimings.soft, delay: index * 0.08 }}
                 viewport={motionViewport}
               >
-                <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 shadow-[var(--elev-2)] group-hover:scale-110 transition-transform duration-300">
+                <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 shadow-[var(--elev-2)] group-hover:scale-110 transition-transform duration-300 bg-white/50 group-hover:bg-white">
                   <info.icon className="w-6 h-6" />
                 </div>
-                <div className="flex-1 flex flex-col items-center">
-                  <h3 className="text-[15px] font-bold text-neutral-900 mb-1">{info.title}</h3>
-                  <p className="text-sm font-medium text-neutral-800 mb-1">{info.content}</p>
-                  <p className="text-xs text-neutral-500">{info.subContent}</p>
+                <div className="flex-1 flex flex-col items-center justify-center w-full">
+                  <h3 className="text-[15px] font-bold text-neutral-900 mb-1.5">{info.title}</h3>
+                  <p className="text-sm font-medium text-neutral-800 mb-1.5 break-all">{info.content}</p>
+                  <p className="text-xs text-neutral-500 leading-relaxed text-pretty">{info.subContent}</p>
                 </div>
                 <button
-                  className="w-full glass-control py-2.5 text-sm font-semibold text-neutral-900 hover:bg-white/80 transition-colors shadow-none hover:shadow-sm"
+                  className="w-full glass-control py-2.5 text-sm font-semibold text-neutral-900 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 mt-auto"
                   onClick={() => {
                     trackGenerateLead({ section: 'contact', action: 'cta_click', target: info.actionType, label: 'contact_card' })
                     if (info.actionType === 'phone') window.location.href = 'tel:+886-2-2816-6666'

@@ -317,7 +317,7 @@ export default function TrustSection() {
         const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
         el.scrollTo({ left: i * step, behavior: 'smooth' })
       }}
-      className="md:hidden -mt-2"
+      className="md:hidden mt-4"
     />
   </div>
 </motion.div>

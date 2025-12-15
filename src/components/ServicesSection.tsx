@@ -54,19 +54,19 @@ export default function ServicesSection() {
     }
   }, [isTitleInView])
 
-  // Mobile dots for steps
-  const stepsRef = useRef<HTMLDivElement>(null)
-  const [stepsActive, setStepsActive] = useState(0)
+  // Mobile dots for flow
+  const flowRef = useRef<HTMLDivElement>(null)
+  const [flowActive, setFlowActive] = useState(0)
   useEffect(() => {
-    const el = stepsRef.current
+    const el = flowRef.current
     if (!el) return
     const onScroll = () => {
       if (!el) return
       const a = el.children[0] as HTMLElement | undefined
       const b = el.children[1] as HTMLElement | undefined
-      if (!a || !b) { setStepsActive(0); return }
+      if (!a || !b) { setFlowActive(0); return }
       const step = b.offsetLeft - a.offsetLeft
-      if (step > 0) setStepsActive(Math.round(el.scrollLeft / step))
+      if (step > 0) setFlowActive(Math.round(el.scrollLeft / step))
     }
     el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
     onScroll()
@@ -440,53 +440,75 @@ export default function ServicesSection() {
 
           {/* 服務流程 */}
           <motion.div
-            className="glass-panel text-center motion-soft-enter"
+            className="glass-panel text-center motion-soft-enter overflow-visible"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
             viewport={motionViewport}
           >
-            <div className="p-8 md:p-10 space-y-8">
+            <div className="p-8 md:p-12 space-y-10">
               <div>
-                <h3 className="text-2xl font-bold text-neutral-900">簡單三步驟，輕鬆完成維修</h3>
-                <p className="mt-3 text-[15px] md:text-base text-neutral-500 text-pretty max-w-2xl mx-auto">
-                  無論現場或到府收送，每一步都有人員即時回報，保障維修進度與資料安全。
+                <h3 className="text-2xl font-bold text-neutral-900 md:text-3xl">標準化維修流程</h3>
+                <p className="mt-3 text-[15px] md:text-base text-neutral-500 text-pretty max-w-2xl mx-auto leading-relaxed">
+                  依照 Apple 原廠規範，我們建立了一套嚴謹的 6 步驟標準作業程序 (SOP)。<br className="hidden md:block"/>
+                  從收件到交機，每個環節都透明、可追蹤，保障您的權益。
                 </p>
               </div>
+              
               <div
-                ref={stepsRef}
-                className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 md:gap-8 -mx-1 px-1"
+                ref={flowRef}
+                className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 relative -mx-4 px-4 md:mx-0 md:px-0 pb-8 md:pb-0"
                 role="region"
                 aria-roledescription="carousel"
-                aria-label="維修流程三步驟"
+                aria-label="維修流程"
               >
                 {[
-                  { title: '聯絡預約', description: 'LINE 或電話快速預約' },
-                  { title: '現場檢測', description: '免費檢測，透明報價' },
-                  { title: '快速完修', description: '1小時內完修取件' },
-                ].map((step, stepIndex) => (
-                  <div key={step.title} className="text-center flex-none w-56 snap-start md:w-auto">
-                    <div className="glass-control w-16 h-16 flex items-center justify-center text-2xl font-bold text-neutral-900 mx-auto mb-4 shadow-[var(--elev-2)]">
-                      {stepIndex + 1}
+                  { title: '客戶報修', desc: '線上預約或現場接待，初步確認裝置外觀與故障狀況。', icon: Smartphone },
+                  { title: '專業檢測', desc: '使用 Apple 原廠診斷工具 (AST 2) 進行全機檢測，精準定位故障點。', icon: Monitor },
+                  { title: '報價與確認', desc: '區分保內/保外，詳細解說費用與風險。經您同意後才開始施工。', icon: CheckCircle },
+                  { title: '維修處理', desc: '由 IRP 認證技師在防靜電環境下施工，重要環節全程錄影存證。', icon: Wrench },
+                  { title: '完修複測', desc: '維修後執行全功能壓力測試與防水氣密測試，確保功能 100% 正常。', icon: Shield },
+                  { title: '通知取件', desc: '清潔外觀，交付更換下來的舊零件（除電池外），並提供數位保固卡。', icon: Truck },
+                ].map((step, index) => (
+                  <div key={index} className="glass-surface p-6 flex flex-col items-center text-center relative z-10 hover:bg-white/60 transition-colors group min-w-[85vw] sm:min-w-[320px] md:min-w-0 snap-center md:snap-align-none">
+                    <div className="absolute top-4 left-4 text-[10px] font-bold text-neutral-300">
+                      STEP {String(index + 1).padStart(2, '0')}
                     </div>
-                    <h4 className="font-bold text-neutral-900 mb-2 text-lg text-balance">{step.title}</h4>
-                    <p className="text-neutral-600 text-[15px] md:text-base text-pretty">{step.description}</p>
+                    <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 mb-4 shadow-[var(--elev-2)] group-hover:scale-110 transition-transform duration-300 bg-white/80">
+                      <step.icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-bold text-neutral-900 mb-2 text-balance">{step.title}</h4>
+                    <p className="text-sm text-neutral-600 leading-relaxed text-pretty">{step.desc}</p>
+                    
+                    {/* 連接線 (Desktop only) */}
+                    {index !== 5 && (
+                      <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-[2px] bg-neutral-200/50 z-0" 
+                           style={{ display: (index + 1) % 3 === 0 ? 'none' : 'block' }} 
+                      />
+                    )}
                   </div>
                 ))}
               </div>
+              
               <SliderDots
-                count={3}
-                activeIndex={stepsActive}
+                count={6}
+                activeIndex={flowActive}
                 onDotClick={(i) => {
-                  const el = stepsRef.current
+                  const el = flowRef.current
                   if (!el) return
                   const a = el.children[0] as HTMLElement | undefined
                   const b = el.children[1] as HTMLElement | undefined
                   const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
                   el.scrollTo({ left: i * step, behavior: 'smooth' })
                 }}
-                className="mt-3"
+                className="mt-4 md:hidden"
               />
+
+              <div className="flex justify-center">
+                <p className="text-xs text-neutral-400 max-w-lg mx-auto bg-neutral-100/50 px-4 py-2 rounded-lg">
+                  * 若檢測後決定不維修，我們不會收取任何檢測費用（進水清洗與主機板檢測除外）。
+                </p>
+              </div>
             </div>
           </motion.div>
 
