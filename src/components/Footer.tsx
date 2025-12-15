@@ -39,7 +39,7 @@ const contactItems = [
   },
   {
     icon: MapPin,
-    label: '台北市士林區文林路 60 號',
+    label: '台北市士林區文林路 60 號（捷運劍潭站 1 號出口 / 士林夜市旁）',
     href: 'https://maps.google.com/?q=台北市士林區文林路60號',
     external: true,
   },
@@ -71,7 +71,7 @@ export default function Footer() {
                 <div className="space-y-4">
                   <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">FixMaster 維修大師</h2>
                   <p className="text-neutral-600 text-base md:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0">
-                    IRP 認證・原廠零件・全程錄影存證・不維修不收費・90 天保固。提供到店快速維修與台北市區到府收送服務。
+                    IRP 認證・原廠零件・全程錄影存證・不維修不收費・90 天保固。提供士林門市快速維修，以及台北市全區（士林、北投、天母、大同、中山等）到府收送服務。
                   </p>
                 </div>
                 

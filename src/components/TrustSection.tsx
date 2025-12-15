@@ -395,7 +395,7 @@ export default function TrustSection() {
                   我們的服務承諾
                 </h3>
                 <p className="text-neutral-600 text-base md:text-lg max-w-3xl mx-auto text-pretty">
-                  原廠零件、透明錄影存證、資料與零件雙重檢測，保固期間免費檢測，不維修不收費。
+                  原廠零件、透明錄影存證、資料與零件雙重檢測。專注於士林、北投、大同、中山區 iPhone 用戶，提供最安心的在地維修體驗。
                 </p>
               </div>
               <div className="flex flex-wrap justify-center gap-4">

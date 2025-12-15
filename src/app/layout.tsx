@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, Noto_Sans_TC } from 'next/font/google'
 import './globals.css'
 import { reviewsMeta } from '@/lib/reviews'
@@ -8,6 +8,15 @@ import MotionProvider from '@/components/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'] })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#ef4444',
+}
 
 export const metadata: Metadata = {
   title: 'FixMaster 維修大師｜士林 iPhone 維修・二手 iPhone・電池更換｜IRP 認證',
@@ -513,7 +522,6 @@ export default function RootLayout({
         <meta name="application-name" content="FixMaster" />
         <meta name="msapplication-TileColor" content="#ef4444" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-        <meta name="theme-color" content="#ef4444" />
         
         {/* Favicon and Touch Icons */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

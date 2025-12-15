@@ -289,26 +289,43 @@ export default function ContactSection() {
                 </div>
 
                 <div className="bg-white/40 rounded-[20px] p-1">
-                  <div className="bg-white/60 rounded-[16px] p-6 text-center backdrop-blur-sm">
-                    <MapPin className="w-8 h-8 mx-auto mb-3 text-neutral-900" />
-                    <p className="font-bold text-neutral-900 text-lg mb-1">台北市士林區文林路 60 號</p>
-                    <p className="text-sm text-neutral-500 mb-5 font-medium">捷運劍潭站 1 號出口步行 3 分鐘（士林夜市旁）</p>
-                    <button
-                      className="w-full bg-neutral-900 text-white py-3 rounded-full text-sm font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
-                      onClick={() => {
-                        trackSelectPromotion({ section: 'contact', action: 'link_click', target: 'maps', label: 'navigate' })
-                        const address = '台北市士林區文林路60號'
-                        const encodedAddress = encodeURIComponent(address)
-                        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                          window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
-                        } else {
-                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
-                        }
-                      }}
-                    >
-                      <Navigation className="w-4 h-4" />
-                      開啟 Google Maps 導航
-                    </button>
+                  <div className="bg-white/60 rounded-[16px] p-1 text-center backdrop-blur-sm overflow-hidden">
+                    <iframe 
+                      src="https://maps.google.com/maps?q=台北市士林區文林路60號&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                      width="100%"
+                      height="240"
+                      style={{ border: 0, borderRadius: '12px' }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="FixMaster 士林店地圖"
+                      className="mb-4"
+                    />
+                    <div className="px-5 pb-5">
+                      <div className="flex items-start justify-center gap-2 mb-4">
+                        <MapPin className="w-5 h-5 text-neutral-900 mt-0.5 shrink-0" />
+                        <div className="text-left">
+                          <p className="font-bold text-neutral-900 text-lg leading-tight">台北市士林區文林路 60 號</p>
+                          <p className="text-sm text-neutral-500 mt-1 font-medium text-pretty">捷運劍潭站 1 號出口步行 3 分鐘（士林夜市旁）</p>
+                        </div>
+                      </div>
+                      <button
+                        className="w-full bg-neutral-900 text-white py-3 rounded-xl text-[15px] font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                        onClick={() => {
+                          trackSelectPromotion({ section: 'contact', action: 'link_click', target: 'maps', label: 'navigate' })
+                          const address = '台北市士林區文林路60號'
+                          const encodedAddress = encodeURIComponent(address)
+                          if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                            window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
+                          } else {
+                            window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                          }
+                        }}
+                      >
+                        <Navigation className="w-4 h-4" />
+                        開啟 Google Maps 導航
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
