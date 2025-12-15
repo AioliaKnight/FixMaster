@@ -27,43 +27,42 @@ export default function Navbar() {
     document.body.classList.remove('no-scroll')
   }
 
-  // 監聽滾動事件
+  // 使用 IntersectionObserver 優化滾動監聽
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null
+    if (typeof window === 'undefined' || isMenuOpen) return
 
     const handleScroll = () => {
-      if (isMenuOpen) return
-      setIsScrolled(window.scrollY > 50)
-
-      if (timeoutId) clearTimeout(timeoutId)
-
-      timeoutId = setTimeout(() => {
-        const sections = ['home', 'services', 'testimonials', 'faq', 'trust', 'contact']
-        const navbarHeight = window.innerWidth >= 768 ? 80 : 64
-        let currentSection = 'home'
-
-        for (const section of sections) {
-          const element = document.getElementById(section)
-          if (!element) continue
-          const rect = element.getBoundingClientRect()
-          if (rect.top <= navbarHeight + 50 && rect.bottom >= navbarHeight + 50) {
-            currentSection = section
-            break
-          }
-        }
-
-        setActiveSection(currentSection)
-      }, 100)
+      setIsScrolled(window.scrollY > 20)
     }
 
-    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
+    handleScroll() // 初始化檢查
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // 調整觸發區域，讓判斷更符合視覺中心
+      threshold: 0
+    }
+
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions)
+    const sections = ['home', 'services', 'testimonials', 'faq', 'trust', 'contact']
+    
+    sections.forEach((section) => {
+      const el = document.getElementById(section)
+      if (el) observer.observe(el)
+    })
 
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-      if (timeoutId) clearTimeout(timeoutId)
+      observer.disconnect()
     }
   }, [isMenuOpen])
 
@@ -116,15 +115,15 @@ export default function Navbar() {
   ]
 
   const navToneClass = isScrolled || isMenuOpen
-    ? 'glass-surface shadow-[var(--elev-2)]'
-    : 'backdrop-blur-[2px] bg-transparent border-transparent'
+    ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-neutral-200/50'
+    : 'bg-transparent border-transparent'
 
   const navHeightClass = isScrolled ? 'h-14 md:h-16' : 'h-16 md:h-20'
 
   const menuButtonClass = `lg:hidden glass-control p-2.5 transition-all duration-300 z-50 ${
     isMenuOpen
-      ? 'bg-white/80 text-neutral-900 shadow-[var(--elev-2)]'
-      : 'text-neutral-700 hover:text-neutral-900'
+      ? 'bg-white text-neutral-900 shadow-[var(--elev-2)]'
+      : 'text-neutral-700 hover:text-neutral-900 bg-white/50 backdrop-blur-md'
   }`
 
   const handleNavClick = (href: string) => {
@@ -158,9 +157,9 @@ export default function Navbar() {
 
   const boostClass = (isScrolled || isMenuOpen || prefersHighContrast) ? 'glass-contrast-boost' : ''
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navToneClass} glass-contrast-boost pt-safe`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out transform-gpu ${navToneClass} ${boostClass} pt-safe`}>
       <div className="container mx-auto container-padding">
-        <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-200`}>
+        <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-300 ease-in-out`}>
           {/* Logo */}
           <motion.div
             className="flex items-center"
@@ -187,8 +186,8 @@ export default function Navbar() {
           {/* 桌面版導航選單 */}
           <motion.div
             className="hidden lg:flex items-center space-x-8"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ ...motionTimings.soft, delay: 0.08 }}
           >
             {navigationItems.map((item) => {
