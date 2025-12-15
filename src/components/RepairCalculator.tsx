@@ -138,7 +138,7 @@ export default function RepairCalculator() {
                     <button
                       key={s.key}
                       type="button"
-                      className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-200 ${
+                      className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-200 active:scale-95 ${
                         isSelected
                           ? 'bg-neutral-900 border-neutral-900 text-white shadow-md scale-[1.02]'
                           : 'bg-white/40 border-white/60 text-neutral-600 hover:bg-white/80 hover:border-white'
@@ -216,11 +216,11 @@ export default function RepairCalculator() {
                       <h3 className="text-lg font-bold text-neutral-900">{selected?.model}</h3>
                     </div>
                     <div className="text-right">
-                      <span className="inline-block px-2 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded uppercase">Estimated</span>
+                      <span className="inline-flex items-center px-2.5 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded-full uppercase tracking-wider border border-green-100">Estimated</span>
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-sm">
+                  <div className="space-y-3.5 text-sm">
                     <div className="flex justify-between">
                       <span className="text-neutral-500">故障症狀</span>
                       <span className="font-medium text-neutral-900">{SYMPTOMS.find(s=>s.key===symptom)?.label}</span>

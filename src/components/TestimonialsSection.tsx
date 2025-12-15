@@ -247,17 +247,17 @@ export default function TestimonialsSection() {
                 href={reviewsMeta.googleUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-control pl-4 pr-5 py-2.5 text-sm font-medium text-neutral-900 hover:bg-white/90 transition-all duration-300 flex items-center gap-3 shadow-[var(--elev-2)] hover:shadow-[var(--elev-3)] hover:-translate-y-0.5 group"
+                className="glass-control pl-5 pr-6 py-3 text-base font-bold text-neutral-900 hover:bg-white transition-all duration-300 flex items-center gap-3.5 shadow-[var(--elev-2)] hover:shadow-[var(--elev-3)] hover:-translate-y-1 group bg-white/80"
                 onClick={() => trackSelectPromotion({ section: 'testimonials', action: 'link_click', target: 'google_reviews', label: 'rating_badge' })}
               >
                 <div className="flex -space-x-1">
                   {[1, 2, 3, 4, 5].map(i => (
-                    <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04]" />
+                    <Star key={i} className="w-5 h-5 fill-[#FBBC04] text-[#FBBC04]" />
                   ))}
                 </div>
-                <div className="flex items-baseline gap-1.5 border-l border-neutral-300 pl-3">
-                  <span className="text-neutral-900 font-bold text-lg leading-none">{reviewsMeta.ratingValue}</span>
-                  <span className="text-neutral-500 text-xs font-medium">{reviewsMeta.reviewCount} 則評論</span>
+                <div className="flex items-baseline gap-2 border-l-2 border-neutral-200 pl-3.5">
+                  <span className="text-neutral-900 font-bold text-xl leading-none">{reviewsMeta.ratingValue}</span>
+                  <span className="text-neutral-500 text-xs font-bold tracking-wide uppercase">{reviewsMeta.reviewCount} 則評論</span>
                 </div>
               </a>
             </div>
@@ -295,7 +295,7 @@ export default function TestimonialsSection() {
                 {testimonials.map((item, index) => (
                   <article
                     key={`${item.name}-${item.service}-${index}`}
-                    className="glass-surface flex min-w-[85vw] sm:min-w-[400px] lg:min-w-0 flex-col gap-6 px-7 py-7 snap-center md:snap-start tilt-hover h-full bg-white/40"
+                    className="glass-surface flex min-w-[300px] w-[85vw] max-w-[400px] lg:min-w-0 lg:w-auto flex-col gap-6 px-6 py-7 snap-center md:snap-start tilt-hover h-full bg-white/40 border border-white/60"
                   >
                     <div className="flex items-center justify-between">
                       <span className="glass-control px-3 py-1.5 text-[11px] font-bold text-neutral-900 tracking-wide shadow-none bg-white/50">

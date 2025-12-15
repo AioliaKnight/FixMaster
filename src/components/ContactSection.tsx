@@ -288,8 +288,8 @@ export default function ContactSection() {
                   ))}
                 </div>
 
-                <div className="bg-white rounded-[24px] p-1.5 shadow-[var(--elev-2)]">
-                  <div className="relative rounded-[20px] overflow-hidden">
+                <div className="bg-white rounded-[24px] p-1.5 shadow-[var(--elev-2)] ring-4 ring-neutral-100/50">
+                  <div className="relative rounded-[20px] overflow-hidden group">
                     <iframe 
                       src="https://maps.google.com/maps?q=台北市士林區文林路60號&t=&z=15&ie=UTF8&iwloc=&output=embed"
                       width="100%"
@@ -299,9 +299,12 @@ export default function ContactSection() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="FixMaster 士林店地圖"
-                      className="grayscale-[20%] hover:grayscale-0 transition-all duration-500"
+                      className="grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                     />
-                    <div className="absolute bottom-0 inset-x-0 bg-white/90 backdrop-blur-md p-5 border-t border-neutral-100">
+                    {/* Add touch overlay to prevent scroll trapping on mobile */}
+                    <div className="absolute inset-0 pointer-events-none group-active:pointer-events-none md:pointer-events-none" aria-hidden="true" />
+                    
+                    <div className="absolute bottom-0 inset-x-0 bg-white/95 backdrop-blur-md p-5 border-t border-neutral-100 transition-transform duration-300">
                       <div className="flex items-start justify-center gap-3 mb-4">
                         <div className="mt-1 shrink-0 w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
                           <MapPin className="w-4 h-4 text-neutral-900" />

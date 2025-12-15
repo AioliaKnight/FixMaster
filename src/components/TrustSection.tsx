@@ -188,14 +188,14 @@ export default function TrustSection() {
             <p className="text-muted text-lg sm:text-xl max-w-2xl mx-auto text-pretty">
               IRP 認證 + 原廠零件 + 全程錄影存證 + 雲端保固，維修前後都有紀錄可查，不維修不收費。
             </p>
-            <div className="w-16 h-1 bg-neutral-300 mx-auto mt-8"></div>
+            <div className="w-16 h-1 bg-neutral-300/50 mx-auto mt-8 rounded-full"></div>
           </motion.div>
 
           {/* 主要承諾 */}
           <div className="space-y-12 md:space-y-14">
             <motion.div
               id={promisesId}
-              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 lg:gap-10 -mx-1 px-1 pb-2"
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-5 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 lg:gap-10 -mx-4 px-4 pb-4 md:mx-0 md:px-0 md:pb-0"
               role="region"
               aria-roledescription="carousel"
               aria-label="主要承諾"
@@ -208,7 +208,7 @@ export default function TrustSection() {
               {promises.map((promise, index) => (
                 <motion.div
                   key={index}
-                  className="glass-surface flex-none w-[22rem] snap-start md:w-auto motion-soft-enter tilt-hover sheen-hover flex flex-col"
+                  className="glass-surface flex-none w-[85vw] max-w-[360px] snap-center md:snap-start md:w-auto motion-soft-enter tilt-hover sheen-hover flex flex-col border border-white/60"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ ...motionTimings.soft, delay: index * 0.08 }}
@@ -273,7 +273,7 @@ export default function TrustSection() {
     </div>
     <div
       id={certsId}
-      className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-1 px-1"
+      className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 -mx-4 px-4 md:mx-0 md:px-0"
       role="region"
       aria-roledescription="carousel"
       aria-label="專業認證與資格"
@@ -282,7 +282,7 @@ export default function TrustSection() {
       {certifications.map((cert, index) => (
         <motion.div
           key={index}
-          className="glass-surface p-6 md:p-8 text-center flex-none w-56 snap-start md:w-auto motion-soft-enter bg-white/40"
+          className="glass-surface p-6 md:p-8 text-center flex-none w-[180px] snap-center md:snap-start md:w-auto motion-soft-enter bg-white/40 border border-white/60 hover:-translate-y-1 transition-transform duration-300"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ ...motionTimings.soft, delay: index * 0.08 }}

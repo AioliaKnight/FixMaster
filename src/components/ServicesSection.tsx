@@ -317,22 +317,22 @@ export default function ServicesSection() {
                         </div>
 
                         {/* 服務詳細資訊 */}
-                        <div className="glass-surface p-4 md:p-5 grid grid-cols-2 gap-4 md:gap-5 text-center bg-white/40">
-                          <div className="space-y-1">
-                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-semibold">維修時間</span>
-                            <span className="text-neutral-900 text-sm font-bold">{service.duration}</span>
+                        <div className="glass-surface p-5 md:p-6 grid grid-cols-2 gap-4 md:gap-6 text-center bg-white/40">
+                          <div className="space-y-1.5">
+                            <span className="text-neutral-500 text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold block">維修時間</span>
+                            <span className="text-neutral-900 text-sm md:text-[15px] font-bold block">{service.duration}</span>
                           </div>
-                          <div className="space-y-1">
-                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-semibold">適用機型</span>
-                            <span className="text-neutral-900 text-sm font-bold">{service.models.join('、')}</span>
+                          <div className="space-y-1.5">
+                            <span className="text-neutral-500 text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold block">適用機型</span>
+                            <span className="text-neutral-900 text-sm md:text-[15px] font-bold block">{service.models.join('、')}</span>
                           </div>
                         </div>
 
                         {/* 特色功能 */}
-                        <ul className="grid gap-3">
+                        <ul className="grid gap-3.5 px-1">
                           {service.features.map((feature, featureIndex) => (
-                            <li key={featureIndex} className="flex items-center text-neutral-700 text-[15px] font-medium">
-                              <CheckCircle className="mr-3 h-5 w-5 text-[#00C805] shrink-0" />
+                            <li key={featureIndex} className="flex items-start text-neutral-700 text-[15px] font-medium leading-tight">
+                              <CheckCircle className="mr-3 h-5 w-5 text-[#00C805] shrink-0 mt-[1px]" />
                               <span className="text-pretty">{feature}</span>
                             </li>
                           ))}
@@ -400,7 +400,7 @@ export default function ServicesSection() {
               </h3>
             <div
               ref={additionalRef}
-              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-1"
+              className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory gap-4 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 -mx-1 px-5 pb-4 md:px-1 md:pb-0"
               role="region"
               aria-roledescription="carousel"
               aria-label="為什麼選擇 FixMaster"
@@ -408,7 +408,7 @@ export default function ServicesSection() {
               {additionalServices.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="text-center flex-none w-56 snap-start md:w-auto tilt-hover"
+                  className="glass-surface p-5 text-center flex-none w-64 snap-center md:w-auto tilt-hover bg-white/40 flex flex-col items-center justify-center border border-white/60"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ ...motionTimings.soft, delay: index * 0.08 }}

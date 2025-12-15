@@ -109,21 +109,23 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              className="glass-surface px-6 py-6 text-left motion-soft-enter"
+              className="glass-surface px-6 py-6 text-left motion-soft-enter backdrop-blur-md"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...motionTimings.soft, delay: 0.18 }}
             >
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-neutral-500">
+              <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-neutral-400">
                 為什麼選擇 FixMaster
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {highlightItems.map((item) => (
-                  <li key={item.title} className="flex items-start gap-3 text-[15px] text-neutral-700">
-                    <item.icon className="mt-0.5 h-4 w-4 text-neutral-900 shrink-0" aria-hidden="true" />
+                  <li key={item.title} className="flex items-start gap-4 text-[15px]">
+                    <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100 text-neutral-900 shadow-sm shrink-0">
+                      <item.icon className="h-3.5 w-3.5" aria-hidden="true" />
+                    </div>
                     <div>
-                      <p className="font-semibold text-neutral-900 text-balance">{item.title}</p>
-                      <p className="text-neutral-600 text-pretty">{item.description}</p>
+                      <p className="font-bold text-neutral-900 text-balance leading-tight">{item.title}</p>
+                      <p className="mt-0.5 text-sm text-neutral-600 text-pretty leading-relaxed">{item.description}</p>
                     </div>
                   </li>
                 ))}
