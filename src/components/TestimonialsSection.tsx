@@ -111,6 +111,42 @@ const testimonials = [
     badge: 'IRP 認證',
     date: '2024.12',
   },
+  {
+    name: '吳先生',
+    location: '中山區',
+    service: 'MacBook Pro 清潔保養',
+    comment:
+      '電腦最近燙得嚇人，風扇也很大聲。送來做深度清潔和換散熱膏，現場拆開灰塵真的超多！保養後溫度降了快 10 度，風扇也不吵了，大推！',
+    badge: '電腦保養',
+    date: '2025.02',
+  },
+  {
+    name: '鄭小姐',
+    location: '士林區',
+    service: 'iPad Air 彎曲校正',
+    comment:
+      'iPad 放包包被壓彎了，原本很擔心要換整台殼。老闆用專業工具幫我校正回來，幾乎看不出痕跡，還省了一大筆換殼費，技術真的很好。',
+    badge: '板金校正',
+    date: '2025.01',
+  },
+  {
+    name: '劉先生',
+    location: '大同區',
+    service: 'iPhone 13 Pro 泡水救援',
+    comment:
+      '手機掉進水裡無法開機，裡面有小孩的照片沒備份。送來這邊急救，老闆第一時間拆機清洗除潮，最後成功救回資料，真的太感謝了！',
+    badge: '資料救援',
+    date: '2025.03',
+  },
+  {
+    name: '林經理',
+    location: '企業客戶',
+    service: '公司公務機批次維修',
+    comment:
+      '公司有一批公務機需要換電池和修螢幕，FixMaster 提供企業專案價，還派人來公司收送，配合度很高，發票開立也很規範。',
+    badge: '企業服務',
+    date: '2025.02',
+  },
 ]
 
 export default function TestimonialsSection() {
