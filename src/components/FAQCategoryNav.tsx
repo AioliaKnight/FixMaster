@@ -61,7 +61,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
       return
     }
     const el = getItemEl(selectedIndex)
-    el?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    el?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' })
   }, [selectedIndex])
 
   const onKeyTabs = (e: React.KeyboardEvent) => {
@@ -86,35 +86,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
 
   const onScroll = () => {
     measureUnderline()
-    if (scrollTimer.current) window.clearTimeout(scrollTimer.current)
-    scrollTimer.current = window.setTimeout(() => {
-      const sc = scrollRef.current
-      const row = rowRef.current
-      if (!sc || !row) return
-      
-      // Only scroll into view if user is actively scrolling/interacting, 
-      // but simpler to just do the nearest snap logic.
-      // We keep this but ensure it doesn't fight with main window scroll aggressively.
-      // 'nearest' is usually safe.
-      
-      const center = sc.scrollLeft + sc.clientWidth / 2
-      let nearestIdx = selectedIndex
-      let nearestDist = Number.POSITIVE_INFINITY
-      Array.from(row.children).forEach((el, i) => {
-        const elh = el as HTMLElement
-        const left = (elh.offsetLeft || 0) + elh.offsetWidth / 2
-        const dist = Math.abs(left - center)
-        if (dist < nearestDist) {
-          nearestDist = dist
-          nearestIdx = i
-        }
-      })
-      // Optional: Update state based on scroll? 
-      // Currently this just snaps the view to the nearest item visually without changing selection state.
-      // If we want to snap:
-      const target = getItemEl(nearestIdx)
-      target?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
-    }, 120)
+    // Snap logic removed to prevent jitter
   }
 
   return (
