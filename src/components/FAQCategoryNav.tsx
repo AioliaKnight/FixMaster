@@ -25,6 +25,9 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
   const [underlineLeft, setUnderlineLeft] = useState(0)
   const [underlineWidth, setUnderlineWidth] = useState(0)
   const scrollTimer = useRef<number | null>(null)
+  
+  // Track first render to prevent auto-scrolling on mount
+  const isFirstRender = useRef(true)
 
   const getItemEl = (index: number): HTMLElement | null => {
     const row = rowRef.current
@@ -52,6 +55,11 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
   }, [selectedIndex, categories.length])
 
   useEffect(() => {
+    // Skip scrolling on initial render to prevent auto-scrolling the page
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
     const el = getItemEl(selectedIndex)
     el?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
   }, [selectedIndex])
@@ -83,6 +91,12 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
       const sc = scrollRef.current
       const row = rowRef.current
       if (!sc || !row) return
+      
+      // Only scroll into view if user is actively scrolling/interacting, 
+      // but simpler to just do the nearest snap logic.
+      // We keep this but ensure it doesn't fight with main window scroll aggressively.
+      // 'nearest' is usually safe.
+      
       const center = sc.scrollLeft + sc.clientWidth / 2
       let nearestIdx = selectedIndex
       let nearestDist = Number.POSITIVE_INFINITY
@@ -95,6 +109,9 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
           nearestIdx = i
         }
       })
+      // Optional: Update state based on scroll? 
+      // Currently this just snaps the view to the nearest item visually without changing selection state.
+      // If we want to snap:
       const target = getItemEl(nearestIdx)
       target?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }, 120)
