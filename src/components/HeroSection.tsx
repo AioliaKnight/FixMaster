@@ -44,40 +44,6 @@ export default function HeroSection() {
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
   const sweepX = useTransform(scrollYProgress, [0, 1], ['-120%', '140%'])
 
-  // 動態對比：根據背景亮度微調 glass 透明度（簡易取樣）
-  React.useEffect(() => {
-    try {
-      const root = document.documentElement
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-      const img = new window.Image()
-      img.src = (heroImg as unknown as { src: string }).src || '/Hero_1.png'
-      img.crossOrigin = 'anonymous'
-      img.onload = () => {
-        canvas.width = 32
-        canvas.height = 32
-        if (!ctx) return
-        ctx.drawImage(img, 0, 0, 32, 32)
-        const data = ctx.getImageData(0, 0, 32, 32).data
-        let sum = 0
-        for (let i = 0; i < data.length; i += 4) {
-          // perceived luminance
-          const r = data[i], g = data[i + 1], b = data[i + 2]
-          const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
-          sum += lum
-        }
-        const avg = sum / (data.length / 4)
-        // 調整 token：暗背景→提高 top/bottom；亮背景→降低以更通透
-        if (avg < 110) {
-          root.style.setProperty('--glass-regular-top', 'rgba(255,255,255,0.52)')
-          root.style.setProperty('--glass-regular-bottom', 'rgba(255,255,255,0.18)')
-        } else if (avg > 180) {
-          root.style.setProperty('--glass-regular-top', 'rgba(255,255,255,0.42)')
-          root.style.setProperty('--glass-regular-bottom', 'rgba(255,255,255,0.08)')
-        }
-      }
-    } catch {}
-  }, [])
   return (
     <section id="home" className="relative overflow-hidden pt-24 pb-20 md:pt-32 lg:pb-28">
       <div
