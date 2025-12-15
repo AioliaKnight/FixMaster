@@ -47,7 +47,7 @@ export default function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden pt-24 pb-20 md:pt-32 lg:pb-28">
       <div
-        className="pointer-events-none absolute inset-x-[-15%] -top-32 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_rgba(255,255,255,0))] blur-[140px]"
+        className="pointer-events-none absolute inset-x-[-15%] -top-32 h-[360px] bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.12),_rgba(255,255,255,0))] blur-[60px] md:blur-[140px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
@@ -224,7 +224,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: motionTimings.medium.duration, ease: motionTimings.medium.ease }}
               >
-              <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.4),_rgba(255,255,255,0))] blur-3xl mix-blend-overlay" />
+              <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.4),_rgba(255,255,255,0))] blur-xl md:blur-3xl md:mix-blend-overlay" />
               <motion.div style={{ y: parallaxY }} className="relative z-10 mx-auto w-full aspect-[6/7] sm:aspect-[5/6] md:aspect-[4/5] lg:aspect-[7/8]">
                 <motion.div style={{ scale: imageScale }} className="absolute inset-0">
                   <NextImage
@@ -243,7 +243,7 @@ export default function HeroSection() {
                   className="pointer-events-none absolute inset-y-6 -inset-x-10 sm:-inset-x-6 rounded-[var(--radius-xl)]"
                   style={{ x: sweepX }}
                 >
-                  <div className="h-full w-24 sm:w-32 bg-gradient-to-r from-transparent via-white/35 to-transparent blur-2xl mix-blend-overlay" />
+                  <div className="h-full w-24 sm:w-32 bg-gradient-to-r from-transparent via-white/35 to-transparent blur-lg md:blur-2xl md:mix-blend-overlay" />
                 </motion.div>
               </motion.div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 sm:h-24 md:h-28 bg-gradient-to-t from-white/90 via-white/60 to-transparent" aria-hidden="true" />

@@ -21,12 +21,12 @@ export default function Home() {
       <main className="bg-gradient-to-b from-white via-neutral-50 to-white">
         <HeroSection />
         <div className="space-y-0">
-          <div className="cv-auto section-bg-a"><ServicesSection /></div>
-          <div className="cv-auto section-bg-b"><RepairCalculator /></div>
-          <div className="cv-auto section-bg-a"><TestimonialsSection /></div>
-          <div className="cv-auto section-bg-b"><FAQSection /></div>
-          <div className="cv-auto section-bg-a"><TrustSection /></div>
-          <div className="cv-auto section-bg-b"><Suspense fallback={null}><ContactSection /></Suspense></div>
+          <div className="section-bg-a"><ServicesSection /></div>
+          <div className="section-bg-b"><RepairCalculator /></div>
+          <div className="section-bg-a"><TestimonialsSection /></div>
+          <div className="section-bg-b"><FAQSection /></div>
+          <div className="section-bg-a"><TrustSection /></div>
+          <div className="section-bg-b"><Suspense fallback={null}><ContactSection /></Suspense></div>
         </div>
       </main>
       <Footer />

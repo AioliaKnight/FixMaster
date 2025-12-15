@@ -232,7 +232,7 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials" className="section-padding relative overflow-hidden">
       <div
-        className="pointer-events-none absolute inset-x-[-20%] top-0 h-72 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),rgba(255,255,255,0))] blur-[120px]"
+        className="pointer-events-none absolute inset-x-[-20%] top-0 h-72 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.12),rgba(255,255,255,0))] blur-[60px] md:blur-[120px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">

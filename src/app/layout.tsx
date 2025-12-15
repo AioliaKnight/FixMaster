@@ -6,8 +6,8 @@ import FloatingCTA from '@/components/FloatingCTA'
 import Script from 'next/script'
 import MotionProvider from '@/components/Providers'
 
-const inter = Inter({ subsets: ['latin'] })
-const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
+const noto = Noto_Sans_TC({ subsets: ['latin'], weight: ['300','400','500','700','900'], display: 'swap' })
 
 export const viewport: Viewport = {
   width: 'device-width',

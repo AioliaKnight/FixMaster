@@ -187,7 +187,7 @@ export default function TrustSection() {
 
   return (
     <section id="trust" className="section-padding relative" aria-labelledby="trust-heading">
-      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0))] blur-[120px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-20 h-72 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0))] blur-[60px] md:blur-[120px]" aria-hidden="true" />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
@@ -391,7 +391,7 @@ export default function TrustSection() {
             viewport={{ once: true }}
           >
             {statistics.map((stat, index) => (
-              <div key={index} className="glass-surface p-6 md:p-8 text-center bg-white/40 backdrop-blur-[30px]">
+              <div key={index} className="glass-surface p-6 md:p-8 text-center bg-white/40">
                 <div className="glass-control w-14 h-14 flex items-center justify-center mx-auto mb-4 text-neutral-900 shadow-(--elev-2)">
                   <stat.icon className="w-6 h-6" />
                 </div>

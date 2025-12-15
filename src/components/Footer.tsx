@@ -54,7 +54,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden pt-20 pb-10" aria-labelledby="footer-heading">
       <div
-        className="pointer-events-none absolute inset-x-[-10%] top-0 h-96 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.08),_rgba(255,255,255,0))] blur-[120px]"
+        className="pointer-events-none absolute inset-x-[-10%] top-0 h-96 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.08),_rgba(255,255,255,0))] blur-[60px] md:blur-[120px]"
         aria-hidden="true"
       />
       <div className="container mx-auto container-padding relative">
