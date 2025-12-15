@@ -21,10 +21,16 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'FixMaster 維修大師｜士林 iPhone 維修・二手 iPhone・電池更換｜IRP 認證',
   description: '士林 iPhone 維修、二手 iPhone 嚴選、電池更換服務。不維修不收費、IRP 認證、全程錄影存證、原廠零件與 90 天保固。30 分鐘完修，亦提供到府收送，北投/中山/大同皆可預約。',
-  keywords: '士林iPhone維修, 士林二手iPhone, 士林電池更換, iPhone維修士林, 二手iPhone士林, iPhone電池更換士林, Apple IRP認證, iPhone維修台北, 二手機販售, 電池健康度',
+  keywords: '士林iPhone維修, 士林二手iPhone, 士林電池更換, iPhone維修士林, 二手iPhone士林, iPhone電池更換士林, Apple IRP認證, iPhone維修台北, 二手機販售, 電池健康度, iPad維修, MacBook維修, 資料救援, 螢幕破裂, 泡水救援, 主機板維修, 台北iPhone維修推薦, 士林手機維修',
   authors: [{ name: 'FixMaster 維修大師' }],
   creator: 'FixMaster 維修大師',
   publisher: 'FixMaster 維修大師',
+  applicationName: 'FixMaster',
+  appleWebApp: {
+    capable: true,
+    title: 'FixMaster',
+    statusBarStyle: 'default',
+  },
   category: 'business',
     classification: 'iPhone維修, 二手iPhone, iPhone電池更換, Apple IRP認證維修, 士林iPhone維修',
   formatDetection: {
@@ -168,6 +174,22 @@ const structuredData = {
             "@type": "Offer",
             "name": "iPhone 電池更換",
             "priceRange": "$1500-$3000",
+            "priceCurrency": "TWD",
+            "availability": "https://schema.org/InStock",
+            "areaServed": { "@type": "Place", "name": "台北市" }
+          },
+          {
+            "@type": "Offer",
+            "name": "iPad 維修服務",
+            "priceRange": "$2000-$10000",
+            "priceCurrency": "TWD",
+            "availability": "https://schema.org/InStock",
+            "areaServed": { "@type": "Place", "name": "台北市" }
+          },
+          {
+            "@type": "Offer",
+            "name": "MacBook 維修服務",
+            "priceRange": "$3000-$15000",
             "priceCurrency": "TWD",
             "availability": "https://schema.org/InStock",
             "areaServed": { "@type": "Place", "name": "台北市" }
@@ -321,6 +343,26 @@ const structuredData = {
         "validFrom": "2020-01-01",
         "seller": { "@id": "https://fixmastertw.com/#business" }
       }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://fixmastertw.com/#ipad-repair",
+      "name": "iPad 維修服務",
+      "provider": { "@id": "https://fixmastertw.com/#business" },
+      "serviceType": "iPad維修",
+      "description": "iPad 螢幕破裂、電池老化、充電異常專業維修。鈑金校正機身彎曲，30 天保固。",
+      "category": "Electronics Repair",
+      "areaServed": { "@type": "Place", "name": "台北市" }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://fixmastertw.com/#macbook-repair",
+      "name": "MacBook 維修服務",
+      "provider": { "@id": "https://fixmastertw.com/#business" },
+      "serviceType": "MacBook維修",
+      "description": "MacBook 電池更換、螢幕維修、鍵盤清潔、進水救援。專業拆機清潔保養，回復效能。",
+      "category": "Computer Repair",
+      "areaServed": { "@type": "Place", "name": "台北市" }
     },
     {
       "@type": "Service",
@@ -514,12 +556,8 @@ export default function RootLayout({
         {/* Web App Manifest */}
         <link rel="manifest" href="/manifest.json" />
         
-        {/* PWA Meta Tags */}
+        {/* PWA Meta Tags - Configured in metadata export */}
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="FixMaster" />
-        <meta name="application-name" content="FixMaster" />
         <meta name="msapplication-TileColor" content="#ef4444" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
