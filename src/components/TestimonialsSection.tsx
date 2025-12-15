@@ -220,17 +220,18 @@ export default function TestimonialsSection() {
                 href={reviewsMeta.googleUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-control px-5 py-2 text-sm font-medium text-neutral-900 hover:bg-white/80 transition-colors flex items-center gap-2 shadow-[var(--elev-1)]"
+                className="glass-control pl-4 pr-5 py-2.5 text-sm font-medium text-neutral-900 hover:bg-white/90 transition-all duration-300 flex items-center gap-3 shadow-[var(--elev-2)] hover:shadow-[var(--elev-3)] hover:-translate-y-0.5 group"
                 onClick={() => trackSelectPromotion({ section: 'testimonials', action: 'link_click', target: 'google_reviews', label: 'rating_badge' })}
               >
-                <span className="flex items-center gap-1 text-amber-500">
-                  <Star className="w-4 h-4 fill-current" />
-                  <span className="text-neutral-900 font-bold">{reviewsMeta.ratingValue}</span>
-                </span>
-                <span className="text-neutral-400">/</span>
-                <span className="text-neutral-600">5.0</span>
-                <span className="text-neutral-300">•</span>
-                <span className="text-neutral-600 underline decoration-neutral-300 underline-offset-4">{reviewsMeta.reviewCount} 則評論</span>
+                <div className="flex -space-x-1">
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04]" />
+                  ))}
+                </div>
+                <div className="flex items-baseline gap-1.5 border-l border-neutral-300 pl-3">
+                  <span className="text-neutral-900 font-bold text-lg leading-none">{reviewsMeta.ratingValue}</span>
+                  <span className="text-neutral-500 text-xs font-medium">{reviewsMeta.reviewCount} 則評論</span>
+                </div>
               </a>
             </div>
           </motion.div>

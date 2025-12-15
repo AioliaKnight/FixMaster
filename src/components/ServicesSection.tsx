@@ -345,14 +345,20 @@ export default function ServicesSection() {
                         </div>
 
                         {/* 價格和按鈕 */}
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-2">
-                          <div className="text-center md:text-left">
-                            <span className="text-neutral-500 text-xs uppercase tracking-[0.2em] font-semibold">起價</span>
-                            <div className="mt-0.5 text-3xl md:text-4xl font-bold text-neutral-900 tracking-tight">{service.price}</div>
-                            <p className="text-neutral-500 text-xs mt-1 font-medium">先檢測再報價，不維修不收費</p>
+                        <div className="flex flex-col md:flex-row items-end md:items-center justify-between gap-6 pt-4 border-t border-neutral-200/50">
+                          <div className="text-center md:text-left w-full md:w-auto flex flex-row md:flex-col items-baseline justify-between md:justify-start">
+                            <div>
+                              <span className="text-neutral-500 text-[11px] uppercase tracking-[0.2em] font-semibold block mb-1">預估費用</span>
+                              <div className="text-neutral-900 tracking-tight flex items-baseline gap-1">
+                                <span className="text-lg font-semibold">$</span>
+                                <span className="text-3xl md:text-4xl font-bold">{service.price.replace(/[^0-9,]/g, '')}</span>
+                                <span className="text-sm font-medium text-neutral-500">起</span>
+                              </div>
+                            </div>
+                            <p className="text-neutral-400 text-[11px] mt-1 hidden md:block">不維修不收費</p>
                           </div>
                           <Button
-                            className="w-full md:w-auto motion-hover-pop text-[15px] px-8"
+                            className="w-full md:w-auto motion-hover-pop text-[15px] px-8 py-3 h-12 shadow-[var(--elev-2)] hover:shadow-[var(--elev-3)]"
                             onClick={() => {
                               trackGenerateLead({ section: 'services', action: 'cta_click', target: 'line', label: 'services_book', service: service.title })
                               const msg = encodeURIComponent(`您好，我想諮詢：${service.title}（FixMaster 官網）`)

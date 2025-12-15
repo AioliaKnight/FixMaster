@@ -460,30 +460,33 @@ export default function FAQSection() {
           </motion.div>
 
           {/* 新分類導航 */}
-          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4 bg-white/5 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none py-2 md:py-0">
-            <FAQCategoryNav
-              categories={faqCategories.map(c => ({
-                title: c.title,
-                count: c.faqs.length,
-                Icon: c.title.includes('iPhone') ? Smartphone
-                  : c.title.includes('iPad') ? Tablet
-                  : c.title.includes('Mac') ? Monitor
-                  : c.title.includes('服務') ? Shield
-                  : HelpCircle
-              }))}
-              selectedIndex={selectedCategoryIndex}
-              onChange={(i) => {
-                setSelectedCategoryIndex(i)
-                setSelectedFaqIndex(null)
-                const grid = gridRef.current
-                if (grid) {
-                  const offset = 140 
-                  const elementPosition = grid.getBoundingClientRect().top + window.scrollY
-                  const offsetPosition = elementPosition - offset
-                  window.scrollTo({ top: offsetPosition, behavior: "smooth" })
-                }
-              }}
-            />
+          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4 py-3 md:py-0 md:bg-transparent">
+            <div className="absolute inset-0 bg-white/80 backdrop-blur-md border-b border-neutral-200/50 md:hidden transition-opacity duration-300 opacity-100" />
+            <div className="relative z-10">
+              <FAQCategoryNav
+                categories={faqCategories.map(c => ({
+                  title: c.title,
+                  count: c.faqs.length,
+                  Icon: c.title.includes('iPhone') ? Smartphone
+                    : c.title.includes('iPad') ? Tablet
+                    : c.title.includes('Mac') ? Monitor
+                    : c.title.includes('服務') ? Shield
+                    : HelpCircle
+                }))}
+                selectedIndex={selectedCategoryIndex}
+                onChange={(i) => {
+                  setSelectedCategoryIndex(i)
+                  setSelectedFaqIndex(null)
+                  const grid = gridRef.current
+                  if (grid) {
+                    const offset = 120 
+                    const elementPosition = grid.getBoundingClientRect().top + window.scrollY
+                    const offsetPosition = elementPosition - offset
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" })
+                  }
+                }}
+              />
+            </div>
           </div>
 
           {/* 問題卡片網格 */}

@@ -288,29 +288,31 @@ export default function ContactSection() {
                   ))}
                 </div>
 
-                <div className="bg-white/40 rounded-[20px] p-1">
-                  <div className="bg-white/60 rounded-[16px] p-1 text-center backdrop-blur-sm overflow-hidden">
+                <div className="bg-white rounded-[24px] p-1.5 shadow-[var(--elev-2)]">
+                  <div className="relative rounded-[20px] overflow-hidden">
                     <iframe 
                       src="https://maps.google.com/maps?q=台北市士林區文林路60號&t=&z=15&ie=UTF8&iwloc=&output=embed"
                       width="100%"
                       height="240"
-                      style={{ border: 0, borderRadius: '12px' }}
+                      style={{ border: 0 }}
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="FixMaster 士林店地圖"
-                      className="mb-4"
+                      className="grayscale-[20%] hover:grayscale-0 transition-all duration-500"
                     />
-                    <div className="px-5 pb-5">
-                      <div className="flex items-start justify-center gap-2 mb-4">
-                        <MapPin className="w-5 h-5 text-neutral-900 mt-0.5 shrink-0" />
+                    <div className="absolute bottom-0 inset-x-0 bg-white/90 backdrop-blur-md p-5 border-t border-neutral-100">
+                      <div className="flex items-start justify-center gap-3 mb-4">
+                        <div className="mt-1 shrink-0 w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center">
+                          <MapPin className="w-4 h-4 text-neutral-900" />
+                        </div>
                         <div className="text-left">
                           <p className="font-bold text-neutral-900 text-lg leading-tight">台北市士林區文林路 60 號</p>
                           <p className="text-sm text-neutral-500 mt-1 font-medium text-pretty">捷運劍潭站 1 號出口步行 3 分鐘（士林夜市旁）</p>
                         </div>
                       </div>
                       <button
-                        className="w-full bg-neutral-900 text-white py-3 rounded-xl text-[15px] font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                        className="w-full bg-neutral-900 text-white py-3.5 rounded-xl text-[15px] font-bold hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                         onClick={() => {
                           trackSelectPromotion({ section: 'contact', action: 'link_click', target: 'maps', label: 'navigate' })
                           const address = '台北市士林區文林路60號'
