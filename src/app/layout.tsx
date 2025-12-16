@@ -516,7 +516,7 @@ export default function RootLayout({
 
         {/* Facebook Pixel */}
         {process.env.NEXT_PUBLIC_FB_PIXEL_ID && (
-          <Script id="fb-pixel" strategy="afterInteractive">
+          <Script id="fb-pixel" strategy="lazyOnload">
             {`
               !function(f,b,e,v,n,t,s)
               {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -534,7 +534,7 @@ export default function RootLayout({
 
         {/* LINE Tag */}
         {process.env.NEXT_PUBLIC_LINE_TAG_ID && (
-          <Script id="line-tag" strategy="afterInteractive">
+          <Script id="line-tag" strategy="lazyOnload">
             {`
               _ltag = window._ltag || {};
               _ltag.id = '${process.env.NEXT_PUBLIC_LINE_TAG_ID}';
