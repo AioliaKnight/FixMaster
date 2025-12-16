@@ -459,7 +459,7 @@ export default function FAQSection() {
           </motion.div>
 
           {/* 新分類導航 */}
-          <div className="sticky top-20 z-30 mb-8 md:mb-10 -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="sticky top-20 z-30 mb-8 md:mb-10 -mx-4 px-4 md:mx-0 md:px-0 transform-gpu">
             <div className="relative z-10 max-w-4xl mx-auto">
               <FAQCategoryNav
                 categories={faqCategories.map(c => ({
@@ -486,7 +486,7 @@ export default function FAQSection() {
             role="tabpanel"
             aria-labelledby={`faq-tab-${selectedCategoryIndex}`}
             ref={gridRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 min-h-[50vh]"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={motionTimings.soft}
