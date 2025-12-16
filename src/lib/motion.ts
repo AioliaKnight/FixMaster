@@ -11,6 +11,12 @@ export const motionTimings = {
     duration: 0.36,
     ease: [0.22, 0.05, 0.25, 1] as [number, number, number, number],
   },
+  spring: {
+    type: 'spring',
+    stiffness: 500,
+    damping: 30,
+    mass: 1,
+  },
 }
 
 export const motionViewport = { once: true, amount: 0.3 }
