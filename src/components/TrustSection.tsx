@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { trackClick, trackSelectPromotion, trackViewPromotion } from '@/lib/tracking'
+import { trackSelectPromotion, trackViewPromotion } from '@/lib/tracking'
 import { motionTimings, motionViewport } from '@/lib/motion'
 import {
   ArrowRight,
@@ -10,19 +10,17 @@ import {
   Video,
   DollarSign,
   FileText,
-  Shield,
-  Clock,
-  CheckCircle,
-  Trophy,
-  Star,
   Wrench,
   UserCog,
+  Trophy,
   Smile,
   Headset,
-  BadgeCheck
+  BadgeCheck,
+  CheckCircle
 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { SliderDots } from './CarouselControls'
+import { useScrollSpy } from '@/hooks/useScrollSpy'
 
 export default function TrustSection() {
   const promisesId = 'trust-promises'
@@ -33,57 +31,12 @@ export default function TrustSection() {
 
   // 滑動狀態與同步（promises）
   const promisesRef = useRef<HTMLDivElement>(null)
-  const [promisesActive, setPromisesActive] = useState(0)
-  useEffect(() => {
-    const el = promisesRef.current
-    if (!el) return
-    
-    let ticking = false
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (!el) return
-      const a = el.children[0] as HTMLElement | undefined
-      const b = el.children[1] as HTMLElement | undefined
-      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-      if (step > 0) setPromisesActive(Math.round(el.scrollLeft / step))
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
-    onScroll()
-    return () => el.removeEventListener('scroll', onScroll as any)
-  }, [])
+  const promisesActive = useScrollSpy(promisesRef)
 
   // 滑動狀態與同步（certs）
   const certsRef = useRef<HTMLDivElement>(null)
-  const [certsActive, setCertsActive] = useState(0)
-  useEffect(() => {
-    const el = certsRef.current
-    if (!el) return
+  const certsActive = useScrollSpy(certsRef)
 
-    let ticking = false
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          if (!el) return
-      const a = el.children[0] as HTMLElement | undefined
-      const b = el.children[1] as HTMLElement | undefined
-      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-      if (step > 0) setCertsActive(Math.round(el.scrollLeft / step))
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-    
-    el.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions)
-    onScroll()
-    return () => el.removeEventListener('scroll', onScroll as any)
-  }, [])
   const promises = [
     {
       icon: Award,
