@@ -16,7 +16,7 @@ export const motionTimings = {
     stiffness: 500,
     damping: 30,
     mass: 1,
-  },
+  } as const,
 }
 
 export const motionViewport = { once: true, amount: 0.3 }
