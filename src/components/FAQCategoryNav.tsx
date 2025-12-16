@@ -75,7 +75,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
     <div className="relative">
       <div
         ref={scrollRef}
-        className="relative overflow-x-auto no-scrollbar glass-control rounded-full p-1.5 md:p-2 bg-neutral-100/50 backdrop-blur-md"
+        className="relative overflow-x-auto no-scrollbar glass-control rounded-full p-1.5 md:p-2 bg-neutral-100/50 backdrop-blur-md transform-gpu"
         role="tablist"
         aria-label="FAQ 分類"
         aria-orientation="horizontal"
@@ -114,8 +114,9 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
                 {isActive && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute inset-0 bg-neutral-900 rounded-full shadow-md"
+                    className="absolute inset-0 bg-neutral-900 rounded-full shadow-md z-0"
                     transition={motionTimings.spring}
+                    style={{ originY: "0px" }} // Optimize for layout animations
                   />
                 )}
               </button>

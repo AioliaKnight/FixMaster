@@ -125,7 +125,7 @@ export default function Navbar() {
     ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-neutral-200/50'
     : 'bg-transparent border-transparent'
 
-  const navHeightClass = isScrolled ? 'h-14 md:h-16' : 'h-16 md:h-20'
+  const navHeightClass = isScrolled ? 'h-14 md:h-16' : 'h-14 md:h-20' // Mobile keeps h-14 to prevent jitter
 
   const menuButtonClass = `lg:hidden glass-control p-2.5 transition-all duration-300 z-50 ${
     isMenuOpen
