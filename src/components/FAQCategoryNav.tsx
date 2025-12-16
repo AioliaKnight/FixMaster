@@ -1,8 +1,7 @@
 "use client"
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import Chip from './ui/Chip'
 import { motionTimings } from '@/lib/motion'
 
 type IconType = React.ComponentType<{ className?: string }>
@@ -22,9 +21,6 @@ interface Props {
 export default function FAQCategoryNav({ categories, selectedIndex, onChange }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
   const rowRef = useRef<HTMLDivElement>(null)
-  const [underlineLeft, setUnderlineLeft] = useState(0)
-  const [underlineWidth, setUnderlineWidth] = useState(0)
-  const scrollTimer = useRef<number | null>(null)
   
   // Track first render to prevent auto-scrolling on mount
   const isFirstRender = useRef(true)
@@ -36,24 +32,6 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
     return child
   }
 
-  const measureUnderline = () => {
-    const btn = getItemEl(selectedIndex)
-    const container = rowRef.current
-    if (!btn || !container) return
-    const b = btn.getBoundingClientRect()
-    const c = container.getBoundingClientRect()
-    setUnderlineLeft(b.left - c.left)
-    setUnderlineWidth(b.width)
-  }
-
-  useLayoutEffect(() => {
-    measureUnderline()
-    const onResize = () => measureUnderline()
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndex, categories.length])
-
   useEffect(() => {
     // Skip scrolling on initial render to prevent auto-scrolling the page
     if (isFirstRender.current) {
@@ -61,7 +39,12 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
       return
     }
     const el = getItemEl(selectedIndex)
-    el?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' })
+    
+    if (el && scrollRef.current) {
+      const container = scrollRef.current
+      const scrollLeft = el.offsetLeft - container.offsetWidth / 2 + el.offsetWidth / 2
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' })
+    }
   }, [selectedIndex])
 
   const onKeyTabs = (e: React.KeyboardEvent) => {
@@ -85,17 +68,14 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
   }
 
   const onScroll = () => {
-    window.requestAnimationFrame(() => {
-      measureUnderline()
-    })
+    // No-op for now, but kept for potential future use
   }
 
   return (
     <div className="relative">
-      {/* Mobile: horizontal chips with underline */}
       <div
         ref={scrollRef}
-        className="relative overflow-x-auto no-scrollbar glass-panel rounded-[28px] px-3 py-3 md:hidden"
+        className="relative overflow-x-auto no-scrollbar glass-control rounded-full p-1.5 md:p-2 bg-neutral-100/50 backdrop-blur-md"
         role="tablist"
         aria-label="FAQ 分類"
         aria-orientation="horizontal"
@@ -104,68 +84,44 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
         onWheel={onWheelHorizontal}
         onScroll={onScroll}
       >
-        <div ref={rowRef} className="relative flex items-center gap-2 w-max">
-          {categories.map((cat, i) => (
-            <Chip
-              key={cat.title}
-              id={`faq-tab-${i}`}
-              role="tab"
-              aria-selected={selectedIndex === i}
-              active={selectedIndex === i}
-              tabIndex={selectedIndex === i ? 0 : -1}
-              onClick={() => onChange(i)}
-              onKeyDown={onKeyTabs}
-              className="flex items-center gap-2"
-            >
-              <cat.Icon className="h-4 w-4" />
-              <span className="whitespace-nowrap">{cat.title}</span>
-              <span className="text-xs text-neutral-500">({cat.count})</span>
-            </Chip>
-          ))}
-          {/* underline */}
-          <motion.div
-            className="absolute bottom-[-2px] h-[2px] bg-neutral-900/60 rounded-full"
-            initial={false}
-            animate={{ x: underlineLeft, width: underlineWidth }}
-            transition={motionTimings.soft}
-            aria-hidden="true"
-          />
+        <div ref={rowRef} className="relative flex items-center w-max min-w-full">
+          {categories.map((cat, i) => {
+            const isActive = selectedIndex === i
+            return (
+              <button
+                key={cat.title}
+                id={`faq-tab-${i}`}
+                role="tab"
+                aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => onChange(i)}
+                onKeyDown={onKeyTabs}
+                className={`relative z-10 flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-full text-[15px] font-bold transition-all duration-300 outline-none select-none ${
+                  isActive 
+                    ? 'text-white' 
+                    : 'text-neutral-500 hover:text-neutral-900'
+                }`}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <cat.Icon className={`h-4 w-4 ${isActive ? 'text-white' : 'text-current opacity-70'}`} />
+                  <span className="whitespace-nowrap">{cat.title}</span>
+                  <span className={`text-[11px] font-medium py-0.5 px-1.5 rounded-md ${isActive ? 'bg-white/20 text-white' : 'bg-neutral-200/50 text-neutral-500'}`}>
+                    {cat.count}
+                  </span>
+                </span>
+                
+                {/* Active Background Pill */}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-neutral-900 rounded-full shadow-md"
+                    transition={motionTimings.spring}
+                  />
+                )}
+              </button>
+            )
+          })}
         </div>
-      </div>
-
-      {/* Desktop: grid selectable cards */}
-      <div
-        className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3"
-        role="tablist"
-        aria-label="FAQ 分類"
-        aria-orientation="horizontal"
-        tabIndex={0}
-        onKeyDown={onKeyTabs}
-      >
-        {categories.map((cat, i) => (
-          <button
-            key={cat.title}
-            type="button"
-            id={`faq-tab-${i}`}
-            role="tab"
-            aria-selected={selectedIndex === i}
-            tabIndex={selectedIndex === i ? 0 : -1}
-            onClick={() => onChange(i)}
-            className={`group text-left glass-surface p-1 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 ${
-              selectedIndex === i ? 'ring-1 ring-accent-200' : 'hover:-translate-y-0.5'
-            }`}
-          >
-            <div className="glass-content flex items-start gap-3 p-4">
-              <div className={`glass-control flex h-10 w-10 items-center justify-center text-neutral-900 transition-all ${selectedIndex === i ? 'bg-white shadow-(--elev-2)' : ''}`}>
-                <cat.Icon className="h-5 w-5" />
-              </div>
-              <div className="min-w-0">
-                <div className="text-sm font-semibold text-neutral-900 line-clamp-2">{cat.title}</div>
-                <div className="text-xs text-neutral-500">{cat.count} 則問答</div>
-              </div>
-            </div>
-          </button>
-        ))}
       </div>
     </div>
   )

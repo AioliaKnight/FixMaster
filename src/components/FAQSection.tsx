@@ -19,7 +19,6 @@ export default function FAQSection() {
   const sheetRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
-  const categoriesRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
@@ -460,9 +459,8 @@ export default function FAQSection() {
           </motion.div>
 
           {/* 新分類導航 */}
-          <div className="sticky top-16 md:top-20 z-30 mb-6 md:mb-8 -mx-4 px-4 py-3 md:py-0 md:bg-transparent">
-            <div className="absolute inset-0 bg-white/95 border-b border-neutral-200/50 md:hidden transition-opacity duration-300 opacity-100 shadow-sm" />
-            <div className="relative z-10">
+          <div className="sticky top-20 z-30 mb-8 md:mb-10 -mx-4 px-4 md:mx-0 md:px-0">
+            <div className="relative z-10 max-w-4xl mx-auto">
               <FAQCategoryNav
                 categories={faqCategories.map(c => ({
                   title: c.title,
@@ -477,7 +475,6 @@ export default function FAQSection() {
                 onChange={(i) => {
                   setSelectedCategoryIndex(i)
                   setSelectedFaqIndex(null)
-                  // Removed aggressive scroll logic that causes jitter
                 }}
               />
             </div>

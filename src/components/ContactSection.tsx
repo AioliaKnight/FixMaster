@@ -373,7 +373,7 @@ export default function ContactSection() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
-                    href="tel:+886-2-2816-6666"
+                    href="tel:02-2816-6666"
                     className="btn-primary px-8 py-4 text-[15px] font-bold shadow-xl hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300"
                     onClick={() => trackGenerateLead({ section: 'contact', action: 'cta_click', target: 'tel', label: 'final' })}
                   >
