@@ -314,22 +314,22 @@ export default function ContactSection() {
                           <p className="text-sm text-neutral-500 mt-1 font-medium text-pretty">捷運劍潭站 1 號出口步行 3 分鐘（士林夜市旁）</p>
                         </div>
                       </div>
-                      <button
+                    <button
                         className="w-full bg-neutral-900 text-white py-3.5 rounded-xl text-[15px] font-bold hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
-                        onClick={() => {
-                          trackSelectPromotion({ section: 'contact', action: 'link_click', target: 'maps', label: 'navigate' })
-                          const address = '台北市士林區文林路60號'
-                          const encodedAddress = encodeURIComponent(address)
-                          if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                            window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
-                          } else {
-                            window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
-                          }
-                        }}
-                      >
-                        <Navigation className="w-4 h-4" />
-                        開啟 Google Maps 導航
-                      </button>
+                      onClick={() => {
+                        trackSelectPromotion({ section: 'contact', action: 'link_click', target: 'maps', label: 'navigate' })
+                        const address = '台北市士林區文林路60號'
+                        const encodedAddress = encodeURIComponent(address)
+                        if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                          window.open(`https://maps.google.com/maps?q=${encodedAddress}`, '_blank')
+                        } else {
+                          window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank')
+                        }
+                      }}
+                    >
+                      <Navigation className="w-4 h-4" />
+                      開啟 Google Maps 導航
+                    </button>
                     </div>
                   </div>
                 </div>

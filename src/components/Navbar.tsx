@@ -122,7 +122,7 @@ export default function Navbar() {
   ]
 
   const navToneClass = isScrolled || isMenuOpen
-    ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-neutral-200/50'
+    ? 'bg-white/95 backdrop-blur-sm md:bg-white/80 md:backdrop-blur-md shadow-sm border-b border-neutral-200/50'
     : 'bg-transparent border-transparent'
 
   const navHeightClass = isScrolled ? 'h-14 md:h-16' : 'h-14 md:h-20' // Mobile keeps h-14 to prevent jitter
@@ -164,7 +164,7 @@ export default function Navbar() {
 
   const boostClass = (isScrolled || isMenuOpen || prefersHighContrast) ? 'glass-contrast-boost' : ''
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out ${navToneClass} ${boostClass} pt-safe will-change-transform`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ease-in-out ${navToneClass} ${boostClass} pt-safe`}>
       <div className="container mx-auto container-padding">
         <div className={`flex items-center justify-between ${navHeightClass} transition-all duration-300 ease-in-out`}>
           {/* Logo */}

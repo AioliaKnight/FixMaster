@@ -461,22 +461,22 @@ export default function FAQSection() {
           {/* 新分類導航 */}
           <div className="sticky top-20 z-30 mb-8 md:mb-10 -mx-4 px-4 md:mx-0 md:px-0 transform-gpu">
             <div className="relative z-10 max-w-4xl mx-auto">
-              <FAQCategoryNav
-                categories={faqCategories.map(c => ({
-                  title: c.title,
-                  count: c.faqs.length,
-                  Icon: c.title.includes('iPhone') ? Smartphone
-                    : c.title.includes('iPad') ? Tablet
-                    : c.title.includes('Mac') ? Monitor
-                    : c.title.includes('服務') ? Shield
-                    : HelpCircle
-                }))}
-                selectedIndex={selectedCategoryIndex}
-                onChange={(i) => {
-                  setSelectedCategoryIndex(i)
-                  setSelectedFaqIndex(null)
-                }}
-              />
+            <FAQCategoryNav
+              categories={faqCategories.map(c => ({
+                title: c.title,
+                count: c.faqs.length,
+                Icon: c.title.includes('iPhone') ? Smartphone
+                  : c.title.includes('iPad') ? Tablet
+                  : c.title.includes('Mac') ? Monitor
+                  : c.title.includes('服務') ? Shield
+                  : HelpCircle
+              }))}
+              selectedIndex={selectedCategoryIndex}
+              onChange={(i) => {
+                setSelectedCategoryIndex(i)
+                setSelectedFaqIndex(null)
+              }}
+            />
             </div>
           </div>
 

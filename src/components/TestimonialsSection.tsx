@@ -190,14 +190,14 @@ export default function TestimonialsSection() {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const cards = Array.from(el.children) as HTMLElement[]
-          if (cards.length < 2) {
-            setActiveIndex(0)
+      const cards = Array.from(el.children) as HTMLElement[]
+      if (cards.length < 2) {
+        setActiveIndex(0)
           } else {
-            const step = cards[1].offsetLeft - cards[0].offsetLeft
+      const step = cards[1].offsetLeft - cards[0].offsetLeft
             if (step > 0) {
-              const index = Math.round(el.scrollLeft / step)
-              setActiveIndex(Math.max(0, Math.min(cards.length - 1, index)))
+      const index = Math.round(el.scrollLeft / step)
+      setActiveIndex(Math.max(0, Math.min(cards.length - 1, index)))
             }
           }
           ticking = false

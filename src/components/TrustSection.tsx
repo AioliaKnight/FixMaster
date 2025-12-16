@@ -43,10 +43,10 @@ export default function TrustSection() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           if (!el) return
-          const a = el.children[0] as HTMLElement | undefined
-          const b = el.children[1] as HTMLElement | undefined
-          const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-          if (step > 0) setPromisesActive(Math.round(el.scrollLeft / step))
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setPromisesActive(Math.round(el.scrollLeft / step))
           ticking = false
         })
         ticking = true
@@ -70,10 +70,10 @@ export default function TrustSection() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           if (!el) return
-          const a = el.children[0] as HTMLElement | undefined
-          const b = el.children[1] as HTMLElement | undefined
-          const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
-          if (step > 0) setCertsActive(Math.round(el.scrollLeft / step))
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
+      const step = a && b ? (b.offsetLeft - a.offsetLeft) : el.clientWidth
+      if (step > 0) setCertsActive(Math.round(el.scrollLeft / step))
           ticking = false
         })
         ticking = true

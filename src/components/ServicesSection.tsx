@@ -40,15 +40,15 @@ export default function ServicesSection() {
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          if (!el) return
-          const a = el.children[0] as HTMLElement | undefined
-          const b = el.children[1] as HTMLElement | undefined
+      if (!el) return
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
           if (!a || !b) {
             setAdditionalActive(0)
           } else {
-            const step = b.offsetLeft - a.offsetLeft
-            if (step > 0) setAdditionalActive(Math.round(el.scrollLeft / step))
-          }
+      const step = b.offsetLeft - a.offsetLeft
+      if (step > 0) setAdditionalActive(Math.round(el.scrollLeft / step))
+    }
           ticking = false
         })
         ticking = true
@@ -77,15 +77,15 @@ export default function ServicesSection() {
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          if (!el) return
-          const a = el.children[0] as HTMLElement | undefined
-          const b = el.children[1] as HTMLElement | undefined
+      if (!el) return
+      const a = el.children[0] as HTMLElement | undefined
+      const b = el.children[1] as HTMLElement | undefined
           if (!a || !b) {
             setFlowActive(0)
           } else {
-            const step = b.offsetLeft - a.offsetLeft
+      const step = b.offsetLeft - a.offsetLeft
             if (step > 0) setFlowActive(Math.round(el.scrollLeft / step))
-          }
+    }
           ticking = false
         })
         ticking = true

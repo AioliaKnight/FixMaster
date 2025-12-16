@@ -126,10 +126,10 @@ export default function RepairCalculator() {
             transition={motionTimings.soft}
           >
             <div className="p-6 md:p-8 space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="text-[15px] font-bold text-neutral-900">步驟 2：選擇症狀</div>
-                {selected && <div className="text-xs font-medium text-neutral-500">已選：{selected.model}</div>}
-              </div>
+            <div className="flex items-center justify-between">
+              <div className="text-[15px] font-bold text-neutral-900">步驟 2：選擇症狀</div>
+              {selected && <div className="text-xs font-medium text-neutral-500">已選：{selected.model}</div>}
+            </div>
               
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {SYMPTOMS.map((s) => {
@@ -153,43 +153,43 @@ export default function RepairCalculator() {
               </div>
 
               <div className="space-y-3 pt-2">
-                <div className="text-xs font-bold text-neutral-500 uppercase tracking-wider">建議維修項目（可切換）：</div>
-                <div className="flex flex-wrap gap-2.5">
-                  {CATEGORIES.filter(c => autoCategories.includes(c.key)).map((c) => (
-                    <button
-                      key={c.key}
-                      type="button"
+            <div className="text-xs font-bold text-neutral-500 uppercase tracking-wider">建議維修項目（可切換）：</div>
+            <div className="flex flex-wrap gap-2.5">
+              {CATEGORIES.filter(c => autoCategories.includes(c.key)).map((c) => (
+                <button
+                  key={c.key}
+                  type="button"
                       className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 flex items-center gap-1.5 ${
-                        (!overrideCategory && autoCategories.includes(c.key) || overrideCategory===c.key)
-                          ? 'bg-neutral-900 text-white shadow-lg scale-[1.02]' 
-                          : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/80'
-                      }`}
-                      onClick={() => setOverrideCategory(c.key)}
-                    >
+                    (!overrideCategory && autoCategories.includes(c.key) || overrideCategory===c.key)
+                      ? 'bg-neutral-900 text-white shadow-lg scale-[1.02]' 
+                      : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/80'
+                  }`}
+                  onClick={() => setOverrideCategory(c.key)}
+                >
                       {((!overrideCategory && autoCategories.includes(c.key)) || overrideCategory===c.key) && <Check className="w-3 h-3" />}
-                      {c.label}
-                    </button>
-                  ))}
+                  {c.label}
+                </button>
+              ))}
                 </div>
-              </div>
-              {includesOther && (
-                <div className="flex items-start gap-3 text-[13px] text-amber-700 bg-amber-50/80 border border-amber-100 rounded-[16px] p-4">
-                  <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
-                  <div className="font-medium leading-relaxed">
-                    「整新/換機（參考）」為整新或更換整機的參考價。實際會先免費檢測，若可單項維修（如充電模組/喇叭/主機板級），通常費用會明顯低於此參考價。
-                  </div>
-                </div>
-              )}
-              {selected && (
-                <div className="flex items-center justify-between pt-2">
-                  <div className="text-[15px] text-neutral-600 font-medium">參考價格</div>
-                  <div className="text-xl font-bold text-neutral-900">{estimate.min ? estimateText : '-'}</div>
-                </div>
-              )}
-              <div className="flex justify-end pt-2">
-                <Button disabled={!selected} onClick={() => { setStep(3); trackSelectPromotion({ section: 'repair_calc', action: 'step_next', target: 'to_step_3', label: 'next' }) }} className="w-full md:w-auto">下一步</Button>
-              </div>
             </div>
+            {includesOther && (
+              <div className="flex items-start gap-3 text-[13px] text-amber-700 bg-amber-50/80 border border-amber-100 rounded-[16px] p-4">
+                <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+                <div className="font-medium leading-relaxed">
+                  「整新/換機（參考）」為整新或更換整機的參考價。實際會先免費檢測，若可單項維修（如充電模組/喇叭/主機板級），通常費用會明顯低於此參考價。
+                </div>
+              </div>
+            )}
+            {selected && (
+              <div className="flex items-center justify-between pt-2">
+                <div className="text-[15px] text-neutral-600 font-medium">參考價格</div>
+                <div className="text-xl font-bold text-neutral-900">{estimate.min ? estimateText : '-'}</div>
+              </div>
+            )}
+            <div className="flex justify-end pt-2">
+              <Button disabled={!selected} onClick={() => { setStep(3); trackSelectPromotion({ section: 'repair_calc', action: 'step_next', target: 'to_step_3', label: 'next' }) }} className="w-full md:w-auto">下一步</Button>
+            </div>
+          </div>
           </motion.div>
         )}
 
@@ -202,7 +202,7 @@ export default function RepairCalculator() {
             transition={motionTimings.soft}
           >
             <div className="p-6 md:p-8 space-y-6">
-              <div className="text-[15px] font-bold text-neutral-900">步驟 3：查看預估並聯絡我們</div>
+            <div className="text-[15px] font-bold text-neutral-900">步驟 3：查看預估並聯絡我們</div>
               
               {/* 收據樣式卡片 */}
               <div className="relative bg-white shadow-sm border border-neutral-200 rounded-2xl overflow-hidden">
@@ -244,9 +244,9 @@ export default function RepairCalculator() {
                     </div>
                     <div className="text-2xl font-bold text-neutral-900 tracking-tight">
                       {estimate.min ? estimateText : '-'}
-                    </div>
-                  </div>
-                </div>
+              </div>
+              </div>
+              </div>
                 
                 {/* 底部鋸齒裝飾 (CSS 模擬) */}
                 <div className="h-3 bg-[radial-gradient(circle_at_10px_0,_transparent_0,_transparent_6px,_#ffffff_6px)] bg-[size:20px_20px] border-t border-transparent -mt-1 relative z-10" />
@@ -261,29 +261,29 @@ export default function RepairCalculator() {
                 </div>
               )}
 
-              <Button
+            <Button
                 className="w-full motion-hover-pop text-base py-4 shadow-lg"
-                onClick={() => {
-                  trackGenerateLead({ section: 'repair_calc', action: 'cta_click', target: 'line', label: 'send_inquiry', model: selected?.model, symptom, suggested: (overrideCategory ? [overrideCategory] : autoCategories), estimateMin: estimate.min, estimateMax: estimate.max })
-                  const suggested = (overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')
-                  const message = [
-                    '【維修試算】',
-                    `機型：${selected?.model || ''}`,
-                    `症狀：${SYMPTOMS.find(s=>s.key===symptom)?.label}`,
-                    `項目：${suggested}`,
-                    `預估價格：${estimate.min ? estimateText : '-'}`,
-                    '想了解：時程／實際報價／到府收送是否可行',
-                    '來源：FixMaster 官網 試算器'
-                  ].join('\n')
-                  const lineId = '@fixmaster'
-                  const url = `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(message)}`
-                  window.open(url, '_blank')
-                }}
-                disabled={!selected}
-              >
+              onClick={() => {
+                trackGenerateLead({ section: 'repair_calc', action: 'cta_click', target: 'line', label: 'send_inquiry', model: selected?.model, symptom, suggested: (overrideCategory ? [overrideCategory] : autoCategories), estimateMin: estimate.min, estimateMax: estimate.max })
+                const suggested = (overrideCategory ? [overrideCategory] : autoCategories).map(k => CATEGORIES.find(c=>c.key===k)?.label).join('、')
+                const message = [
+                  '【維修試算】',
+                  `機型：${selected?.model || ''}`,
+                  `症狀：${SYMPTOMS.find(s=>s.key===symptom)?.label}`,
+                  `項目：${suggested}`,
+                  `預估價格：${estimate.min ? estimateText : '-'}`,
+                  '想了解：時程／實際報價／到府收送是否可行',
+                  '來源：FixMaster 官網 試算器'
+                ].join('\n')
+                const lineId = '@fixmaster'
+                const url = `https://line.me/R/oaMessage/${encodeURIComponent(lineId)}/?${encodeURIComponent(message)}`
+                window.open(url, '_blank')
+              }}
+              disabled={!selected}
+            >
                 傳送估價單並預約 (LINE)
-              </Button>
-            </div>
+            </Button>
+          </div>
           </motion.div>
         )}
       </div>

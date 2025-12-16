@@ -75,7 +75,7 @@ export default function FAQCategoryNav({ categories, selectedIndex, onChange }: 
     <div className="relative">
       <div
         ref={scrollRef}
-        className="relative overflow-x-auto no-scrollbar glass-control rounded-full p-1.5 md:p-2 bg-neutral-100/50 backdrop-blur-md transform-gpu"
+        className="relative overflow-x-auto no-scrollbar glass-control rounded-full p-1.5 md:p-2 bg-neutral-100/90 backdrop-blur-sm md:bg-neutral-100/50 md:backdrop-blur-md"
         role="tablist"
         aria-label="FAQ 分類"
         aria-orientation="horizontal"

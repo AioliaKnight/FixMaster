@@ -49,19 +49,19 @@ export function SliderDots({ count, activeIndex, onDotClick, className }: Slider
         {Array.from({ length: count }, (_, i) => {
           const isActive = activeIndex === i
           return (
-            <button
-              key={i}
-              type="button"
-              aria-label={`前往第 ${i + 1} 個項目`}
+        <button
+          key={i}
+          type="button"
+          aria-label={`前往第 ${i + 1} 個項目`}
               aria-current={isActive ? 'true' : undefined}
               aria-pressed={isActive}
-              onClick={() => onDotClick(i)}
+          onClick={() => onDotClick(i)}
               className="relative h-1.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900/50"
               style={{
                 width: isActive ? '24px' : '6px',
                 backgroundColor: isActive ? 'rgba(23, 23, 23, 1)' : 'rgba(23, 23, 23, 0.2)'
               }}
-            />
+        />
           )
         })}
       </div>
