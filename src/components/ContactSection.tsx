@@ -315,7 +315,7 @@ export default function ContactSection() {
                         </div>
                       </div>
                     <button
-                        className="w-full bg-neutral-900 text-white py-3.5 rounded-xl text-[15px] font-bold hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+                        className="w-full bg-neutral-900 text-white py-3.5 rounded-xl text-[15px] font-bold hover:bg-black hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
                       onClick={() => {
                         trackSelectPromotion({ section: 'contact', action: 'link_click', target: 'maps', label: 'navigate' })
                         const address = '台北市士林區文林路60號'

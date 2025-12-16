@@ -105,7 +105,7 @@ export default function RepairCalculator() {
                   type="button"
                   className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 ${
                     selected?.model === s.model 
-                      ? 'bg-neutral-900 text-white shadow-lg scale-[1.02]' 
+                      ? 'bg-neutral-900 text-white shadow-lg scale-105' 
                       : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/80'
                   }`}
                   onClick={() => { setSelected(s); setStep(2); trackSelectPromotion({ section: 'repair_calc', action: 'option_select', target: 'model', label: s.model, context: 'mobile' }) }}
@@ -140,7 +140,7 @@ export default function RepairCalculator() {
                       type="button"
                       className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-200 active:scale-95 ${
                         isSelected
-                          ? 'bg-neutral-900 border-neutral-900 text-white shadow-md scale-[1.02]'
+                          ? 'bg-neutral-900 border-neutral-900 text-white shadow-md scale-105'
                           : 'bg-white/40 border-white/60 text-neutral-600 hover:bg-white/80 hover:border-white'
                       }`}
                       onClick={() => { setSymptom(s.key); setOverrideCategory(null); trackSelectPromotion({ section: 'repair_calc', action: 'option_select', target: 'symptom', label: s.label }) }}
@@ -161,7 +161,7 @@ export default function RepairCalculator() {
                   type="button"
                       className={`px-4 py-2 text-[13px] font-medium rounded-full transition-all duration-300 flex items-center gap-1.5 ${
                     (!overrideCategory && autoCategories.includes(c.key) || overrideCategory===c.key)
-                      ? 'bg-neutral-900 text-white shadow-lg scale-[1.02]' 
+                      ? 'bg-neutral-900 text-white shadow-lg scale-105' 
                       : 'glass-control text-neutral-600 hover:text-neutral-900 hover:bg-white/80'
                   }`}
                   onClick={() => setOverrideCategory(c.key)}

@@ -17,7 +17,7 @@ export function SliderArrows({ onPrev, onNext, className, ariaLabelPrev = 'ä¸Šä¸
     <div className={`absolute inset-x-0 top-1/2 -translate-y-1/2 px-2 md:px-3 z-10 pointer-events-none flex items-center justify-between ${className || ''}`}>
       <button
         onClick={onPrev}
-        className="pointer-events-auto text-neutral-800 w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-200 rounded-full glass-control shadow-[var(--elev-2)] hover:scale-110 active:scale-95"
+        className="pointer-events-auto text-neutral-800 w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-200 rounded-full glass-control shadow-(--elev-2) hover:scale-110 active:scale-95"
         aria-label={ariaLabelPrev}
         type="button"
       >
@@ -25,7 +25,7 @@ export function SliderArrows({ onPrev, onNext, className, ariaLabelPrev = 'ä¸Šä¸
       </button>
       <button
         onClick={onNext}
-        className="pointer-events-auto text-neutral-800 w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-200 rounded-full glass-control shadow-[var(--elev-2)] hover:scale-110 active:scale-95"
+        className="pointer-events-auto text-neutral-800 w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-200 rounded-full glass-control shadow-(--elev-2) hover:scale-110 active:scale-95"
         aria-label={ariaLabelNext}
         type="button"
       >

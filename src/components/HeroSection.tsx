@@ -219,7 +219,7 @@ export default function HeroSection() {
 
           <div className="order-1 w-full max-w-[520px] self-center lg:order-2 lg:w-auto lg:max-w-[600px] xl:max-w-[640px]">
             <motion.div
-              className="glass-panel relative z-10 w-full overflow-hidden px-6 pt-6 pb-24 md:pb-28 lg:pb-32 shadow-[var(--elev-3)] motion-soft-enter border-white/40"
+              className="glass-panel relative z-10 w-full overflow-hidden px-6 pt-6 pb-24 md:pb-28 lg:pb-32 shadow-(--elev-3) motion-soft-enter border-white/40"
               initial={{ opacity: 0, x: 32, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: motionTimings.medium.duration, ease: motionTimings.medium.ease }}
@@ -247,7 +247,7 @@ export default function HeroSection() {
                 </motion.div>
               </motion.div>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 sm:h-24 md:h-28 bg-gradient-to-t from-white/90 via-white/60 to-transparent" aria-hidden="true" />
-              <div className="glass-control absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 px-5 py-4 shadow-[var(--elev-2)]">
+              <div className="glass-control absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-2 px-5 py-4 shadow-(--elev-2)">
                 <div>
                   <p className="font-bold flex items-center gap-2 text-neutral-900 tracking-tight">
                     <Sparkles className="h-4 w-4 text-amber-500" aria-hidden="true" />

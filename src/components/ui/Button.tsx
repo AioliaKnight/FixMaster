@@ -14,7 +14,7 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center font-semibold tracking-tight transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 tap-48 rounded-full active:scale-[0.98]'
+  const base = 'inline-flex items-center justify-center font-semibold tracking-tight transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 tap-48 rounded-full active:scale-98'
   
   const variants: Record<string, string> = {
     primary: 'btn-primary', // Defined in globals.css for that complex iOS look

@@ -15,7 +15,7 @@ export default function Card({
   const variantClass = {
     surface: 'glass-surface',
     panel: 'glass-panel',
-    elevated: 'glass-control shadow-[var(--elev-2)]' // Slightly more raised than standard control
+    elevated: 'glass-control shadow-(--elev-2)' // Slightly more raised than standard control
   }[variant]
 
   return (
