@@ -163,7 +163,7 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="section-padding relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-x-[-10%] -top-24 h-80 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(255,255,255,0.08),_rgba(255,255,255,0))] blur-[50px] md:blur-[100px]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-[-10%] -top-24 h-80 bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.08),rgba(255,255,255,0))] blur-[50px] md:blur-[100px]" aria-hidden="true" />
       <div className="container mx-auto container-padding relative">
         <div className="max-w-6xl mx-auto">
           {/* 區塊標題 */}
@@ -198,7 +198,7 @@ export default function ContactSection() {
                 transition={{ ...motionTimings.soft, delay: index * 0.08 }}
                 viewport={motionViewport}
               >
-                <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 shadow-[var(--elev-2)] group-hover:scale-110 transition-transform duration-300 bg-white/50 group-hover:bg-white">
+                <div className="glass-control w-14 h-14 flex items-center justify-center text-neutral-900 shadow-(--elev-2) group-hover:scale-110 transition-transform duration-300 bg-white/50 group-hover:bg-white">
                   <info.icon className="w-6 h-6" />
                 </div>
                 <div className="flex-1 flex flex-col items-center justify-center w-full">
@@ -255,7 +255,7 @@ export default function ContactSection() {
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </a>
                   <a
-                    href="tel:+886-2-2816-6666"
+                    href="tel:02-2816-6666"
                     className="flex-1 glass-control py-4 text-[15px] font-bold text-neutral-900 hover:bg-white/80 flex items-center justify-center gap-2"
                     onClick={() => trackClick('contact_simple_tel_cta')}
                   >
@@ -288,7 +288,7 @@ export default function ContactSection() {
                   ))}
                 </div>
 
-                <div className="bg-white rounded-[24px] p-1.5 shadow-[var(--elev-2)] ring-4 ring-neutral-100/50">
+                <div className="bg-white rounded-[24px] p-1.5 shadow-(--elev-2) ring-4 ring-neutral-100/50">
                   <div className="relative rounded-[20px] overflow-hidden group">
                     <iframe 
                       src="https://maps.google.com/maps?q=台北市士林區文林路60號&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -299,7 +299,7 @@ export default function ContactSection() {
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
                       title="FixMaster 士林店地圖"
-                      className="grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
+                      className="grayscale-20 group-hover:grayscale-0 transition-all duration-500"
                     />
                     {/* Add touch overlay to prevent scroll trapping on mobile */}
                     <div className="absolute inset-0 pointer-events-none group-active:pointer-events-none md:pointer-events-none" aria-hidden="true" />
@@ -363,7 +363,7 @@ export default function ContactSection() {
             viewport={motionViewport}
           >
             <div className="p-10 md:p-14 relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-b from-white/40 to-transparent pointer-events-none" />
               <div className="relative z-10">
                 <h3 className="text-2xl md:text-4xl font-bold text-neutral-900 mb-4 tracking-tight text-balance">
                   今天的煩惱，今天就解決。
